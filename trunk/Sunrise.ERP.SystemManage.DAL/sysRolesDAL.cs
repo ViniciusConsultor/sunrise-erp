@@ -1,8 +1,8 @@
 ﻿//-------------------------------------------------------------------------------------------
 //Name:             Sunrise.ERP.DAL
-//Description:      sysBillNoSetDAL
+//Description:      sysRolesDAL
 //Create by:        自动生成
-//Create Date:      2010-11-21 17:42:41
+//Create Date:      2010-11-14 14:52:33
 //Modify by：              Modify Date：               Description：
 //-------------------------------------------------------------------------------------------
 using System;
@@ -12,14 +12,14 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Sunrise.ERP.DataAccess;
-namespace Sunrise.ERP.SystemModule.DAL
+namespace Sunrise.ERP.SystemManage.DAL
 {
     /// <summary>
-    /// 数据访问类sysBillNoSetDAL
+    /// 数据访问类sysRolesDAL
     /// </summary>
-    public class sysBillNoSetDAL
+    public class sysRolesDAL
     {
-        public sysBillNoSetDAL()
+        public sysRolesDAL()
         { }
         #region  成员方法
         /// <summary>
@@ -28,7 +28,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         public bool Exists(int ID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT COUNT(1) FROM sysBillNoSet");
+            strSql.Append("SELECT COUNT(1) FROM sysRoles");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -44,28 +44,24 @@ namespace Sunrise.ERP.SystemModule.DAL
         public int Add(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("INSERT INTO sysBillNoSet(");
-            strSql.Append("iFormID,sTableName,sFieldName,sDateType,sPrefix,sSerialType,iFlag,sUserID)");
+            strSql.Append("INSERT INTO sysRoles(");
+            strSql.Append("sRoleNo,sRoleCName,sRoleEName,sRemark,iFlag,sUserID)");
             strSql.Append(" VALUES (");
-            strSql.Append("@iFormID,@sTableName,@sFieldName,@sDateType,@sPrefix,@sSerialType,@iFlag,@sUserID)");
+            strSql.Append("@sRoleNo,@sRoleCName,@sRoleEName,@sRemark,@iFlag,@sUserID)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
-					new SqlParameter("@iFormID", SqlDbType.Int,4),
-					new SqlParameter("@sTableName", SqlDbType.VarChar,100),
-					new SqlParameter("@sFieldName", SqlDbType.VarChar,100),
-					new SqlParameter("@sDateType", SqlDbType.VarChar,50),
-					new SqlParameter("@sPrefix", SqlDbType.VarChar,50),
-					new SqlParameter("@sSerialType", SqlDbType.VarChar,50),
+					new SqlParameter("@sRoleNo", SqlDbType.VarChar,30),
+					new SqlParameter("@sRoleCName", SqlDbType.VarChar,50),
+					new SqlParameter("@sRoleEName", SqlDbType.VarChar,50),
+					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
 					new SqlParameter("@iFlag", SqlDbType.Int,4),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
-            parameters[0].Value = dr["iFormID"];
-            parameters[1].Value = dr["sTableName"];
-            parameters[2].Value = dr["sFieldName"];
-            parameters[3].Value = dr["sDateType"];
-            parameters[4].Value = dr["sPrefix"];
-            parameters[5].Value = dr["sSerialType"];
-            parameters[6].Value = dr["iFlag"];
-            parameters[7].Value = dr["sUserID"];
+            parameters[0].Value = dr["sRoleNo"];
+            parameters[1].Value = dr["sRoleCName"];
+            parameters[2].Value = dr["sRoleEName"];
+            parameters[3].Value = dr["sRemark"];
+            parameters[4].Value = dr["iFlag"];
+            parameters[5].Value = dr["sUserID"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -83,35 +79,29 @@ namespace Sunrise.ERP.SystemModule.DAL
         public void Update(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("UPDATE sysBillNoSet SET ");
-            strSql.Append("iFormID=@iFormID,");
-            strSql.Append("sTableName=@sTableName,");
-            strSql.Append("sFieldName=@sFieldName,");
-            strSql.Append("sDateType=@sDateType,");
-            strSql.Append("sPrefix=@sPrefix,");
-            strSql.Append("sSerialType=@sSerialType,");
+            strSql.Append("UPDATE sysRoles SET ");
+            strSql.Append("sRoleNo=@sRoleNo,");
+            strSql.Append("sRoleCName=@sRoleCName,");
+            strSql.Append("sRoleEName=@sRoleEName,");
+            strSql.Append("sRemark=@sRemark,");
             strSql.Append("iFlag=@iFlag,");
             strSql.Append("sUserID=@sUserID");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
-					new SqlParameter("@iFormID", SqlDbType.Int,4),
-					new SqlParameter("@sTableName", SqlDbType.VarChar,100),
-					new SqlParameter("@sFieldName", SqlDbType.VarChar,100),
-					new SqlParameter("@sDateType", SqlDbType.VarChar,50),
-					new SqlParameter("@sPrefix", SqlDbType.VarChar,50),
-					new SqlParameter("@sSerialType", SqlDbType.VarChar,50),
+					new SqlParameter("@sRoleNo", SqlDbType.VarChar,30),
+					new SqlParameter("@sRoleCName", SqlDbType.VarChar,50),
+					new SqlParameter("@sRoleEName", SqlDbType.VarChar,50),
+					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
 					new SqlParameter("@iFlag", SqlDbType.Int,4),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
             parameters[0].Value = dr["ID"];
-            parameters[1].Value = dr["iFormID"];
-            parameters[2].Value = dr["sTableName"];
-            parameters[3].Value = dr["sFieldName"];
-            parameters[4].Value = dr["sDateType"];
-            parameters[5].Value = dr["sPrefix"];
-            parameters[6].Value = dr["sSerialType"];
-            parameters[7].Value = dr["iFlag"];
-            parameters[8].Value = dr["sUserID"];
+            parameters[1].Value = dr["sRoleNo"];
+            parameters[2].Value = dr["sRoleCName"];
+            parameters[3].Value = dr["sRoleEName"];
+            parameters[4].Value = dr["sRemark"];
+            parameters[5].Value = dr["iFlag"];
+            parameters[6].Value = dr["sUserID"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }
@@ -123,7 +113,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("DELETE FROM sysBillNoSet ");
+            strSql.Append("DELETE FROM sysRoles ");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -139,7 +129,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * ");
-            strSql.Append(" FROM vwsysBillNoSet ");
+            strSql.Append(" FROM sysRoles ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -158,7 +148,7 @@ namespace Sunrise.ERP.SystemModule.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM vwsysBillNoSet ");
+            strSql.Append(" * FROM sysRoles ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);

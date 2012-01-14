@@ -1,8 +1,8 @@
 ﻿//-------------------------------------------------------------------------------------------
 //Name:             Sunrise.ERP.DAL
-//Description:      hrDepartmentDAL
+//Description:      basDataDictMasterDAL
 //Create by:        自动生成
-//Create Date:      2010-11-14 15:00:09
+//Create Date:      2010-11-14 14:57:02
 //Modify by：              Modify Date：               Description：
 //-------------------------------------------------------------------------------------------
 using System;
@@ -12,14 +12,14 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Sunrise.ERP.DataAccess;
-namespace Sunrise.ERP.SystemModule.DAL
+namespace Sunrise.ERP.SystemBase.DAL
 {
     /// <summary>
-    /// 数据访问类hrDepartmentDAL
+    /// 数据访问类basDataDictMasterDAL
     /// </summary>
-    public class hrDepartmentDAL
+    public class basDataDictMasterDAL
     {
-        public hrDepartmentDAL()
+        public basDataDictMasterDAL()
         { }
         #region  成员方法
         /// <summary>
@@ -28,7 +28,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         public bool Exists(int ID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT COUNT(1) FROM hrDepartment");
+            strSql.Append("SELECT COUNT(1) FROM basDataDictMaster");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -44,23 +44,23 @@ namespace Sunrise.ERP.SystemModule.DAL
         public int Add(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("INSERT INTO hrDepartment(");
-            strSql.Append("iCompanyID,sDeptNo,sDeptName,sDeptEName,sRemark,sUserID)");
+            strSql.Append("INSERT INTO basDataDictMaster(");
+            strSql.Append("sDictCategoryNo,sDictCategoryCName,sDictCategoryEName,sRemark,iFlag,sUserID)");
             strSql.Append(" VALUES (");
-            strSql.Append("@iCompanyID,@sDeptNo,@sDeptName,@sDeptEName,@sRemark,@sUserID)");
+            strSql.Append("@sDictCategoryNo,@sDictCategoryCName,@sDictCategoryEName,@sRemark,@iFlag,@sUserID)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
-					new SqlParameter("@iCompanyID", SqlDbType.Int,4),
-					new SqlParameter("@sDeptNo", SqlDbType.VarChar,30),
-					new SqlParameter("@sDeptName", SqlDbType.VarChar,50),
-					new SqlParameter("@sDeptEName", SqlDbType.VarChar,50),
-					new SqlParameter("@sRemark", SqlDbType.VarChar,500),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
-            parameters[0].Value = dr["iCompanyID"];
-            parameters[1].Value = dr["sDeptNo"];
-            parameters[2].Value = dr["sDeptName"];
-            parameters[3].Value = dr["sDeptEName"];
-            parameters[4].Value = dr["sRemark"];
+					new SqlParameter("@sDictCategoryNo", SqlDbType.VarChar,30),
+					new SqlParameter("@sDictCategoryCName", SqlDbType.VarChar,50),
+					new SqlParameter("@sDictCategoryEName", SqlDbType.VarChar,50),
+					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
+					new SqlParameter("@iFlag", SqlDbType.Int,4),
+					new SqlParameter("@sUserID", SqlDbType.VarChar,20)};
+            parameters[0].Value = dr["sDictCategoryNo"];
+            parameters[1].Value = dr["sDictCategoryCName"];
+            parameters[2].Value = dr["sDictCategoryEName"];
+            parameters[3].Value = dr["sRemark"];
+            parameters[4].Value = dr["iFlag"];
             parameters[5].Value = dr["sUserID"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
@@ -79,28 +79,28 @@ namespace Sunrise.ERP.SystemModule.DAL
         public void Update(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("UPDATE hrDepartment SET ");
-            strSql.Append("iCompanyID=@iCompanyID,");
-            strSql.Append("sDeptNo=@sDeptNo,");
-            strSql.Append("sDeptName=@sDeptName,");
-            strSql.Append("sDeptEName=@sDeptEName,");
+            strSql.Append("UPDATE basDataDictMaster SET ");
+            strSql.Append("sDictCategoryNo=@sDictCategoryNo,");
+            strSql.Append("sDictCategoryCName=@sDictCategoryCName,");
+            strSql.Append("sDictCategoryEName=@sDictCategoryEName,");
             strSql.Append("sRemark=@sRemark,");
+            strSql.Append("iFlag=@iFlag,");
             strSql.Append("sUserID=@sUserID");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
-					new SqlParameter("@iCompanyID", SqlDbType.Int,4),
-					new SqlParameter("@sDeptNo", SqlDbType.VarChar,30),
-					new SqlParameter("@sDeptName", SqlDbType.VarChar,50),
-					new SqlParameter("@sDeptEName", SqlDbType.VarChar,50),
-					new SqlParameter("@sRemark", SqlDbType.VarChar,500),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
+					new SqlParameter("@sDictCategoryNo", SqlDbType.VarChar,30),
+					new SqlParameter("@sDictCategoryCName", SqlDbType.VarChar,50),
+					new SqlParameter("@sDictCategoryEName", SqlDbType.VarChar,50),
+					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
+					new SqlParameter("@iFlag", SqlDbType.Int,4),
+					new SqlParameter("@sUserID", SqlDbType.VarChar,20)};
             parameters[0].Value = dr["ID"];
-            parameters[1].Value = dr["iCompanyID"];
-            parameters[2].Value = dr["sDeptNo"];
-            parameters[3].Value = dr["sDeptName"];
-            parameters[4].Value = dr["sDeptEName"];
-            parameters[5].Value = dr["sRemark"];
+            parameters[1].Value = dr["sDictCategoryNo"];
+            parameters[2].Value = dr["sDictCategoryCName"];
+            parameters[3].Value = dr["sDictCategoryEName"];
+            parameters[4].Value = dr["sRemark"];
+            parameters[5].Value = dr["iFlag"];
             parameters[6].Value = dr["sUserID"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
@@ -113,7 +113,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("DELETE FROM hrDepartment ");
+            strSql.Append("DELETE FROM basDataDictMaster ");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -129,7 +129,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * ");
-            strSql.Append(" FROM hrDepartment ");
+            strSql.Append(" FROM basDataDictMaster ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -148,7 +148,7 @@ namespace Sunrise.ERP.SystemModule.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM hrDepartment ");
+            strSql.Append(" * FROM basDataDictMaster ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);

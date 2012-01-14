@@ -11,7 +11,7 @@ namespace Sunrise.ERP.Module.SystemManage
     public partial class frmsysQueryReportSet : Sunrise.ERP.BaseForm.frmMasterDetail
     {
         public frmsysQueryReportSet(int formid, string formtext)
-            : base(formid, "Sunrise.ERP.SystemModule.DAL", "sysQueryReportMasterDAL", "AND 1=1", "sReportNo")
+            : base(formid, "Sunrise.ERP.SystemManage.DAL", "sysQueryReportMasterDAL", "AND 1=1", "sReportNo")
         {
             InitializeComponent();
             if (formtext != "")

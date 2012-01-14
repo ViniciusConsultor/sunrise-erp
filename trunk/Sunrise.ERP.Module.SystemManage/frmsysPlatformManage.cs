@@ -13,9 +13,9 @@ namespace Sunrise.ERP.Module.SystemManage
 {
     public partial class frmsysPlatformManage : Sunrise.ERP.BaseForm.frmForm
     {
-        Sunrise.ERP.SystemModule.DAL.sysMenuDAL dalMenu = new Sunrise.ERP.SystemModule.DAL.sysMenuDAL();
-        Sunrise.ERP.SystemModule.DAL.sysMenuNodeDAL dalMenuNode = new Sunrise.ERP.SystemModule.DAL.sysMenuNodeDAL();
-        Sunrise.ERP.SystemModule.DAL.sysMenuParamDAL dalMenuParam = new Sunrise.ERP.SystemModule.DAL.sysMenuParamDAL();
+        Sunrise.ERP.SystemManage.DAL.sysMenuDAL dalMenu = new Sunrise.ERP.SystemManage.DAL.sysMenuDAL();
+        Sunrise.ERP.SystemManage.DAL.sysMenuNodeDAL dalMenuNode = new Sunrise.ERP.SystemManage.DAL.sysMenuNodeDAL();
+        Sunrise.ERP.SystemManage.DAL.sysMenuParamDAL dalMenuParam = new Sunrise.ERP.SystemManage.DAL.sysMenuParamDAL();
 
         //bool IsFirstLoad = false;
         DataSet dsMenu = new DataSet();

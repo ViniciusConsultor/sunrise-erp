@@ -11,7 +11,7 @@ namespace Sunrise.ERP.Module.SystemBase
     public partial class frmhrEmployee : Sunrise.ERP.BaseForm.frmSingleForm
     {
         public frmhrEmployee(int formid, string formtext)
-            : base(formid, "Sunrise.ERP.SystemModule.DAL", "hrEmployeeDAL")
+            : base(formid, "Sunrise.ERP.SystemBase.DAL", "hrEmployeeDAL")
         {
             InitializeComponent();
             if (formtext != "")

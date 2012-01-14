@@ -11,7 +11,7 @@ namespace Sunrise.ERP.Module.SystemBase
     public partial class frmbasSupplier : Sunrise.ERP.BaseForm.frmMasterDetail
     {
         public frmbasSupplier(int formid, string formtext)
-            : base(formid, "Sunrise.ERP.SystemModule.DAL", "basSupplierMasterDAL", " AND 1=1", "sSupplierID")
+            : base(formid, "Sunrise.ERP.SystemBase.DAL", "basSupplierMasterDAL", " AND 1=1", "sSupplierID")
         {
             InitializeComponent();
             if (formtext != "")

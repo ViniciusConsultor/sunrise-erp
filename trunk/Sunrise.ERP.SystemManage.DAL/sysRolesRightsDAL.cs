@@ -1,8 +1,8 @@
 ﻿//-------------------------------------------------------------------------------------------
 //Name:             Sunrise.ERP.DAL
-//Description:      sysMenuParamDAL
+//Description:      sysRolesRightsDAL
 //Create by:        自动生成
-//Create Date:      2010-11-14 14:51:58
+//Create Date:      2010-11-14 14:53:10
 //Modify by：              Modify Date：               Description：
 //-------------------------------------------------------------------------------------------
 using System;
@@ -12,14 +12,14 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Sunrise.ERP.DataAccess;
-namespace Sunrise.ERP.SystemModule.DAL
+namespace Sunrise.ERP.SystemManage.DAL
 {
     /// <summary>
-    /// 数据访问类sysMenuParamDAL
+    /// 数据访问类sysRolesRightsDAL
     /// </summary>
-    public class sysMenuParamDAL
+    public class sysRolesRightsDAL
     {
-        public sysMenuParamDAL()
+        public sysRolesRightsDAL()
         { }
         #region  成员方法
         /// <summary>
@@ -28,7 +28,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         public bool Exists(int ID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT COUNT(1) FROM sysMenuParam");
+            strSql.Append("SELECT COUNT(1) FROM sysRolesRights");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -44,20 +44,30 @@ namespace Sunrise.ERP.SystemModule.DAL
         public int Add(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("INSERT INTO sysMenuParam(");
-            strSql.Append("MenuID,sParamName,sParamValue,sUserID)");
+            strSql.Append("INSERT INTO sysRolesRights(");
+            strSql.Append("RoleID,MenuID,iAdd,iView,iEdit,iDelete,iPrint,iNum,iPrice)");
             strSql.Append(" VALUES (");
-            strSql.Append("@MenuID,@sParamName,@sParamValue,@sUserID)");
+            strSql.Append("@RoleID,@MenuID,@iAdd,@iView,@iEdit,@iDelete,@iPrint,@iNum,@iPrice)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
+					new SqlParameter("@RoleID", SqlDbType.Int,4),
 					new SqlParameter("@MenuID", SqlDbType.Int,4),
-					new SqlParameter("@sParamName", SqlDbType.VarChar,50),
-					new SqlParameter("@sParamValue", SqlDbType.VarChar,50),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
-            parameters[0].Value = dr["MenuID"];
-            parameters[1].Value = dr["sParamName"];
-            parameters[2].Value = dr["sParamValue"];
-            parameters[3].Value = dr["sUserID"];
+					new SqlParameter("@iAdd", SqlDbType.Bit,1),
+					new SqlParameter("@iView", SqlDbType.Int,4),
+					new SqlParameter("@iEdit", SqlDbType.Int,4),
+					new SqlParameter("@iDelete", SqlDbType.Int,4),
+					new SqlParameter("@iPrint", SqlDbType.Int,4),
+					new SqlParameter("@iNum", SqlDbType.Int,4),
+					new SqlParameter("@iPrice", SqlDbType.Int,4)};
+            parameters[0].Value = dr["RoleID"];
+            parameters[1].Value = dr["MenuID"];
+            parameters[2].Value = dr["iAdd"];
+            parameters[3].Value = dr["iView"];
+            parameters[4].Value = dr["iEdit"];
+            parameters[5].Value = dr["iDelete"];
+            parameters[6].Value = dr["iPrint"];
+            parameters[7].Value = dr["iNum"];
+            parameters[8].Value = dr["iPrice"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -75,23 +85,38 @@ namespace Sunrise.ERP.SystemModule.DAL
         public void Update(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("UPDATE sysMenuParam SET ");
+            strSql.Append("UPDATE sysRolesRights SET ");
+            strSql.Append("RoleID=@RoleID,");
             strSql.Append("MenuID=@MenuID,");
-            strSql.Append("sParamName=@sParamName,");
-            strSql.Append("sParamValue=@sParamValue,");
-            strSql.Append("sUserID=@sUserID");
+            strSql.Append("iAdd=@iAdd,");
+            strSql.Append("iView=@iView,");
+            strSql.Append("iEdit=@iEdit,");
+            strSql.Append("iDelete=@iDelete,");
+            strSql.Append("iPrint=@iPrint,");
+            strSql.Append("iNum=@iNum,");
+            strSql.Append("iPrice=@iPrice");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
+					new SqlParameter("@RoleID", SqlDbType.Int,4),
 					new SqlParameter("@MenuID", SqlDbType.Int,4),
-					new SqlParameter("@sParamName", SqlDbType.VarChar,50),
-					new SqlParameter("@sParamValue", SqlDbType.VarChar,50),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
+					new SqlParameter("@iAdd", SqlDbType.Bit,1),
+					new SqlParameter("@iView", SqlDbType.Int,4),
+					new SqlParameter("@iEdit", SqlDbType.Int,4),
+					new SqlParameter("@iDelete", SqlDbType.Int,4),
+					new SqlParameter("@iPrint", SqlDbType.Int,4),
+					new SqlParameter("@iNum", SqlDbType.Int,4),
+					new SqlParameter("@iPrice", SqlDbType.Int,4)};
             parameters[0].Value = dr["ID"];
-            parameters[1].Value = dr["MenuID"];
-            parameters[2].Value = dr["sParamName"];
-            parameters[3].Value = dr["sParamValue"];
-            parameters[4].Value = dr["sUserID"];
+            parameters[1].Value = dr["RoleID"];
+            parameters[2].Value = dr["MenuID"];
+            parameters[3].Value = dr["iAdd"];
+            parameters[4].Value = dr["iView"];
+            parameters[5].Value = dr["iEdit"];
+            parameters[6].Value = dr["iDelete"];
+            parameters[7].Value = dr["iPrint"];
+            parameters[8].Value = dr["iNum"];
+            parameters[9].Value = dr["iPrice"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }
@@ -103,7 +128,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("DELETE FROM sysMenuParam ");
+            strSql.Append("DELETE FROM sysRolesRights ");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -119,7 +144,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * ");
-            strSql.Append(" FROM sysMenuParam ");
+            strSql.Append(" FROM vwsysRolesRights ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -138,7 +163,7 @@ namespace Sunrise.ERP.SystemModule.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM sysMenuParam ");
+            strSql.Append(" * FROM vwsysRolesRights ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);

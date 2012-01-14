@@ -1,8 +1,8 @@
 ﻿//-------------------------------------------------------------------------------------------
 //Name:             Sunrise.ERP.DAL
-//Description:      sysMenuNodeDAL
+//Description:      hrCompanyShopInfoDAL
 //Create by:        自动生成
-//Create Date:      2010-11-14 14:49:14
+//Create Date:      2010-12-13 22:23:36
 //Modify by：              Modify Date：               Description：
 //-------------------------------------------------------------------------------------------
 using System;
@@ -12,14 +12,14 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Sunrise.ERP.DataAccess;
-namespace Sunrise.ERP.SystemModule.DAL
+namespace Sunrise.ERP.SystemBase.DAL
 {
     /// <summary>
-    /// 数据访问类sysMenuNodeDAL
+    /// 数据访问类hrCompanyShopInfoDAL
     /// </summary>
-    public class sysMenuNodeDAL
+    public class hrCompanyShopInfoDAL
     {
-        public sysMenuNodeDAL()
+        public hrCompanyShopInfoDAL()
         { }
         #region  成员方法
         /// <summary>
@@ -28,7 +28,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         public bool Exists(int ID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT COUNT(1) FROM sysMenu");
+            strSql.Append("SELECT COUNT(1) FROM hrCompanyShopInfo");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -44,32 +44,24 @@ namespace Sunrise.ERP.SystemModule.DAL
         public int Add(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("INSERT INTO sysMenu(");
-            strSql.Append("iFormID,sMenuName,sMenuEngName,iParentID,sModuleName,sFormClassName,iSort,dDLLGetTime,dDLLLastTime,sUserID)");
+            strSql.Append("INSERT INTO hrCompanyShopInfo(");
+            strSql.Append("MainID,sShopID,sShopCName,sShopEName,sRemark,sUserID)");
             strSql.Append(" VALUES (");
-            strSql.Append("@iFormID,@sMenuName,@sMenuEngName,@iParentID,@sModuleName,@sFormClassName,@iSort,@dDLLGetTime,@dDLLLastTime,@sUserID)");
+            strSql.Append("@MainID,@sShopID,@sShopCName,@sShopEName,@sRemark,@sUserID)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
-					new SqlParameter("@iFormID", SqlDbType.Int,4),
-					new SqlParameter("@sMenuName", SqlDbType.VarChar,50),
-					new SqlParameter("@sMenuEngName", SqlDbType.VarChar,50),
-					new SqlParameter("@iParentID", SqlDbType.Int,4),
-					new SqlParameter("@sModuleName", SqlDbType.VarChar,100),
-					new SqlParameter("@sFormClassName", SqlDbType.VarChar,50),
-					new SqlParameter("@iSort", SqlDbType.Int,4),
-					new SqlParameter("@dDLLGetTime", SqlDbType.DateTime),
-					new SqlParameter("@dDLLLastTime", SqlDbType.DateTime),
+					new SqlParameter("@MainID", SqlDbType.Int,4),
+					new SqlParameter("@sShopID", SqlDbType.VarChar,30),
+					new SqlParameter("@sShopCName", SqlDbType.VarChar,50),
+					new SqlParameter("@sShopEName", SqlDbType.VarChar,50),
+					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
-            parameters[0].Value = dr["iFormID"];
-            parameters[1].Value = dr["sMenuName"];
-            parameters[2].Value = dr["sMenuEngName"];
-            parameters[3].Value = dr["iParentID"];
-            parameters[4].Value = dr["sModuleName"];
-            parameters[5].Value = dr["sFormClassName"];
-            parameters[6].Value = dr["iSort"];
-            parameters[7].Value = dr["dDLLGetTime"];
-            parameters[8].Value = dr["dDLLLastTime"];
-            parameters[9].Value = dr["sUserID"];
+            parameters[0].Value = dr["MainID"];
+            parameters[1].Value = dr["sShopID"];
+            parameters[2].Value = dr["sShopCName"];
+            parameters[3].Value = dr["sShopEName"];
+            parameters[4].Value = dr["sRemark"];
+            parameters[5].Value = dr["sUserID"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -87,41 +79,29 @@ namespace Sunrise.ERP.SystemModule.DAL
         public void Update(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("UPDATE sysMenu SET ");
-            strSql.Append("iFormID=@iFormID,");
-            strSql.Append("sMenuName=@sMenuName,");
-            strSql.Append("sMenuEngName=@sMenuEngName,");
-            strSql.Append("iParentID=@iParentID,");
-            strSql.Append("sModuleName=@sModuleName,");
-            strSql.Append("sFormClassName=@sFormClassName,");
-            strSql.Append("iSort=@iSort,");
-            strSql.Append("dDLLGetTime=@dDLLGetTime,");
-            strSql.Append("dDLLLastTime=@dDLLLastTime,");
+            strSql.Append("UPDATE hrCompanyShopInfo SET ");
+            strSql.Append("MainID=@MainID,");
+            strSql.Append("sShopID=@sShopID,");
+            strSql.Append("sShopCName=@sShopCName,");
+            strSql.Append("sShopEName=@sShopEName,");
+            strSql.Append("sRemark=@sRemark,");
             strSql.Append("sUserID=@sUserID");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
-					new SqlParameter("@iFormID", SqlDbType.Int,4),
-					new SqlParameter("@sMenuName", SqlDbType.VarChar,50),
-					new SqlParameter("@sMenuEngName", SqlDbType.VarChar,50),
-					new SqlParameter("@iParentID", SqlDbType.Int,4),
-					new SqlParameter("@sModuleName", SqlDbType.VarChar,100),
-					new SqlParameter("@sFormClassName", SqlDbType.VarChar,50),
-					new SqlParameter("@iSort", SqlDbType.Int,4),
-					new SqlParameter("@dDLLGetTime", SqlDbType.DateTime),
-					new SqlParameter("@dDLLLastTime", SqlDbType.DateTime),
+					new SqlParameter("@MainID", SqlDbType.Int,4),
+					new SqlParameter("@sShopID", SqlDbType.VarChar,30),
+					new SqlParameter("@sShopCName", SqlDbType.VarChar,50),
+					new SqlParameter("@sShopEName", SqlDbType.VarChar,50),
+					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
             parameters[0].Value = dr["ID"];
-            parameters[1].Value = dr["iFormID"];
-            parameters[2].Value = dr["sMenuName"];
-            parameters[3].Value = dr["sMenuEngName"];
-            parameters[4].Value = dr["iParentID"];
-            parameters[5].Value = dr["sModuleName"];
-            parameters[6].Value = dr["sFormClassName"];
-            parameters[7].Value = dr["iSort"];
-            parameters[8].Value = dr["dDLLGetTime"];
-            parameters[9].Value = dr["dDLLLastTime"];
-            parameters[10].Value = dr["sUserID"];
+            parameters[1].Value = dr["MainID"];
+            parameters[2].Value = dr["sShopID"];
+            parameters[3].Value = dr["sShopCName"];
+            parameters[4].Value = dr["sShopEName"];
+            parameters[5].Value = dr["sRemark"];
+            parameters[6].Value = dr["sUserID"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }
@@ -133,7 +113,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("DELETE FROM sysMenu ");
+            strSql.Append("DELETE FROM hrCompanyShopInfo ");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -149,7 +129,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * ");
-            strSql.Append(" FROM sysMenu ");
+            strSql.Append(" FROM hrCompanyShopInfo ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -168,7 +148,7 @@ namespace Sunrise.ERP.SystemModule.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM sysMenu ");
+            strSql.Append(" * FROM hrCompanyShopInfo ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);

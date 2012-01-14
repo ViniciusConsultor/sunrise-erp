@@ -14,7 +14,7 @@ namespace Sunrise.ERP.Module.SystemBase
         string sDefaultUnit = "";
         string sDefaultType = "";
         public frmsalGoodInfo(int formid, string formtext)
-            : base(formid, "Sunrise.ERP.SystemModule.DAL", "salGoodInfoMasterDAL", "AND 1=1", "sGoodID")
+            : base(formid, "Sunrise.ERP.SystemBase.DAL", "salGoodInfoMasterDAL", "AND 1=1", "sGoodID")
         {
             InitializeComponent();
             if (formtext != "")
