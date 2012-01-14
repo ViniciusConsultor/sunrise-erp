@@ -11,77 +11,49 @@ namespace Sunrise.ERP.BaseForm.DAL
 {
     public class DynamicDALSetting
     {
-        public DynamicDALSetting(int formid,DataRow optiondr)
+        private DataTable dynamicdatatable;
+        public DynamicDALSetting(DataTable dynamicdata)
         {
-            FormID = formid;
-            OptionData = optiondr;
+            dynamicdatatable = dynamicdata;
         }
 
         #region 属性
 
-        private int formid;
-        /// <summary>
-        /// 窗体ID
-        /// </summary>
-        public int FormID
-        {
-            get { return formid; }
-            set { formid = value; }
-        }
-
-        private DataRow dr;
-        public DataRow OptionData
-        {
-            get { return dr; }
-            set { dr = value; }
-        }
-
-        private string tablename;
         /// <summary>
         /// 数据表名
         /// </summary>
-        public string TableName
+        private string TableName
         {
-            get { return tablename; }
-            set { tablename = value; }
+            get { return MainDynamicData[0]["sTableName"].ToString(); }
+            
         }
 
         /// <summary>
         /// 数据视图名
         /// </summary>
-        public string ViewName
+        private string ViewName
         {
-            get
-            {
-                if (DynamicDataTable.Rows.Count > 0)
-                {
-                    return DynamicDataTable.Rows[0]["sQueryViewName"].ToString();
-                }
-                else
-                {
-                    return string.Empty;
-                }
-            }
+            get { return MainDynamicData[0]["sQueryViewName"].ToString(); }
         }
 
-        private DataTable dynamicdatatable;
 
         /// <summary>
-        /// 动态表结构数据
+        /// 单据系统表结构数据
         /// </summary>
-        public DataTable DynamicDataTable
+        private DataRow[] MainDynamicData
         {
-            get
-            {
-                if (dynamicdatatable == null)
-                {
-                    string sSql = "SELECT A.sFieldName,A.sFieldType,A.sFieldLength,B.sQueryViewName FROM sysDynamicFormDetail A LEFT JOIN "
-                                + "sysDynamicFormMaster B WHERE A.MainID=B.ID AND B.FormID=" + FormID.ToString();
-                    dynamicdatatable = DbHelperSQL.Query(sSql).Tables[0];
-                }
-                return dynamicdatatable;
-            }
+            get { return dynamicdatatable.Select("bSystemColumn=1 AND bSaveData=1"); }
+
         }
+
+        /// <summary>
+        /// 单据扩展表结构数据
+        /// </summary>
+        private DataRow[] SubDynamicData
+        {
+            get { return dynamicdatatable.Select("bSystemColumn=0"); }
+        }
+
         #endregion
 
         #region 公共数据库操作方法
@@ -123,9 +95,10 @@ namespace Sunrise.ERP.BaseForm.DAL
         /// </summary>
         public int Add(DataRow dr, SqlTransaction trans)
         {
-            string strSql = CreateSQL("Add");
-            SqlParameter[] parameters = CreateSqlParameter("Add");
+            string strSql = CreateSQL("Add",false);
+            SqlParameter[] parameters = CreateSqlParameter(dr, "Add", false);
             object obj = DbHelperSQL.GetSingle(strSql, trans, parameters);
+            UpdateSubData(dr, trans);
             if (obj == null)
             {
                 return -1;
@@ -141,20 +114,38 @@ namespace Sunrise.ERP.BaseForm.DAL
         /// </summary>
         public void Update(DataRow dr, SqlTransaction trans)
         {
-            string strSql = CreateSQL("Update");
-            SqlParameter[] parameters = CreateSqlParameter("Update");
+            string strSql = CreateSQL("Update",false);
+            SqlParameter[] parameters = CreateSqlParameter(dr, "Update",false);
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
+            UpdateSubData(dr, trans);
         }
-
+        private void UpdateSubData(DataRow dr, SqlTransaction trans)
+        {
+            if (SubDynamicData.Length > 0)
+            {
+                string sDeleteSql = "DELETE FROM " + TableName + "_Z" + " WHERE MainTableID=" + dr["ID"] != null ? dr["ID"].ToString() : "-1";
+                DbHelperSQL.ExecuteSql(sDeleteSql, trans);
+                string sInsertSql = CreateSQL("Add", true);
+                SqlParameter[] parameters = CreateSqlParameter(dr, "Add", true);
+                DbHelperSQL.ExecuteSql(sInsertSql, trans, parameters);
+            }
+        }
         /// <summary>
         /// 获得数据列表
         /// </summary>
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT * ");
+            strSql.Append("SELECT ma.* ");
+            strSql.Append(SubDynamicData.Length > 0 ? "," + CreateFileds("Add", false, true) : "");
             strSql.Append(" FROM ");
             strSql.Append(ViewName != string.Empty ? ViewName : TableName);
+            strSql.Append(" ma ");
+            if (SubDynamicData.Length > 0)
+            {
+                strSql.Append(" LEFT JOIN ");
+                strSql.Append(TableName + "_Z de ON ma.ID=de.MainTableID ");
+            }
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -173,8 +164,16 @@ namespace Sunrise.ERP.BaseForm.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM ");
+            strSql.Append(" ma.* ");
+            strSql.Append(SubDynamicData.Length > 0 ? "," + CreateFileds("Add", false, true) : "");
+            strSql.Append(" FROM ");
             strSql.Append(ViewName != string.Empty ? ViewName : TableName);
+            strSql.Append(" ma ");
+            if (SubDynamicData.Length > 0)
+            {
+                strSql.Append(" LEFT JOIN ");
+                strSql.Append(TableName + "_Z de ON ma.ID=de.MainTableID ");
+            }
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -187,77 +186,99 @@ namespace Sunrise.ERP.BaseForm.DAL
 
         #region SQL语句操作
 
-        private string CreateSQL(string type)
+        private string CreateSQL(string type,bool issub)
         {
             StringBuilder strSql = new StringBuilder();
             if (type == "Add")
             {
-                strSql.Append("INSERT INTO ");
-                strSql.Append(TableName);
-                strSql.Append("(");
-                strSql.Append(CreateFileds("Add", false));
-                strSql.Append(") VALUES (");
-                strSql.Append(CreateFileds("Add", true));
-                strSql.Append(");SELECT @@IDENTITY");
+                if (issub)
+                {
+                    strSql.Append("INSERT INTO ");
+                    strSql.Append(TableName + "_Z");
+                    strSql.Append("(");
+                    strSql.Append(CreateFileds("Add", false,issub));
+                    strSql.Append(") VALUES (");
+                    strSql.Append(CreateFileds("Add", true, issub));
+                    strSql.Append(");SELECT @@IDENTITY");
+                }
+                else
+                {
+                    strSql.Append("INSERT INTO ");
+                    strSql.Append(TableName);
+                    strSql.Append("(");
+                    strSql.Append(CreateFileds("Add", false,issub));
+                    strSql.Append(") VALUES (");
+                    strSql.Append(CreateFileds("Add", true, issub));
+                    strSql.Append(");SELECT @@IDENTITY");
+                }
             }
             else if (type == "Update")
             {
                 strSql.Append("UPDATE ");
                 strSql.Append(TableName);
                 strSql.Append(" SET ");
-                strSql.Append(CreateFileds("Update", false));
+                strSql.Append(CreateFileds("Update", false, issub));
             }
             return strSql.ToString();
         }
 
-        private string CreateFileds(string type, bool isparam)
+        private string CreateFileds(string type, bool isparam,bool issub)
         {
             StringBuilder strSql = new StringBuilder();
             if (type == "Add")
             {
-                if (DynamicDataTable != null && DynamicDataTable.Rows.Count > 0)
+                foreach (DataRow dr in issub ? MainDynamicData : SubDynamicData)
                 {
-                    foreach (DataRow dr in DynamicDataTable.Rows)
+                    if (isparam)
                     {
-                        if (isparam)
-                        {
-                            strSql.Append("@");
-                        }
-                        strSql.Append(dr["sFieldName"]);
-                        strSql.Append(",");
+                        strSql.Append("@");
                     }
-                    strSql.Remove(strSql.Length - 1, 1);
+                    strSql.Append(dr["sFieldName"]);
+                    strSql.Append(",");
                 }
+                if (issub && SubDynamicData.Length > 0)
+                {
+                    if (isparam)
+                    {
+                        strSql.Append("@");
+                    }
+                    strSql.Append("MainTableID");
+                }
+                else
+                    strSql.Remove(strSql.Length - 1, 1);
             }
             else if (type == "Update")
             {
-                if (DynamicDataTable != null && DynamicDataTable.Rows.Count > 0)
+                foreach (DataRow dr in MainDynamicData)
                 {
-                    foreach (DataRow dr in DynamicDataTable.Rows)
-                    {
-                        strSql.Append(dr["sFieldName"]);
-                        strSql.Append("=@");
-                        strSql.Append(dr["sFieldName"]);
-                        strSql.Append(",");
-                    }
-                    strSql.Remove(strSql.Length - 1, 1);
-                    strSql.Append(" WHERE ID=@ID ");
+                    strSql.Append(dr["sFieldName"]);
+                    strSql.Append("=@");
+                    strSql.Append(dr["sFieldName"]);
+                    strSql.Append(",");
                 }
+                strSql.Remove(strSql.Length - 1, 1);
+                strSql.Append(" WHERE ID=@ID ");
             }
             return strSql.ToString();
         }
 
-        private SqlParameter[] CreateSqlParameter(string type)
+        private SqlParameter[] CreateSqlParameter(DataRow optiondata,string type,bool issub)
         {
             List<SqlParameter> parameters = new List<SqlParameter>();
             int count = 0;
             if (type == "Update")
             {
                 parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 4));
-                parameters[0].Value = OptionData["ID"];
+                parameters[0].Value = optiondata["ID"];
                 count++;
             }
-            foreach (DataRow dr in DynamicDataTable.Rows)
+            if (issub && SubDynamicData.Length > 0)
+            {
+                parameters.Add(new SqlParameter("@MainTableID", SqlDbType.Int, 4));
+                parameters[0].Value = optiondata["ID"];
+                count++;
+            }
+            foreach (DataRow dr in issub ? MainDynamicData : SubDynamicData)
             {
                 switch (dr["sFieldType"].ToString())
                 {
@@ -265,40 +286,46 @@ namespace Sunrise.ERP.BaseForm.DAL
                     case "S":
                         {
                             parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.VarChar, (int)dr["sFieldLength"]));
-                            parameters[count].Value = OptionData[dr["sFieldName"].ToString()];
+                            parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
                             break;
                         }
                     //datetime
                     case "D":
                         {
                             parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.DateTime));
-                            parameters[count].Value = OptionData[dr["sFieldName"].ToString()];
+                            parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
                             break;
                         }
                     //bit
                     case "B":
                         {
                             parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.Bit, 1));
-                            parameters[count].Value = OptionData[dr["sFieldName"].ToString()];
+                            parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
                             break;
                         }
                     //int
                     case "I":
                         {
                             parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.Int, 4));
-                            parameters[count].Value = OptionData[dr["sFieldName"].ToString()];
+                            parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
                             break;
                         }
                     //image
                     case "M":
                         {
                             parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.Image));
-                            parameters[count].Value = OptionData[dr["sFieldName"].ToString()];
+                            parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
+                            break;
+                        }
+                    //float or decimal
+                    case "F":
+                        {
+                            parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.Decimal, (int)dr["sFieldLength"]));
+                            parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
                             break;
                         }
                 }
                 count++;
-
             }
             return parameters.ToArray();
         }

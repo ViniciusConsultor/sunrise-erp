@@ -8,15 +8,16 @@ using System.Data;
 using System.Runtime.InteropServices;
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.Lang;
+using Sunrise.ERP.DataAccess;
 
 namespace Sunrise.ERP.BasePublic
 {
     /// <summary>
     /// 系统BaseForm基础控制类
     /// </summary>
-    public class BasePublic
+    public class Base
     {
-        public BasePublic()
+        public Base()
         {
         }
 
@@ -490,18 +491,55 @@ namespace Sunrise.ERP.BasePublic
         /// </summary>
         /// <param name="formid">窗体ID</param>
         /// <returns></returns>
-        public static Hashtable FormParaList(int formid)
+        public static Hashtable GetFormParaList(int formid)
         {
             Hashtable formParaList = new Hashtable();
             string sSql = "SELECT A.sParamName,A.sParamValue FROM sysMenuParam A "
                         + "LEFT JOIN sysMenu B ON A.MenuID=B.ID "
                         + "WHERE B.iFormID=" + formid.ToString();
-            DataTable dtTemp = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0];
+            DataTable dtTemp = DbHelperSQL.Query(sSql).Tables[0];
             foreach (DataRow dr in dtTemp.Rows)
             {
                 formParaList.Add(dr["sParamName"], dr["sParamValue"]);
             }
             return formParaList;
+        }
+
+        /// <summary>
+        /// 获取系统参数
+        /// </summary>
+        /// <param name="paramno">系统参数编号</param>
+        /// <returns></returns>
+        public static string GetSystemParamter(string paramno)
+        {
+            string result;
+            string sSql = "SELECT sSysParamValue FROM sysParamter WHERE sSysParamNo='" + paramno + "'";
+            DataTable dtTemp = DbHelperSQL.Query(sSql).Tables[0];
+            if (dtTemp != null && dtTemp.Rows.Count == 1)
+                result = dtTemp.Rows[0]["sSysParamValue"].ToString();
+            else
+                result = string.Empty;
+            return result;
+        }
+
+        /// <summary>
+        /// 检查一个表是否有自定义字段
+        /// </summary>
+        /// <param name="tablename">表名</param>
+        /// <returns></returns>
+        public static bool IsHasSubTable(string tablename)
+        {
+            string sSql = "SELECT COUNT(1) FROM sysobjects WHERE xtype='U' AND name='" + tablename + "_Z" + "'";
+            return DbHelperSQL.Exists(sSql);
+        }
+
+        public static DataTable GetDynamicTableData(int formid, string tablename)
+        {
+            string sSql = "SELECT A.*,B.sFormType, B.iDefaultQueryCount, B.iControlSpace, B.iControlColumn, "
+                                + "B.bCreateLookUp, B.bSyncLoockUp, B.sTableName, B.sQueryViewName "
+                                + "FROM sysDynamicFormDetail A LEFT JOIN "
+                                + "sysDynamicFormMaster B WHERE A.MainID=B.ID AND B.FormID=" + formid.ToString() + " AND sTableName='" + tablename + "'";
+            return DbHelperSQL.Query(sSql).Tables[0];
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Winapi)]

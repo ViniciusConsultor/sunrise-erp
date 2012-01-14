@@ -881,7 +881,7 @@ namespace Sunrise.ERP.Module.SystemManage
         {
             get
             {
-                return Sunrise.ERP.BasePublic.BasePublic.FormParaList(FormID)["ReportNo"].ToString();
+                return Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["ReportNo"].ToString();
             }
         }
         #endregion

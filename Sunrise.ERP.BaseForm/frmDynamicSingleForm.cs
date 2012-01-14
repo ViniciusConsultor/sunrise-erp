@@ -13,6 +13,8 @@ using Sunrise.ERP.Security;
 using Sunrise.ERP.BasePublic;
 using Sunrise.ERP.Lang;
 using Sunrise.ERP.BaseControl;
+using Sunrise.ERP.BaseForm.DAL;
+using Sunrise.ERP.DataAccess;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -20,25 +22,9 @@ namespace Sunrise.ERP.BaseForm
     {
         #region 定义
         /// <summary>
-        /// 数据层操作对象
-        /// </summary>
-        private object objDAL;
-        private MethodInfo mGetDataSet;
-        private MethodInfo mGetTopDataSet;
-        private MethodInfo mAddInTrans;
-        private MethodInfo mUpdateInTrans;
-        private MethodInfo mDeleteInTrans;
-
-        /// <summary>
         /// 主表数据
         /// </summary>
         protected DataTable dtMain;
-
-
-        /// <summary>
-        /// 窗体参数列表
-        /// </summary>
-        protected Hashtable FormParaList = new Hashtable();
 
         /// <summary>
         /// 权限处理定义
@@ -59,30 +45,26 @@ namespace Sunrise.ERP.BaseForm
         /// 构造函数
         /// </summary>
         /// <param name="formid">窗体ID</param>
-        /// <param name="dalname">数据层对象名称</param>
+        /// <param name="tablename">数据表名称</param>
         /// <param name="pwhere">数据过滤条件,设置条件一定要注意SQL语句的拼接,条件前面需要加上AND关键字,e.g:AND 1=1</param>
         /// <param name="top">前多少行数据</param>
         /// <param name="sortfield">排序字段</param>
-        public frmDynamicSingleForm(int formid, string dalpath,string dalname, int top, string pwhere, string sortfield)
+        public frmDynamicSingleForm(int formid, string tablename, int top, string pwhere, string sortfield)
             : base(formid)
         {
             InitializeComponent();
             pWhere = pwhere;
             TopCount = top;
             SortField = sortfield;
-            MasterDALName = dalname;
-            RegisterMethod(dalpath,dalname, true);
+            MasterTableName = tablename;
             if (IsCheckAuth)
             {
                 dtMain = GetDataSet(top, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere, sortfield).Tables[0];
-                //MasterSQL = SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere;
             }
             else
             {
                 dtMain = GetDataSet(top, "1=1 " + pWhere, sortfield).Tables[0];
-                //MasterSQL = "1=1 " + pWhere;
             }
-            //dtMain = GetDataSet(TopCount, MasterSQL, SortField).Tables[0];
             dsMain.DataSource = dtMain;
             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
         }
@@ -91,12 +73,12 @@ namespace Sunrise.ERP.BaseForm
         /// 构造函数
         /// </summary>
         /// <param name="formid">窗体ID</param>
-        /// <param name="dalname">数据层对象名称</param>
+        /// <param name="tablename">数据表名称</param>
         /// <param name="pwhere">数据过滤条件,设置条件一定要注意SQL语句的拼接,条件前面需要加上AND关键字,e.g:AND 1=1</param>
         /// <param name="top">前多少行数据</param>
         /// <param name="sortfield">排序字段</param>
         /// <param name="ischeckauth">是否加载权限控制</param>
-        public frmDynamicSingleForm(int formid, string dalpath, string dalname, int top, string pwhere, string sortfield, bool ischeckauth)
+        public frmDynamicSingleForm(int formid, string tablename, int top, string pwhere, string sortfield, bool ischeckauth)
             : base(formid)
         {
             InitializeComponent();
@@ -104,19 +86,15 @@ namespace Sunrise.ERP.BaseForm
             TopCount = top;
             SortField = sortfield;
             IsCheckAuth = ischeckauth;
-            MasterDALName = dalname;
-            RegisterMethod(dalpath,dalname, true);
+            MasterTableName = tablename;
             if (IsCheckAuth)
             {
                 dtMain = GetDataSet(top, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere, sortfield).Tables[0];
-                //MasterSQL = SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere;
             }
             else
             {
                 dtMain = GetDataSet(top, "1=1 " + pWhere, sortfield).Tables[0];
-                //MasterSQL = "1=1 " + pWhere;
             }
-            //dtMain = GetDataSet(TopCount, MasterSQL, SortField).Tables[0];
             dsMain.DataSource = dtMain;
             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
         }
@@ -125,30 +103,25 @@ namespace Sunrise.ERP.BaseForm
         /// 构造函数
         /// </summary>
         /// <param name="formid">窗体ID</param>
-        /// <param name="dalname">数据层对象名称</param>
+        /// <param name="tablename">数据表名称</param>
         /// <param name="pwhere">数据过滤条件,设置条件一定要注意SQL语句的拼接,条件前面需要加上AND关键字,e.g:AND 1=1</param>
         /// <param name="sortfield">排序字段</param>
-        public frmDynamicSingleForm(int formid, string dalpath, string dalname, string pwhere, string sortfield)
+        public frmDynamicSingleForm(int formid, string tablename, string pwhere, string sortfield)
             : base(formid)
         {
             InitializeComponent();
             SortField = sortfield;
-            //pWhere = sortfield != "" ? pwhere + " ORDER BY " + sortfield : pwhere;
             pWhere = pwhere;
             SortField = sortfield;
-            MasterDALName = dalname;
-            RegisterMethod(dalpath,dalname, true);
+            MasterTableName = tablename;
             if (IsCheckAuth)
             {
                 dtMain = GetDataSet(100000, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere, SortField).Tables[0];
-                //MasterSQL = SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere;
             }
             else
             {
                 dtMain = GetDataSet("1=1 " + pWhere).Tables[0];
-                //MasterSQL = "1=1 " + pWhere;
             }
-            //dtMain = GetDataSet(100000, MasterSQL, SortField).Tables[0];
             dsMain.DataSource = dtMain;
             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
 
@@ -158,60 +131,50 @@ namespace Sunrise.ERP.BaseForm
         /// 构造函数
         /// </summary>
         /// <param name="formid">窗体ID</param>
-        /// <param name="dalname">数据层对象名称</param>
+        /// <param name="tablename">数据表名称</param>
         /// <param name="pwhere">数据过滤条件,设置条件一定要注意SQL语句的拼接,条件前面需要加上AND关键字,e.g:AND 1=1</param>
         /// <param name="sortfield">排序字段</param>
         /// <param name="ischeckauth">是否加载权限控制</param>
-        public frmDynamicSingleForm(int formid, string dalpath, string dalname, string pwhere, string sortfield, bool ischeckauth)
+        public frmDynamicSingleForm(int formid, string tablename, string pwhere, string sortfield, bool ischeckauth)
             : base(formid)
         {
             InitializeComponent();
             SortField = sortfield;
-            //pWhere = sortfield != "" ? pwhere + " ORDER BY " + sortfield : pwhere;
             pWhere = pwhere;
             SortField = sortfield;
             IsCheckAuth = ischeckauth;
-            MasterDALName = dalname;
-            RegisterMethod(dalpath,dalname, true);
+            MasterTableName = tablename;
             if (IsCheckAuth)
             {
-                dtMain = GetDataSet(100000,SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere,SortField).Tables[0];
-                //MasterSQL = SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere;
+                dtMain = GetDataSet(100000, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere, SortField).Tables[0];
             }
             else
             {
                 dtMain = GetDataSet("1=1 " + pWhere).Tables[0];
-                //MasterSQL = "1=1 " + pWhere;
             }
-            //dtMain = GetDataSet(10000, MasterSQL, SortField).Tables[0];
             dsMain.DataSource = dtMain;
             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
-
         }
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="formid">窗体ID</param>
-        /// <param name="dalname">数据层对象名称</param>
+        /// <param name="dalname">数据表名称</param>
         /// <param name="pwhere">数据过滤条件,设置条件一定要注意SQL语句的拼接,条件前面需要加上AND关键字,e.g:AND 1=1</param>
-        public frmDynamicSingleForm(int formid, string dalpath, string dalname, string pwhere)
+        public frmDynamicSingleForm(int formid, string tablename, string pwhere)
             : base(formid)
         {
             InitializeComponent();
             pWhere = pwhere;
-            MasterDALName = dalname;
-            RegisterMethod(dalpath,dalname, true);
+            MasterTableName = tablename;
             if (IsCheckAuth)
             {
                 dtMain = GetDataSet(SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere).Tables[0];
-                //MasterSQL = SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere;
             }
             else
             {
                 dtMain = GetDataSet("1=1 " + pWhere).Tables[0];
-                //MasterSQL = "1=1 " + pWhere;
             }
-            //dtMain = GetDataSet(MasterSQL).Tables[0];
             dsMain.DataSource = dtMain;
             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
 
@@ -221,28 +184,24 @@ namespace Sunrise.ERP.BaseForm
         /// 构造函数
         /// </summary>
         /// <param name="formid">窗体ID</param>
-        /// <param name="dalname">数据层对象名称</param>
+        /// <param name="dalname">数据表名称</param>
         /// <param name="pwhere">数据过滤条件,设置条件一定要注意SQL语句的拼接,条件前面需要加上AND关键字,e.g:AND 1=1</param>
         /// <param name="ischeckauth">是否加载权限控制</param>
-        public frmDynamicSingleForm(int formid, string dalpath, string dalname, string pwhere, bool ischeckauth)
+        public frmDynamicSingleForm(int formid, string tablename, string pwhere, bool ischeckauth)
             : base(formid)
         {
             InitializeComponent();
             pWhere = pwhere;
             IsCheckAuth = ischeckauth;
-            MasterDALName = dalname;
-            RegisterMethod(dalpath,dalname, true);
+            MasterTableName = tablename;
             if (IsCheckAuth)
             {
                 dtMain = GetDataSet(SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere).Tables[0];
-                //MasterSQL = SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere;
             }
             else
             {
                 dtMain = GetDataSet("1=1 " + pWhere).Tables[0];
-                //MasterSQL = "1=1 " + pWhere;
             }
-            //dtMain = GetDataSet(MasterSQL).Tables[0];
             dsMain.DataSource = dtMain;
             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
 
@@ -252,24 +211,20 @@ namespace Sunrise.ERP.BaseForm
         /// 构造函数
         /// </summary>
         /// <param name="formid">窗体ID</param>
-        /// <param name="dalname">数据层对象名称</param>
-        public frmDynamicSingleForm(int formid, string dalpath, string dalname)
+        /// <param name="dalname">数据表名称</param>
+        public frmDynamicSingleForm(int formid, string tablename)
             : base(formid)
         {
             InitializeComponent();
-            MasterDALName = dalname;
-            RegisterMethod(dalpath,dalname, true);
+            MasterTableName = tablename;
             if (IsCheckAuth)
             {
                 dtMain = GetDataSet(SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere).Tables[0];
-                //MasterSQL = SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere;
             }
             else
             {
                 dtMain = GetDataSet("1=1 " + pWhere).Tables[0];
-                //MasterSQL = "1=1 " + pWhere;
             }
-            //dtMain = GetDataSet(MasterSQL).Tables[0];
             dsMain.DataSource = dtMain;
             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
         }
@@ -278,26 +233,22 @@ namespace Sunrise.ERP.BaseForm
         /// 构造函数
         /// </summary>
         /// <param name="formid">窗体ID</param>
-        /// <param name="dalname">数据层对象名称</param>
+        /// <param name="dalname">数据表名称</param>
         /// <param name="ischeckauth">是否加载权限控制</param>
-        public frmDynamicSingleForm(int formid, string dalpath, string dalname, bool ischeckauth)
+        public frmDynamicSingleForm(int formid, string tablename, bool ischeckauth)
             : base(formid)
         {
             InitializeComponent();
             IsCheckAuth = ischeckauth;
-            MasterDALName = dalname;
-            RegisterMethod(dalpath,dalname, true);
+            MasterTableName = tablename;
             if (IsCheckAuth)
             {
                 dtMain = GetDataSet(SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere).Tables[0];
-                //MasterSQL = SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere;
             }
             else
             {
                 dtMain = GetDataSet("1=1 " + pWhere).Tables[0];
-                //MasterSQL = "1=1 " + pWhere;
             }
-            //dtMain = GetDataSet(MasterSQL).Tables[0];
             dsMain.DataSource = dtMain;
             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
         }
@@ -321,7 +272,6 @@ namespace Sunrise.ERP.BaseForm
         {
             if (MasterFilerSQL != "")
             {
-                RegisterMethod(MasterDALPath, MasterDALName, true);
                 if (TopCount != 499 && SortField != "dInputDate DESC")
                 {
                     if (IsCheckAuth)
@@ -352,13 +302,13 @@ namespace Sunrise.ERP.BaseForm
             if (dsMain.Current != null)
             {
                 base.DoView();
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
             }
             else
             {
                 initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.None);
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
             }
         }
@@ -371,13 +321,13 @@ namespace Sunrise.ERP.BaseForm
             if (dsMain.Current != null)
             {
                 base.DoBaseView();
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
             }
             else
             {
                 initButtonsState(OperateFlag.None);
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
             }
         }
@@ -387,7 +337,7 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public override bool DoAppend()
         {
-            Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, false);
+            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, false);
             dsMain.AddNew();
             dsMain.EndEdit();
             ((DataRowView)dsMain.Current).Row["iFlag"] = 0;
@@ -404,10 +354,9 @@ namespace Sunrise.ERP.BaseForm
         {
             if (dsMain.Current != null)
             {
-                RegisterMethod(MasterDALPath, MasterDALName, true);
                 if (IsDataChange)
                 {
-                    if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm","DataNotSavedForCancel"), 4) == DialogResult.Yes)
+                    if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "DataNotSavedForCancel"), 4) == DialogResult.Yes)
                     {
                         if (TopCount != 499 & SortField != "dInputDate DESC")
                         {
@@ -437,7 +386,7 @@ namespace Sunrise.ERP.BaseForm
                             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
                         }
                         dsMain.CancelEdit();
-                        Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                        Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                         IsDataChange = false;
                         return base.DoBeforeCancel();
                     }
@@ -475,14 +424,14 @@ namespace Sunrise.ERP.BaseForm
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
                     }
                     dsMain.CancelEdit();
-                    Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                     IsDataChange = false;
                     return base.DoBeforeCancel();
                 }
             }
             else
             {
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
                 return base.DoBeforeCancel();
             }
@@ -507,7 +456,7 @@ namespace Sunrise.ERP.BaseForm
         public override void DoEdit()
         {
             base.DoEdit();
-            Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, false);
+            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, false);
             IsDataChange = false;
         }
         /// <summary>
@@ -540,7 +489,6 @@ namespace Sunrise.ERP.BaseForm
         public override bool DoSave()
         {
             SqlTransaction trans = Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.BeginTransaction();
-            RegisterMethod(MasterDALPath, MasterDALName, true);
             if (FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsInsert)
             {
                 try
@@ -573,7 +521,7 @@ namespace Sunrise.ERP.BaseForm
                         dsMain.DataSource = dtMain;
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
                     }
-                    Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                     IsDataChange = false;
                     return base.DoSave();
 
@@ -616,7 +564,7 @@ namespace Sunrise.ERP.BaseForm
                         dsMain.DataSource = dtMain;
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
                     }
-                    Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                     IsDataChange = false;
                     return base.DoSave();
                 }
@@ -636,14 +584,14 @@ namespace Sunrise.ERP.BaseForm
             //非空验证
             if (NotNullFields.Count > 0)
             {
-                if (Sunrise.ERP.BasePublic.BasePublic.CheckNotNullFields(this.pnlInfo, NotNullFields))
+                if (Sunrise.ERP.BasePublic.Base.CheckNotNullFields(this.pnlInfo, NotNullFields))
                 {
-                    Sunrise.ERP.BasePublic.BasePublic.IsNull = true;
+                    Sunrise.ERP.BasePublic.Base.IsNull = true;
                     return true;
                 }
                 else
                 {
-                    Sunrise.ERP.BasePublic.BasePublic.IsNull = true;
+                    Sunrise.ERP.BasePublic.Base.IsNull = true;
                     return false;
                 }
             }
@@ -658,12 +606,11 @@ namespace Sunrise.ERP.BaseForm
         {
             if (BillID > 0)
             {
-                if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm","DeleteData"), 1) == DialogResult.OK)
+                if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "DeleteData"), 1) == DialogResult.OK)
                 {
                     SqlTransaction trans = Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.BeginTransaction();
                     try
                     {
-                        RegisterMethod(MasterDALPath, MasterDALName, true);
                         Delete(BillID, trans);
                         trans.Commit();
                         dsMain.RemoveCurrent();
@@ -698,7 +645,7 @@ namespace Sunrise.ERP.BaseForm
             {
                 if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "DataNotSavedForClose"), 4) == DialogResult.Yes)
                 {
-                    Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                     IsDataChange = false;
                     base.OnFormClosing(e);
                 }
@@ -709,7 +656,7 @@ namespace Sunrise.ERP.BaseForm
             }
             else
             {
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
                 base.OnFormClosing(e);
             }
@@ -727,7 +674,7 @@ namespace Sunrise.ERP.BaseForm
         {
             base.initBase();
             //设置非空字段颜色
-            Sunrise.ERP.BasePublic.BasePublic.SetNotNullFiledsColor(this.pnlInfo, NotNullFields);
+            Sunrise.ERP.BasePublic.Base.SetNotNullFiledsColor(this.pnlInfo, NotNullFields);
             IsDataChange = false;
 
         }
@@ -758,7 +705,7 @@ namespace Sunrise.ERP.BaseForm
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    if ((((DevExpress.XtraEditors.TextBoxMaskBox)(Sunrise.ERP.BasePublic.BasePublic.GetFocusedControl()))).OwnerEdit.Tag == null || (((DevExpress.XtraEditors.TextBoxMaskBox)(Sunrise.ERP.BasePublic.BasePublic.GetFocusedControl()))).OwnerEdit.Tag.ToString().ToLower() != "notab")
+                    if ((((DevExpress.XtraEditors.TextBoxMaskBox)(Sunrise.ERP.BasePublic.Base.GetFocusedControl()))).OwnerEdit.Tag == null || (((DevExpress.XtraEditors.TextBoxMaskBox)(Sunrise.ERP.BasePublic.Base.GetFocusedControl()))).OwnerEdit.Tag.ToString().ToLower() != "notab")
                     {
                         SendKeys.Send("{TAB}");
                     }
@@ -773,91 +720,9 @@ namespace Sunrise.ERP.BaseForm
                 }
                 base.OnKeyDown(e);
             }
-            
+
         }
 
-        #endregion
-
-        #region 注册业务逻辑层数据操作方法
-        /// <summary>
-        /// 注册数据层数据操作方法
-        /// 无ismaster参数表示注册从表
-        /// </summary>
-        /// <param name="dalname">数据层对象名</param>
-        /// <param name="pwhere">条件</param>
-        /// <param name="ismaster">是否为主表或单表</param>
-        public void RegisterMethod(string dalpath, string dalname, string pwhere, bool ismaster)
-        {
-            pWhere = pwhere;
-            if (ismaster)
-            {
-                MasterDALName = dalname;
-            }
-            MasterDALPath = dalpath;
-            Type tDAL = Assembly.Load(dalpath).GetType(dalpath + "." + dalname);
-            objDAL = Assembly.Load(dalpath).CreateInstance(dalpath + "." + dalname);
-            mGetDataSet = tDAL.GetMethod("GetList", new Type[] { typeof(string) });
-            mGetTopDataSet = tDAL.GetMethod("GetList", new Type[] { typeof(int), typeof(string), typeof(string) });
-            mAddInTrans = tDAL.GetMethod("Add", new Type[] { typeof(DataRow), typeof(SqlTransaction) });
-            mUpdateInTrans = tDAL.GetMethod("Update", new Type[] { typeof(DataRow), typeof(SqlTransaction) });
-            mDeleteInTrans = tDAL.GetMethod("Delete", new Type[] { typeof(int), typeof(SqlTransaction) });
-        }
-
-        /// <summary>
-        /// 注册数据层数据操作方法
-        /// 无ismaster参数表示注册从表
-        /// </summary>
-        /// <param name="dalname">数据层对象名</param>
-        /// <param name="ismaster">是否为主表或单表</param>
-        public void RegisterMethod(string dalpath, string dalname, bool ismaster)
-        {
-            if (ismaster)
-            {
-                MasterDALName = dalname;
-            }
-            MasterDALPath = dalpath;
-            Type tDAL = Assembly.Load(dalpath).GetType(dalpath + "." + dalname);
-            objDAL = Assembly.Load(dalpath).CreateInstance(dalpath + "." + dalname);
-            mGetDataSet = tDAL.GetMethod("GetList", new Type[] { typeof(string) });
-            mGetTopDataSet = tDAL.GetMethod("GetList", new Type[] { typeof(int), typeof(string), typeof(string) });
-            mAddInTrans = tDAL.GetMethod("Add", new Type[] { typeof(DataRow), typeof(SqlTransaction) });
-            mUpdateInTrans = tDAL.GetMethod("Update", new Type[] { typeof(DataRow), typeof(SqlTransaction) });
-            mDeleteInTrans = tDAL.GetMethod("Delete", new Type[] { typeof(int), typeof(SqlTransaction) });
-        }
-
-        /// <summary>
-        /// 注册数据层数据操作方法
-        /// 无ismaster参数表示注册从表
-        /// </summary>
-        /// <param name="dalname">数据层对象名</param>
-        public void RegisterMethod(string dalpath, string dalname)
-        {
-            Type tDAL = Assembly.Load(dalpath).GetType(dalpath + "." + dalname);
-            objDAL = Assembly.Load(dalpath).CreateInstance(dalpath + "." + dalname);
-            mGetDataSet = tDAL.GetMethod("GetList", new Type[] { typeof(string) });
-            mGetTopDataSet = tDAL.GetMethod("GetList", new Type[] { typeof(int), typeof(string), typeof(string) });
-            mAddInTrans = tDAL.GetMethod("Add", new Type[] { typeof(DataRow), typeof(SqlTransaction) });
-            mUpdateInTrans = tDAL.GetMethod("Update", new Type[] { typeof(DataRow), typeof(SqlTransaction) });
-            mDeleteInTrans = tDAL.GetMethod("Delete", new Type[] { typeof(int), typeof(SqlTransaction) });
-        }
-
-        /// <summary>
-        /// 注册数据层数据操作方法
-        /// 无ismaster参数表示注册从表
-        /// </summary>
-        /// <param name="dalname">数据层对象名</param>
-        /// <param name="pwhere">条件</param>
-        public void RegisterMethod(string dalpath, string dalname, string pwhere)
-        {
-            pWhere = pwhere;
-            Type tDAL = Assembly.Load(dalpath).GetType(dalpath + "." + dalname);
-            objDAL = Assembly.Load(dalpath).CreateInstance(dalpath + "." + dalname);
-            mGetDataSet = tDAL.GetMethod("GetList", new Type[] { typeof(string) });
-            mGetTopDataSet = tDAL.GetMethod("GetList", new Type[] { typeof(int), typeof(string), typeof(string) });
-            mAddInTrans = tDAL.GetMethod("Add", new Type[] { typeof(DataRow), typeof(SqlTransaction) });
-            mUpdateInTrans = tDAL.GetMethod("Update", new Type[] { typeof(DataRow), typeof(SqlTransaction) });
-            mDeleteInTrans = tDAL.GetMethod("Delete", new Type[] { typeof(int), typeof(SqlTransaction) });
-        }
         #endregion
 
         #region 数据操作
@@ -871,8 +736,7 @@ namespace Sunrise.ERP.BaseForm
         {
             try
             {
-                object[] obj = { dr, trans };
-                return (int)mAddInTrans.Invoke(objDAL, obj);
+                return MasterDynamicDAL.Add(dr, trans);
             }
             catch (Exception ex)
             {
@@ -887,13 +751,11 @@ namespace Sunrise.ERP.BaseForm
         /// <param name="dr">数据行对象</param>
         /// <param name="trans">SQL事务</param>
         /// <returns></returns>
-        public int Update(DataRow dr, SqlTransaction trans)
+        public void Update(DataRow dr, SqlTransaction trans)
         {
             try
             {
-                object[] obj = { dr, trans };
-                return Convert.ToInt32(mUpdateInTrans.Invoke(objDAL, obj));
-
+                MasterDynamicDAL.Update(dr, trans);
             }
             catch (Exception ex)
             {
@@ -911,8 +773,7 @@ namespace Sunrise.ERP.BaseForm
         {
             try
             {
-                object[] obj = { id, trans };
-                mDeleteInTrans.Invoke(objDAL, obj);
+                MasterDynamicDAL.Delete(id, trans);
             }
             catch (Exception ex)
             {
@@ -930,8 +791,7 @@ namespace Sunrise.ERP.BaseForm
         {
             try
             {
-                object[] obj = { pwhere };
-                return (DataSet)mGetDataSet.Invoke(objDAL, obj);
+                return MasterDynamicDAL.GetList(pwhere); ;
             }
             catch (Exception ex)
             {
@@ -950,8 +810,7 @@ namespace Sunrise.ERP.BaseForm
         {
             try
             {
-                object[] obj = { top, pwhere, order };
-                return (DataSet)mGetTopDataSet.Invoke(objDAL, obj);
+                return MasterDynamicDAL.GetList(top, pwhere, order);
             }
             catch (Exception ex)
             {
@@ -969,7 +828,7 @@ namespace Sunrise.ERP.BaseForm
         /// <param name="e"></param>
         public override void DataStateChange(object sender, EventArgs e)
         {
-            Sunrise.ERP.BasePublic.BasePublic.SetControlsGridEnable(this.pnlGrid, FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsBrowse);
+            Sunrise.ERP.BasePublic.Base.SetControlsGridEnable(this.pnlGrid, FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsBrowse);
         }
         private void dsMain_CurrentItemChanged(object sender, EventArgs e)
         {
@@ -1086,34 +945,19 @@ namespace Sunrise.ERP.BaseForm
             }
         }
 
-        private string _dalname;
+        private string _tablename;
         /// <summary>
-        /// 主表数据层对象名称
+        /// 单据主表或者单表名称
         /// </summary>
-        protected string MasterDALName
+        protected string MasterTableName
         {
             get
             {
-                return _dalname;
+                return _tablename;
             }
             set
             {
-                _dalname = value;
-            }
-        }
-        private string _dalpath;
-        /// <summary>
-        /// 主表数据层对象名称
-        /// </summary>
-        protected string MasterDALPath
-        {
-            get
-            {
-                return _dalpath;
-            }
-            set
-            {
-                _dalpath = value;
+                _tablename = value;
             }
         }
 
@@ -1165,7 +1009,40 @@ namespace Sunrise.ERP.BaseForm
                 _MasterFilterSql = value;
             }
         }
-        #endregion             
+
+        private DynamicDALSetting _MasterDynamicDAL;
+        /// <summary>
+        /// 主表或单表数据操作层
+        /// </summary>
+        protected DynamicDALSetting MasterDynamicDAL
+        {
+            get
+            {
+                if (_MasterDynamicDAL != null)
+                {
+                    _MasterDynamicDAL = new DynamicDALSetting(DynamicTableData);
+                }
+                return _MasterDynamicDAL;
+            }
+        }
+
+        private DataTable _dynamicdatatable;
+        /// <summary>
+        /// 动态表结构数据
+        /// </summary>
+        protected DataTable DynamicTableData
+        {
+            get
+            {
+                if (_dynamicdatatable == null)
+                {
+                    _dynamicdatatable = Base.GetDynamicTableData(FormID, MasterTableName);
+                }
+                return _dynamicdatatable;
+            }
+        }
+
+        #endregion
 
         #region 按钮操作权限检测
 
@@ -1197,7 +1074,7 @@ namespace Sunrise.ERP.BaseForm
                 Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "NoEditAuth"));
                 return;
             }
-            if (((DataRowView)dsMain.Current)["iFlag"].ToString()=="4")
+            if (((DataRowView)dsMain.Current)["iFlag"].ToString() == "4")
             {
                 Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "AuthedCannotEdit"));
                 return;
@@ -1239,7 +1116,7 @@ namespace Sunrise.ERP.BaseForm
         }
 
         #endregion
-       
+
 
     }
 }

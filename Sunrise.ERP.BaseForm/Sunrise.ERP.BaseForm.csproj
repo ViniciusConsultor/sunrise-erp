@@ -183,6 +183,10 @@
       <Project>{77AF6749-8A39-4EFD-9160-CDAC511D7233}</Project>
       <Name>Sunrise.ERP.BaseControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.BaseForm.DAL\Sunrise.ERP.BaseForm.DAL.csproj">
+      <Project>{67865932-18D5-40FB-BEEC-636FEA6C7C1B}</Project>
+      <Name>Sunrise.ERP.BaseForm.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sunrise.ERP.BasePublic\Sunrise.ERP.BasePublic.csproj">
       <Project>{0BBC3613-97DC-44A6-88A2-6EF7C7C9A910}</Project>
       <Name>Sunrise.ERP.BasePublic</Name>
