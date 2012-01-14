@@ -29,9 +29,6 @@ namespace SunriseERP
                 LangCenter.Instance.LoadLangXmlDocument(System.Configuration.ConfigurationManager.AppSettings["Lang"]);
                 Application.Run(new frmSysInit());
             }
-            //Sunrise.ERP.Module.SystemManage.frmsysPlatformManage frm = new Sunrise.ERP.Module.SystemManage.frmsysPlatformManage(5004, "Test");
-            //frm.ReportNo = "R001";
-            //Application.Run(frm);
         }
     }
 }

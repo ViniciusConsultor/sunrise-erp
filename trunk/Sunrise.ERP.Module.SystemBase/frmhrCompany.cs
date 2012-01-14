@@ -39,7 +39,7 @@ namespace Sunrise.ERP.Module.SystemBase
             Sunrise.ERP.Common.SystemPublic.InitLkpCurrency(lkpsCurrency);
             lkpsCurrency.AutoSetValue(ref gvDetail, "sCurrencyCName", "sCurrencyCName");
 
-            IsShowShopInfo = bool.Parse(Sunrise.ERP.BasePublic.BasePublic.FormParaList(FormID)["IsShowShop"].ToString().ToLower());
+            IsShowShopInfo = bool.Parse(Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["IsShowShop"].ToString().ToLower());
             //通过参数来控制是否显示门店信息
             if (!IsShowShopInfo)
             {

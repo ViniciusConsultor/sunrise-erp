@@ -243,7 +243,7 @@ namespace Sunrise.ERP.BaseForm
                 dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
             }
 
-            Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
             IsDataChange = false;
             initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.Save);
             return base.DoAfterSave();

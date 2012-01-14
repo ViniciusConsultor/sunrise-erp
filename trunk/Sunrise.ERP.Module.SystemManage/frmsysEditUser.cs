@@ -28,7 +28,7 @@ namespace Sunrise.ERP.Module.SystemManage
         }
         public override bool DoAppend()
         {
-            Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, false);
+            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, false);
             dsMain.AddNew();
             ((DataRowView)dsMain.Current).Row["iFlag"] = 0;
             ((DataRowView)dsMain.Current).Row["bIsLock"] = 0;

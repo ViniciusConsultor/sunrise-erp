@@ -355,13 +355,13 @@ namespace Sunrise.ERP.BaseForm
             if (dsMain.Current != null)
             {
                 base.DoView();
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
             }
             else
             {
                 initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.None);
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
             }
         }
@@ -374,13 +374,13 @@ namespace Sunrise.ERP.BaseForm
             if (dsMain.Current != null)
             {
                 base.DoBaseView();
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
             }
             else
             {
                 initButtonsState(OperateFlag.None);
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
             }
         }
@@ -390,7 +390,7 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public override bool DoAppend()
         {
-            Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, false);
+            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, false);
             dsMain.AddNew();
             dsMain.EndEdit();
             ((DataRowView)dsMain.Current).Row["iFlag"] = 0;
@@ -440,7 +440,7 @@ namespace Sunrise.ERP.BaseForm
                             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
                         }
                         dsMain.CancelEdit();
-                        Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                        Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                         IsDataChange = false;
                         return base.DoBeforeCancel();
                     }
@@ -478,14 +478,14 @@ namespace Sunrise.ERP.BaseForm
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
                     }
                     dsMain.CancelEdit();
-                    Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                     IsDataChange = false;
                     return base.DoBeforeCancel();
                 }
             }
             else
             {
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
                 return base.DoBeforeCancel();
             }
@@ -510,7 +510,7 @@ namespace Sunrise.ERP.BaseForm
         public override void DoEdit()
         {
             base.DoEdit();
-            Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, false);
+            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, false);
             IsDataChange = false;
         }
         /// <summary>
@@ -576,7 +576,7 @@ namespace Sunrise.ERP.BaseForm
                         dsMain.DataSource = dtMain;
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
                     }
-                    Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                     IsDataChange = false;
                     return base.DoSave();
 
@@ -619,7 +619,7 @@ namespace Sunrise.ERP.BaseForm
                         dsMain.DataSource = dtMain;
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
                     }
-                    Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                     IsDataChange = false;
                     return base.DoSave();
                 }
@@ -639,14 +639,14 @@ namespace Sunrise.ERP.BaseForm
             //非空验证
             if (NotNullFields.Count > 0)
             {
-                if (Sunrise.ERP.BasePublic.BasePublic.CheckNotNullFields(this.pnlInfo, NotNullFields))
+                if (Sunrise.ERP.BasePublic.Base.CheckNotNullFields(this.pnlInfo, NotNullFields))
                 {
-                    Sunrise.ERP.BasePublic.BasePublic.IsNull = true;
+                    Sunrise.ERP.BasePublic.Base.IsNull = true;
                     return true;
                 }
                 else
                 {
-                    Sunrise.ERP.BasePublic.BasePublic.IsNull = true;
+                    Sunrise.ERP.BasePublic.Base.IsNull = true;
                     return false;
                 }
             }
@@ -701,7 +701,7 @@ namespace Sunrise.ERP.BaseForm
             {
                 if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "DataNotSavedForClose"), 4) == DialogResult.Yes)
                 {
-                    Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                     IsDataChange = false;
                     base.OnFormClosing(e);
                 }
@@ -712,7 +712,7 @@ namespace Sunrise.ERP.BaseForm
             }
             else
             {
-                Sunrise.ERP.BasePublic.BasePublic.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                 IsDataChange = false;
                 base.OnFormClosing(e);
             }
@@ -730,7 +730,7 @@ namespace Sunrise.ERP.BaseForm
         {
             base.initBase();
             //设置非空字段颜色
-            Sunrise.ERP.BasePublic.BasePublic.SetNotNullFiledsColor(this.pnlInfo, NotNullFields);
+            Sunrise.ERP.BasePublic.Base.SetNotNullFiledsColor(this.pnlInfo, NotNullFields);
             IsDataChange = false;
 
         }
@@ -761,7 +761,7 @@ namespace Sunrise.ERP.BaseForm
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    if ((((DevExpress.XtraEditors.TextBoxMaskBox)(Sunrise.ERP.BasePublic.BasePublic.GetFocusedControl()))).OwnerEdit.Tag == null || (((DevExpress.XtraEditors.TextBoxMaskBox)(Sunrise.ERP.BasePublic.BasePublic.GetFocusedControl()))).OwnerEdit.Tag.ToString().ToLower() != "notab")
+                    if ((((DevExpress.XtraEditors.TextBoxMaskBox)(Sunrise.ERP.BasePublic.Base.GetFocusedControl()))).OwnerEdit.Tag == null || (((DevExpress.XtraEditors.TextBoxMaskBox)(Sunrise.ERP.BasePublic.Base.GetFocusedControl()))).OwnerEdit.Tag.ToString().ToLower() != "notab")
                     {
                         SendKeys.Send("{TAB}");
                     }
@@ -972,7 +972,7 @@ namespace Sunrise.ERP.BaseForm
         /// <param name="e"></param>
         public override void DataStateChange(object sender, EventArgs e)
         {
-            Sunrise.ERP.BasePublic.BasePublic.SetControlsGridEnable(this.pnlGrid, FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsBrowse);
+            Sunrise.ERP.BasePublic.Base.SetControlsGridEnable(this.pnlGrid, FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsBrowse);
         }
         private void dsMain_CurrentItemChanged(object sender, EventArgs e)
         {

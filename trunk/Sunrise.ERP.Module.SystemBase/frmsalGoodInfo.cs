@@ -34,9 +34,9 @@ namespace Sunrise.ERP.Module.SystemBase
             Sunrise.ERP.Common.SystemPublic.InitLkpShopID(lkpsShopID);
 
             //获取参数值
-            sDefaultShop = Sunrise.ERP.BasePublic.BasePublic.FormParaList(FormID)["DefaultShop"] == null ? "" : Sunrise.ERP.BasePublic.BasePublic.FormParaList(FormID)["DefaultShop"].ToString();
-            sDefaultType = Sunrise.ERP.BasePublic.BasePublic.FormParaList(FormID)["DefaultType"] == null ? "" : Sunrise.ERP.BasePublic.BasePublic.FormParaList(FormID)["DefaultType"].ToString();
-            sDefaultUnit = Sunrise.ERP.BasePublic.BasePublic.FormParaList(FormID)["DefaultUnit"] == null ? "" : Sunrise.ERP.BasePublic.BasePublic.FormParaList(FormID)["DefaultUnit"].ToString();
+            sDefaultShop = Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["DefaultShop"] == null ? "" : Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["DefaultShop"].ToString();
+            sDefaultType = Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["DefaultType"] == null ? "" : Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["DefaultType"].ToString();
+            sDefaultUnit = Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["DefaultUnit"] == null ? "" : Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["DefaultUnit"].ToString();
 
         }
 
