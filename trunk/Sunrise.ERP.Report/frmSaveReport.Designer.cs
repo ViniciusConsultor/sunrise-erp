@@ -42,7 +42,7 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.txtReportName = new DevExpress.XtraEditors.TextEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.gcReport = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcReport = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvReport = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsReportName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbIsDefault = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -310,7 +310,7 @@
         protected DevExpress.XtraEditors.SimpleButton btnSave;
         protected DevExpress.XtraEditors.SimpleButton btnEdit;
         protected DevExpress.XtraEditors.SimpleButton btnAdd;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcReport;
+        private Sunrise.ERP.Controls.SunriseGridControl gcReport;
         private DevExpress.XtraGrid.Views.Grid.GridView gvReport;
         private DevExpress.XtraEditors.PanelControl panelControl3;
         protected DevExpress.XtraEditors.SimpleButton btnSetDefault;

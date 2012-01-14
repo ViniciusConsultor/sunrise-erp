@@ -35,7 +35,7 @@
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSelect = new DevExpress.XtraEditors.SimpleButton();
             this.btnView = new DevExpress.XtraEditors.SimpleButton();
-            this.gcSearch = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcSearch = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvSearch = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -166,7 +166,7 @@
         #endregion
 
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcSearch;
+        private Sunrise.ERP.Controls.SunriseGridControl gcSearch;
         private DevExpress.XtraGrid.Views.Grid.GridView gvSearch;
         private DevExpress.XtraEditors.SimpleButton btnView;
         private DevExpress.XtraEditors.SimpleButton btnSelect;

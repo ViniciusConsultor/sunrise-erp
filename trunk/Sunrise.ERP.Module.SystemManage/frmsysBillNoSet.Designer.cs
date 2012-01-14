@@ -31,10 +31,10 @@
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.txtsFieldName = new DevExpress.XtraEditors.TextEdit();
             this.txtPreFormatStr = new DevExpress.XtraEditors.TextEdit();
-            this.lkpDateFormatStr = new Sunrise.ERP.Controls.BoyeeLookUp();
-            this.lkpTableName = new Sunrise.ERP.Controls.BoyeeLookUp();
+            this.lkpDateFormatStr = new Sunrise.ERP.Controls.SunriseLookUp();
+            this.lkpTableName = new Sunrise.ERP.Controls.SunriseLookUp();
             this.txtNoFormatStr = new DevExpress.XtraEditors.TextEdit();
-            this.lkpFormID = new Sunrise.ERP.Controls.BoyeeLookUp();
+            this.lkpFormID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.txtFormID = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -45,7 +45,7 @@
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.gcMain = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.coliFormID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsMenuName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -276,7 +276,7 @@
             this.lkpFormID.SQL = null;
             this.lkpFormID.TabIndex = 4;
             this.lkpFormID.TextFont = new System.Drawing.Font("Tahoma", 9F);
-            this.lkpFormID.LookUpAfterPost += new Sunrise.ERP.Controls.BoyeeLookUp.BoyeeLookUpEvent(this.lkpFormID_LookUpAfterPost);
+            this.lkpFormID.LookUpAfterPost += new Sunrise.ERP.Controls.SunriseLookUp.SunriseLookUpEvent(this.lkpFormID_LookUpAfterPost);
             // 
             // txtFormID
             // 
@@ -524,13 +524,13 @@
         #endregion
 
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpTableName;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpFormID;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpTableName;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpFormID;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraEditors.TextEdit txtPreFormatStr;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpDateFormatStr;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpDateFormatStr;
         private DevExpress.XtraEditors.TextEdit txtNoFormatStr;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
@@ -538,7 +538,7 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraEditors.TextEdit txtFormID;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcMain;
+        private Sunrise.ERP.Controls.SunriseGridControl gcMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
         private DevExpress.XtraGrid.Columns.GridColumn coliFormID;
         private DevExpress.XtraGrid.Columns.GridColumn colsTableName;

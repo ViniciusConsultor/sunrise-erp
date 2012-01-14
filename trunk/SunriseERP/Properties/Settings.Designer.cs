@@ -22,16 +22,5 @@ namespace SunriseERP.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=BELSELFWANG;Initial Catalog=BWS_ERP;Persist Security Info=True;User I" +
-            "D=sa")]
-        public string BWS_ERPConnectionString {
-            get {
-                return ((string)(this["BWS_ERPConnectionString"]));
-            }
-        }
     }
 }

@@ -72,23 +72,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoyeeFlowChart.cs">
+    <Compile Include="SunriseFlowChart.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BoyeeFlowChart.Designer.cs">
-      <DependentUpon>BoyeeFlowChart.cs</DependentUpon>
+    <Compile Include="SunriseFlowChart.Designer.cs">
+      <DependentUpon>SunriseFlowChart.cs</DependentUpon>
     </Compile>
-    <Compile Include="BoyeeGridControl.cs">
+    <Compile Include="SunriseGridControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="BoyeeGridControl.Designer.cs">
-      <DependentUpon>BoyeeGridControl.cs</DependentUpon>
+    <Compile Include="SunriseGridControl.Designer.cs">
+      <DependentUpon>SunriseGridControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="BoyeeLookUp.cs">
+    <Compile Include="SunriseLookUp.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BoyeeLookUp.Designer.cs">
-      <DependentUpon>BoyeeLookUp.cs</DependentUpon>
+    <Compile Include="SunriseLookUp.Designer.cs">
+      <DependentUpon>SunriseLookUp.cs</DependentUpon>
     </Compile>
     <Compile Include="frmFlowChartItemSet.cs">
       <SubType>Form</SubType>
@@ -111,14 +111,14 @@
     <Compile Include="Public\BaseEnum.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BoyeeFlowChart.resx">
-      <DependentUpon>BoyeeFlowChart.cs</DependentUpon>
+    <EmbeddedResource Include="SunriseFlowChart.resx">
+      <DependentUpon>SunriseFlowChart.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BoyeeGridControl.resx">
-      <DependentUpon>BoyeeGridControl.cs</DependentUpon>
+    <EmbeddedResource Include="SunriseGridControl.resx">
+      <DependentUpon>SunriseGridControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BoyeeLookUp.resx">
-      <DependentUpon>BoyeeLookUp.cs</DependentUpon>
+    <EmbeddedResource Include="SunriseLookUp.resx">
+      <DependentUpon>SunriseLookUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmFlowChartItemSet.resx">
       <DependentUpon>frmFlowChartItemSet.cs</DependentUpon>

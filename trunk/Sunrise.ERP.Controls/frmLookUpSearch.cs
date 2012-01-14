@@ -66,7 +66,7 @@ namespace Sunrise.ERP.Controls
                     LDisplayFields.Add(s);
                 }
             }
-            this.Text = LangCenter.Instance.GetControlLangInfo("BoyeeLookUp", "LookUpSearchLabel") + fromtext;
+            this.Text = LangCenter.Instance.GetControlLangInfo("SunriseLookUp", "LookUpSearchLabel") + fromtext;
             gvSearch.OptionsSelection.MultiSelect = ismulti;
         }
 
@@ -200,11 +200,11 @@ namespace Sunrise.ERP.Controls
         }
         private void LoadLangSetting()
         {
-            btnView.Text = LangCenter.Instance.GetControlLangInfo("BoyeeLookUp", btnView.Name);
-            btnClose.Text = LangCenter.Instance.GetControlLangInfo("BoyeeLookUp", btnClose.Name);
-            btnEdit.Text = LangCenter.Instance.GetControlLangInfo("BoyeeLookUp", btnEdit.Name);
-            btnCancel.Text = LangCenter.Instance.GetControlLangInfo("BoyeeLookUp", btnCancel.Name);
-            btnSelect.Text = LangCenter.Instance.GetControlLangInfo("BoyeeLookUp", btnSelect.Name);
+            btnView.Text = LangCenter.Instance.GetControlLangInfo("SunriseLookUp", btnView.Name);
+            btnClose.Text = LangCenter.Instance.GetControlLangInfo("SunriseLookUp", btnClose.Name);
+            btnEdit.Text = LangCenter.Instance.GetControlLangInfo("SunriseLookUp", btnEdit.Name);
+            btnCancel.Text = LangCenter.Instance.GetControlLangInfo("SunriseLookUp", btnCancel.Name);
+            btnSelect.Text = LangCenter.Instance.GetControlLangInfo("SunriseLookUp", btnSelect.Name);
         }
 
     }

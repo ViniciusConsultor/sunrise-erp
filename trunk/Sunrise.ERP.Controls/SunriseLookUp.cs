@@ -12,7 +12,7 @@ using Sunrise.ERP.BaseControl;
 
 namespace Sunrise.ERP.Controls
 {
-    public partial class BoyeeLookUp : DevExpress.XtraEditors.XtraUserControl
+    public partial class SunriseLookUp : DevExpress.XtraEditors.XtraUserControl
     {
         private string _searchsql;
         private string _griddisplayname;
@@ -35,7 +35,7 @@ namespace Sunrise.ERP.Controls
 
         private DevExpress.XtraGrid.Views.Grid.GridView gvTemp;
 
-        public BoyeeLookUp()
+        public SunriseLookUp()
         {
             InitializeComponent();
             
@@ -292,19 +292,19 @@ namespace Sunrise.ERP.Controls
                 //检测SQL设置
                 if (SQL == null || SQL == "")
                 {
-                    Public.SystemInfo(LangCenter.Instance.GetControlLangInfo("BoyeeLookUp", "NoSQL"), true);
+                    Public.SystemInfo(LangCenter.Instance.GetControlLangInfo("SunriseLookUp", "NoSQL"), true);
                     return;
                 }
                 if (IsSearchFormEdit)
                 {
                     if (EditFormName == null || EditFormName == "")
                     {
-                        Public.SystemInfo(LangCenter.Instance.GetControlLangInfo("BoyeeLookUp", "NoEditFormName"), true);
+                        Public.SystemInfo(LangCenter.Instance.GetControlLangInfo("SunriseLookUp", "NoEditFormName"), true);
                         return;
                     }
                     if (EditFormID == 0)
                     {
-                        Public.SystemInfo(LangCenter.Instance.GetControlLangInfo("BoyeeLookUp", "NoEditFormID"), true);
+                        Public.SystemInfo(LangCenter.Instance.GetControlLangInfo("SunriseLookUp", "NoEditFormID"), true);
                         return;
                     }
 
@@ -477,29 +477,29 @@ namespace Sunrise.ERP.Controls
             LAutoSetValueFields.Add(valuefield);
         }
 
-        private void BoyeeLookUp_Load(object sender, EventArgs e)
+        private void SunriseLookUp_Load(object sender, EventArgs e)
         {
             txtValueText.Text = EditValue;
         }
 
-        private void BoyeeLookUp_SizeChanged(object sender, EventArgs e)
+        private void SunriseLookUp_SizeChanged(object sender, EventArgs e)
         {
             //this.Height = txtDisplayText.Height;
         }
 
-        public delegate bool BoyeeLookUpEvent(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e);
+        public delegate bool SunriseLookUpEvent(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e);
 
         /// <summary>
         /// 单击LookUp查询前执行事件
         /// </summary>
         [Category("事件"), Description("单击LookUp查询前执行事件")]
-        public event BoyeeLookUpEvent LookUpBeforePost;
+        public event SunriseLookUpEvent LookUpBeforePost;
 
         /// <summary>
         /// 单击LookUp查询后执行事件
         /// </summary>
         [Category("事件"), Description("单击LookUp查询后执行事件")]
-        public event BoyeeLookUpEvent LookUpAfterPost;
+        public event SunriseLookUpEvent LookUpAfterPost;
 
         private void txtDisplayText_Click(object sender, EventArgs e)
         {

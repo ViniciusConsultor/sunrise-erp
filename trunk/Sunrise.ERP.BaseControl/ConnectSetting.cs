@@ -1,11 +1,3 @@
-//-------------------------------------------------------------------------------------------
-//Name:             Sunrise.ERP.BaseForm.ConnectSetting
-//Description:      数据库连接设置及操作类
-//Create by:        Belself.Wang
-//Create Date:      2010-7-24
-//Modify by：              Modify Date：               Description：  
-//Modify by：              Modify Date：               Description：  
-//-------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
 using System.Linq;

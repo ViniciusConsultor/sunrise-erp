@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Sunrise.ERP.DAL")]
 [assembly: AssemblyDescription("数据库组件处理层")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Belself WorkingRoom Studio")]
-[assembly: AssemblyProduct("Sunrise.ERP.DAL")]
-[assembly: AssemblyCopyright("Copyright © Belself WorkingRoom Studio 2010")]
+[assembly: AssemblyCompany("Sunrise Inc")]
+[assembly: AssemblyProduct("Sunrise.ERP.SystemManage.DAL")]
+[assembly: AssemblyCopyright("Copyright © Sunrise Inc 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

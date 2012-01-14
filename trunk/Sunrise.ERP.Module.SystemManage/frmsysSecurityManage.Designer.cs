@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmsysSecurityManage));
-            this.gcRole = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcRole = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvRole = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsRoleNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsRoleCName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -66,12 +66,12 @@
             this.trcoliPrice = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.trcoliNum = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.lkpUser = new Sunrise.ERP.Controls.BoyeeLookUp();
+            this.lkpUser = new Sunrise.ERP.Controls.SunriseLookUp();
             this.splitterControl3 = new DevExpress.XtraEditors.SplitterControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.tvMenu = new DevExpress.XtraTreeList.TreeList();
             this.tpRolesUser = new DevExpress.XtraTab.XtraTabPage();
-            this.gcRoleUser = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcRoleUser = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvRoleUser = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsRoleUserID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsRoleUserCName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -958,7 +958,7 @@
 
         #endregion
 
-        private Sunrise.ERP.Controls.BoyeeGridControl gcRole;
+        private Sunrise.ERP.Controls.SunriseGridControl gcRole;
         private DevExpress.XtraGrid.Views.Grid.GridView gvRole;
         private DevExpress.XtraGrid.Columns.GridColumn colsRoleNo;
         private DevExpress.XtraGrid.Columns.GridColumn colsRoleCName;
@@ -981,7 +981,7 @@
         private DevExpress.XtraTab.XtraTabControl tcRoleDetail;
         private DevExpress.XtraTab.XtraTabPage tpRolesUser;
         private DevExpress.XtraTab.XtraTabPage tpRolesRight;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcRoleUser;
+        private Sunrise.ERP.Controls.SunriseGridControl gcRoleUser;
         private DevExpress.XtraGrid.Views.Grid.GridView gvRoleUser;
         private DevExpress.XtraGrid.Columns.GridColumn colsRoleUserID;
         private DevExpress.XtraGrid.Columns.GridColumn colsRoleUserCName;
@@ -991,7 +991,7 @@
         private DevExpress.XtraEditors.SplitterControl splitterControl3;
         private DevExpress.XtraTreeList.TreeList tvRoleRight;
         private System.Windows.Forms.ImageList imageList1;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpUser;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpUser;
         private DevExpress.XtraTreeList.Columns.TreeListColumn trcolsMenuName;
         private DevExpress.XtraTreeList.Columns.TreeListColumn trcoliView;
         private DevExpress.XtraTreeList.Columns.TreeListColumn trcoliAdd;
