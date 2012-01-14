@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AE1E345F-00DA-4EC0-9640-5F62A9118790}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sunrise.ERP.BaseForm</RootNamespace>
+    <AssemblyName>Sunrise.ERP.BaseForm</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\SunriseERP\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BWSERP\bin\Debug\DevExpress.Data.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BWSERP\bin\Debug\DevExpress.Utils.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BWSERP\bin\Debug\DevExpress.XtraBars.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BWSERP\bin\Debug\DevExpress.XtraEditors.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BWSERP\bin\Debug\DevExpress.XtraGrid.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BWSERP\bin\Debug\DevExpress.XtraLayout.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BWSERP\bin\Debug\DevExpress.XtraTreeList.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBaseForm.Designer.cs">
+      <DependentUpon>frmBaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDynamicSingleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDynamicSingleForm.Designer.cs">
+      <DependentUpon>frmDynamicSingleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmForm.Designer.cs">
+      <DependentUpon>frmForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMasterDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMasterDetail.Designer.cs">
+      <DependentUpon>frmMasterDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSearchForm.Designer.cs">
+      <DependentUpon>frmSearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSingleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSingleForm.Designer.cs">
+      <DependentUpon>frmSingleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="frmBaseForm.resx">
+      <DependentUpon>frmBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDynamicSingleForm.resx">
+      <DependentUpon>frmDynamicSingleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmForm.resx">
+      <DependentUpon>frmForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMasterDetail.resx">
+      <DependentUpon>frmMasterDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSearchForm.resx">
+      <DependentUpon>frmSearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSingleForm.resx">
+      <DependentUpon>frmSingleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\insert.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\close.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\print.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\view.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\copy.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\cancel.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\save.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\delete.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\edit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\add.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\refresh.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sunrise.ERP.BaseControl\Sunrise.ERP.BaseControl.csproj">
+      <Project>{77AF6749-8A39-4EFD-9160-CDAC511D7233}</Project>
+      <Name>Sunrise.ERP.BaseControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.BasePublic\Sunrise.ERP.BasePublic.csproj">
+      <Project>{0BBC3613-97DC-44A6-88A2-6EF7C7C9A910}</Project>
+      <Name>Sunrise.ERP.BasePublic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.Controls\Sunrise.ERP.Controls.csproj">
+      <Project>{B063E5F9-4E6C-4CCE-90D9-97094DBEFD3C}</Project>
+      <Name>Sunrise.ERP.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.DataAccess\Sunrise.ERP.DataAccess.csproj">
+      <Project>{E30BB9FB-447C-4260-8ACB-0604DD729BFE}</Project>
+      <Name>Sunrise.ERP.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.Lang\Sunrise.ERP.Lang.csproj">
+      <Project>{BE849923-172A-4FBD-9C75-BAB978254BBF}</Project>
+      <Name>Sunrise.ERP.Lang</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.Security\Sunrise.ERP.Security.csproj">
+      <Project>{3C5E617E-BC81-49C7-AC43-93DFFEBF74F3}</Project>
+      <Name>Sunrise.ERP.Security</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\and.bmp" />
+    <None Include="Resources\or.bmp" />
+    <None Include="Resources\clear.bmp" />
+    <None Include="Resources\yes.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
