@@ -1,0 +1,107 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunriseERP", "SunriseERP\SunriseERP.csproj", "{DDB654EA-BD88-4AE5-A3FF-53F066AB1E12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.BaseForm", "Sunrise.ERP.BaseForm\Sunrise.ERP.BaseForm.csproj", "{AE1E345F-00DA-4EC0-9640-5F62A9118790}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.SysBase", "Sunrise.ERP.SysBase\Sunrise.ERP.SysBase.csproj", "{8E6D8B75-94E3-48A6-8BD2-9E860AA5A808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.SystemModule.DAL", "Sunrise.ERP.DAL\Sunrise.ERP.SystemModule.DAL.csproj", "{F028F118-99CF-4C4D-90E0-8E81B05CE346}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.DataAccess", "Sunrise.ERP.DataAccess\Sunrise.ERP.DataAccess.csproj", "{E30BB9FB-447C-4260-8ACB-0604DD729BFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Report", "Sunrise.ERP.Report\Sunrise.ERP.Report.csproj", "{5049D72C-A87F-4874-9EA8-4D590055D202}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Module.SystemBase", "Sunrise.ERP.Module.SystemBase\Sunrise.ERP.Module.SystemBase.csproj", "{9A0F9424-55B0-4774-A4AF-84D6B89874E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.BaseControl", "Sunrise.ERP.BaseControl\Sunrise.ERP.BaseControl.csproj", "{77AF6749-8A39-4EFD-9160-CDAC511D7233}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Controls", "Sunrise.ERP.Controls\Sunrise.ERP.Controls.csproj", "{B063E5F9-4E6C-4CCE-90D9-97094DBEFD3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Module.SystemManage", "Sunrise.ERP.Module.SystemManage\Sunrise.ERP.Module.SystemManage.csproj", "{2D1CBE5D-B1E8-4901-9067-CE9433CE083F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Security", "Sunrise.ERP.Security\Sunrise.ERP.Security.csproj", "{3C5E617E-BC81-49C7-AC43-93DFFEBF74F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Common", "Sunrise.ERP.Common\Sunrise.ERP.Common.csproj", "{34787DE0-6E5B-49AF-928E-20C341CCC941}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.BasePublic", "Sunrise.ERP.BasePublic\Sunrise.ERP.BasePublic.csproj", "{0BBC3613-97DC-44A6-88A2-6EF7C7C9A910}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Lang", "Sunrise.ERP.Lang\Sunrise.ERP.Lang.csproj", "{BE849923-172A-4FBD-9C75-BAB978254BBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.BaseForm.DAL", "Sunrise.ERP.BaseForm.DAL\Sunrise.ERP.BaseForm.DAL.csproj", "{67865932-18D5-40FB-BEEC-636FEA6C7C1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDB654EA-BD88-4AE5-A3FF-53F066AB1E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB654EA-BD88-4AE5-A3FF-53F066AB1E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB654EA-BD88-4AE5-A3FF-53F066AB1E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB654EA-BD88-4AE5-A3FF-53F066AB1E12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE1E345F-00DA-4EC0-9640-5F62A9118790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE1E345F-00DA-4EC0-9640-5F62A9118790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE1E345F-00DA-4EC0-9640-5F62A9118790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE1E345F-00DA-4EC0-9640-5F62A9118790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E6D8B75-94E3-48A6-8BD2-9E860AA5A808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E6D8B75-94E3-48A6-8BD2-9E860AA5A808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E6D8B75-94E3-48A6-8BD2-9E860AA5A808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E6D8B75-94E3-48A6-8BD2-9E860AA5A808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F028F118-99CF-4C4D-90E0-8E81B05CE346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F028F118-99CF-4C4D-90E0-8E81B05CE346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F028F118-99CF-4C4D-90E0-8E81B05CE346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F028F118-99CF-4C4D-90E0-8E81B05CE346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E30BB9FB-447C-4260-8ACB-0604DD729BFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E30BB9FB-447C-4260-8ACB-0604DD729BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E30BB9FB-447C-4260-8ACB-0604DD729BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E30BB9FB-447C-4260-8ACB-0604DD729BFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5049D72C-A87F-4874-9EA8-4D590055D202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5049D72C-A87F-4874-9EA8-4D590055D202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5049D72C-A87F-4874-9EA8-4D590055D202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5049D72C-A87F-4874-9EA8-4D590055D202}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A0F9424-55B0-4774-A4AF-84D6B89874E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A0F9424-55B0-4774-A4AF-84D6B89874E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A0F9424-55B0-4774-A4AF-84D6B89874E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A0F9424-55B0-4774-A4AF-84D6B89874E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77AF6749-8A39-4EFD-9160-CDAC511D7233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77AF6749-8A39-4EFD-9160-CDAC511D7233}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77AF6749-8A39-4EFD-9160-CDAC511D7233}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77AF6749-8A39-4EFD-9160-CDAC511D7233}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B063E5F9-4E6C-4CCE-90D9-97094DBEFD3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B063E5F9-4E6C-4CCE-90D9-97094DBEFD3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B063E5F9-4E6C-4CCE-90D9-97094DBEFD3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B063E5F9-4E6C-4CCE-90D9-97094DBEFD3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D1CBE5D-B1E8-4901-9067-CE9433CE083F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D1CBE5D-B1E8-4901-9067-CE9433CE083F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D1CBE5D-B1E8-4901-9067-CE9433CE083F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D1CBE5D-B1E8-4901-9067-CE9433CE083F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C5E617E-BC81-49C7-AC43-93DFFEBF74F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C5E617E-BC81-49C7-AC43-93DFFEBF74F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C5E617E-BC81-49C7-AC43-93DFFEBF74F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C5E617E-BC81-49C7-AC43-93DFFEBF74F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34787DE0-6E5B-49AF-928E-20C341CCC941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34787DE0-6E5B-49AF-928E-20C341CCC941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34787DE0-6E5B-49AF-928E-20C341CCC941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34787DE0-6E5B-49AF-928E-20C341CCC941}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BBC3613-97DC-44A6-88A2-6EF7C7C9A910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BBC3613-97DC-44A6-88A2-6EF7C7C9A910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BBC3613-97DC-44A6-88A2-6EF7C7C9A910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BBC3613-97DC-44A6-88A2-6EF7C7C9A910}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE849923-172A-4FBD-9C75-BAB978254BBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE849923-172A-4FBD-9C75-BAB978254BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE849923-172A-4FBD-9C75-BAB978254BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE849923-172A-4FBD-9C75-BAB978254BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67865932-18D5-40FB-BEEC-636FEA6C7C1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67865932-18D5-40FB-BEEC-636FEA6C7C1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67865932-18D5-40FB-BEEC-636FEA6C7C1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67865932-18D5-40FB-BEEC-636FEA6C7C1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal
