@@ -1,11 +1,3 @@
-//-------------------------------------------------------------------------------------------
-//Name:             Sunrise.AuthControl
-//Description:      系统软件锁-获取计算机硬件基础类
-//Create by:        Belself.Wang
-//Create Date:      2010-6-14
-//Modify by：              Modify Date：               Description：  
-//Modify by：              Modify Date：               Description：  
-//-------------------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
 using System.Text;

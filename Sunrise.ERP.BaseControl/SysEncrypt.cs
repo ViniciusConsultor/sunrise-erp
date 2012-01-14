@@ -10,7 +10,7 @@ namespace Sunrise.ERP.BaseControl
     public class SysEncrypt
     {
         // 自定义的密钥
-        private const string strPublicKey = "BoyeeERPSystemInformation";
+        private const string strPublicKey = "SunriseERPSystemInformation";
 
         public SysEncrypt()
         {

@@ -22,16 +22,5 @@ namespace Sunrise.ERP.Module.SystemManage.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=BELSELFWANG\\SERVER2008;Initial Catalog=BWSERP2010;Persist Security In" +
-            "fo=True;User ID=sa;Password=wzt833")]
-        public string BWSERP2010ConnectionString {
-            get {
-                return ((string)(this["BWSERP2010ConnectionString"]));
-            }
-        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Sunrise.ERP.Controls
 {
-    partial class BoyeeFlowChart
+    partial class SunriseFlowChart
     {
         /// <summary> 
         /// Required designer variable.
@@ -90,11 +90,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "BWSFlowChart";
             this.Size = new System.Drawing.Size(485, 282);
-            this.Load += new System.EventHandler(this.BoyeeFlowChart_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.BoyeeFlowChart_Paint);
-            this.Click += new System.EventHandler(this.BoyeeFlowChart_Click);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BoyeeFlowChart_MouseMove);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BoyeeFlowChart_MouseDown);
+            this.Load += new System.EventHandler(this.SunriseFlowChart_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SunriseFlowChart_Paint);
+            this.Click += new System.EventHandler(this.SunriseFlowChart_Click);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SunriseFlowChart_MouseMove);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SunriseFlowChart_MouseDown);
             this.cmsMenu.ResumeLayout(false);
             this.cmsLine.ResumeLayout(false);
             this.ResumeLayout(false);

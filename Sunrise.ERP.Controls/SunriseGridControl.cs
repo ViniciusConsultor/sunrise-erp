@@ -16,9 +16,9 @@ using Sunrise.ERP.Lang;
 
 namespace Sunrise.ERP.Controls
 {
-    public partial class BoyeeGridControl : DevExpress.XtraGrid.GridControl
+    public partial class SunriseGridControl : DevExpress.XtraGrid.GridControl
     {
-        public BoyeeGridControl()
+        public SunriseGridControl()
         {
             InitializeComponent();
             this.Load += new EventHandler(BWSGridControl_Load);
@@ -39,29 +39,29 @@ namespace Sunrise.ERP.Controls
                 GridViewColumnMenu menu = e.Menu as GridViewColumnMenu;
                 if (menu.Column != null)
                 {
-                    string sMenuCaption1 = LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "ShowFooter");
+                    string sMenuCaption1 = LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "ShowFooter");
                     if (((GridView)this.MainView).OptionsView.ShowFooter)
                     {
-                        sMenuCaption1 = LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "HideFooter");
+                        sMenuCaption1 = LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "HideFooter");
                     }
-                    string sMenuCaption2 = LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "ShowGroupFooter");
+                    string sMenuCaption2 = LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "ShowGroupFooter");
                     if (((GridView)this.MainView).GroupFooterShowMode == DevExpress.XtraGrid.Views.Grid.GroupFooterShowMode.VisibleIfExpanded)
                     {
-                        sMenuCaption2 = LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "HideGroupFooter");
+                        sMenuCaption2 = LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "HideGroupFooter");
                     }
                     DXMenuItem dx5 = new DXMenuItem(sMenuCaption1, ShowFooter);
                     dx5.BeginGroup = true;
                     menu.Items.Add(dx5);
                     DXMenuItem dx6 = new DXMenuItem(sMenuCaption2, ShowGroupFooter);
                     menu.Items.Add(dx6);
-                    DXMenuItem dx1 = new DXMenuItem(LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "SaveToExcel"), SaveAsExcel, Sunrise.ERP.Controls.Properties.Resources.excel.ToBitmap());
+                    DXMenuItem dx1 = new DXMenuItem(LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "SaveToExcel"), SaveAsExcel, Sunrise.ERP.Controls.Properties.Resources.excel.ToBitmap());
                     dx1.BeginGroup = true;
                     menu.Items.Add(dx1);
-                    DXMenuItem dx2 = new DXMenuItem(LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "SaveToWord"), SaveAsWord, Sunrise.ERP.Controls.Properties.Resources.word.ToBitmap());
+                    DXMenuItem dx2 = new DXMenuItem(LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "SaveToWord"), SaveAsWord, Sunrise.ERP.Controls.Properties.Resources.word.ToBitmap());
                     menu.Items.Add(dx2);
-                    DXMenuItem dx3 = new DXMenuItem(LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "SaveToHtml"), SaveAsHtml);
+                    DXMenuItem dx3 = new DXMenuItem(LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "SaveToHtml"), SaveAsHtml);
                     menu.Items.Add(dx3);
-                    DXMenuItem dx4 = new DXMenuItem(LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "SaveToPdf"), SaveAsPdf, Sunrise.ERP.Controls.Properties.Resources.pdf.ToBitmap());
+                    DXMenuItem dx4 = new DXMenuItem(LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "SaveToPdf"), SaveAsPdf, Sunrise.ERP.Controls.Properties.Resources.pdf.ToBitmap());
                     menu.Items.Add(dx4);
                 }
             }
@@ -76,7 +76,7 @@ namespace Sunrise.ERP.Controls
             if (this.MainView != null)
             {
                 SaveFileDialog dialog = new SaveFileDialog();
-                dialog.Filter = LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "SaveToExcelFilter");
+                dialog.Filter = LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "SaveToExcelFilter");
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     ((GridView)this.MainView).ExportToXls(dialog.FileName);
@@ -93,7 +93,7 @@ namespace Sunrise.ERP.Controls
             if (this.MainView != null)
             {
                 SaveFileDialog dialog = new SaveFileDialog();
-                dialog.Filter = LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "SaveToWordFilter");
+                dialog.Filter = LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "SaveToWordFilter");
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     ((GridView)this.MainView).ExportToRtf(dialog.FileName);
@@ -110,7 +110,7 @@ namespace Sunrise.ERP.Controls
             if (this.MainView != null)
             {
                 SaveFileDialog dialog = new SaveFileDialog();
-                dialog.Filter = LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "SaveToHtmlFilter");
+                dialog.Filter = LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "SaveToHtmlFilter");
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     ((GridView)this.MainView).ExportToHtml(dialog.FileName);
@@ -127,7 +127,7 @@ namespace Sunrise.ERP.Controls
             if (this.MainView != null)
             {
                 SaveFileDialog dialog = new SaveFileDialog();
-                dialog.Filter = LangCenter.Instance.GetControlLangInfo("BoyeeGridControl", "SaveToPdfFilter");
+                dialog.Filter = LangCenter.Instance.GetControlLangInfo("SunriseGridControl", "SaveToPdfFilter");
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     ((GridView)this.MainView).ExportToPdf(dialog.FileName);

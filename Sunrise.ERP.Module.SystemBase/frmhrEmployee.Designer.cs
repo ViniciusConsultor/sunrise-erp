@@ -42,7 +42,7 @@
             this.txtsPosition = new DevExpress.XtraEditors.TextEdit();
             this.detdCallTitleDate = new DevExpress.XtraEditors.DateEdit();
             this.txtsCallTitle = new DevExpress.XtraEditors.TextEdit();
-            this.lkpsEmpType = new Sunrise.ERP.Controls.BoyeeLookUp();
+            this.lkpsEmpType = new Sunrise.ERP.Controls.SunriseLookUp();
             this.detdInCompanyDate = new DevExpress.XtraEditors.DateEdit();
             this.cbxsIsInService = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtsEmpContractID = new DevExpress.XtraEditors.TextEdit();
@@ -65,8 +65,8 @@
             this.txtsPayMentID = new DevExpress.XtraEditors.TextEdit();
             this.txtsNativePlace = new DevExpress.XtraEditors.TextEdit();
             this.txtsInsureID = new DevExpress.XtraEditors.TextEdit();
-            this.lkpsResidenceType = new Sunrise.ERP.Controls.BoyeeLookUp();
-            this.lkpsDeptID = new Sunrise.ERP.Controls.BoyeeLookUp();
+            this.lkpsResidenceType = new Sunrise.ERP.Controls.SunriseLookUp();
+            this.lkpsDeptID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.cbxsSex = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtsEmpNo = new DevExpress.XtraEditors.TextEdit();
             this.txtsEmpEName = new DevExpress.XtraEditors.TextEdit();
@@ -121,7 +121,7 @@
             this.layoutControlItem40 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem41 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem42 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.gcMain = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsEmpNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsEmpCName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -1580,7 +1580,7 @@
 
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcMain;
+        private Sunrise.ERP.Controls.SunriseGridControl gcMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
         private DevExpress.XtraEditors.TextEdit txtsEmpEName;
         private DevExpress.XtraEditors.TextEdit txtsEmpCName;
@@ -1591,8 +1591,8 @@
         private DevExpress.XtraEditors.TextEdit txtsPayMentID;
         private DevExpress.XtraEditors.TextEdit txtsNativePlace;
         private DevExpress.XtraEditors.TextEdit txtsInsureID;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpsResidenceType;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpsDeptID;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpsResidenceType;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpsDeptID;
         private DevExpress.XtraLayout.TabbedControlGroup tabbedControlGroup1;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
@@ -1638,7 +1638,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem24;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem25;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpsEmpType;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpsEmpType;
         private DevExpress.XtraEditors.DateEdit detdInCompanyDate;
         private DevExpress.XtraEditors.ComboBoxEdit cbxsIsInService;
         private DevExpress.XtraEditors.TextEdit txtsEmpContractID;

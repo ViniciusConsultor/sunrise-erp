@@ -30,7 +30,7 @@
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.txtsRemark = new DevExpress.XtraEditors.MemoEdit();
-            this.lkpsSupplierTypeID = new Sunrise.ERP.Controls.BoyeeLookUp();
+            this.lkpsSupplierTypeID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.txtsBankAccount = new DevExpress.XtraEditors.TextEdit();
             this.txtsContactMobile = new DevExpress.XtraEditors.TextEdit();
             this.txtsContactMan = new DevExpress.XtraEditors.TextEdit();
@@ -81,13 +81,13 @@
             this.btnDetailCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnDetailDelete = new DevExpress.XtraEditors.SimpleButton();
             this.btnDetailAdd = new DevExpress.XtraEditors.SimpleButton();
-            this.gcMain = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsSupplierID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsSupplierSName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsSupplierCName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tpLink = new DevExpress.XtraTab.XtraTabPage();
-            this.gcDetail = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcDetail = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsContactManName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsFunction = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -1130,11 +1130,11 @@
         protected DevExpress.XtraEditors.SimpleButton btnDetailCancel;
         protected DevExpress.XtraEditors.SimpleButton btnDetailDelete;
         protected DevExpress.XtraEditors.SimpleButton btnDetailAdd;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcMain;
+        private Sunrise.ERP.Controls.SunriseGridControl gcMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
         private DevExpress.XtraTab.XtraTabControl tcDetail;
         private DevExpress.XtraTab.XtraTabPage tpLink;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcDetail;
+        private Sunrise.ERP.Controls.SunriseGridControl gcDetail;
         private DevExpress.XtraGrid.Views.Grid.GridView gvDetail;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit colbtnsCurrency;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
@@ -1149,7 +1149,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem19;
         private DevExpress.XtraEditors.TextEdit txtsBankAccount;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem20;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpsSupplierTypeID;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpsSupplierTypeID;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem21;
         private DevExpress.XtraGrid.Columns.GridColumn colsSupplierID;
         private DevExpress.XtraGrid.Columns.GridColumn colsSupplierSName;

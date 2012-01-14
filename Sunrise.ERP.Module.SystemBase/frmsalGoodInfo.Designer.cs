@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gcMain = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsGoodID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsGoodCName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -38,9 +38,9 @@
             this.colsShopCName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.chkbIsStop = new DevExpress.XtraEditors.CheckEdit();
-            this.lkpsShopID = new Sunrise.ERP.Controls.BoyeeLookUp();
-            this.lkpsGoodTypeID = new Sunrise.ERP.Controls.BoyeeLookUp();
-            this.lkpsUnitID = new Sunrise.ERP.Controls.BoyeeLookUp();
+            this.lkpsShopID = new Sunrise.ERP.Controls.SunriseLookUp();
+            this.lkpsGoodTypeID = new Sunrise.ERP.Controls.SunriseLookUp();
+            this.lkpsUnitID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.txtsRemark = new DevExpress.XtraEditors.MemoEdit();
             this.txtsGoodID = new DevExpress.XtraEditors.TextEdit();
             this.txtsGoodCName = new DevExpress.XtraEditors.TextEdit();
@@ -63,7 +63,7 @@
             this.btnDetailAdd = new DevExpress.XtraEditors.SimpleButton();
             this.tcDetail = new DevExpress.XtraTab.XtraTabControl();
             this.tpPrice = new DevExpress.XtraTab.XtraTabPage();
-            this.gcDetail = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcDetail = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.coliSort = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colfBasePrice = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -787,7 +787,7 @@
 
         #endregion
 
-        private Sunrise.ERP.Controls.BoyeeGridControl gcMain;
+        private Sunrise.ERP.Controls.SunriseGridControl gcMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
         private DevExpress.XtraEditors.MemoEdit txtsRemark;
@@ -808,15 +808,15 @@
         protected DevExpress.XtraEditors.SimpleButton btnDetailAdd;
         private DevExpress.XtraTab.XtraTabControl tcDetail;
         private DevExpress.XtraTab.XtraTabPage tpPrice;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcDetail;
+        private Sunrise.ERP.Controls.SunriseGridControl gcDetail;
         private DevExpress.XtraGrid.Views.Grid.GridView gvDetail;
         private DevExpress.XtraGrid.Columns.GridColumn colsRemark;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit colbtnsCurrency;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpsUnitID;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpsUnitID;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpsShopID;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpsGoodTypeID;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpsShopID;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpsGoodTypeID;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraEditors.CheckEdit chkbIsStop;

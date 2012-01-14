@@ -31,11 +31,11 @@
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.chkbIsLock = new DevExpress.XtraEditors.CheckEdit();
             this.cbxUserType = new DevExpress.XtraEditors.ImageComboBoxEdit();
-            this.lkpParantID = new Sunrise.ERP.Controls.BoyeeLookUp();
+            this.lkpParantID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.txtsUserEName = new DevExpress.XtraEditors.TextEdit();
             this.txtsUserCName = new DevExpress.XtraEditors.TextEdit();
             this.txtsPassword = new DevExpress.XtraEditors.TextEdit();
-            this.lkpsUserID = new Sunrise.ERP.Controls.BoyeeLookUp();
+            this.lkpsUserID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.txtsRemark = new DevExpress.XtraEditors.MemoEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.tabbedControlGroup1 = new DevExpress.XtraLayout.TabbedControlGroup();
@@ -48,7 +48,7 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.gcMain = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsUserID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsUserCName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -546,7 +546,7 @@
 
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
         private DevExpress.XtraEditors.TextEdit txtsPassword;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpsUserID;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpsUserID;
         private DevExpress.XtraEditors.MemoEdit txtsRemark;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.TabbedControlGroup tabbedControlGroup1;
@@ -556,7 +556,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
         private DevExpress.XtraEditors.CheckEdit chkbIsLock;
         private DevExpress.XtraEditors.ImageComboBoxEdit cbxUserType;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpParantID;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpParantID;
         private DevExpress.XtraEditors.TextEdit txtsUserEName;
         private DevExpress.XtraEditors.TextEdit txtsUserCName;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
@@ -564,7 +564,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcMain;
+        private Sunrise.ERP.Controls.SunriseGridControl gcMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
         private DevExpress.XtraGrid.Columns.GridColumn colsUserID;
         private DevExpress.XtraGrid.Columns.GridColumn colsUserCName;

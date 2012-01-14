@@ -23,7 +23,7 @@ namespace Sunrise.ERP.Common
         /// <param name="columnfield">查询窗口Grid显示列</param>
         /// <param name="columntetx">查询窗口Grid列显示名称</param>
         /// <param name="text">查询窗体标题</param>
-        public static void InitLookUpBase(Sunrise.ERP.Controls.BoyeeLookUp lkp, string sql, string returnfield, string displayfield, string columnfield, string columntetx, string text)
+        public static void InitLookUpBase(Sunrise.ERP.Controls.SunriseLookUp lkp, string sql, string returnfield, string displayfield, string columnfield, string columntetx, string text)
         {
             lkp.SearchFormText = text;
             lkp.SQL = sql;
@@ -37,7 +37,7 @@ namespace Sunrise.ERP.Common
         ///初始化员工查询 
         /// </summary>
         /// <param name="lkp">LookUp控件</param>
-        public static void InitLkpSystemUser(Sunrise.ERP.Controls.BoyeeLookUp lkp)
+        public static void InitLkpSystemUser(Sunrise.ERP.Controls.SunriseLookUp lkp)
         {
             InitLookUpBase(lkp, "SELECT ID,sUserID,sUserCName,sUserEName,sDeptNo,sDeptName,sRemark FROM vwsysUser WHERE bIsLock=0", "ID", "sUserCName", "sUserID,sUserCName,sUserEName,sDeptName,sRemark",
                            "用户编号,中文名,英文名,部门,备注", "员工信息");
@@ -48,7 +48,7 @@ namespace Sunrise.ERP.Common
         /// </summary>
         /// <param name="lkp">LookUp控件</param>
         /// <param name="sReturnField">设置返回字段</param>
-        public static void InitLkpSystemUser(Sunrise.ERP.Controls.BoyeeLookUp lkp,string sReturnField)
+        public static void InitLkpSystemUser(Sunrise.ERP.Controls.SunriseLookUp lkp,string sReturnField)
         {
             InitLookUpBase(lkp, "SELECT ID,sUserID,sUserCName,sUserEName,sDeptNo,sDeptName,sRemark FROM vwsysUser WHERE bIsLock=0", sReturnField, "sUserCName", "sUserID,sUserCName,sUserEName,sDeptName,sRemark",
                            "用户编号,中文名,英文名,部门,备注", "员工信息");
@@ -58,7 +58,7 @@ namespace Sunrise.ERP.Common
         ///初始用户部门查询 
         /// </summary>
         /// <param name="lkp">LookUp控件</param>
-        public static void InitLkpDept(Sunrise.ERP.Controls.BoyeeLookUp lkp)
+        public static void InitLkpDept(Sunrise.ERP.Controls.SunriseLookUp lkp)
         {
             InitLookUpBase(lkp, "SELECT ID,sDeptNo, sDeptName, sDeptEName, sRemark FROM hrDepartment", "ID", "sDeptName", "sDeptNo,sDeptName,sDeptEName,sRemark",
                            "部门编号,中文名称,英文名称,备注", "部门信息");
@@ -69,7 +69,7 @@ namespace Sunrise.ERP.Common
         /// </summary>
         /// <param name="lkp">LookUp控件</param>
         /// <param name="sdictcategoryno">数据编号</param>
-        public static void InitLkpDataDict(Sunrise.ERP.Controls.BoyeeLookUp lkp, string sdictcategoryno)
+        public static void InitLkpDataDict(Sunrise.ERP.Controls.SunriseLookUp lkp, string sdictcategoryno)
         {
             string sText = Sunrise.ERP.DataAccess.DbHelperSQL.GetSingle("SELECT sDictCategoryCName FROM basDataDictMaster WHERE sDictCategoryNo='" + sdictcategoryno + "'").ToString();
             InitLookUpBase(lkp, "SELECT sDictDataNo,sDictDataCName,sDictDataEName,sRemark FROM vwbasDataDictDetail WHERE bIsStop=0 AND sDictCategoryNo='" + sdictcategoryno + "'",
@@ -80,7 +80,7 @@ namespace Sunrise.ERP.Common
         /// 选择币别
         /// </summary>
         /// <param name="lkp">LookUp控件</param>
-        public static void InitLkpCurrency(Sunrise.ERP.Controls.BoyeeLookUp lkp)
+        public static void InitLkpCurrency(Sunrise.ERP.Controls.SunriseLookUp lkp)
         {
             InitLookUpBase(lkp, "SELECT sCurrencyID,sCurrencyCName,fExchangeRate,sRemark FROM basCurrency", 
                 "sCurrencyID", "sCurrencyCName", "sCurrencyID,sCurrencyCName,fExchangeRate,sRemark", "编号,币别名称,英文名称,汇率,备注", "币别");
@@ -90,7 +90,7 @@ namespace Sunrise.ERP.Common
         /// 选择单据
         /// </summary>
         /// <param name="lkp">LookUp控件</param>
-        public static void InitLkpFormID(Sunrise.ERP.Controls.BoyeeLookUp lkp)
+        public static void InitLkpFormID(Sunrise.ERP.Controls.SunriseLookUp lkp)
         {
             InitLookUpBase(lkp, "SELECT TOP 100 PERCENT iFormID,sMenuName FROM sysMenu WHERE iFormID<>0 ORDER BY iSort", 
                 "iFormID", "sMenuName", "iFormID,sMenuName", "FormID,模块名称", "单据");
@@ -100,7 +100,7 @@ namespace Sunrise.ERP.Common
         /// 选择门店信息
         /// </summary>
         /// <param name="lkp">LookUp控件</param>
-        public static void InitLkpShopID(Sunrise.ERP.Controls.BoyeeLookUp lkp)
+        public static void InitLkpShopID(Sunrise.ERP.Controls.SunriseLookUp lkp)
         {
             InitLookUpBase(lkp, "SELECT sShopID,sShopCName,sShopEName,sRemark FROM hrCompanyShopInfo", 
                 "sShopID", "sShopCName", "sShopID,sShopCName,sShopEName,sRemark", "门店编号,门店名称,英文名称,备注", "门店");
@@ -110,7 +110,7 @@ namespace Sunrise.ERP.Common
         /// 选择供应商
         /// </summary>
         /// <param name="lkp">LookUp控件</param>
-        public static void InitLkpSupplier(Sunrise.ERP.Controls.BoyeeLookUp lkp)
+        public static void InitLkpSupplier(Sunrise.ERP.Controls.SunriseLookUp lkp)
         {
             InitLookUpBase(lkp, "SELECT ID,sSupplierID,sSupplierSName,sSupplierCName,sSupplierEName,sSupplierTypeName FROM vwbasSupplierMaster",
                 "ID", "sSupplierSName", "sSupplierID,sSupplierSName,sSupplierCName,sSupplierEName,sSupplierTypeName",
@@ -122,7 +122,7 @@ namespace Sunrise.ERP.Common
         /// </summary>
         /// <param name="lkp">LookUp控件</param>
         /// <param name="sReturnField">设置返回字段</param>
-        public static void InitLkpSupplier(Sunrise.ERP.Controls.BoyeeLookUp lkp,string sReturnField)
+        public static void InitLkpSupplier(Sunrise.ERP.Controls.SunriseLookUp lkp,string sReturnField)
         {
             InitLookUpBase(lkp, "SELECT ID,sSupplierID,sSupplierSName,sSupplierCName,sSupplierEName,sSupplierTypeName FROM vwbasSupplierMaster",
                 sReturnField, "sSupplierSName", "sSupplierID,sSupplierSName,sSupplierCName,sSupplierEName,sSupplierTypeName",
@@ -133,7 +133,7 @@ namespace Sunrise.ERP.Common
         /// 选择商品信息
         /// </summary>
         /// <param name="lkp"></param>
-        public static void InitLkpGoodInfo(Sunrise.ERP.Controls.BoyeeLookUp lkp)
+        public static void InitLkpGoodInfo(Sunrise.ERP.Controls.SunriseLookUp lkp)
         {
             InitLookUpBase(lkp, "SELECT ID,sGoodID,sGoodCName,sGoodEName,sGoodTypeID,sUnitID,sShopID,sGoodTypeName,sUnitCName,sShopCName,ISNULL(fBasePrice,0) AS fBasePrice,ISNULL(fSalePrice,0) AS fSalePrice,dPriceDate FROM vwsalGoodInfoMasterView",
                 "sGoodID", "sGoodCName", "sGoodID,sGoodCName,sGoodEName,sGoodTypeName,sUnitCName,sShopCName,fBasePrice,fSalePrice,dPriceDate", 
@@ -143,7 +143,7 @@ namespace Sunrise.ERP.Common
         /// 选择单据状态
         /// </summary>
         /// <param name="lkp"></param>
-        public static void InitLkpFlag(Sunrise.ERP.Controls.BoyeeLookUp lkp)
+        public static void InitLkpFlag(Sunrise.ERP.Controls.SunriseLookUp lkp)
         {
             InitLookUpBase(lkp, "SELECT ID,iFlag,sFlagName FROM basBillState", "iFlag", "sFlagName", "iFlag,sFlagName",
                 "状态值,状态", "单据状态");
@@ -152,7 +152,7 @@ namespace Sunrise.ERP.Common
         /// 从库存中选择商品
         /// </summary>
         /// <param name="lkp"></param>
-        public static void InitLkpGoodInfoFromStock(Sunrise.ERP.Controls.BoyeeLookUp lkp)
+        public static void InitLkpGoodInfoFromStock(Sunrise.ERP.Controls.SunriseLookUp lkp)
         {
             string sSql = "SELECT sGoodID,sSpec,fBasePrice,fSalePrice,fQuantity,sGoodCName,sGoodEName,sGoodTypeID, "
                                 + "sUnitID,sShopID,sGoodTypeName,sShopCName,sUnitName "

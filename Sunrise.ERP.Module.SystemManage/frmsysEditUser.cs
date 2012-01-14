@@ -45,7 +45,7 @@ namespace Sunrise.ERP.Module.SystemManage
 
         private void frmsysEditUser_Load(object sender, EventArgs e)
         {
-            lkpsUserID.LookUpAfterPost += new Sunrise.ERP.Controls.BoyeeLookUp.BoyeeLookUpEvent(lkpsUserID_LookUpAfterPost);
+            lkpsUserID.LookUpAfterPost += new Sunrise.ERP.Controls.SunriseLookUp.SunriseLookUpEvent(lkpsUserID_LookUpAfterPost);
         }
 
         bool lkpsUserID_LookUpAfterPost(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)

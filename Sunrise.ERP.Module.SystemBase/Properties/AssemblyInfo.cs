@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Sunrise.ERP.Module.SystemBase")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Belself WorkingRoom Studio")]
+[assembly: AssemblyCompany("Sunrise Inc")]
 [assembly: AssemblyProduct("Sunrise.ERP.Module.SystemBase")]
-[assembly: AssemblyCopyright("Copyright © Belself WorkingRoom Studio 2010")]
+[assembly: AssemblyCopyright("Copyright © Sunrise Inc 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

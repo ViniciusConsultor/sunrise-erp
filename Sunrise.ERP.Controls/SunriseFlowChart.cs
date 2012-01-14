@@ -16,12 +16,12 @@ using Sunrise.ERP.Lang;
 namespace Sunrise.ERP.Controls
 {
     [Serializable]
-    public partial class BoyeeFlowChart : DevExpress.XtraEditors.XtraUserControl
+    public partial class SunriseFlowChart : DevExpress.XtraEditors.XtraUserControl
     {
         /// <summary>
         /// Sunrise流程图
         /// </summary>
-        public BoyeeFlowChart()
+        public SunriseFlowChart()
         {
             InitializeComponent();
         }
@@ -364,7 +364,7 @@ namespace Sunrise.ERP.Controls
         public void AddFlowChartItem(Rectangle rect)
         {
             FlowChartItem item = new FlowChartItem();
-            item.Name = LangCenter.Instance.GetControlLangInfo("BoyeeFlowChart", "NewChart") + (_FlowChartItem.Count + 1).ToString();
+            item.Name = LangCenter.Instance.GetControlLangInfo("SunriseFlowChart", "NewChart") + (_FlowChartItem.Count + 1).ToString();
             item.Rect = rect;
             AddFlowChartItem(item);
         }
@@ -672,7 +672,7 @@ namespace Sunrise.ERP.Controls
         }
 
 
-        private void BoyeeFlowChart_Paint(object sender, PaintEventArgs e)
+        private void SunriseFlowChart_Paint(object sender, PaintEventArgs e)
         {
             List<FlowChartItem> list = _FlowChartItem.OrderBy(o => o.Level).ToList();
             foreach (var o in list)
@@ -764,13 +764,13 @@ namespace Sunrise.ERP.Controls
                 e.Graphics.DrawLine(pen, item.LineHead, item.LineFoot);
             }
         }
-        private void BoyeeFlowChart_Load(object sender, EventArgs e)
+        private void SunriseFlowChart_Load(object sender, EventArgs e)
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
         }
 
 
-        private void BoyeeFlowChart_MouseMove(object sender, MouseEventArgs e)
+        private void SunriseFlowChart_MouseMove(object sender, MouseEventArgs e)
         {
             IsOnClickEventHander = false;
 
@@ -1116,7 +1116,7 @@ namespace Sunrise.ERP.Controls
         }
 
 
-        private void BoyeeFlowChart_MouseDown(object sender, MouseEventArgs e)
+        private void SunriseFlowChart_MouseDown(object sender, MouseEventArgs e)
         {
             //if (e.Button == MouseButtons.Left)
             //{
@@ -1280,7 +1280,7 @@ namespace Sunrise.ERP.Controls
                 DeleteLine(_CurrentLine.LineName);
             }
         }
-        private void BoyeeFlowChart_Click(object sender, EventArgs e)
+        private void SunriseFlowChart_Click(object sender, EventArgs e)
         {
             if (OnItemClick != null && _CurrentItem != null && IsOnClickEventHander && ((MouseEventArgs)e).Button == MouseButtons.Left)
             {

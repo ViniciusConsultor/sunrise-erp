@@ -1,6 +1,6 @@
 ﻿namespace Sunrise.ERP.Controls
 {
-    partial class BoyeeGridControl
+    partial class SunriseGridControl
     {
         /// <summary> 
         /// Required designer variable.

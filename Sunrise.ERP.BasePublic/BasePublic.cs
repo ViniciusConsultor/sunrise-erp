@@ -108,9 +108,9 @@ namespace Sunrise.ERP.BasePublic
                     {
                         ((DevExpress.XtraEditors.ImageListBoxControl)ctl).Enabled = isreadonly;
                     }
-                    else if (ctl is Sunrise.ERP.Controls.BoyeeLookUp)
+                    else if (ctl is Sunrise.ERP.Controls.SunriseLookUp)
                     {
-                        ((Sunrise.ERP.Controls.BoyeeLookUp)ctl).IsReadOnly = !isreadonly;
+                        ((Sunrise.ERP.Controls.SunriseLookUp)ctl).IsReadOnly = !isreadonly;
                     }
                     //TextEdit
                     else if (ctl is DevExpress.XtraEditors.TextEdit)
@@ -175,7 +175,7 @@ namespace Sunrise.ERP.BasePublic
                 {
                     if (ctl.Tag == null || ctl.Tag.ToString() != "99")
                     {
-                        if (ctl is Sunrise.ERP.Controls.BoyeeLookUp && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
+                        if (ctl is Sunrise.ERP.Controls.SunriseLookUp && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {

@@ -39,7 +39,7 @@
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
             this.tbDetail = new DevExpress.XtraTab.XtraTabControl();
             this.tpDetail = new DevExpress.XtraTab.XtraTabPage();
-            this.gcSearch = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcSearch = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvSearch = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tpChart = new DevExpress.XtraTab.XtraTabPage();
             this.chtMain = new DevExpress.XtraCharts.ChartControl();
@@ -339,7 +339,7 @@
         private DevExpress.XtraTab.XtraTabPage tpChart;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraCharts.ChartControl chtMain;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcSearch;
+        private Sunrise.ERP.Controls.SunriseGridControl gcSearch;
         private DevExpress.XtraGrid.Views.Grid.GridView gvSearch;
         private DevExpress.XtraEditors.GroupControl grbGroup;
         private DevExpress.XtraEditors.LabelControl lbltype;

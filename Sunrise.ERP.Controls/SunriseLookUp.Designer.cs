@@ -1,6 +1,6 @@
 ﻿namespace Sunrise.ERP.Controls
 {
-    partial class BoyeeLookUp
+    partial class SunriseLookUp
     {
         /// <summary> 
         /// Required designer variable.
@@ -59,17 +59,17 @@
             this.txtValueText.Visible = false;
             this.txtValueText.TextChanged += new System.EventHandler(this.txtValueText_TextChanged);
             // 
-            // BoyeeLookUp
+            // SunriseLookUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.txtValueText);
             this.Controls.Add(this.txtDisplayText);
-            this.Name = "BoyeeLookUp";
+            this.Name = "SunriseLookUp";
             this.Size = new System.Drawing.Size(132, 24);
-            this.Load += new System.EventHandler(this.BoyeeLookUp_Load);
-            this.SizeChanged += new System.EventHandler(this.BoyeeLookUp_SizeChanged);
+            this.Load += new System.EventHandler(this.SunriseLookUp_Load);
+            this.SizeChanged += new System.EventHandler(this.SunriseLookUp_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.txtDisplayText.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtValueText.Properties)).EndInit();
             this.ResumeLayout(false);

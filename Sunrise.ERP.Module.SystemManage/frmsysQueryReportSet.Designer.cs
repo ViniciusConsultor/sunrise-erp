@@ -34,7 +34,7 @@
             DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
-            this.gcMain = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsReportNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsReportName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -76,7 +76,7 @@
             this.btnDetailAdd = new DevExpress.XtraEditors.SimpleButton();
             this.tcDetail = new DevExpress.XtraTab.XtraTabControl();
             this.tpDetail = new DevExpress.XtraTab.XtraTabPage();
-            this.gcDetail = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcDetail = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.coliSort = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsColumnFieldName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -99,8 +99,8 @@
             this.colbtnsGoodID = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.lkpsGoodID = new Sunrise.ERP.Controls.BoyeeLookUp();
-            this.lkpFlag = new Sunrise.ERP.Controls.BoyeeLookUp();
+            this.lkpsGoodID = new Sunrise.ERP.Controls.SunriseLookUp();
+            this.lkpFlag = new Sunrise.ERP.Controls.SunriseLookUp();
             this.btnPreview = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
@@ -1140,7 +1140,7 @@
 
         #endregion
 
-        private Sunrise.ERP.Controls.BoyeeGridControl gcMain;
+        private Sunrise.ERP.Controls.SunriseGridControl gcMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
         private DevExpress.XtraGrid.Columns.GridColumn colsReportNo;
         private DevExpress.XtraGrid.Columns.GridColumn colsReportName;
@@ -1182,13 +1182,13 @@
         protected DevExpress.XtraEditors.SimpleButton btnDetailAdd;
         private DevExpress.XtraTab.XtraTabControl tcDetail;
         private DevExpress.XtraTab.XtraTabPage tpDetail;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcDetail;
+        private Sunrise.ERP.Controls.SunriseGridControl gcDetail;
         private DevExpress.XtraGrid.Views.Grid.GridView gvDetail;
         private DevExpress.XtraGrid.Columns.GridColumn coliSort;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit colbtnsGoodID;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpsGoodID;
-        private Sunrise.ERP.Controls.BoyeeLookUp lkpFlag;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpsGoodID;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpFlag;
         private DevExpress.XtraGrid.Columns.GridColumn colsColumnFieldName;
         private DevExpress.XtraGrid.Columns.GridColumn colsColumnCaption;
         private DevExpress.XtraGrid.Columns.GridColumn colsColumnType;

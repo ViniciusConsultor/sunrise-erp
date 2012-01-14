@@ -40,7 +40,7 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.gcMain = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsDictCategoryNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsDictCategoryCName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -50,7 +50,7 @@
             this.btnDetailCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnDetailDelete = new DevExpress.XtraEditors.SimpleButton();
             this.btnDetailAdd = new DevExpress.XtraEditors.SimpleButton();
-            this.gcDetail = new Sunrise.ERP.Controls.BoyeeGridControl();
+            this.gcDetail = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsDictDataNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsDictDataCName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -556,14 +556,14 @@
         #endregion
 
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcMain;
+        private Sunrise.ERP.Controls.SunriseGridControl gcMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
         protected DevExpress.XtraEditors.PanelControl pnlDetailMenu;
         protected DevExpress.XtraEditors.SimpleButton btnDetailCopy;
         protected DevExpress.XtraEditors.SimpleButton btnDetailCancel;
         protected DevExpress.XtraEditors.SimpleButton btnDetailDelete;
         protected DevExpress.XtraEditors.SimpleButton btnDetailAdd;
-        private Sunrise.ERP.Controls.BoyeeGridControl gcDetail;
+        private Sunrise.ERP.Controls.SunriseGridControl gcDetail;
         private DevExpress.XtraGrid.Views.Grid.GridView gvDetail;
         private DevExpress.XtraGrid.Columns.GridColumn colsDictCategoryNo;
         private DevExpress.XtraGrid.Columns.GridColumn colsDictCategoryCName;
