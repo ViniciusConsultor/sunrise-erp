@@ -22,7 +22,7 @@ namespace Sunrise.ERP.Module.SystemManage
         Sunrise.ERP.Report.InitReport report;
 
         public frmsysSecurityManage(int formid, string formtext)
-            : base(formid, "Sunrise.ERP.SystemModule.DAL", "sysRolesDAL")
+            : base(formid, "Sunrise.ERP.SystemManage.DAL", "sysRolesDAL")
         {
             InitializeComponent();
             if (formtext != "")

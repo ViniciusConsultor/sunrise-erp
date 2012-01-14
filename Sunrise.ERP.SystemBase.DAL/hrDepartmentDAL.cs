@@ -1,8 +1,8 @@
 ﻿//-------------------------------------------------------------------------------------------
 //Name:             Sunrise.ERP.DAL
-//Description:      salGoodInfoMasterDAL
+//Description:      hrDepartmentDAL
 //Create by:        自动生成
-//Create Date:      2010-12-13 23:02:46
+//Create Date:      2010-11-14 15:00:09
 //Modify by：              Modify Date：               Description：
 //-------------------------------------------------------------------------------------------
 using System;
@@ -12,14 +12,14 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Sunrise.ERP.DataAccess;
-namespace Sunrise.ERP.SystemModule.DAL
+namespace Sunrise.ERP.SystemBase.DAL
 {
     /// <summary>
-    /// 数据访问类salGoodInfoMasterDAL
+    /// 数据访问类hrDepartmentDAL
     /// </summary>
-    public class salGoodInfoMasterDAL
+    public class hrDepartmentDAL
     {
-        public salGoodInfoMasterDAL()
+        public hrDepartmentDAL()
         { }
         #region  成员方法
         /// <summary>
@@ -28,7 +28,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         public bool Exists(int ID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT COUNT(1) FROM salGoodInfoMaster");
+            strSql.Append("SELECT COUNT(1) FROM hrDepartment");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -44,32 +44,24 @@ namespace Sunrise.ERP.SystemModule.DAL
         public int Add(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("INSERT INTO salGoodInfoMaster(");
-            strSql.Append("sGoodID,sGoodCName,sGoodEName,sGoodTypeID,sUnitID,sShopID,sRemark,bIsStop,iFlag,sUserID)");
+            strSql.Append("INSERT INTO hrDepartment(");
+            strSql.Append("iCompanyID,sDeptNo,sDeptName,sDeptEName,sRemark,sUserID)");
             strSql.Append(" VALUES (");
-            strSql.Append("@sGoodID,@sGoodCName,@sGoodEName,@sGoodTypeID,@sUnitID,@sShopID,@sRemark,@bIsStop,@iFlag,@sUserID)");
+            strSql.Append("@iCompanyID,@sDeptNo,@sDeptName,@sDeptEName,@sRemark,@sUserID)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
-					new SqlParameter("@sGoodID", SqlDbType.VarChar,50),
-					new SqlParameter("@sGoodCName", SqlDbType.VarChar,50),
-					new SqlParameter("@sGoodEName", SqlDbType.VarChar,50),
-					new SqlParameter("@sGoodTypeID", SqlDbType.VarChar,30),
-					new SqlParameter("@sUnitID", SqlDbType.VarChar,30),
-					new SqlParameter("@sShopID", SqlDbType.VarChar,30),
-					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
-					new SqlParameter("@bIsStop", SqlDbType.Bit,1),
-					new SqlParameter("@iFlag", SqlDbType.Int,4),
+					new SqlParameter("@iCompanyID", SqlDbType.Int,4),
+					new SqlParameter("@sDeptNo", SqlDbType.VarChar,30),
+					new SqlParameter("@sDeptName", SqlDbType.VarChar,50),
+					new SqlParameter("@sDeptEName", SqlDbType.VarChar,50),
+					new SqlParameter("@sRemark", SqlDbType.VarChar,500),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
-            parameters[0].Value = dr["sGoodID"];
-            parameters[1].Value = dr["sGoodCName"];
-            parameters[2].Value = dr["sGoodEName"];
-            parameters[3].Value = dr["sGoodTypeID"];
-            parameters[4].Value = dr["sUnitID"];
-            parameters[5].Value = dr["sShopID"];
-            parameters[6].Value = dr["sRemark"];
-            parameters[7].Value = dr["bIsStop"];
-            parameters[8].Value = dr["iFlag"];
-            parameters[9].Value = dr["sUserID"];
+            parameters[0].Value = dr["iCompanyID"];
+            parameters[1].Value = dr["sDeptNo"];
+            parameters[2].Value = dr["sDeptName"];
+            parameters[3].Value = dr["sDeptEName"];
+            parameters[4].Value = dr["sRemark"];
+            parameters[5].Value = dr["sUserID"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -87,41 +79,29 @@ namespace Sunrise.ERP.SystemModule.DAL
         public void Update(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("UPDATE salGoodInfoMaster SET ");
-            strSql.Append("sGoodID=@sGoodID,");
-            strSql.Append("sGoodCName=@sGoodCName,");
-            strSql.Append("sGoodEName=@sGoodEName,");
-            strSql.Append("sGoodTypeID=@sGoodTypeID,");
-            strSql.Append("sUnitID=@sUnitID,");
-            strSql.Append("sShopID=@sShopID,");
+            strSql.Append("UPDATE hrDepartment SET ");
+            strSql.Append("iCompanyID=@iCompanyID,");
+            strSql.Append("sDeptNo=@sDeptNo,");
+            strSql.Append("sDeptName=@sDeptName,");
+            strSql.Append("sDeptEName=@sDeptEName,");
             strSql.Append("sRemark=@sRemark,");
-            strSql.Append("bIsStop=@bIsStop,");
-            strSql.Append("iFlag=@iFlag,");
             strSql.Append("sUserID=@sUserID");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
-					new SqlParameter("@sGoodID", SqlDbType.VarChar,50),
-					new SqlParameter("@sGoodCName", SqlDbType.VarChar,50),
-					new SqlParameter("@sGoodEName", SqlDbType.VarChar,50),
-					new SqlParameter("@sGoodTypeID", SqlDbType.VarChar,30),
-					new SqlParameter("@sUnitID", SqlDbType.VarChar,30),
-					new SqlParameter("@sShopID", SqlDbType.VarChar,30),
-					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
-					new SqlParameter("@bIsStop", SqlDbType.Bit,1),
-					new SqlParameter("@iFlag", SqlDbType.Int,4),
+					new SqlParameter("@iCompanyID", SqlDbType.Int,4),
+					new SqlParameter("@sDeptNo", SqlDbType.VarChar,30),
+					new SqlParameter("@sDeptName", SqlDbType.VarChar,50),
+					new SqlParameter("@sDeptEName", SqlDbType.VarChar,50),
+					new SqlParameter("@sRemark", SqlDbType.VarChar,500),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
             parameters[0].Value = dr["ID"];
-            parameters[1].Value = dr["sGoodID"];
-            parameters[2].Value = dr["sGoodCName"];
-            parameters[3].Value = dr["sGoodEName"];
-            parameters[4].Value = dr["sGoodTypeID"];
-            parameters[5].Value = dr["sUnitID"];
-            parameters[6].Value = dr["sShopID"];
-            parameters[7].Value = dr["sRemark"];
-            parameters[8].Value = dr["bIsStop"];
-            parameters[9].Value = dr["iFlag"];
-            parameters[10].Value = dr["sUserID"];
+            parameters[1].Value = dr["iCompanyID"];
+            parameters[2].Value = dr["sDeptNo"];
+            parameters[3].Value = dr["sDeptName"];
+            parameters[4].Value = dr["sDeptEName"];
+            parameters[5].Value = dr["sRemark"];
+            parameters[6].Value = dr["sUserID"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }
@@ -133,7 +113,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("DELETE FROM salGoodInfoMaster ");
+            strSql.Append("DELETE FROM hrDepartment ");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -149,7 +129,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * ");
-            strSql.Append(" FROM vwsalGoodInfoMaster ");
+            strSql.Append(" FROM hrDepartment ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -168,7 +148,7 @@ namespace Sunrise.ERP.SystemModule.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM vwsalGoodInfoMaster ");
+            strSql.Append(" * FROM hrDepartment ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);

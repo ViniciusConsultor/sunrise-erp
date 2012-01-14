@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{32318D23-7376-4AF3-B8DA-A03BF1BD0390}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sunrise.ERP.SystemBase.DAL</RootNamespace>
+    <AssemblyName>Sunrise.ERP.SystemBase.DAL</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\SunriseERP\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="basDataDictDetailDAL.cs" />
+    <Compile Include="basDataDictMasterDAL.cs" />
+    <Compile Include="basSupplierDetailDAL.cs" />
+    <Compile Include="basSupplierMasterDAL.cs" />
+    <Compile Include="hrCompanyDetailDAL.cs" />
+    <Compile Include="hrCompanyMasterDAL.cs" />
+    <Compile Include="hrCompanyShopInfoDAL.cs" />
+    <Compile Include="hrDepartmentDAL.cs" />
+    <Compile Include="hrEmployeeDAL.cs" />
+    <Compile Include="salGoodInfoDetailDAL.cs" />
+    <Compile Include="salGoodInfoMasterDAL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sunrise.ERP.BaseControl\Sunrise.ERP.BaseControl.csproj">
+      <Project>{77AF6749-8A39-4EFD-9160-CDAC511D7233}</Project>
+      <Name>Sunrise.ERP.BaseControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.DataAccess\Sunrise.ERP.DataAccess.csproj">
+      <Project>{E30BB9FB-447C-4260-8ACB-0604DD729BFE}</Project>
+      <Name>Sunrise.ERP.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

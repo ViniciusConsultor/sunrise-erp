@@ -12,7 +12,7 @@ namespace Sunrise.ERP.Module.SystemBase
     {
         bool IsShowShopInfo = true;
         public frmhrCompany(int formid, string formtext)
-            : base(formid, "Sunrise.ERP.SystemModule.DAL", "hrCompanyMasterDAL", "AND 1=1", "sCompanyID")
+            : base(formid, "Sunrise.ERP.SystemBase.DAL", "hrCompanyMasterDAL", "AND 1=1", "sCompanyID")
         {
             InitializeComponent();
             if (formtext != "")

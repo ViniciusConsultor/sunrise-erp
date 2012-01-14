@@ -1,8 +1,8 @@
 ﻿//-------------------------------------------------------------------------------------------
 //Name:             Sunrise.ERP.DAL
-//Description:      sysUserDAL
+//Description:      basSupplierDetailDAL
 //Create by:        自动生成
-//Create Date:      2010-11-14 14:54:09
+//Create Date:      2010-12-12 23:42:04
 //Modify by：              Modify Date：               Description：
 //-------------------------------------------------------------------------------------------
 using System;
@@ -12,14 +12,14 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Sunrise.ERP.DataAccess;
-namespace Sunrise.ERP.SystemModule.DAL
+namespace Sunrise.ERP.SystemBase.DAL
 {
     /// <summary>
-    /// 数据访问类sysUserDAL
+    /// 数据访问类basSupplierDetailDAL
     /// </summary>
-    public class sysUserDAL
+    public class basSupplierDetailDAL
     {
-        public sysUserDAL()
+        public basSupplierDetailDAL()
         { }
         #region  成员方法
         /// <summary>
@@ -28,7 +28,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         public bool Exists(int ID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT COUNT(1) FROM sysUser");
+            strSql.Append("SELECT COUNT(1) FROM basSupplierDetail");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -44,32 +44,30 @@ namespace Sunrise.ERP.SystemModule.DAL
         public int Add(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("INSERT INTO sysUser(");
-            strSql.Append("sUserID,sUserCName,sUserEName,sPassword,ParentID,EmpID,iUserType,bIsLock,sRemark,iFlag)");
+            strSql.Append("INSERT INTO basSupplierDetail(");
+            strSql.Append("MainID,sContactManName,sFunction,sContactMobile,sContactPhone,sCompanyPhone,sEmail,sRemark,sUserID)");
             strSql.Append(" VALUES (");
-            strSql.Append("@sUserID,@sUserCName,@sUserEName,@sPassword,@ParentID,@EmpID,@iUserType,@bIsLock,@sRemark,@iFlag)");
+            strSql.Append("@MainID,@sContactManName,@sFunction,@sContactMobile,@sContactPhone,@sCompanyPhone,@sEmail,@sRemark,@sUserID)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
-					new SqlParameter("@sUserCName", SqlDbType.VarChar,50),
-					new SqlParameter("@sUserEName", SqlDbType.VarChar,50),
-					new SqlParameter("@sPassword", SqlDbType.VarChar,100),
-					new SqlParameter("@ParentID", SqlDbType.Int,4),
-					new SqlParameter("@EmpID", SqlDbType.Int,4),
-					new SqlParameter("@iUserType", SqlDbType.Int,4),
-					new SqlParameter("@bIsLock", SqlDbType.Bit,1),
-					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
-					new SqlParameter("@iFlag", SqlDbType.Int,4)};
-            parameters[0].Value = dr["sUserID"];
-            parameters[1].Value = dr["sUserCName"];
-            parameters[2].Value = dr["sUserEName"];
-            parameters[3].Value = dr["sPassword"];
-            parameters[4].Value = dr["ParentID"];
-            parameters[5].Value = dr["EmpID"];
-            parameters[6].Value = dr["iUserType"];
-            parameters[7].Value = dr["bIsLock"];
-            parameters[8].Value = dr["sRemark"];
-            parameters[9].Value = dr["iFlag"];
+					new SqlParameter("@MainID", SqlDbType.Int,4),
+					new SqlParameter("@sContactManName", SqlDbType.VarChar,20),
+					new SqlParameter("@sFunction", SqlDbType.VarChar,20),
+					new SqlParameter("@sContactMobile", SqlDbType.VarChar,20),
+					new SqlParameter("@sContactPhone", SqlDbType.VarChar,20),
+					new SqlParameter("@sCompanyPhone", SqlDbType.VarChar,20),
+					new SqlParameter("@sEmail", SqlDbType.VarChar,40),
+					new SqlParameter("@sRemark", SqlDbType.VarChar,100),
+					new SqlParameter("@sUserID", SqlDbType.VarChar,20)};
+            parameters[0].Value = dr["MainID"];
+            parameters[1].Value = dr["sContactManName"];
+            parameters[2].Value = dr["sFunction"];
+            parameters[3].Value = dr["sContactMobile"];
+            parameters[4].Value = dr["sContactPhone"];
+            parameters[5].Value = dr["sCompanyPhone"];
+            parameters[6].Value = dr["sEmail"];
+            parameters[7].Value = dr["sRemark"];
+            parameters[8].Value = dr["sUserID"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -87,41 +85,38 @@ namespace Sunrise.ERP.SystemModule.DAL
         public void Update(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("UPDATE sysUser SET ");
-            strSql.Append("sUserID=@sUserID,");
-            strSql.Append("sUserCName=@sUserCName,");
-            strSql.Append("sUserEName=@sUserEName,");
-            strSql.Append("sPassword=@sPassword,");
-            strSql.Append("ParentID=@ParentID,");
-            strSql.Append("EmpID=@EmpID,");
-            strSql.Append("iUserType=@iUserType,");
-            strSql.Append("bIsLock=@bIsLock,");
+            strSql.Append("UPDATE basSupplierDetail SET ");
+            strSql.Append("MainID=@MainID,");
+            strSql.Append("sContactManName=@sContactManName,");
+            strSql.Append("sFunction=@sFunction,");
+            strSql.Append("sContactMobile=@sContactMobile,");
+            strSql.Append("sContactPhone=@sContactPhone,");
+            strSql.Append("sCompanyPhone=@sCompanyPhone,");
+            strSql.Append("sEmail=@sEmail,");
             strSql.Append("sRemark=@sRemark,");
-            strSql.Append("iFlag=@iFlag");
+            strSql.Append("sUserID=@sUserID");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
-					new SqlParameter("@sUserCName", SqlDbType.VarChar,50),
-					new SqlParameter("@sUserEName", SqlDbType.VarChar,50),
-					new SqlParameter("@sPassword", SqlDbType.VarChar,100),
-					new SqlParameter("@ParentID", SqlDbType.Int,4),
-					new SqlParameter("@EmpID", SqlDbType.Int,4),
-					new SqlParameter("@iUserType", SqlDbType.Int,4),
-					new SqlParameter("@bIsLock", SqlDbType.Bit,1),
-					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
-					new SqlParameter("@iFlag", SqlDbType.Int,4)};
+					new SqlParameter("@MainID", SqlDbType.Int,4),
+					new SqlParameter("@sContactManName", SqlDbType.VarChar,20),
+					new SqlParameter("@sFunction", SqlDbType.VarChar,20),
+					new SqlParameter("@sContactMobile", SqlDbType.VarChar,20),
+					new SqlParameter("@sContactPhone", SqlDbType.VarChar,20),
+					new SqlParameter("@sCompanyPhone", SqlDbType.VarChar,20),
+					new SqlParameter("@sEmail", SqlDbType.VarChar,40),
+					new SqlParameter("@sRemark", SqlDbType.VarChar,100),
+					new SqlParameter("@sUserID", SqlDbType.VarChar,20)};
             parameters[0].Value = dr["ID"];
-            parameters[1].Value = dr["sUserID"];
-            parameters[2].Value = dr["sUserCName"];
-            parameters[3].Value = dr["sUserEName"];
-            parameters[4].Value = dr["sPassword"];
-            parameters[5].Value = dr["ParentID"];
-            parameters[6].Value = dr["EmpID"];
-            parameters[7].Value = dr["iUserType"];
-            parameters[8].Value = dr["bIsLock"];
-            parameters[9].Value = dr["sRemark"];
-            parameters[10].Value = dr["iFlag"];
+            parameters[1].Value = dr["MainID"];
+            parameters[2].Value = dr["sContactManName"];
+            parameters[3].Value = dr["sFunction"];
+            parameters[4].Value = dr["sContactMobile"];
+            parameters[5].Value = dr["sContactPhone"];
+            parameters[6].Value = dr["sCompanyPhone"];
+            parameters[7].Value = dr["sEmail"];
+            parameters[8].Value = dr["sRemark"];
+            parameters[9].Value = dr["sUserID"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }
@@ -133,7 +128,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("DELETE FROM sysUser ");
+            strSql.Append("DELETE FROM basSupplierDetail ");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -149,7 +144,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * ");
-            strSql.Append(" FROM vwsysUser ");
+            strSql.Append(" FROM basSupplierDetail ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -168,7 +163,7 @@ namespace Sunrise.ERP.SystemModule.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM vwsysUser ");
+            strSql.Append(" * FROM basSupplierDetail ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);

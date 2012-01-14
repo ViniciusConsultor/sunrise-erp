@@ -146,10 +146,6 @@
       <Project>{B063E5F9-4E6C-4CCE-90D9-97094DBEFD3C}</Project>
       <Name>Sunrise.ERP.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sunrise.ERP.DAL\Sunrise.ERP.SystemModule.DAL.csproj">
-      <Project>{F028F118-99CF-4C4D-90E0-8E81B05CE346}</Project>
-      <Name>Sunrise.ERP.SystemModule.DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sunrise.ERP.DataAccess\Sunrise.ERP.DataAccess.csproj">
       <Project>{E30BB9FB-447C-4260-8ACB-0604DD729BFE}</Project>
       <Name>Sunrise.ERP.DataAccess</Name>

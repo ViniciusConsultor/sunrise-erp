@@ -1,8 +1,8 @@
 ﻿//-------------------------------------------------------------------------------------------
 //Name:             Sunrise.ERP.DAL
-//Description:      salGoodInfoDetailDAL
+//Description:      sysBillNoSetDAL
 //Create by:        自动生成
-//Create Date:      2010-12-14 23:32:37
+//Create Date:      2010-11-21 17:42:41
 //Modify by：              Modify Date：               Description：
 //-------------------------------------------------------------------------------------------
 using System;
@@ -12,14 +12,14 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Sunrise.ERP.DataAccess;
-namespace Sunrise.ERP.SystemModule.DAL
+namespace Sunrise.ERP.SystemManage.DAL
 {
     /// <summary>
-    /// 数据访问类salGoodInfoDetailDAL
+    /// 数据访问类sysBillNoSetDAL
     /// </summary>
-    public class salGoodInfoDetailDAL
+    public class sysBillNoSetDAL
     {
-        public salGoodInfoDetailDAL()
+        public sysBillNoSetDAL()
         { }
         #region  成员方法
         /// <summary>
@@ -28,7 +28,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         public bool Exists(int ID)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("SELECT COUNT(1) FROM salGoodInfoDetail");
+            strSql.Append("SELECT COUNT(1) FROM sysBillNoSet");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -44,32 +44,28 @@ namespace Sunrise.ERP.SystemModule.DAL
         public int Add(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("INSERT INTO salGoodInfoDetail(");
-            strSql.Append("MainID,iSort,fBasePrice,fSupplierSalePrice,fDiscount,fSalePrice,bIsStop,dPriceDate,sRemark,sUserID)");
+            strSql.Append("INSERT INTO sysBillNoSet(");
+            strSql.Append("iFormID,sTableName,sFieldName,sDateType,sPrefix,sSerialType,iFlag,sUserID)");
             strSql.Append(" VALUES (");
-            strSql.Append("@MainID,@iSort,@fBasePrice,@fSupplierSalePrice,@fDiscount,@fSalePrice,@bIsStop,@dPriceDate,@sRemark,@sUserID)");
+            strSql.Append("@iFormID,@sTableName,@sFieldName,@sDateType,@sPrefix,@sSerialType,@iFlag,@sUserID)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
-					new SqlParameter("@MainID", SqlDbType.Int,4),
-					new SqlParameter("@iSort", SqlDbType.Int,4),
-					new SqlParameter("@fBasePrice", SqlDbType.Decimal,9),
-					new SqlParameter("@fSupplierSalePrice", SqlDbType.Decimal,9),
-					new SqlParameter("@fDiscount", SqlDbType.Decimal,9),
-					new SqlParameter("@fSalePrice", SqlDbType.Decimal,9),
-					new SqlParameter("@bIsStop", SqlDbType.Bit,1),
-					new SqlParameter("@dPriceDate", SqlDbType.DateTime),
-					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
+					new SqlParameter("@iFormID", SqlDbType.Int,4),
+					new SqlParameter("@sTableName", SqlDbType.VarChar,100),
+					new SqlParameter("@sFieldName", SqlDbType.VarChar,100),
+					new SqlParameter("@sDateType", SqlDbType.VarChar,50),
+					new SqlParameter("@sPrefix", SqlDbType.VarChar,50),
+					new SqlParameter("@sSerialType", SqlDbType.VarChar,50),
+					new SqlParameter("@iFlag", SqlDbType.Int,4),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
-            parameters[0].Value = dr["MainID"];
-            parameters[1].Value = dr["iSort"];
-            parameters[2].Value = dr["fBasePrice"];
-            parameters[3].Value = dr["fSupplierSalePrice"];
-            parameters[4].Value = dr["fDiscount"];
-            parameters[5].Value = dr["fSalePrice"];
-            parameters[6].Value = dr["bIsStop"];
-            parameters[7].Value = dr["dPriceDate"];
-            parameters[8].Value = dr["sRemark"];
-            parameters[9].Value = dr["sUserID"];
+            parameters[0].Value = dr["iFormID"];
+            parameters[1].Value = dr["sTableName"];
+            parameters[2].Value = dr["sFieldName"];
+            parameters[3].Value = dr["sDateType"];
+            parameters[4].Value = dr["sPrefix"];
+            parameters[5].Value = dr["sSerialType"];
+            parameters[6].Value = dr["iFlag"];
+            parameters[7].Value = dr["sUserID"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -87,41 +83,35 @@ namespace Sunrise.ERP.SystemModule.DAL
         public void Update(DataRow dr, SqlTransaction trans)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("UPDATE salGoodInfoDetail SET ");
-            strSql.Append("MainID=@MainID,");
-            strSql.Append("iSort=@iSort,");
-            strSql.Append("fBasePrice=@fBasePrice,");
-            strSql.Append("fSupplierSalePrice=@fSupplierSalePrice,");
-            strSql.Append("fDiscount=@fDiscount,");
-            strSql.Append("fSalePrice=@fSalePrice,");
-            strSql.Append("bIsStop=@bIsStop,");
-            strSql.Append("dPriceDate=@dPriceDate,");
-            strSql.Append("sRemark=@sRemark,");
+            strSql.Append("UPDATE sysBillNoSet SET ");
+            strSql.Append("iFormID=@iFormID,");
+            strSql.Append("sTableName=@sTableName,");
+            strSql.Append("sFieldName=@sFieldName,");
+            strSql.Append("sDateType=@sDateType,");
+            strSql.Append("sPrefix=@sPrefix,");
+            strSql.Append("sSerialType=@sSerialType,");
+            strSql.Append("iFlag=@iFlag,");
             strSql.Append("sUserID=@sUserID");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
-					new SqlParameter("@MainID", SqlDbType.Int,4),
-					new SqlParameter("@iSort", SqlDbType.Int,4),
-					new SqlParameter("@fBasePrice", SqlDbType.Decimal,9),
-					new SqlParameter("@fSupplierSalePrice", SqlDbType.Decimal,9),
-					new SqlParameter("@fDiscount", SqlDbType.Decimal,9),
-					new SqlParameter("@fSalePrice", SqlDbType.Decimal,9),
-					new SqlParameter("@bIsStop", SqlDbType.Bit,1),
-					new SqlParameter("@dPriceDate", SqlDbType.DateTime),
-					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
+					new SqlParameter("@iFormID", SqlDbType.Int,4),
+					new SqlParameter("@sTableName", SqlDbType.VarChar,100),
+					new SqlParameter("@sFieldName", SqlDbType.VarChar,100),
+					new SqlParameter("@sDateType", SqlDbType.VarChar,50),
+					new SqlParameter("@sPrefix", SqlDbType.VarChar,50),
+					new SqlParameter("@sSerialType", SqlDbType.VarChar,50),
+					new SqlParameter("@iFlag", SqlDbType.Int,4),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
             parameters[0].Value = dr["ID"];
-            parameters[1].Value = dr["MainID"];
-            parameters[2].Value = dr["iSort"];
-            parameters[3].Value = dr["fBasePrice"];
-            parameters[4].Value = dr["fSupplierSalePrice"];
-            parameters[5].Value = dr["fDiscount"];
-            parameters[6].Value = dr["fSalePrice"];
-            parameters[7].Value = dr["bIsStop"];
-            parameters[8].Value = dr["dPriceDate"];
-            parameters[9].Value = dr["sRemark"];
-            parameters[10].Value = dr["sUserID"];
+            parameters[1].Value = dr["iFormID"];
+            parameters[2].Value = dr["sTableName"];
+            parameters[3].Value = dr["sFieldName"];
+            parameters[4].Value = dr["sDateType"];
+            parameters[5].Value = dr["sPrefix"];
+            parameters[6].Value = dr["sSerialType"];
+            parameters[7].Value = dr["iFlag"];
+            parameters[8].Value = dr["sUserID"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }
@@ -133,7 +123,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("DELETE FROM salGoodInfoDetail ");
+            strSql.Append("DELETE FROM sysBillNoSet ");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4)};
@@ -149,7 +139,7 @@ namespace Sunrise.ERP.SystemModule.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * ");
-            strSql.Append(" FROM salGoodInfoDetail ");
+            strSql.Append(" FROM vwsysBillNoSet ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -168,7 +158,7 @@ namespace Sunrise.ERP.SystemModule.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM salGoodInfoDetail ");
+            strSql.Append(" * FROM vwsysBillNoSet ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);

@@ -11,7 +11,7 @@ namespace Sunrise.ERP.Module.SystemManage
     public partial class frmsysBillNoSet : Sunrise.ERP.BaseForm.frmSingleForm
     {
         public frmsysBillNoSet(int formid, string formtext)
-            : base(formid, "Sunrise.ERP.SystemModule.DAL", "sysBillNoSetDAL")
+            : base(formid, "Sunrise.ERP.SystemManage.DAL", "sysBillNoSetDAL")
         {
             InitializeComponent();
             lkpDateFormatStr.DataBindings.Add("EditValue", dsMain, "sDateType");

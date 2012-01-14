@@ -11,7 +11,7 @@ namespace Sunrise.ERP.Module.SystemManage
     public partial class frmsysEditUser : Sunrise.ERP.BaseForm.frmSingleForm
     {
         public frmsysEditUser()
-            : base(0, "Sunrise.ERP.SystemModule.DAL", "sysUserDAL", false)
+            : base(0, "Sunrise.ERP.SystemManage.DAL", "sysUserDAL", false)
         {
             InitializeComponent();
             txtsPassword.DataBindings.Add("EditValue", dsMain, "sPassword");

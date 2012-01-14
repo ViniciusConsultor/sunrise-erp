@@ -11,7 +11,7 @@ namespace Sunrise.ERP.Module.SystemBase
     public partial class frmbasDataDict : Sunrise.ERP.BaseForm.frmMasterDetail
     {
         public frmbasDataDict(int formid, string formtext)
-            : base(formid, "Sunrise.ERP.SystemModule.DAL", "basDataDictMasterDAL")
+            : base(formid, "Sunrise.ERP.SystemBase.DAL", "basDataDictMasterDAL")
         {
             InitializeComponent();
             if (formtext != "")

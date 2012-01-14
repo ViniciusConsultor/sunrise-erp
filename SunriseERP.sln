@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.BaseForm", "Sun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.SysBase", "Sunrise.ERP.SysBase\Sunrise.ERP.SysBase.csproj", "{8E6D8B75-94E3-48A6-8BD2-9E860AA5A808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.SystemModule.DAL", "Sunrise.ERP.DAL\Sunrise.ERP.SystemModule.DAL.csproj", "{F028F118-99CF-4C4D-90E0-8E81B05CE346}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.SystemManage.DAL", "Sunrise.ERP.SystemManage.DAL\Sunrise.ERP.SystemManage.DAL.csproj", "{F028F118-99CF-4C4D-90E0-8E81B05CE346}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.DataAccess", "Sunrise.ERP.DataAccess\Sunrise.ERP.DataAccess.csproj", "{E30BB9FB-447C-4260-8ACB-0604DD729BFE}"
 EndProject
@@ -30,6 +30,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Lang", "Sunrise.ERP.Lang\Sunrise.ERP.Lang.csproj", "{BE849923-172A-4FBD-9C75-BAB978254BBF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.BaseForm.DAL", "Sunrise.ERP.BaseForm.DAL\Sunrise.ERP.BaseForm.DAL.csproj", "{67865932-18D5-40FB-BEEC-636FEA6C7C1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.SystemBase.DAL", "Sunrise.ERP.SystemBase.DAL\Sunrise.ERP.SystemBase.DAL.csproj", "{32318D23-7376-4AF3-B8DA-A03BF1BD0390}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +99,10 @@ Global
 		{67865932-18D5-40FB-BEEC-636FEA6C7C1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67865932-18D5-40FB-BEEC-636FEA6C7C1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67865932-18D5-40FB-BEEC-636FEA6C7C1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32318D23-7376-4AF3-B8DA-A03BF1BD0390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32318D23-7376-4AF3-B8DA-A03BF1BD0390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32318D23-7376-4AF3-B8DA-A03BF1BD0390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32318D23-7376-4AF3-B8DA-A03BF1BD0390}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

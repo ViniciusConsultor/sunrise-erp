@@ -12,7 +12,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Sunrise.ERP.DataAccess;
-namespace Sunrise.ERP.SystemModule.DAL
+namespace Sunrise.ERP.SystemManage.DAL
 {
     /// <summary>
     /// 数据访问类sysQueryReportDetailDAL
