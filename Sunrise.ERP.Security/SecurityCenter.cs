@@ -109,10 +109,10 @@ namespace Sunrise.ERP.Security
             {
                 return _suserid;
             }
-            //set
-            //{
-            //    _suserid = value;
-            //}
+            set
+            {
+                _suserid = value;
+            }
         }
 
         static string _suser = "";

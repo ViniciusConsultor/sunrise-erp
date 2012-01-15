@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.BaseForm.DAL", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.SystemBase.DAL", "Sunrise.ERP.SystemBase.DAL\Sunrise.ERP.SystemBase.DAL.csproj", "{32318D23-7376-4AF3-B8DA-A03BF1BD0390}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Module.Test", "Sunrise.ERP.Module.Test\Sunrise.ERP.Module.Test.csproj", "{2FA85600-45CE-42E9-9416-44B041EF39C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{32318D23-7376-4AF3-B8DA-A03BF1BD0390}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32318D23-7376-4AF3-B8DA-A03BF1BD0390}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32318D23-7376-4AF3-B8DA-A03BF1BD0390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FA85600-45CE-42E9-9416-44B041EF39C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FA85600-45CE-42E9-9416-44B041EF39C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FA85600-45CE-42E9-9416-44B041EF39C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FA85600-45CE-42E9-9416-44B041EF39C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

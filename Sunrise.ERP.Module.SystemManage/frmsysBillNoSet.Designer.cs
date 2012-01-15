@@ -97,13 +97,11 @@
             // splitterControl1
             // 
             this.splitterControl1.Location = new System.Drawing.Point(2, 165);
-            this.splitterControl1.Size = new System.Drawing.Size(753, 6);
             // 
             // panelControl2
             // 
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.panelControl2.Size = new System.Drawing.Size(753, 33);
             // 
             // btnInsert
             // 
@@ -175,7 +173,6 @@
             // 
             this.panelControl1.LookAndFeel.SkinName = "Blue";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.panelControl1.Size = new System.Drawing.Size(757, 498);
             // 
             // layoutControl1
             // 
@@ -420,6 +417,7 @@
             this.gvMain.OptionsView.ColumnAutoWidth = false;
             this.gvMain.OptionsView.ShowAutoFilterRow = true;
             this.gvMain.OptionsView.ShowFooter = true;
+            this.gvMain.OptionsView.ShowGroupPanel = false;
             // 
             // coliFormID
             // 

@@ -676,6 +676,7 @@ namespace Sunrise.ERP.BaseForm
             //设置非空字段颜色
             Sunrise.ERP.BasePublic.Base.SetNotNullFiledsColor(this.pnlInfo, NotNullFields);
             IsDataChange = false;
+            //toolTipController1.SetToolTip(splitterControl1, LangCenter.Instance.GetFormLangInfo("BaseForm", "DbClickToExpand"));
 
         }
 
@@ -693,6 +694,41 @@ namespace Sunrise.ERP.BaseForm
                 pnlInfo.Height = pnlInfoHeight;
                 toolTipController1.SetToolTip(splitterControl1, LangCenter.Instance.GetFormLangInfo("BaseForm", "DbClickToClose"));
             }
+        }
+
+        /// <summary>
+        /// 初始化数据绑定
+        /// </summary>
+        public void InitDataBindings()
+        {
+            Control[] ctls;
+            foreach (DataRow dr in DynamicTableData.Rows)
+            {
+                string ControlKey = "lbl" + dr["sFieldName"].ToString();
+                ctls = pnlInfo.Controls.Find(ControlKey, true);
+                //设置字段Label显示
+                if (ctls != null && ctls.Length == 1)
+                    ctls[0].Text = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
+
+                ControlKey = dr["sControlType"].ToString() + dr["sFieldName"].ToString();
+                ctls = pnlInfo.Controls.Find(ControlKey, true);
+                //DataBinding
+                if (ctls != null && ctls.Length == 1)
+                    ctls[0].DataBindings.Add("EditValue", dsMain, dr["sFieldName"].ToString());
+                
+                //第一个控件的X坐标和最后一个控件的Y坐标,用于计算自定义字段的起始位置
+                if (dr["bSystemColumn"].ToString() == "1")
+                {
+                    if (ctls != null && ctls.Length == 1)
+                    {
+                        if (ctls[0].Location.X < ControlX)
+                            ControlX = ctls[0].Location.X;
+                        if (ctls[0].Location.Y > ControlY)
+                            ControlY = ctls[0].Location.Y;
+                    }
+                }
+            }
+
         }
 
         /// <summary>
@@ -1018,7 +1054,7 @@ namespace Sunrise.ERP.BaseForm
         {
             get
             {
-                if (_MasterDynamicDAL != null)
+                if (_MasterDynamicDAL == null)
                 {
                     _MasterDynamicDAL = new DynamicDALSetting(DynamicTableData);
                 }
@@ -1040,6 +1076,26 @@ namespace Sunrise.ERP.BaseForm
                 }
                 return _dynamicdatatable;
             }
+        }
+
+        private int _ControlX = 50;
+        /// <summary>
+        /// 第一个控件的Location X
+        /// </summary>
+        public int ControlX
+        {
+            get { return _ControlX; }
+            set { _ControlX = value; }
+        }
+
+        private int _ControlY = 0;
+        /// <summary>
+        /// 最后一个控件的Location Y
+        /// </summary>
+        public int ControlY
+        {
+            get { return _ControlY; }
+            set { _ControlY = value; }
         }
 
         #endregion
@@ -1112,8 +1168,93 @@ namespace Sunrise.ERP.BaseForm
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
+            frmDynamicFormSetting frm = new frmDynamicFormSetting();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 重新设置控件位置
+        /// </summary>
+        public void ResetControlLocation()
+        {
 
         }
+
+        public void CreateDynamicControl()
+        {
+            Control[] ctls;
+            foreach (DataRow dr in DynamicTableData.Select("bSystemColumn=1"))
+            {
+                string ControlKey = dr["sControlType"].ToString() + dr["sFieldName"].ToString();
+                ctls = pnlInfo.Controls.Find(ControlKey, true);
+                //第一个控件的X坐标和最后一个控件的Y坐标,用于计算自定义字段的起始位置
+                if (ctls != null && ctls.Length == 1)
+                {
+                    if (ctls[0].Location.X < ControlX)
+                        ControlX = ctls[0].Location.X;
+                    if (ctls[0].Location.Y > ControlY)
+                        ControlY = ctls[0].Location.Y;
+                }
+            }
+            if (DynamicTableData.Select("bSystemColumn==0").Length > 0)
+            {
+                //每行控件数
+                int iControlColumn = Convert.ToInt32(DynamicTableData.Rows[0]["iControlColumn"]);
+                //控件间距
+                int iControlSpace = Convert.ToInt32(DynamicTableData.Rows[0]["iControlSpace"]);
+                //先计算需要生成查询的数据
+                DataRow[] dr = DynamicTableData.Select("bSystemColumn==0");
+                //计算控件总共行数
+                int iRows = 0;
+                if (dr.Length > 0)
+                {
+                    if (dr.Length % iControlColumn != 0)
+                    {
+                        iRows = (int)Math.Floor(Convert.ToDecimal(dr.Length / iControlColumn)) + 1;
+                    }
+                    else
+                    {
+                        iRows = Convert.ToInt32(dr.Length / iControlColumn);
+                    }
+                    //设置控件数计数
+                    int iControl = 0;
+                    for (int j = 0; j < iRows; j++)
+                    {
+                        for (int i = 0; i < iControlColumn; i++)
+                        {
+                            //控件类型
+                            string sControlType = dr[iControl]["sControlType"].ToString();
+                            //创建控件
+                            //Lable大小控制为80X21，其他输入控件大小为120X21
+                            Label lbl = new Label();
+                            lbl.AutoSize = false;
+                            lbl.Size = new Size(80, 21);
+                            lbl.Location = new Point(10 + (80 + 120 + iControlSpace) * i, 25 + (21 + 10) * j);
+                            //控件命名规则：lbl+字段名
+                            lbl.Name = "lbl" + dr[iControl]["sFieldName"].ToString();
+                            lbl.TextAlign = ContentAlignment.BottomLeft;
+                            //当控件类型为复选框时不创建Lable控件
+                            if (sControlType != "chk")
+                            {
+                                lbl.Text = LangCenter.Instance.IsDefaultLanguage ? dr[iControl]["sCaption"].ToString() : dr[iControl]["sCaption"].ToString();
+                            }
+                            pnlInfo.Controls.Add(lbl);
+                            switch (sControlType)
+                            {
+                                case "txt":
+                                    {
+                                        break;
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         #endregion
 

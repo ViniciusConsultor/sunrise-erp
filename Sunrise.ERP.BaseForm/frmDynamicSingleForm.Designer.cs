@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.dsMain = new System.Windows.Forms.BindingSource(this.components);
             this.toolTipController1 = new DevExpress.Utils.ToolTipController(this.components);
-            this.pnlGrid = new DevExpress.XtraEditors.PanelControl();
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
+            this.pnlGrid = new DevExpress.XtraEditors.PanelControl();
             this.pnlInfo = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
@@ -111,6 +111,7 @@
             // 
             this.btnSettings.LookAndFeel.SkinName = "Blue";
             this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnSettings.Visible = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // panelControl1
@@ -136,32 +137,32 @@
             this.toolTipController1.Rounded = true;
             this.toolTipController1.ShowBeak = true;
             // 
-            // pnlGrid
-            // 
-            this.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlGrid.Location = new System.Drawing.Point(2, 242);
-            this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new System.Drawing.Size(867, 254);
-            this.pnlGrid.TabIndex = 8;
-            // 
             // splitterControl1
             // 
             this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitterControl1.Location = new System.Drawing.Point(2, 236);
+            this.splitterControl1.Location = new System.Drawing.Point(2, 237);
             this.splitterControl1.MinExtra = 0;
             this.splitterControl1.MinSize = 0;
             this.splitterControl1.Name = "splitterControl1";
             this.splitterControl1.Size = new System.Drawing.Size(867, 6);
             this.splitterControl1.TabIndex = 7;
             this.splitterControl1.TabStop = false;
-            this.toolTipController1.SetToolTip(this.splitterControl1, "双击折叠窗口");
+            this.splitterControl1.DoubleClick += new System.EventHandler(this.splitterControl1_DoubleClick);
+            // 
+            // pnlGrid
+            // 
+            this.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlGrid.Location = new System.Drawing.Point(2, 243);
+            this.pnlGrid.Name = "pnlGrid";
+            this.pnlGrid.Size = new System.Drawing.Size(867, 253);
+            this.pnlGrid.TabIndex = 8;
             // 
             // pnlInfo
             // 
             this.pnlInfo.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlInfo.Location = new System.Drawing.Point(2, 35);
             this.pnlInfo.Name = "pnlInfo";
-            this.pnlInfo.Size = new System.Drawing.Size(867, 201);
+            this.pnlInfo.Size = new System.Drawing.Size(867, 202);
             this.pnlInfo.TabIndex = 6;
             // 
             // frmDynamicSingleForm

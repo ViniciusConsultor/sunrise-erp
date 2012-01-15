@@ -227,7 +227,7 @@ namespace Sunrise.ERP.BaseForm.DAL
             StringBuilder strSql = new StringBuilder();
             if (type == "Add")
             {
-                foreach (DataRow dr in issub ? MainDynamicData : SubDynamicData)
+                foreach (DataRow dr in issub ? SubDynamicData : MainDynamicData)
                 {
                     if (isparam)
                     {
@@ -235,6 +235,29 @@ namespace Sunrise.ERP.BaseForm.DAL
                     }
                     strSql.Append(dr["sFieldName"]);
                     strSql.Append(",");
+                }
+                //增加sUserID,iFlag
+                if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "001")
+                {
+                    if (isparam)
+                    {
+                        strSql.Append("@");
+                    }
+                    strSql.Append("sUserID");
+                    strSql.Append(",");
+                    if (isparam)
+                    {
+                        strSql.Append("@");
+                    }
+                    strSql.Append("iFlag");
+                }
+                else if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "002")
+                {
+                    if (isparam)
+                    {
+                        strSql.Append("@");
+                    }
+                    strSql.Append("sUserID");
                 }
                 if (issub && SubDynamicData.Length > 0)
                 {
@@ -244,8 +267,6 @@ namespace Sunrise.ERP.BaseForm.DAL
                     }
                     strSql.Append("MainTableID");
                 }
-                else
-                    strSql.Remove(strSql.Length - 1, 1);
             }
             else if (type == "Update")
             {
@@ -256,7 +277,17 @@ namespace Sunrise.ERP.BaseForm.DAL
                     strSql.Append(dr["sFieldName"]);
                     strSql.Append(",");
                 }
-                strSql.Remove(strSql.Length - 1, 1);
+                //增加sUserID,iFlag
+                if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "001")
+                {
+                    strSql.Append("sUserID=@sUserID,");
+                    strSql.Append("iFlag=@iFlag");
+                }
+                else if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "002")
+                {
+                    strSql.Append("sUserID=@sUserID ");
+                }
+                //strSql.Remove(strSql.Length - 1, 1);
                 strSql.Append(" WHERE ID=@ID ");
             }
             return strSql.ToString();
@@ -272,20 +303,35 @@ namespace Sunrise.ERP.BaseForm.DAL
                 parameters[0].Value = optiondata["ID"];
                 count++;
             }
+            if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "001")
+            {
+                parameters.Add(new SqlParameter("@sUserID", SqlDbType.VarChar, 30));
+                parameters[count].Value = optiondata["sUserID"];
+                count++;
+                parameters.Add(new SqlParameter("@iFlag", SqlDbType.Int, 4));
+                parameters[count].Value = optiondata["iFlag"];
+                count++;
+            }
+            else if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "002")
+            {
+                parameters.Add(new SqlParameter("@sUserID", SqlDbType.VarChar, 30));
+                parameters[count].Value = optiondata["sUserID"];
+                count++;
+            }
             if (issub && SubDynamicData.Length > 0)
             {
                 parameters.Add(new SqlParameter("@MainTableID", SqlDbType.Int, 4));
-                parameters[0].Value = optiondata["ID"];
+                parameters[count].Value = optiondata["ID"];
                 count++;
             }
-            foreach (DataRow dr in issub ? MainDynamicData : SubDynamicData)
+            foreach (DataRow dr in issub ? SubDynamicData : MainDynamicData)
             {
                 switch (dr["sFieldType"].ToString())
                 {
                     //varchar
                     case "S":
                         {
-                            parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.VarChar, (int)dr["sFieldLength"]));
+                            parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.VarChar, (int)dr["iFieldLength"]));
                             parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
                             break;
                         }
@@ -320,7 +366,7 @@ namespace Sunrise.ERP.BaseForm.DAL
                     //float or decimal
                     case "F":
                         {
-                            parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.Decimal, (int)dr["sFieldLength"]));
+                            parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.Decimal, (int)dr["iFieldLength"]));
                             parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
                             break;
                         }
