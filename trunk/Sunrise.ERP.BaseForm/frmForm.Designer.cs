@@ -48,7 +48,7 @@ namespace Sunrise.ERP.BaseForm
             this.ClientSize = new System.Drawing.Size(757, 498);
             this.Controls.Add(this.panelControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.ImeMode = System.Windows.Forms.ImeMode.OnHalf;
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmForm";

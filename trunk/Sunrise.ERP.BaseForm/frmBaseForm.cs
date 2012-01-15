@@ -59,6 +59,7 @@ namespace Sunrise.ERP.BaseForm
             //DoView();
             //initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.None);
             DoBaseView();
+            //LoadLangSetting();
         }
 
         #region 基本按钮状态控制
@@ -316,7 +317,6 @@ namespace Sunrise.ERP.BaseForm
             initBase();
             IsFirstLoad = true;
             this.txtDataFlag.TextChanged += new EventHandler(DataStateChange);
-            //LoadLangSetting();
         }
 
         /// <summary>

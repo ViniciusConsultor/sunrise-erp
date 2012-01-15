@@ -538,7 +538,7 @@ namespace Sunrise.ERP.BasePublic
             string sSql = "SELECT A.*,B.sFormType, B.iDefaultQueryCount, B.iControlSpace, B.iControlColumn, "
                                 + "B.bCreateLookUp, B.bSyncLoockUp, B.sTableName, B.sQueryViewName "
                                 + "FROM sysDynamicFormDetail A LEFT JOIN "
-                                + "sysDynamicFormMaster B WHERE A.MainID=B.ID AND B.FormID=" + formid.ToString() + " AND sTableName='" + tablename + "'";
+                                + "sysDynamicFormMaster B ON A.MainID=B.ID AND B.FormID=" + formid.ToString() + " AND sTableName='" + tablename + "'";
             return DbHelperSQL.Query(sSql).Tables[0];
         }
 

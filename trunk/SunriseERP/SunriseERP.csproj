@@ -241,6 +241,10 @@
       <Project>{BE849923-172A-4FBD-9C75-BAB978254BBF}</Project>
       <Name>Sunrise.ERP.Lang</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.Module.Test\Sunrise.ERP.Module.Test.csproj">
+      <Project>{2FA85600-45CE-42E9-9416-44B041EF39C1}</Project>
+      <Name>Sunrise.ERP.Module.Test</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sunrise.ERP.Security\Sunrise.ERP.Security.csproj">
       <Project>{3C5E617E-BC81-49C7-AC43-93DFFEBF74F3}</Project>
       <Name>Sunrise.ERP.Security</Name>
