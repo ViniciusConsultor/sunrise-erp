@@ -15,6 +15,10 @@ using Sunrise.ERP.Lang;
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.BaseForm.DAL;
 using Sunrise.ERP.DataAccess;
+using Sunrise.ERP.Controls;
+
+using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -702,7 +706,7 @@ namespace Sunrise.ERP.BaseForm
         public void InitDataBindings()
         {
             Control[] ctls;
-            foreach (DataRow dr in DynamicTableData.Rows)
+            foreach (DataRow dr in DynamicTableData.Select("sControlType<>'lbl'"))
             {
                 string ControlKey = "lbl" + dr["sFieldName"].ToString();
                 ctls = pnlInfo.Controls.Find(ControlKey, true);
@@ -715,7 +719,7 @@ namespace Sunrise.ERP.BaseForm
                 //DataBinding
                 if (ctls != null && ctls.Length == 1)
                     ctls[0].DataBindings.Add("EditValue", dsMain, dr["sFieldName"].ToString());
-                
+
                 //第一个控件的X坐标和最后一个控件的Y坐标,用于计算自定义字段的起始位置
                 if (dr["bSystemColumn"].ToString() == "1")
                 {
@@ -1078,7 +1082,7 @@ namespace Sunrise.ERP.BaseForm
             }
         }
 
-        private int _ControlX = 50;
+        private int _ControlX = 10;
         /// <summary>
         /// 第一个控件的Location X
         /// </summary>
@@ -1183,6 +1187,9 @@ namespace Sunrise.ERP.BaseForm
 
         }
 
+        /// <summary>
+        /// 创建自定义控件
+        /// </summary>
         public void CreateDynamicControl()
         {
             Control[] ctls;
@@ -1196,17 +1203,17 @@ namespace Sunrise.ERP.BaseForm
                     if (ctls[0].Location.X < ControlX)
                         ControlX = ctls[0].Location.X;
                     if (ctls[0].Location.Y > ControlY)
-                        ControlY = ctls[0].Location.Y;
+                        ControlY = ctls[0].Location.Y + ctls[0].Height;
                 }
             }
-            if (DynamicTableData.Select("bSystemColumn==0").Length > 0)
+            if (DynamicTableData.Select("bSystemColumn=0").Length > 0)
             {
                 //每行控件数
                 int iControlColumn = Convert.ToInt32(DynamicTableData.Rows[0]["iControlColumn"]);
                 //控件间距
                 int iControlSpace = Convert.ToInt32(DynamicTableData.Rows[0]["iControlSpace"]);
                 //先计算需要生成查询的数据
-                DataRow[] dr = DynamicTableData.Select("bSystemColumn==0");
+                DataRow[] dr = DynamicTableData.Select("bSystemColumn=0");
                 //计算控件总共行数
                 int iRows = 0;
                 if (dr.Length > 0)
@@ -1229,30 +1236,123 @@ namespace Sunrise.ERP.BaseForm
                             string sControlType = dr[iControl]["sControlType"].ToString();
                             //创建控件
                             //Lable大小控制为80X21，其他输入控件大小为120X21
-                            Label lbl = new Label();
-                            lbl.AutoSize = false;
-                            lbl.Size = new Size(80, 21);
-                            lbl.Location = new Point(10 + (80 + 120 + iControlSpace) * i, 25 + (21 + 10) * j);
+                            Label lblControl = new Label();
+                            lblControl.AutoSize = false;
+                            lblControl.Size = new Size(80, 21);
+                            lblControl.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i, ControlY + (21 + 10) * j);
                             //控件命名规则：lbl+字段名
-                            lbl.Name = "lbl" + dr[iControl]["sFieldName"].ToString();
-                            lbl.TextAlign = ContentAlignment.BottomLeft;
-                            //当控件类型为复选框时不创建Lable控件
-                            if (sControlType != "chk")
+                            lblControl.Name = "lbl" + dr[iControl]["sFieldName"].ToString();
+                            lblControl.TextAlign = ContentAlignment.BottomLeft;
+                            //当控件类型为复选框\单选\Label标签时不创建Lable控件
+                            if (sControlType != "chk" || sControlType != "rad" || sControlType != "lbl")
                             {
-                                lbl.Text = LangCenter.Instance.IsDefaultLanguage ? dr[iControl]["sCaption"].ToString() : dr[iControl]["sCaption"].ToString();
+                                lblControl.Text = LangCenter.Instance.IsDefaultLanguage ? dr[iControl]["sCaption"].ToString() : dr[iControl]["sCaption"].ToString();
                             }
-                            pnlInfo.Controls.Add(lbl);
+                            pnlInfo.Controls.Add(lblControl);
                             switch (sControlType)
                             {
                                 case "txt":
                                     {
+                                        TextEdit txt = new TextEdit();
+                                        txt.Size = new Size(120, 21);
+                                        txt.Name = "txt" + dr[iControl]["sFieldName"].ToString() ;
+                                        txt.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        pnlInfo.Controls.Add(txt);
+                                        break;
+                                    }
+                                case "mtxt":
+                                    {
+                                        MemoEdit mtxt = new MemoEdit();
+                                        mtxt.Size = new Size(120, 21);
+                                        mtxt.Name = "mtxt" + dr[iControl]["sFieldName"].ToString();
+                                        mtxt.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        pnlInfo.Controls.Add(mtxt);
+                                        break;
+                                    }
+                                case "cbx":
+                                    {
+                                        ImageComboBoxEdit cbx = new ImageComboBoxEdit();
+                                        cbx.Size = new Size(120, 21);
+                                        cbx.Name = "cbx" + dr[iControl]["sFieldName"].ToString();
+                                        cbx.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        //初始化ComboBox数据
+                                        pnlInfo.Controls.Add(cbx);
+                                        break;
+                                    }
+                                case "chk":
+                                    {
+                                        CheckEdit chk = new CheckEdit();
+                                        chk.Size = new Size(120, 21);
+                                        chk.Name = "chk" + dr[iControl]["sFieldName"].ToString();
+                                        chk.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        chk.CheckState = CheckState.Unchecked;
+                                        chk.Text = LangCenter.Instance.IsDefaultLanguage ? dr[iControl]["sCaption"].ToString() : dr[iControl]["sEngCaption"].ToString();
+                                        pnlInfo.Controls.Add(chk);
+                                        break;
+                                    }
+                                case "det":
+                                    {
+                                        DateEdit det = new DateEdit();
+                                        det.Size = new Size(120, 21);
+                                        det.Name = "det" + dr[iControl]["sFieldName"].ToString();
+                                        det.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        det.EditValue = null;
+                                        pnlInfo.Controls.Add(det);
+                                        break;
+                                    }
+                                case "img":
+                                    {
+                                        ImageEdit img = new ImageEdit();
+                                        img.Size = new Size(120, 21);
+                                        img.Name = "img" + dr[iControl]["sFieldName"].ToString();
+                                        img.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        pnlInfo.Controls.Add(img);
+                                        break;
+                                    }
+                                case "lbl":
+                                    {
+                                        LabelControl lbl = new LabelControl();
+                                        lbl.Size = new Size(120, 21);
+                                        lbl.Name = "lbl" + dr[iControl]["sFieldName"].ToString() + iControl.ToString();
+                                        lbl.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        lbl.Text = LangCenter.Instance.IsDefaultLanguage ? dr[iControl]["sCaption"].ToString() : dr[iControl]["sEngCaption"].ToString();
+                                        pnlInfo.Controls.Add(lbl);
+                                        break;
+                                    }
+                                case "lkp":
+                                    {
+                                        SunriseLookUp lkp = new SunriseLookUp();
+                                        lkp.Size = new Size(120, 21);
+                                        lkp.Name = "lkp" + dr[iControl]["sFieldName"].ToString();
+                                        lkp.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        //初始化ComboBox数据
+                                        pnlInfo.Controls.Add(lkp);
+                                        break;
+                                    }
+                                case "rad":
+                                    {
+                                        RadioGroup rad = new RadioGroup();
+                                        rad.Size = new Size(120, 21);
+                                        rad.Name = "rad" + dr[iControl]["sFieldName"].ToString();
+                                        rad.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        pnlInfo.Controls.Add(rad);
                                         break;
                                     }
                             }
+                            iControl++;
+                            //当计数大于等于要创建的控件数量时则退出循环
+                            if (iControl >= dr.Length)
+                                break;
                         }
                     }
                 }
+                pnlInfo.Height = pnlInfo.Height + iRows * 31;
             }
+        }
+
+        public void CreateGridColumn(GridView gv, string tablename)
+        {
+
         }
 
 

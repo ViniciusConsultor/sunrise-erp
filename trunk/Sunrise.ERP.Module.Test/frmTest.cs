@@ -16,6 +16,7 @@ namespace Sunrise.ERP.Module.Test
             InitializeComponent();
             if (!string.IsNullOrEmpty(formtext))
                 Text = formtext;
+            CreateDynamicControl();
             InitDataBindings();
         }
 
