@@ -123,7 +123,7 @@ namespace Sunrise.ERP.BaseForm.DAL
         {
             if (SubDynamicData.Length > 0)
             {
-                string sDeleteSql = "DELETE FROM " + TableName + "_Z" + " WHERE MainTableID=" + dr["ID"] != null ? dr["ID"].ToString() : "-1";
+                string sDeleteSql = "DELETE FROM " + TableName + "_Z" + " WHERE MainTableID=" + (dr["ID"] != null ? dr["ID"].ToString() : "-1");
                 DbHelperSQL.ExecuteSql(sDeleteSql, trans);
                 string sInsertSql = CreateSQL("Add", true);
                 SqlParameter[] parameters = CreateSqlParameter(dr, "Add", true);
@@ -237,35 +237,34 @@ namespace Sunrise.ERP.BaseForm.DAL
                     strSql.Append(",");
                 }
                 //增加sUserID,iFlag
-                if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "001")
+                if (!issub)
                 {
-                    if (isparam)
+                    if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "001")
                     {
-                        strSql.Append("@");
+                        if (isparam)
+                        {
+                            strSql.Append("@");
+                        }
+                        strSql.Append("sUserID");
+                        strSql.Append(",");
+                        if (isparam)
+                        {
+                            strSql.Append("@");
+                        }
+                        strSql.Append("iFlag");
                     }
-                    strSql.Append("sUserID");
-                    strSql.Append(",");
-                    if (isparam)
+                    else if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "002")
                     {
-                        strSql.Append("@");
+                        if (isparam)
+                        {
+                            strSql.Append("@");
+                        }
+                        strSql.Append("sUserID");
                     }
-                    strSql.Append("iFlag");
-                }
-                else if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "002")
-                {
-                    if (isparam)
-                    {
-                        strSql.Append("@");
-                    }
-                    strSql.Append("sUserID");
                 }
                 if (issub && SubDynamicData.Length > 0)
                 {
-                    if (isparam)
-                    {
-                        strSql.Append("@");
-                    }
-                    strSql.Append("MainTableID");
+                    strSql.Append(isparam ? "@MainTableID" : "MainTableID");
                 }
             }
             else if (type == "Update")
@@ -303,20 +302,23 @@ namespace Sunrise.ERP.BaseForm.DAL
                 parameters[0].Value = optiondata["ID"];
                 count++;
             }
-            if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "001")
+            if (!issub)
             {
-                parameters.Add(new SqlParameter("@sUserID", SqlDbType.VarChar, 30));
-                parameters[count].Value = optiondata["sUserID"];
-                count++;
-                parameters.Add(new SqlParameter("@iFlag", SqlDbType.Int, 4));
-                parameters[count].Value = optiondata["iFlag"];
-                count++;
-            }
-            else if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "002")
-            {
-                parameters.Add(new SqlParameter("@sUserID", SqlDbType.VarChar, 30));
-                parameters[count].Value = optiondata["sUserID"];
-                count++;
+                if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "001")
+                {
+                    parameters.Add(new SqlParameter("@sUserID", SqlDbType.VarChar, 30));
+                    parameters[count].Value = optiondata["sUserID"];
+                    count++;
+                    parameters.Add(new SqlParameter("@iFlag", SqlDbType.Int, 4));
+                    parameters[count].Value = optiondata["iFlag"];
+                    count++;
+                }
+                else if (MainDynamicData.Length > 0 && MainDynamicData[0]["sFormType"].ToString() == "002")
+                {
+                    parameters.Add(new SqlParameter("@sUserID", SqlDbType.VarChar, 30));
+                    parameters[count].Value = optiondata["sUserID"];
+                    count++;
+                }
             }
             if (issub && SubDynamicData.Length > 0)
             {

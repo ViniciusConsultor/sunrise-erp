@@ -53,6 +53,12 @@
             // pnlGrid
             // 
             this.pnlGrid.Controls.Add(this.gcMain);
+            this.pnlGrid.Location = new System.Drawing.Point(2, 200);
+            this.pnlGrid.Size = new System.Drawing.Size(867, 296);
+            // 
+            // splitterControl1
+            // 
+            this.splitterControl1.Location = new System.Drawing.Point(2, 194);
             // 
             // pnlInfo
             // 
@@ -60,6 +66,7 @@
             this.pnlInfo.Controls.Add(this.lblsRemark);
             this.pnlInfo.Controls.Add(this.txtsTest);
             this.pnlInfo.Controls.Add(this.lblsTest);
+            this.pnlInfo.Size = new System.Drawing.Size(867, 159);
             // 
             // panelControl2
             // 
@@ -141,7 +148,7 @@
             this.gcMain.Location = new System.Drawing.Point(2, 2);
             this.gcMain.MainView = this.gvMain;
             this.gcMain.Name = "gcMain";
-            this.gcMain.Size = new System.Drawing.Size(863, 250);
+            this.gcMain.Size = new System.Drawing.Size(863, 292);
             this.gcMain.TabIndex = 3;
             this.gcMain.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvMain});
