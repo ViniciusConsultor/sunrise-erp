@@ -16,12 +16,9 @@ namespace Sunrise.ERP.Module.Test
             InitializeComponent();
             if (!string.IsNullOrEmpty(formtext))
                 Text = formtext;
+            //创建自定义字段列
             CreateDynamicControl();
-            InitDataBindings();
-        }
-
-        private void mtxtsRemark_EditValueChanged(object sender, EventArgs e)
-        {
+            CreateGridColumn(gvMain, MasterTableName);
 
         }
     }

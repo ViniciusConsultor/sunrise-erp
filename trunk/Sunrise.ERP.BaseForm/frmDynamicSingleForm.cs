@@ -19,6 +19,7 @@ using Sunrise.ERP.Controls;
 
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Columns;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -586,17 +587,17 @@ namespace Sunrise.ERP.BaseForm
         public override bool DoBeforeSave()
         {
             //非空验证
-            if (NotNullFields.Count > 0)
+            if (dsMain.Current != null)
             {
-                if (Sunrise.ERP.BasePublic.Base.CheckNotNullFields(this.pnlInfo, NotNullFields))
+                foreach (DataRow dr in DynamicTableData.Select("bNotNull=1"))
                 {
-                    Sunrise.ERP.BasePublic.Base.IsNull = true;
-                    return true;
-                }
-                else
-                {
-                    Sunrise.ERP.BasePublic.Base.IsNull = true;
-                    return false;
+                    if (((DataRowView)dsMain.Current).Row[dr["sFieldName"].ToString()].ToString() == "")
+                    {
+                        string sMsg = string.Format("{0} {1}", LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
+                                      LangCenter.Instance.GetSystemMessage("NotNull"));
+                        Public.SystemInfo(sMsg);
+                        return false;
+                    }
                 }
             }
             return true;
@@ -712,16 +713,20 @@ namespace Sunrise.ERP.BaseForm
                 ctls = pnlInfo.Controls.Find(ControlKey, true);
                 //设置字段Label显示
                 if (ctls != null && ctls.Length == 1)
+                {
                     ctls[0].Text = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
+                    //设置非空字段颜色
+                    if (bool.Parse(dr["bNotNull"].ToString().ToLower()))
+                        ctls[0].ForeColor = Color.FromName(Base.GetSystemParamter("001"));
+                }
 
                 ControlKey = dr["sControlType"].ToString() + dr["sFieldName"].ToString();
                 ctls = pnlInfo.Controls.Find(ControlKey, true);
                 //DataBinding
                 if (ctls != null && ctls.Length == 1)
                     ctls[0].DataBindings.Add("EditValue", dsMain, dr["sFieldName"].ToString());
-
                 //第一个控件的X坐标和最后一个控件的Y坐标,用于计算自定义字段的起始位置
-                if (dr["bSystemColumn"].ToString() == "1")
+                if (bool.Parse(dr["bSystemColumn"].ToString()))
                 {
                     if (ctls != null && ctls.Length == 1)
                     {
@@ -732,7 +737,6 @@ namespace Sunrise.ERP.BaseForm
                     }
                 }
             }
-
         }
 
         /// <summary>
@@ -1348,11 +1352,27 @@ namespace Sunrise.ERP.BaseForm
                 }
                 pnlInfo.Height = pnlInfo.Height + iRows * 31;
             }
+            //初始化数据绑定
+            InitDataBindings();
         }
 
         public void CreateGridColumn(GridView gv, string tablename)
         {
-
+            int iIndex = 0;
+            string sFilter = "bShowInGrid=1 AND sTableName='" + MasterTableName + "'";
+            foreach (DataRow dr in DynamicTableData.Select(sFilter))
+            {
+                GridColumn cols = new GridColumn();
+                cols.Caption = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
+                cols.FieldName = dr["sFieldName"].ToString();
+                //Grid 列命名为cols+列名+序号
+                cols.Name = "cols" + dr["sFieldName"].ToString() + iIndex.ToString();
+                cols.Width = 120;
+                cols.Visible = true;
+                cols.VisibleIndex = iIndex;
+                iIndex++;
+                gv.Columns.Add(cols);
+            }
         }
 
 
