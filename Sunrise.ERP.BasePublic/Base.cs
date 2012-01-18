@@ -513,7 +513,7 @@ namespace Sunrise.ERP.BasePublic
         public static string GetSystemParamter(string paramno)
         {
             string result;
-            string sSql = "SELECT sSysParamValue FROM sysParamter WHERE sSysParamNo='" + paramno + "'";
+            string sSql = "SELECT sSysParamValue FROM sysParamter WHERE sSysParamNo='" + paramno + "' AND bActive=1";
             DataTable dtTemp = DbHelperSQL.Query(sSql).Tables[0];
             if (dtTemp != null && dtTemp.Rows.Count == 1)
                 result = dtTemp.Rows[0]["sSysParamValue"].ToString();

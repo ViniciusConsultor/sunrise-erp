@@ -193,7 +193,6 @@
             this.mtxtsRemark.Name = "mtxtsRemark";
             this.mtxtsRemark.Size = new System.Drawing.Size(290, 96);
             this.mtxtsRemark.TabIndex = 9;
-            this.mtxtsRemark.EditValueChanged += new System.EventHandler(this.mtxtsRemark_EditValueChanged);
             // 
             // frmTest
             // 
