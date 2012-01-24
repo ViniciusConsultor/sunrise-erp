@@ -533,12 +533,52 @@ namespace Sunrise.ERP.BasePublic
             return DbHelperSQL.Exists(sSql);
         }
 
+        /// <summary>
+        /// 检查一个表是否存在某一列
+        /// </summary>
+        /// <param name="tablename">表名</param>
+        /// <param name="columnname">列名</param>
+        /// <returns></returns>
+        public static bool IsColumnExist(string tablename, string columnname)
+        {
+            string sSql = "SELECT COUNT(1) FROM syscolumns WHERE id=OBJECT_ID('" + tablename + "') AND name='" + columnname + "'";
+            return DbHelperSQL.Exists(sSql);
+        }
+
+        /// <summary>
+        /// 获取表中所有的列信息
+        /// </summary>
+        /// <param name="tablename">表名称</param>
+        /// <param name="iscontaindefault">是否包含默认列信息</param>
+        /// <returns></returns>
+        public static List<string> GetTableColumns(string tablename, bool iscontaindefault)
+        {
+            List<string> result = new List<string>();
+            string sSql = "SELECT [NAME] AS ColumnName FROM syscolumns WHERE id=OBJECT_ID('" + tablename + "')";
+            DataTable dtTmp = DbHelperSQL.Query(sSql).Tables[0];
+            if (dtTmp != null && dtTmp.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtTmp.Rows)
+                {
+                    if (iscontaindefault)
+                        result.Add(dr["ColumnName"].ToString()); 
+                    else
+                    {
+                        if (dr["ColumnName"].ToString() != "ID" &&
+                            dr["ColumnName"].ToString() != "MainTableID")
+                            result.Add(dr["ColumnName"].ToString());
+                    }
+                }
+            }
+            return result;
+        }
+
         public static DataTable GetDynamicTableData(int formid, string tablename)
         {
             string sSql = "SELECT A.*,B.sFormType, B.iDefaultQueryCount, B.iControlSpace, B.iControlColumn, "
-                                + "B.bCreateLookUp, B.bSyncLoockUp, B.sTableName, B.sQueryViewName "
+                                + "B.bCreateLookUp, B.bSyncLookUp, B.sTableName, B.sQueryViewName "
                                 + "FROM sysDynamicFormDetail A LEFT JOIN "
-                                + "sysDynamicFormMaster B ON A.MainID=B.ID AND B.FormID=" + formid.ToString() + " AND sTableName='" + tablename + "'";
+                                + "sysDynamicFormMaster B ON A.MainID=B.ID WHERE B.FormID=" + formid.ToString() + " AND sTableName='" + tablename + "'";
             return DbHelperSQL.Query(sSql).Tables[0];
         }
 
@@ -559,6 +599,194 @@ namespace Sunrise.ERP.BasePublic
             return focusedControl;
         }
 
+        /// <summary>
+        /// 创建自定义表
+        /// </summary>
+        /// <param name="drs">需要创建的数据列</param>
+        /// <param name="tablename">数据表名称</param>
+        public static void CreateSubTable(DataRow[] drs, string tablename)
+        {
+            if (drs != null && drs.Length > 0)
+            {
+                //不存在自定义表则直接创建自定义表
+                StringBuilder sCreateSQL = new StringBuilder();
+                sCreateSQL.Append("CREATE TABLE [dbo].[" + tablename + "_Z] (");
+                sCreateSQL.AppendLine();
+                sCreateSQL.Append("[ID] [int]  IDENTITY (1, 1)  NOT NULL, ");
+                sCreateSQL.AppendLine();
+                sCreateSQL.Append("[MainTableID] [int] NOT NULL,");
+                sCreateSQL.AppendLine();
+                foreach (DataRow dr in drs)
+                {
+                    sCreateSQL.Append("[" + dr["sFieldName"].ToString() + "] ");
+                    switch (dr["sFieldType"].ToString())
+                    {
+                        case "S":
+                            {
+                                sCreateSQL.Append("[varchar] (" + dr["iFieldLength"].ToString() + ")");
+                                break;
+                            }
+                        case "B":
+                            {
+                                sCreateSQL.Append("[bit]");
+                                break;
+                            }
+                        case "F":
+                            {
+                                sCreateSQL.Append("[decimal] (18," + dr["iFieldLength"].ToString() + ")");
+                                break;
+                            }
+                        case "I":
+                            {
+                                sCreateSQL.Append("[int]");
+                                break;
+                            }
+                        case "D":
+                            {
+                                sCreateSQL.Append("[datetime]");
+                                break;
+                            }
+                        case "M":
+                            {
+                                sCreateSQL.Append("[image]");
+                                break;
+                            }
+
+                    }
+                    sCreateSQL.Append(" NULL, ");
+                    sCreateSQL.AppendLine();
+                }
+                sCreateSQL.Append("CONSTRAINT [PK_" + tablename + "_Z] PRIMARY KEY CLUSTERED ([ID] ASC)");
+                sCreateSQL.AppendLine();
+                sCreateSQL.Append("WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY] ) ON [PRIMARY]");
+                DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
+                sCreateSQL.Remove(0, sCreateSQL.Length);
+                sCreateSQL.Append("SET ANSI_PADDING OFF");
+                DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
+                sCreateSQL.Remove(0, sCreateSQL.Length);
+                sCreateSQL.Append("ALTER TABLE [dbo].[" + tablename + "_Z] " + "WITH CHECK ADD  CONSTRAINT [FK_" + tablename + "_Z_" + tablename + "] FOREIGN KEY([MainTableID])");
+                sCreateSQL.AppendLine();
+                sCreateSQL.Append("REFERENCES [dbo].[" + tablename + "] ([ID])");
+                sCreateSQL.AppendLine();
+                sCreateSQL.Append("ON UPDATE CASCADE ON DELETE CASCADE");
+                DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
+                sCreateSQL.Remove(0, sCreateSQL.Length);
+                sCreateSQL.Append("ALTER TABLE [dbo].[" + tablename + "_Z] CHECK CONSTRAINT [FK_" + tablename + "_Z_" + tablename + "]");;
+                DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
+            }
+        }
+
+        public static void CreateSubTableColumns(DataRow[] drs, string tablename)
+        {
+            if (drs != null && drs.Length > 0)
+            {
+                string sTableName = tablename + "_Z";
+                StringBuilder sCreateSQL = new StringBuilder();
+                List<string> listColumns = new List<string>();
+                List<string> tableColumns = GetTableColumns(sTableName, false);
+                foreach (DataRow dr in drs)
+                {
+                    listColumns.Add(dr["sFieldName"].ToString());
+                    if (IsColumnExist(sTableName, dr["sFieldName"].ToString()))
+                    {
+                        //修改表结构的话只允许修改其类型长度，字符型和浮点型
+                        if (dr["sFieldType"].ToString() == "S" || dr["sFieldType"].ToString() == "F")
+                        {
+                            sCreateSQL.Append("ALTER TABLE " + sTableName);
+                            sCreateSQL.AppendLine();
+                            sCreateSQL.Append("ALTER COLUMN ");
+                            sCreateSQL.Append(dr["sFieldName"].ToString());
+                            switch (dr["sFieldType"].ToString())
+                            {
+                                case "S":
+                                    {
+                                        sCreateSQL.Append(" [varchar] (" + dr["iFieldLength"].ToString() + ")");
+                                        break;
+                                    }
+                                case "F":
+                                    {
+                                        sCreateSQL.Append(" [decimal] (18," + dr["iFieldLength"].ToString() + ")");
+                                        break;
+                                    }
+                            }
+                            DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
+                            sCreateSQL.Remove(0, sCreateSQL.Length);
+                        }
+                    }
+                    else
+                    {
+                        sCreateSQL.Append("ALTER TABLE " + sTableName);
+                        sCreateSQL.AppendLine();
+                        sCreateSQL.Append("ADD ");
+                        sCreateSQL.Append(dr["sFieldName"].ToString());
+                        switch (dr["sFieldType"].ToString())
+                        {
+                            case "S":
+                                {
+                                    sCreateSQL.Append(" [varchar] (" + dr["iFieldLength"].ToString() + ")");
+                                    break;
+                                }
+                            case "B":
+                                {
+                                    sCreateSQL.Append(" [bit]");
+                                    break;
+                                }
+                            case "F":
+                                {
+                                    sCreateSQL.Append(" [decimal] (18," + dr["iFieldLength"].ToString() + ")");
+                                    break;
+                                }
+                            case "I":
+                                {
+                                    sCreateSQL.Append(" [int]");
+                                    break;
+                                }
+                            case "D":
+                                {
+                                    sCreateSQL.Append(" [datetime]");
+                                    break;
+                                }
+                            case "M":
+                                {
+                                    sCreateSQL.Append(" [image]");
+                                    break;
+                                }
+
+                        }
+                        sCreateSQL.Append(" NULL");
+                        DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
+                        sCreateSQL.Remove(0, sCreateSQL.Length);
+                    }
+                }
+                //删除不在listColumns中的列
+                foreach (var s in tableColumns)
+                {
+                    bool exist = true;
+                    foreach (var ss in listColumns)
+                    {
+                        if (string.Equals(s, ss))
+                            exist = false;
+                    }
+                    if (exist)
+                    {
+                        sCreateSQL.Append("ALTER TABLE " + sTableName);
+                        sCreateSQL.AppendLine();
+                        sCreateSQL.Append("DROP COLUMN " + s);
+                        DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
+                        sCreateSQL.Remove(0, sCreateSQL.Length);
+                    }
+                }
+            }
+        }
+
+        public static void DeleteSubTable(string tablename)
+        {
+            if (IsHasSubTable(tablename))
+            {
+                string sSql = "DROP TABLE [dbo].[" + tablename + "_Z]";
+                DbHelperSQL.ExecuteSql(sSql);
+            }
+        }
         #endregion
     }
 }

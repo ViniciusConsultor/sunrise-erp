@@ -150,6 +150,7 @@ namespace Sunrise.ERP.Controls
                 {
                     txtDisplayText.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
                 }
+                txtDisplayText.Properties.ReadOnly = !value;
             }
         }
 
