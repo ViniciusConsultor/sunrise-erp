@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Data.SqlClient;
 using Sunrise.ERP.Security;
 using Sunrise.ERP.BaseControl;
+using Sunrise.ERP.BasePublic;
 namespace Sunrise.ERP.BaseForm
 {
     /// <summary>
@@ -243,9 +244,9 @@ namespace Sunrise.ERP.BaseForm
                 dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
             }
 
-            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+            Base.SetAllControlsReadOnly(this.pnlInfo, true);
             IsDataChange = false;
-            initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.Save);
+            initButtonsState(OperateFlag.Save);
             return base.DoAfterSave();
         }
 

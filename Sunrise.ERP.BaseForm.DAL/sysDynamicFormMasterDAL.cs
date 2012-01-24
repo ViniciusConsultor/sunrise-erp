@@ -5,7 +5,6 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Sunrise.ERP.DataAccess;
-
 namespace Sunrise.ERP.BaseForm.DAL
 {
     /// <summary>
@@ -39,9 +38,9 @@ namespace Sunrise.ERP.BaseForm.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("INSERT INTO sysDynamicFormMaster(");
-            strSql.Append("FormID,sFormType,iDefaultQueryCount,iControlSpace,iControlColumn,iFlag,sUserID)");
+            strSql.Append("FormID,sFormType,iDefaultQueryCount,iControlSpace,iControlColumn,bCreateLookUp,bSyncLookUp,sTableName,sQueryViewName,iFlag,sUserID)");
             strSql.Append(" VALUES (");
-            strSql.Append("@FormID,@sFormType,@iDefaultQueryCount,@iControlSpace,@iControlColumn,@iFlag,@sUserID)");
+            strSql.Append("@FormID,@sFormType,@iDefaultQueryCount,@iControlSpace,@iControlColumn,@bCreateLookUp,@bSyncLookUp,@sTableName,@sQueryViewName,@iFlag,@sUserID)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@FormID", SqlDbType.Int,4),
@@ -49,6 +48,10 @@ namespace Sunrise.ERP.BaseForm.DAL
 					new SqlParameter("@iDefaultQueryCount", SqlDbType.Int,4),
 					new SqlParameter("@iControlSpace", SqlDbType.Int,4),
 					new SqlParameter("@iControlColumn", SqlDbType.Int,4),
+					new SqlParameter("@bCreateLookUp", SqlDbType.Bit,1),
+					new SqlParameter("@bSyncLookUp", SqlDbType.Bit,1),
+					new SqlParameter("@sTableName", SqlDbType.VarChar,50),
+					new SqlParameter("@sQueryViewName", SqlDbType.VarChar,50),
 					new SqlParameter("@iFlag", SqlDbType.Int,4),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
             parameters[0].Value = dr["FormID"];
@@ -56,8 +59,12 @@ namespace Sunrise.ERP.BaseForm.DAL
             parameters[2].Value = dr["iDefaultQueryCount"];
             parameters[3].Value = dr["iControlSpace"];
             parameters[4].Value = dr["iControlColumn"];
-            parameters[5].Value = dr["iFlag"];
-            parameters[6].Value = dr["sUserID"];
+            parameters[5].Value = dr["bCreateLookUp"];
+            parameters[6].Value = dr["bSyncLookUp"];
+            parameters[7].Value = dr["sTableName"];
+            parameters[8].Value = dr["sQueryViewName"];
+            parameters[9].Value = dr["iFlag"];
+            parameters[10].Value = dr["sUserID"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -81,24 +88,38 @@ namespace Sunrise.ERP.BaseForm.DAL
             strSql.Append("iDefaultQueryCount=@iDefaultQueryCount,");
             strSql.Append("iControlSpace=@iControlSpace,");
             strSql.Append("iControlColumn=@iControlColumn,");
+            strSql.Append("bCreateLookUp=@bCreateLookUp,");
+            strSql.Append("bSyncLookUp=@bSyncLookUp,");
+            strSql.Append("sTableName=@sTableName,");
+            strSql.Append("sQueryViewName=@sQueryViewName,");
             strSql.Append("iFlag=@iFlag,");
             strSql.Append("sUserID=@sUserID");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
+					new SqlParameter("@ID", SqlDbType.Int,4),
 					new SqlParameter("@FormID", SqlDbType.Int,4),
 					new SqlParameter("@sFormType", SqlDbType.VarChar,30),
 					new SqlParameter("@iDefaultQueryCount", SqlDbType.Int,4),
 					new SqlParameter("@iControlSpace", SqlDbType.Int,4),
 					new SqlParameter("@iControlColumn", SqlDbType.Int,4),
+					new SqlParameter("@bCreateLookUp", SqlDbType.Bit,1),
+					new SqlParameter("@bSyncLookUp", SqlDbType.Bit,1),
+					new SqlParameter("@sTableName", SqlDbType.VarChar,50),
+					new SqlParameter("@sQueryViewName", SqlDbType.VarChar,50),
 					new SqlParameter("@iFlag", SqlDbType.Int,4),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
-            parameters[0].Value = dr["FormID"];
-            parameters[1].Value = dr["sFormType"];
-            parameters[2].Value = dr["iDefaultQueryCount"];
-            parameters[3].Value = dr["iControlSpace"];
-            parameters[4].Value = dr["iControlColumn"];
-            parameters[5].Value = dr["iFlag"];
-            parameters[6].Value = dr["sUserID"];
+            parameters[0].Value = dr["ID"];
+            parameters[1].Value = dr["FormID"];
+            parameters[2].Value = dr["sFormType"];
+            parameters[3].Value = dr["iDefaultQueryCount"];
+            parameters[4].Value = dr["iControlSpace"];
+            parameters[5].Value = dr["iControlColumn"];
+            parameters[6].Value = dr["bCreateLookUp"];
+            parameters[7].Value = dr["bSyncLookUp"];
+            parameters[8].Value = dr["sTableName"];
+            parameters[9].Value = dr["sQueryViewName"];
+            parameters[10].Value = dr["iFlag"];
+            parameters[11].Value = dr["sUserID"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }
@@ -126,7 +147,7 @@ namespace Sunrise.ERP.BaseForm.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * ");
-            strSql.Append(" FROM sysDynamicFormMaster ");
+            strSql.Append(" FROM vwsysDynamicFormMaster ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -145,7 +166,7 @@ namespace Sunrise.ERP.BaseForm.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM sysDynamicFormMaster ");
+            strSql.Append(" * FROM vwsysDynamicFormMaster ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);

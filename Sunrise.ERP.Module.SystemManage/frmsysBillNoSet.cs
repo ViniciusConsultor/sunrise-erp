@@ -46,7 +46,6 @@ namespace Sunrise.ERP.Module.SystemManage
 
         private void frmsysBillNoSet_Load(object sender, EventArgs e)
         {
-            string aa = Sunrise.ERP.Common.SystemPublic.GetBillNo("hrEmployee", "sEmpNo", "EA", "yyMMdd", "000");
         }
     }
 }

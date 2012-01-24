@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace Sunrise.ERP.Module.Test
 {
-    public partial class frmTest : Sunrise.ERP.BaseForm.frmDynamicSingleForm
+    public partial class frmTest2 : Sunrise.ERP.BaseForm.frmDynamicSingleForm
     {
-        public frmTest(int formid, string formtext)
-            : base(formid, "salTest")
+        public frmTest2(int formid, string formtext)
+            : base(formid, "salTest2")
         {
             InitializeComponent();
             if (!string.IsNullOrEmpty(formtext))
@@ -20,11 +20,6 @@ namespace Sunrise.ERP.Module.Test
             CreateDynamicControl();
             CreateGridColumn(gvMain, MasterTableName);
 
-        }
-
-        public override bool DoSave()
-        {
-            return base.DoSave();
         }
     }
 }

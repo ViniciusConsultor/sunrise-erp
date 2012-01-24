@@ -1,6 +1,6 @@
 ﻿namespace Sunrise.ERP.Module.Test
 {
-    partial class frmTest
+    partial class frmTest2
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.txtsTest = new DevExpress.XtraEditors.TextEdit();
+            this.lblsTest = new DevExpress.XtraEditors.LabelControl();
             this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.lblsTest = new DevExpress.XtraEditors.LabelControl();
-            this.txtsTest = new DevExpress.XtraEditors.TextEdit();
-            this.lblsRemark = new DevExpress.XtraEditors.LabelControl();
-            this.mtxtsRemark = new DevExpress.XtraEditors.MemoEdit();
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).BeginInit();
             this.pnlGrid.SuspendLayout();
@@ -44,29 +42,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsTest.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtsTest.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mtxtsRemark.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlGrid
             // 
             this.pnlGrid.Controls.Add(this.gcMain);
-            this.pnlGrid.Location = new System.Drawing.Point(2, 200);
-            this.pnlGrid.Size = new System.Drawing.Size(867, 296);
+            this.pnlGrid.Location = new System.Drawing.Point(2, 108);
+            this.pnlGrid.Size = new System.Drawing.Size(867, 388);
             // 
             // splitterControl1
             // 
-            this.splitterControl1.Location = new System.Drawing.Point(2, 194);
+            this.splitterControl1.Location = new System.Drawing.Point(2, 102);
             // 
             // pnlInfo
             // 
-            this.pnlInfo.Controls.Add(this.mtxtsRemark);
-            this.pnlInfo.Controls.Add(this.lblsRemark);
             this.pnlInfo.Controls.Add(this.txtsTest);
             this.pnlInfo.Controls.Add(this.lblsTest);
-            this.pnlInfo.Size = new System.Drawing.Size(867, 159);
+            this.pnlInfo.Size = new System.Drawing.Size(867, 67);
             // 
             // panelControl2
             // 
@@ -141,6 +136,21 @@
             this.panelControl1.LookAndFeel.SkinName = "Blue";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
+            // txtsTest
+            // 
+            this.txtsTest.Location = new System.Drawing.Point(88, 24);
+            this.txtsTest.Name = "txtsTest";
+            this.txtsTest.Size = new System.Drawing.Size(290, 21);
+            this.txtsTest.TabIndex = 9;
+            // 
+            // lblsTest
+            // 
+            this.lblsTest.Location = new System.Drawing.Point(22, 27);
+            this.lblsTest.Name = "lblsTest";
+            this.lblsTest.Size = new System.Drawing.Size(24, 14);
+            this.lblsTest.TabIndex = 8;
+            this.lblsTest.Text = "测试";
+            // 
             // gcMain
             // 
             this.gcMain.DataSource = this.dsMain;
@@ -148,8 +158,8 @@
             this.gcMain.Location = new System.Drawing.Point(2, 2);
             this.gcMain.MainView = this.gvMain;
             this.gcMain.Name = "gcMain";
-            this.gcMain.Size = new System.Drawing.Size(863, 292);
-            this.gcMain.TabIndex = 3;
+            this.gcMain.Size = new System.Drawing.Size(863, 384);
+            this.gcMain.TabIndex = 4;
             this.gcMain.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvMain});
             // 
@@ -164,43 +174,13 @@
             this.gvMain.OptionsView.ShowFooter = true;
             this.gvMain.OptionsView.ShowGroupPanel = false;
             // 
-            // lblsTest
-            // 
-            this.lblsTest.Location = new System.Drawing.Point(10, 16);
-            this.lblsTest.Name = "lblsTest";
-            this.lblsTest.Size = new System.Drawing.Size(24, 14);
-            this.lblsTest.TabIndex = 6;
-            this.lblsTest.Text = "测试";
-            // 
-            // txtsTest
-            // 
-            this.txtsTest.Location = new System.Drawing.Point(76, 13);
-            this.txtsTest.Name = "txtsTest";
-            this.txtsTest.Size = new System.Drawing.Size(290, 21);
-            this.txtsTest.TabIndex = 7;
-            // 
-            // lblsRemark
-            // 
-            this.lblsRemark.Location = new System.Drawing.Point(10, 55);
-            this.lblsRemark.Name = "lblsRemark";
-            this.lblsRemark.Size = new System.Drawing.Size(24, 14);
-            this.lblsRemark.TabIndex = 8;
-            this.lblsRemark.Text = "备注";
-            // 
-            // mtxtsRemark
-            // 
-            this.mtxtsRemark.Location = new System.Drawing.Point(76, 53);
-            this.mtxtsRemark.Name = "mtxtsRemark";
-            this.mtxtsRemark.Size = new System.Drawing.Size(290, 47);
-            this.mtxtsRemark.TabIndex = 9;
-            // 
-            // frmTest
+            // frmTest2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.ClientSize = new System.Drawing.Size(871, 498);
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.Name = "frmTest";
+            this.Name = "frmTest2";
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).EndInit();
             this.pnlGrid.ResumeLayout(false);
@@ -212,21 +192,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtsTest.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtsTest.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mtxtsRemark.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Sunrise.ERP.Controls.SunriseGridControl gcMain;
-        private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
         private DevExpress.XtraEditors.TextEdit txtsTest;
         private DevExpress.XtraEditors.LabelControl lblsTest;
-        private DevExpress.XtraEditors.MemoEdit mtxtsRemark;
-        private DevExpress.XtraEditors.LabelControl lblsRemark;
+        private Sunrise.ERP.Controls.SunriseGridControl gcMain;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
     }
 }

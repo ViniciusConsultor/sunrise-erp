@@ -1176,7 +1176,8 @@ namespace Sunrise.ERP.BaseForm
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            frmDynamicFormSetting frm = new frmDynamicFormSetting();
+            frmDynamicFormSetting frm = new frmDynamicFormSetting(FormID);
+            frm.StartPosition = FormStartPosition.CenterScreen;
             if (frm.ShowDialog() == DialogResult.OK)
             {
 
@@ -1248,10 +1249,12 @@ namespace Sunrise.ERP.BaseForm
                             lblControl.Name = "lbl" + dr[iControl]["sFieldName"].ToString();
                             lblControl.TextAlign = ContentAlignment.BottomLeft;
                             //当控件类型为复选框\单选\Label标签时不创建Lable控件
-                            if (sControlType != "chk" || sControlType != "rad" || sControlType != "lbl")
+                            if (sControlType != "chk" && sControlType != "rad" && sControlType != "lbl")
                             {
                                 lblControl.Text = LangCenter.Instance.IsDefaultLanguage ? dr[iControl]["sCaption"].ToString() : dr[iControl]["sCaption"].ToString();
                             }
+                            else
+                                lblControl.Visible = false;
                             pnlInfo.Controls.Add(lblControl);
                             switch (sControlType)
                             {

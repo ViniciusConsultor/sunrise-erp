@@ -98,6 +98,8 @@ namespace Sunrise.ERP.BaseForm.DAL
             string strSql = CreateSQL("Add",false);
             SqlParameter[] parameters = CreateSqlParameter(dr, "Add", false);
             object obj = DbHelperSQL.GetSingle(strSql, trans, parameters);
+            //添加自定义表
+            dr["ID"] = obj;
             UpdateSubData(dr, trans);
             if (obj == null)
             {
@@ -123,7 +125,7 @@ namespace Sunrise.ERP.BaseForm.DAL
         {
             if (SubDynamicData.Length > 0)
             {
-                string sDeleteSql = "DELETE FROM " + TableName + "_Z" + " WHERE MainTableID=" + (dr["ID"] != null ? dr["ID"].ToString() : "-1");
+                string sDeleteSql = "DELETE FROM " + TableName + "_Z" + " WHERE MainTableID=" + (!string.IsNullOrEmpty(dr["ID"].ToString()) ? dr["ID"].ToString() : "-1");
                 DbHelperSQL.ExecuteSql(sDeleteSql, trans);
                 string sInsertSql = CreateSQL("Add", true);
                 SqlParameter[] parameters = CreateSqlParameter(dr, "Add", true);
