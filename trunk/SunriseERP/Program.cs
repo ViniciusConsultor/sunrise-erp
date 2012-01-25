@@ -29,6 +29,7 @@ namespace SunriseERP
                 LangCenter.Instance.LoadLangXmlDocument(System.Configuration.ConfigurationManager.AppSettings["Lang"]);
                 Application.Run(new frmSysInit());
                 //Sunrise.ERP.Security.SecurityCenter.CurrentUserID = "admin";
+                //Sunrise.ERP.Module.Test.frmTest2 frm = new Sunrise.ERP.Module.Test.frmTest2(9002, "≤‚ ‘2");
                 //Sunrise.ERP.Module.Test.frmTest frm = new Sunrise.ERP.Module.Test.frmTest(9001, "≤‚ ‘");
                 //Application.Run(frm);
             }

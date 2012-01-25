@@ -85,7 +85,12 @@ namespace Sunrise.ERP.BasePublic
         /// <summary>
         /// 数字类型
         /// </summary>
-        N
+        N,
+        /// <summary>
+        /// Lookup类型
+        /// </summary>
+        L
+
     }
 }
 

@@ -10,8 +10,9 @@ using Sunrise.ERP.Common;
 using Sunrise.ERP.BasePublic;
 using Sunrise.ERP.Security;
 using Sunrise.ERP.DataAccess;
-using DevExpress.XtraEditors.Controls;
 using Sunrise.ERP.Lang;
+
+using DevExpress.XtraEditors.Controls;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -41,6 +42,7 @@ namespace Sunrise.ERP.BaseForm
 
         private void frmDynamicFormSetting_Load(object sender, EventArgs e)
         {
+            LoadLangSetting();
             AddDetailData("sysDynamicFormDetailDAL", "MainID", "ID", "iSort");
             gcDetail.DataSource = LDetailDataSet[LDetailDALName.IndexOf("sysDynamicFormDetailDAL")];
             gcDetail.DataMember = "ds";
@@ -202,22 +204,56 @@ namespace Sunrise.ERP.BaseForm
         {
             //先检测是否已经创建过自定义表
             string TableName=((DataRowView)dsMain.Current).Row["sTableName"].ToString();
-            DataRow[] drTmp = LDetailDataSet[LDetailDALName.IndexOf("sysDynamicFormDetailDAL")].Tables[0].Select("bSystemColumn=0");
+            //不是系统列，并且不保存数据的列
+            DataRow[] drTmp = LDetailDataSet[LDetailDALName.IndexOf("sysDynamicFormDetailDAL")].Tables[0].Select("bSystemColumn=0 AND bSaveData=1");
             if (drTmp != null && drTmp.Length > 0)
             {
                 if (Base.IsHasSubTable(TableName))
-                {
                     Base.CreateSubTableColumns(drTmp, TableName);
-                }
                 else
-                {
                     Base.CreateSubTable(drTmp, TableName);
-                }
             }
             else
-            {
                 Base.DeleteSubTable(TableName);
-            }
+        }
+
+        /// <summary>
+        /// 加载语言数据
+        /// </summary>
+        private void LoadLangSetting()
+        {
+            this.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", this.Name);
+            colbHistory.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbHistory.Name);
+            colbNotNull.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbNotNull.Name);
+            colbQuery.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbQuery.Name);
+            colbSaveData.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbSaveData.Name);
+            colbShowInGrid.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbShowInGrid.Name);
+            colbSystemColumn.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbSystemColumn.Name);
+            coliFieldLength.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", coliFieldLength.Name);
+            coliSort.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", coliSort.Name);
+            colsCaption.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsCaption.Name);
+            colsControlType.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsControlType.Name);
+            colsFieldName.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsFieldName.Name);
+            colsEngCaption.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsFieldName.Name);
+            colsFormType.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsFormType.Name);
+            colsLocation.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsLocation.Name);
+            colsLookupNo.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsLookupNo.Name);
+            colsQueryViewName.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsQueryViewName.Name);
+            colsSize.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsSize.Name);
+            colsTableName.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsTableName.Name);
+            colsLookupAutoSetControl.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsLookupAutoSetControl.Name);
+            colsLookupAutoSetGrid.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsLookupAutoSetGrid.Name);
+            colsFieldType.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsFieldType.Name);
+            btnDetailAdd.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", btnDetailAdd.Name);
+            btnDetailDelete.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", btnDetailDelete.Name);
+            lbliControlColumn.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", lbliControlColumn.Name);
+            lbliControlSpace.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", lbliControlSpace.Name);
+            lbliDefaultQueryCount.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", lbliDefaultQueryCount.Name);
+            lblsFormType.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", lblsFormType.Name);
+            lblsQueryViewName.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", lblsQueryViewName.Name);
+            lblsTableName.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", lblsTableName.Name);
+            chkbCreateLookUp.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", chkbCreateLookUp.Name);
+            chkbSyncLookUp.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", chkbSyncLookUp.Name);
         }
 
     }

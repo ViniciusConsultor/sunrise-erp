@@ -223,6 +223,17 @@ namespace Sunrise.ERP.BaseControl
             string[] s = str.Split(new string[] { split }, StringSplitOptions.RemoveEmptyEntries);
             return GetSubString(s, 0);
         }
+
+        /// <summary>
+        /// 截取字符串
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <param name="split">分隔符</param>
+        /// <returns></returns>
+        public static string[] GetSplitString(string str, string split)
+        {
+            return str.Replace("\r\n","").Split(new string[] { split }, StringSplitOptions.RemoveEmptyEntries);
+        }
         #endregion
 
 
