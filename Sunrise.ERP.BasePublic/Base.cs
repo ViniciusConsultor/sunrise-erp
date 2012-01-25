@@ -12,6 +12,9 @@ using Sunrise.ERP.DataAccess;
 using Sunrise.ERP.Controls;
 using Sunrise.ERP.Common;
 
+using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Controls;
+
 namespace Sunrise.ERP.BasePublic
 {
     /// <summary>
@@ -825,13 +828,31 @@ namespace Sunrise.ERP.BasePublic
             }
         }
 
-        public static void InitLookupAutoSetValue(SunriseLookUp lkp, string controltype, string autosetting, bool iscontrol)
+        /// <summary>
+        /// 初始化ComboBox
+        /// </summary>
+        /// <param name="cbx">ComboBox控件</param>
+        /// <param name="comboboxno">ComboBox配置编号</param>
+        public static void InitComboBox(ImageComboBoxEdit cbx, string comboboxno)
         {
-            List<Control> listControl = new List<Control>();
-            string[] sItem = Public.GetSplitString(autosetting, ",");
-            foreach (var s in sItem)
+            string sSql = "SELECT sGridDisplayField,sGridColumnText, sEnGridColumnText "
+                        + "FROM sysLookupSetting "
+                        + "WHERE sType='ComboBox' AND sLookupNo='" + comboboxno + "'";
+            DataTable dtTmp = DbHelperSQL.Query(sSql).Tables[0];
+            if (dtTmp != null && dtTmp.Rows.Count > 0)
             {
-                
+                string[] ValueFields = Public.GetSplitString(dtTmp.Rows[0]["sGridDisplayField"].ToString(), ",");
+                string[] DisplayText = Public.GetSplitString(LangCenter.Instance.IsDefaultLanguage ?
+                    dtTmp.Rows[0]["sGridColumnText"].ToString() : dtTmp.Rows[0]["sEnGridColumnText"].ToString(), ",");
+                if (ValueFields.Length == DisplayText.Length)
+                {
+                    for (int i = 0; i < ValueFields.Length; i++)
+                    {
+                        cbx.Properties.Items.Add(new ImageComboBoxItem(DisplayText[i], ValueFields[i]));
+                    }
+                }
+                else
+                    Public.SystemInfo(LangCenter.Instance.GetSystemMessage("InitComboBoxFailed"), true);                
             }
         }
         #endregion

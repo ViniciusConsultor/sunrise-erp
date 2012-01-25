@@ -57,6 +57,7 @@
             this.colbSaveData = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbNotNull = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbHistory = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colbShowInPanel = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbShowInGrid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsLocation = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsSize = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -72,7 +73,7 @@
             this.txtsTableName = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.tabbedControlGroup1 = new DevExpress.XtraLayout.TabbedControlGroup();
-            this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lblGroup = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lblFormID = new DevExpress.XtraLayout.LayoutControlItem();
             this.lbliDefaultQueryCount = new DevExpress.XtraLayout.LayoutControlItem();
             this.lbliControlColumn = new DevExpress.XtraLayout.LayoutControlItem();
@@ -85,7 +86,6 @@
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.colbShowInPanel = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -120,7 +120,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtsTableName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblFormID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbliDefaultQueryCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbliControlColumn)).BeginInit();
@@ -546,6 +546,15 @@
             this.colbHistory.VisibleIndex = 13;
             this.colbHistory.Width = 68;
             // 
+            // colbShowInPanel
+            // 
+            this.colbShowInPanel.Caption = "显示在Panel中";
+            this.colbShowInPanel.FieldName = "bShowInPanel";
+            this.colbShowInPanel.Name = "colbShowInPanel";
+            this.colbShowInPanel.Visible = true;
+            this.colbShowInPanel.VisibleIndex = 14;
+            this.colbShowInPanel.Width = 92;
+            // 
             // colbShowInGrid
             // 
             this.colbShowInGrid.Caption = "显示在Grid中";
@@ -706,17 +715,17 @@
             this.tabbedControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.tabbedControlGroup1.Name = "tabbedControlGroup1";
             this.tabbedControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(1, 1, 1, 1);
-            this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup2;
+            this.tabbedControlGroup1.SelectedTabPage = this.lblGroup;
             this.tabbedControlGroup1.SelectedTabPageIndex = 0;
             this.tabbedControlGroup1.Size = new System.Drawing.Size(606, 149);
             this.tabbedControlGroup1.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlGroup2});
+            this.lblGroup});
             this.tabbedControlGroup1.Text = "tabbedControlGroup1";
             // 
-            // layoutControlGroup2
+            // lblGroup
             // 
-            this.layoutControlGroup2.CustomizationFormText = "分类信息";
-            this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lblGroup.CustomizationFormText = "分类信息";
+            this.lblGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lblFormID,
             this.lbliDefaultQueryCount,
             this.lbliControlColumn,
@@ -729,10 +738,10 @@
             this.layoutControlItem8,
             this.emptySpaceItem1,
             this.emptySpaceItem3});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(596, 117);
-            this.layoutControlGroup2.Text = "窗体配置";
+            this.lblGroup.Location = new System.Drawing.Point(0, 0);
+            this.lblGroup.Name = "lblGroup";
+            this.lblGroup.Size = new System.Drawing.Size(596, 117);
+            this.lblGroup.Text = "窗体配置";
             // 
             // lblFormID
             // 
@@ -882,15 +891,6 @@
             this.emptySpaceItem3.Text = "emptySpaceItem3";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // colbShowInPanel
-            // 
-            this.colbShowInPanel.Caption = "显示在Panel中";
-            this.colbShowInPanel.FieldName = "bShowInPanel";
-            this.colbShowInPanel.Name = "colbShowInPanel";
-            this.colbShowInPanel.Visible = true;
-            this.colbShowInPanel.VisibleIndex = 14;
-            this.colbShowInPanel.Width = 92;
-            // 
             // frmDynamicFormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -934,7 +934,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtsTableName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblGroup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblFormID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbliDefaultQueryCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbliControlColumn)).EndInit();
@@ -968,7 +968,7 @@
         private DevExpress.XtraEditors.TextEdit txtsTableName;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.TabbedControlGroup tabbedControlGroup1;
-        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
+        private DevExpress.XtraLayout.LayoutControlGroup lblGroup;
         private DevExpress.XtraLayout.LayoutControlItem lblFormID;
         private DevExpress.XtraLayout.LayoutControlItem lblsTableName;
         private DevExpress.XtraLayout.LayoutControlItem lbliDefaultQueryCount;

@@ -223,18 +223,20 @@ namespace Sunrise.ERP.BaseForm
         private void LoadLangSetting()
         {
             this.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", this.Name);
+            lblGroup.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", lblGroup.Name);
             colbHistory.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbHistory.Name);
             colbNotNull.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbNotNull.Name);
             colbQuery.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbQuery.Name);
             colbSaveData.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbSaveData.Name);
             colbShowInGrid.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbShowInGrid.Name);
+            colbShowInPanel.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbShowInPanel.Name);
             colbSystemColumn.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbSystemColumn.Name);
             coliFieldLength.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", coliFieldLength.Name);
             coliSort.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", coliSort.Name);
             colsCaption.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsCaption.Name);
             colsControlType.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsControlType.Name);
             colsFieldName.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsFieldName.Name);
-            colsEngCaption.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsFieldName.Name);
+            colsEngCaption.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsEngCaption.Name);
             colsFormType.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsFormType.Name);
             colsLocation.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsLocation.Name);
             colsLookupNo.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsLookupNo.Name);
