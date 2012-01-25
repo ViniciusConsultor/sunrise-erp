@@ -739,22 +739,15 @@ namespace Sunrise.ERP.BaseForm
                                 foreach (var s in sItem)
                                 {
                                     string[] ss = Public.GetSplitString(s, "=");
-                                    //string controlKey = ss[0];
-                                    //Control[] ctrs = pnlInfo.Controls.Find(controlKey, true);
-                                    //if (ctrs != null && ctrs.Length == 1)
                                     ((SunriseLookUp)ctls[0]).AutoSetValue(ss[0], ss[1]);
                                 }
                             }
-                            //if (!string.IsNullOrEmpty(dr["sLookupAutoSetGrid"].ToString()))
-                            //{
-                                
-                            //}
                         }
-
                     }
                     if (ctls[0] is ImageComboBoxEdit)
                     {
-
+                        if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
+                            Base.InitComboBox((ImageComboBoxEdit)ctls[0], dr["sLookupNo"].ToString());
                     }
                 }
                 //第一个控件的X坐标和最后一个控件的Y坐标,用于计算自定义字段的起始位置
@@ -1210,10 +1203,8 @@ namespace Sunrise.ERP.BaseForm
         {
             frmDynamicFormSetting frm = new frmDynamicFormSetting(FormID);
             frm.StartPosition = FormStartPosition.CenterScreen;
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-
-            }
+            frm.WindowState = FormWindowState.Maximized;
+            frm.ShowDialog();
         }
 
         /// <summary>

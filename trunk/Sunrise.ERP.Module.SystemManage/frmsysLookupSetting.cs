@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Sunrise.ERP.Common;
+using Sunrise.ERP.BasePublic;
+using Sunrise.ERP.Lang;
 
 namespace Sunrise.ERP.Module.SystemManage
 {
@@ -46,5 +48,62 @@ namespace Sunrise.ERP.Module.SystemManage
             dsMain.EndEdit();
             return true;
         }
+
+        private void cbxsType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxsType.SelectedIndex == 0)
+            {
+                txtsDataField.Enabled = true;
+                txtsDisplayField.Enabled = true;
+                txtsEnSearchFormText.Enabled = true;
+                txtsSearchFormText.Enabled = true;
+                mtxtsSQL.Enabled = true;
+                lblsGridDisplayField.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsGridDisplayField.Name);
+                lblsGridColumnText.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsGridColumnText.Name);
+                lblsEnGridColumnText.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsEnGridColumnText.Name);
+                lblsLookupNo.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsLookupNo.Name);
+            }
+            else
+            {
+                txtsDataField.Enabled = false;
+                txtsDisplayField.Enabled = false;
+                txtsEnSearchFormText.Enabled = false;
+                txtsSearchFormText.Enabled = false;
+                mtxtsSQL.Enabled = false;
+                lblsGridDisplayField.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsGridDisplayField.Name + "ComboBox");
+                lblsGridColumnText.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsGridColumnText.Name + "ComboBox");
+                lblsEnGridColumnText.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsEnGridColumnText.Name + "ComboBox");
+                lblsLookupNo.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsLookupNo.Name + "ComboBox");
+            }
+        }
+        /// <summary>
+        /// 加载语言数据
+        /// </summary>
+        private void LoadLangSetting()
+        {
+            colsDataField.Caption = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", colsDataField.Name);
+            colsDisplayField.Caption = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", colsDisplayField.Name);
+            colsEnSearchFormText.Caption = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", colsEnSearchFormText.Name);
+            colsLookupNo.Caption = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", colsLookupNo.Name);
+            colsSearchFormText.Caption = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", colsSearchFormText.Name);
+            colsType.Caption = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", colsType.Name);
+            lblsLookupNo.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsLookupNo.Name);
+            lblsRemark.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsRemark.Name);
+            lblsSearchFormText.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsSearchFormText.Name);
+            lblsType.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsType.Name);
+            lblsGridDisplayField.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsGridDisplayField.Name);
+            lblsGridColumnText.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsGridColumnText.Name);
+            lblsEnSearchFormText.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsEnSearchFormText.Name);
+            lblsEnGridColumnText.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsEnGridColumnText.Name);
+            lblsDisplayField.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsDisplayField.Name);
+            lblsDataField.Text = LangCenter.Instance.GetFormLangInfo("frmsysLookupSetting", lblsDataField.Name);
+        }
+
+        private void frmsysLookupSetting_Load(object sender, EventArgs e)
+        {
+            LoadLangSetting();
+        }
+
+
     }
 }

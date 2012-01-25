@@ -83,6 +83,7 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = true;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
+                        btnSettings.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Insert:
@@ -96,6 +97,7 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = false;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
+                        btnSettings.Enabled = false;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Edit:
@@ -109,6 +111,7 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = false;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
+                        btnSettings.Enabled = false;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Cancel:
@@ -122,6 +125,7 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = true;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
+                        btnSettings.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Save:
@@ -135,6 +139,7 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = true;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
+                        btnSettings.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Copy:
@@ -148,6 +153,7 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = false;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
+                        btnSettings.Enabled = false;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Delete:
@@ -161,6 +167,7 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = true;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
+                        btnSettings.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.None:
@@ -174,6 +181,7 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = false;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
+                        btnSettings.Enabled = true;
                         break;
                     }
                 default:
@@ -187,6 +195,7 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = true;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
+                        btnSettings.Enabled = true;
                         break;
                     }
             }

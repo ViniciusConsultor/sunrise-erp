@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.mtxtsRemark = new DevExpress.XtraEditors.MemoEdit();
             this.txtsEnSearchFormText = new DevExpress.XtraEditors.TextEdit();
             this.txtsSearchFormText = new DevExpress.XtraEditors.TextEdit();
             this.txtsEnGridColumnText = new DevExpress.XtraEditors.TextEdit();
@@ -52,6 +53,7 @@
             this.lblsEnGridColumnText = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblsSearchFormText = new DevExpress.XtraLayout.LayoutControlItem();
             this.lblsEnSearchFormText = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lblsRemark = new DevExpress.XtraLayout.LayoutControlItem();
             this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsLookupNo = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -60,8 +62,6 @@
             this.colsEnSearchFormText = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsDataField = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsDisplayField = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.mtxtsRemark = new DevExpress.XtraEditors.MemoEdit();
-            this.lblsRemark = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
             this.pnlInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).BeginInit();
@@ -74,6 +74,7 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mtxtsRemark.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsEnSearchFormText.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsSearchFormText.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsEnGridColumnText.Properties)).BeginInit();
@@ -97,10 +98,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.lblsEnGridColumnText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblsSearchFormText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblsEnSearchFormText)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblsRemark)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mtxtsRemark.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblsRemark)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlInfo
@@ -217,6 +217,14 @@
             this.layoutControl1.TabIndex = 1;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // mtxtsRemark
+            // 
+            this.mtxtsRemark.Location = new System.Drawing.Point(112, 244);
+            this.mtxtsRemark.Name = "mtxtsRemark";
+            this.mtxtsRemark.Size = new System.Drawing.Size(406, 51);
+            this.mtxtsRemark.StyleController = this.layoutControl1;
+            this.mtxtsRemark.TabIndex = 22;
+            // 
             // txtsEnSearchFormText
             // 
             this.txtsEnSearchFormText.Location = new System.Drawing.Point(367, 119);
@@ -294,6 +302,7 @@
             this.cbxsType.Size = new System.Drawing.Size(151, 21);
             this.cbxsType.StyleController = this.layoutControl1;
             this.cbxsType.TabIndex = 12;
+            this.cbxsType.SelectedIndexChanged += new System.EventHandler(this.cbxsType_SelectedIndexChanged);
             // 
             // txtsLookupNo
             // 
@@ -477,6 +486,19 @@
             this.lblsEnSearchFormText.Text = "选择窗体英文名称";
             this.lblsEnSearchFormText.TextSize = new System.Drawing.Size(96, 14);
             // 
+            // lblsRemark
+            // 
+            this.lblsRemark.Control = this.mtxtsRemark;
+            this.lblsRemark.CustomizationFormText = "备注";
+            this.lblsRemark.Location = new System.Drawing.Point(0, 232);
+            this.lblsRemark.MaxSize = new System.Drawing.Size(510, 55);
+            this.lblsRemark.MinSize = new System.Drawing.Size(510, 55);
+            this.lblsRemark.Name = "lblsRemark";
+            this.lblsRemark.Size = new System.Drawing.Size(510, 55);
+            this.lblsRemark.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.lblsRemark.Text = "备注";
+            this.lblsRemark.TextSize = new System.Drawing.Size(96, 14);
+            // 
             // gcMain
             // 
             this.gcMain.DataSource = this.dsMain;
@@ -509,12 +531,12 @@
             // 
             // colsLookupNo
             // 
-            this.colsLookupNo.Caption = "LookUp编号";
+            this.colsLookupNo.Caption = "LookUp/ComboBox编号";
             this.colsLookupNo.FieldName = "sLookupNo";
             this.colsLookupNo.Name = "colsLookupNo";
             this.colsLookupNo.Visible = true;
             this.colsLookupNo.VisibleIndex = 0;
-            this.colsLookupNo.Width = 109;
+            this.colsLookupNo.Width = 152;
             // 
             // colsType
             // 
@@ -561,27 +583,6 @@
             this.colsDisplayField.VisibleIndex = 5;
             this.colsDisplayField.Width = 169;
             // 
-            // mtxtsRemark
-            // 
-            this.mtxtsRemark.Location = new System.Drawing.Point(112, 244);
-            this.mtxtsRemark.Name = "mtxtsRemark";
-            this.mtxtsRemark.Size = new System.Drawing.Size(406, 51);
-            this.mtxtsRemark.StyleController = this.layoutControl1;
-            this.mtxtsRemark.TabIndex = 22;
-            // 
-            // lblsRemark
-            // 
-            this.lblsRemark.Control = this.mtxtsRemark;
-            this.lblsRemark.CustomizationFormText = "备注";
-            this.lblsRemark.Location = new System.Drawing.Point(0, 232);
-            this.lblsRemark.MaxSize = new System.Drawing.Size(510, 55);
-            this.lblsRemark.MinSize = new System.Drawing.Size(510, 55);
-            this.lblsRemark.Name = "lblsRemark";
-            this.lblsRemark.Size = new System.Drawing.Size(510, 55);
-            this.lblsRemark.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.lblsRemark.Text = "备注";
-            this.lblsRemark.TextSize = new System.Drawing.Size(96, 14);
-            // 
             // frmsysLookupSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -590,6 +591,7 @@
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmsysLookupSetting";
             this.Text = "LookUp设置";
+            this.Load += new System.EventHandler(this.frmsysLookupSetting_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).EndInit();
             this.pnlInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).EndInit();
@@ -602,6 +604,7 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mtxtsRemark.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsEnSearchFormText.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsSearchFormText.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsEnGridColumnText.Properties)).EndInit();
@@ -625,10 +628,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.lblsEnGridColumnText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblsSearchFormText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblsEnSearchFormText)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblsRemark)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mtxtsRemark.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblsRemark)).EndInit();
             this.ResumeLayout(false);
 
         }
