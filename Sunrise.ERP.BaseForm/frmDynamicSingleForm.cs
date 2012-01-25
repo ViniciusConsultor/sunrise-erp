@@ -275,6 +275,7 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public override void DoView()
         {
+            CreateSearchFilter();
             if (MasterFilerSQL != "")
             {
                 if (TopCount != 499 && SortField != "dInputDate DESC")
@@ -367,11 +368,11 @@ namespace Sunrise.ERP.BaseForm
                         {
                             if (IsCheckAuth)
                             {
-                                dtMain = GetDataSet(TopCount, SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere, SortField).Tables[0];
+                                dtMain = GetDataSet(TopCount, SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilerSQL, SortField).Tables[0];
                             }
                             else
                             {
-                                dtMain = GetDataSet(TopCount, "1=1 " + pWhere, SortField).Tables[0];
+                                dtMain = GetDataSet(TopCount, "1=1 " + pWhere + MasterFilerSQL, SortField).Tables[0];
                             }
                             dsMain.DataSource = dtMain;
                             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -381,11 +382,11 @@ namespace Sunrise.ERP.BaseForm
                         {
                             if (IsCheckAuth)
                             {
-                                dtMain = GetDataSet(SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere).Tables[0];
+                                dtMain = GetDataSet(SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilerSQL).Tables[0];
                             }
                             else
                             {
-                                dtMain = GetDataSet("1=1 " + pWhere).Tables[0];
+                                dtMain = GetDataSet("1=1 " + pWhere + MasterFilerSQL).Tables[0];
                             }
                             dsMain.DataSource = dtMain;
                             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -406,11 +407,11 @@ namespace Sunrise.ERP.BaseForm
                     {
                         if (IsCheckAuth)
                         {
-                            dtMain = GetDataSet(TopCount, SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere, SortField).Tables[0];
+                            dtMain = GetDataSet(TopCount, SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilerSQL, SortField).Tables[0];
                         }
                         else
                         {
-                            dtMain = GetDataSet(TopCount, "1=1 " + pWhere, SortField).Tables[0];
+                            dtMain = GetDataSet(TopCount, "1=1 " + pWhere + MasterFilerSQL, SortField).Tables[0];
                         }
                         dsMain.DataSource = dtMain;
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -419,11 +420,11 @@ namespace Sunrise.ERP.BaseForm
                     {
                         if (IsCheckAuth)
                         {
-                            dtMain = GetDataSet(SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere).Tables[0];
+                            dtMain = GetDataSet(SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilerSQL).Tables[0];
                         }
                         else
                         {
-                            dtMain = GetDataSet("1=1 " + pWhere).Tables[0];
+                            dtMain = GetDataSet("1=1 " + pWhere + MasterFilerSQL).Tables[0];
                         }
                         dsMain.DataSource = dtMain;
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -724,7 +725,38 @@ namespace Sunrise.ERP.BaseForm
                 ctls = pnlInfo.Controls.Find(ControlKey, true);
                 //DataBinding
                 if (ctls != null && ctls.Length == 1)
+                {
                     ctls[0].DataBindings.Add("EditValue", dsMain, dr["sFieldName"].ToString());
+                    //初始化Lookup
+                    if (ctls[0] is SunriseLookUp)
+                    {
+                        if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
+                        {
+                            Base.InitLookup((SunriseLookUp)ctls[0], dr["sLookupNo"].ToString());
+                            if (!string.IsNullOrEmpty(dr["sLookupAutoSetControl"].ToString()))
+                            {
+                                string[] sItem = Public.GetSplitString(dr["sLookupAutoSetControl"].ToString(), ",");
+                                foreach (var s in sItem)
+                                {
+                                    string[] ss = Public.GetSplitString(s, "=");
+                                    //string controlKey = ss[0];
+                                    //Control[] ctrs = pnlInfo.Controls.Find(controlKey, true);
+                                    //if (ctrs != null && ctrs.Length == 1)
+                                    ((SunriseLookUp)ctls[0]).AutoSetValue(ss[0], ss[1]);
+                                }
+                            }
+                            //if (!string.IsNullOrEmpty(dr["sLookupAutoSetGrid"].ToString()))
+                            //{
+                                
+                            //}
+                        }
+
+                    }
+                    if (ctls[0] is ImageComboBoxEdit)
+                    {
+
+                    }
+                }
                 //第一个控件的X坐标和最后一个控件的Y坐标,用于计算自定义字段的起始位置
                 if (bool.Parse(dr["bSystemColumn"].ToString()))
                 {
@@ -1218,7 +1250,7 @@ namespace Sunrise.ERP.BaseForm
                 //控件间距
                 int iControlSpace = Convert.ToInt32(DynamicTableData.Rows[0]["iControlSpace"]);
                 //先计算需要生成查询的数据
-                DataRow[] dr = DynamicTableData.Select("bSystemColumn=0");
+                DataRow[] dr = DynamicTableData.Select("bSystemColumn=0 AND bShowInPanel=1");
                 //计算控件总共行数
                 int iRows = 0;
                 if (dr.Length > 0)
@@ -1378,6 +1410,50 @@ namespace Sunrise.ERP.BaseForm
             }
         }
 
+        public virtual void CreateSearchFilter()
+        {
+            DataRow[] drs = DynamicTableData.Select("bQuery=1");
+            if (drs.Length > 0)
+            {
+                frmSearchForm frmSearch = new frmSearchForm();
+                foreach (DataRow dr in drs)
+                {
+                    string sControlType = dr["sControlType"].ToString();
+                    switch (sControlType)
+                    {
+                        case "txt":
+                        case "mtxt":
+                            {
+                                frmSearch.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
+                                                        dr["sFieldName"].ToString(), FiledType.S);
+                                break;
+                            }
+                        case "cbx":
+                            {
+                                frmSearch.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
+                                                        dr["sFieldName"].ToString(), FiledType.C);
+                                break;
+                            }
+                        case "lkp":
+                            {
+                                frmSearch.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
+                                                        dr["sFieldName"].ToString(), FiledType.L);
+                                break;
+                            }
+                        case "det":
+                            {
+                                frmSearch.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
+                                                        dr["sFieldName"].ToString(), FiledType.D);
+                                break;
+                            }
+                    }                    
+                }
+                if (frmSearch.ShowDialog() == DialogResult.OK)
+                {
+                    MasterFilerSQL = " AND " + frmSearch.SearchSQL;
+                }
+            }
+        }
 
         #endregion
 

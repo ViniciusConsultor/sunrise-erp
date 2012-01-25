@@ -9,6 +9,8 @@ using System.Runtime.InteropServices;
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.Lang;
 using Sunrise.ERP.DataAccess;
+using Sunrise.ERP.Controls;
+using Sunrise.ERP.Common;
 
 namespace Sunrise.ERP.BasePublic
 {
@@ -676,6 +678,11 @@ namespace Sunrise.ERP.BasePublic
             }
         }
 
+        /// <summary>
+        /// 创建自定义表的列信息
+        /// </summary>
+        /// <param name="drs">需要创建的数据列</param>
+        /// <param name="tablename">数据表名称</param>
         public static void CreateSubTableColumns(DataRow[] drs, string tablename)
         {
             if (drs != null && drs.Length > 0)
@@ -779,12 +786,52 @@ namespace Sunrise.ERP.BasePublic
             }
         }
 
+        /// <summary>
+        /// 删除自定义表
+        /// </summary>
+        /// <param name="tablename">数据表名称</param>
         public static void DeleteSubTable(string tablename)
         {
             if (IsHasSubTable(tablename))
             {
                 string sSql = "DROP TABLE [dbo].[" + tablename + "_Z]";
                 DbHelperSQL.ExecuteSql(sSql);
+            }
+        }
+
+        /// <summary>
+        /// 初始化Lookup控件
+        /// </summary>
+        /// <param name="lkp">LookUp控件</param>
+        /// <param name="lookupno">Lookup配置编号</param>
+        public static void InitLookup(SunriseLookUp lkp, string lookupno)
+        {
+            string sSql = "SELECT sLookupNo, sSQL, sDataField, sDisplayField, sGridDisplayField, "
+                        + "sGridColumnText, sEnGridColumnText, sSearchFormText, sEnSearchFormText "
+                        + "FROM sysLookupSetting " 
+                        + "WHERE sType='LookUp' AND sLookupNo='" + lookupno + "'";
+            DataTable dtTmp = DbHelperSQL.Query(sSql).Tables[0];
+            if (dtTmp != null && dtTmp.Rows.Count > 0)
+            {
+                string SearchFormText = LangCenter.Instance.IsDefaultLanguage ?
+                    dtTmp.Rows[0]["sSearchFormText"].ToString() : dtTmp.Rows[0]["sEnSearchFormText"].ToString();
+                string SQL = dtTmp.Rows[0]["sSQL"].ToString();
+                string DataField = dtTmp.Rows[0]["sDataField"].ToString();
+                string DisplayField = dtTmp.Rows[0]["sDisplayField"].ToString();
+                string GridDisplayField = dtTmp.Rows[0]["sGridDisplayField"].ToString();
+                string GridColumnText = LangCenter.Instance.IsDefaultLanguage ?
+                    dtTmp.Rows[0]["sGridColumnText"].ToString() : dtTmp.Rows[0]["sEnGridColumnText"].ToString();
+                SystemPublic.InitLookUpBase(lkp, SQL, DataField, DisplayField, GridDisplayField, GridColumnText, SearchFormText);
+            }
+        }
+
+        public static void InitLookupAutoSetValue(SunriseLookUp lkp, string controltype, string autosetting, bool iscontrol)
+        {
+            List<Control> listControl = new List<Control>();
+            string[] sItem = Public.GetSplitString(autosetting, ",");
+            foreach (var s in sItem)
+            {
+                
             }
         }
         #endregion

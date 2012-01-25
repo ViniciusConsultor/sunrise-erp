@@ -427,25 +427,54 @@ namespace Sunrise.ERP.Controls
                         for (int i = 0; i < LAutoSetControl.ToArray().Length; i++)
                         {
                             LAutoSetControl[i].Focus();
-                            LAutoSetControl[i].Text = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
+                            if (LAutoSetControl[i] is TextBox || LAutoSetControl[i] is TextEdit ||
+                                LAutoSetControl[i] is MemoEdit || LAutoSetControl[i] is MemoExEdit)
+                                LAutoSetControl[i].Text = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
+                            if (LAutoSetControl[i] is SunriseLookUp)
+                                ((SunriseLookUp)LAutoSetControl[i]).EditValue = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
+                            if (LAutoSetControl[i] is ImageComboBoxEdit)
+                                ((ImageComboBoxEdit)LAutoSetControl[i]).EditValue = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
+                            if (LAutoSetControl[i] is ComboBoxEdit)
+                                ((ComboBoxEdit)LAutoSetControl[i]).EditValue = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
+
                         }
-                        for (int i = 0; i < LAutoSetFields.ToArray().Length; i++)
-                        {
-                            gvTemp.Focus();
-                            if (this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                        if (gvTemp != null)
+                            for (int i = 0; i < LAutoSetFields.ToArray().Length; i++)
                             {
-                                //先要设置控件绑定的值,在设置自动赋值的字段
-                                ((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
-                                ((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
-                                //((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
+                                gvTemp.Focus();
+                                if (this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                                {
+                                    //先要设置控件绑定的值,在设置自动赋值的字段
+                                    ((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                    ((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
+                                    //((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
+                                }
+                                else
+                                {
+                                    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
+                                    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].AcceptChanges();
+                                }
                             }
-                            else
+                        else
+                            for (int i = 0; i < LAutoSetFields.ToArray().Length; i++)
                             {
-                                ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
-                                ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
-                                ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].AcceptChanges();
+                                if (this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                                {
+                                    //先要设置控件绑定的值,在设置自动赋值的字段
+                                    //((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                    //((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
+                                    ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                    ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
+                                    ((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
+                                }
+                                //else
+                                //{
+                                //    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                //    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
+                                //    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].AcceptChanges();
+                                //}
                             }
-                        }
                     }
                 }
             }
@@ -455,7 +484,7 @@ namespace Sunrise.ERP.Controls
         }
 
         /// <summary>
-        /// 查询后自动设置相应数据值-用于主表自动赋值，目前只支持赋值控件的Text属性
+        /// 查询后自动设置相应数据值-用于主表自动赋值
         /// </summary>
         /// <param name="ctl">控件名</param>
         /// <param name="valuefield">返回结果中的字段名</param>
@@ -474,6 +503,12 @@ namespace Sunrise.ERP.Controls
         public void AutoSetValue(ref DevExpress.XtraGrid.Views.Grid.GridView gv, string field, string valuefield)
         {
             gvTemp = gv;
+            LAutoSetFields.Add(field);
+            LAutoSetValueFields.Add(valuefield);
+        }
+
+        public void AutoSetValue(string field, string valuefield)
+        {
             LAutoSetFields.Add(field);
             LAutoSetValueFields.Add(valuefield);
         }

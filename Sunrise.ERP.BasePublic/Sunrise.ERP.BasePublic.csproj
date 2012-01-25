@@ -97,6 +97,10 @@
       <Project>{77AF6749-8A39-4EFD-9160-CDAC511D7233}</Project>
       <Name>Sunrise.ERP.BaseControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.Common\Sunrise.ERP.Common.csproj">
+      <Project>{34787DE0-6E5B-49AF-928E-20C341CCC941}</Project>
+      <Name>Sunrise.ERP.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sunrise.ERP.Controls\Sunrise.ERP.Controls.csproj">
       <Project>{B063E5F9-4E6C-4CCE-90D9-97094DBEFD3C}</Project>
       <Name>Sunrise.ERP.Controls</Name>

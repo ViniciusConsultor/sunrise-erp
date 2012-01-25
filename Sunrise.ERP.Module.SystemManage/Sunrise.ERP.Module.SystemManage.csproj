@@ -98,6 +98,12 @@
     <Compile Include="frmsysEditUser.Designer.cs">
       <DependentUpon>frmsysEditUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmsysLookupSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmsysLookupSetting.Designer.cs">
+      <DependentUpon>frmsysLookupSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmsysMenuPara.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,10 @@
       <Project>{77AF6749-8A39-4EFD-9160-CDAC511D7233}</Project>
       <Name>Sunrise.ERP.BaseControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.BaseForm.DAL\Sunrise.ERP.BaseForm.DAL.csproj">
+      <Project>{67865932-18D5-40FB-BEEC-636FEA6C7C1B}</Project>
+      <Name>Sunrise.ERP.BaseForm.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sunrise.ERP.BaseForm\Sunrise.ERP.BaseForm.csproj">
       <Project>{AE1E345F-00DA-4EC0-9640-5F62A9118790}</Project>
       <Name>Sunrise.ERP.BaseForm</Name>
@@ -160,6 +170,10 @@
     <ProjectReference Include="..\Sunrise.ERP.Controls\Sunrise.ERP.Controls.csproj">
       <Project>{B063E5F9-4E6C-4CCE-90D9-97094DBEFD3C}</Project>
       <Name>Sunrise.ERP.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.Lang\Sunrise.ERP.Lang.csproj">
+      <Project>{BE849923-172A-4FBD-9C75-BAB978254BBF}</Project>
+      <Name>Sunrise.ERP.Lang</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sunrise.ERP.SystemManage.DAL\Sunrise.ERP.SystemManage.DAL.csproj">
       <Project>{F028F118-99CF-4C4D-90E0-8E81B05CE346}</Project>
@@ -184,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmsysEditUser.resx">
       <DependentUpon>frmsysEditUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmsysLookupSetting.resx">
+      <DependentUpon>frmsysLookupSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmsysMenuPara.resx">
       <DependentUpon>frmsysMenuPara.cs</DependentUpon>
@@ -237,7 +254,6 @@
     <None Include="Resources\edit.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

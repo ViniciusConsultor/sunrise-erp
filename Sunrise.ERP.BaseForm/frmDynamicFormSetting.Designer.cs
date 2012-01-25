@@ -48,6 +48,10 @@
             this.colsControlType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cbxsControlType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.colsLookupNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colsLookupAutoSetControl = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.mtxtsLookupAutoSetControl = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
+            this.colsLookupAutoSetGrid = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.mtxtsLookupAutoSetGrid = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             this.colbSystemColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbQuery = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbSaveData = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -81,6 +85,7 @@
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.colbShowInPanel = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -101,6 +106,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxsFieldType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxsControlType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkbSyncLookUp.Properties)).BeginInit();
@@ -333,7 +340,9 @@
             this.gcDetail.Name = "gcDetail";
             this.gcDetail.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.cbxsFieldType,
-            this.cbxsControlType});
+            this.cbxsControlType,
+            this.mtxtsLookupAutoSetControl,
+            this.mtxtsLookupAutoSetGrid});
             this.gcDetail.Size = new System.Drawing.Size(610, 261);
             this.gcDetail.TabIndex = 6;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -350,11 +359,14 @@
             this.coliFieldLength,
             this.colsControlType,
             this.colsLookupNo,
+            this.colsLookupAutoSetControl,
+            this.colsLookupAutoSetGrid,
             this.colbSystemColumn,
             this.colbQuery,
             this.colbSaveData,
             this.colbNotNull,
             this.colbHistory,
+            this.colbShowInPanel,
             this.colbShowInGrid,
             this.colsLocation,
             this.colsSize});
@@ -456,6 +468,38 @@
             this.colsLookupNo.VisibleIndex = 7;
             this.colsLookupNo.Width = 119;
             // 
+            // colsLookupAutoSetControl
+            // 
+            this.colsLookupAutoSetControl.Caption = "LookUp自动设置栏位";
+            this.colsLookupAutoSetControl.ColumnEdit = this.mtxtsLookupAutoSetControl;
+            this.colsLookupAutoSetControl.FieldName = "sLookupAutoSetControl";
+            this.colsLookupAutoSetControl.Name = "colsLookupAutoSetControl";
+            this.colsLookupAutoSetControl.Visible = true;
+            this.colsLookupAutoSetControl.VisibleIndex = 8;
+            this.colsLookupAutoSetControl.Width = 149;
+            // 
+            // mtxtsLookupAutoSetControl
+            // 
+            this.mtxtsLookupAutoSetControl.AutoHeight = false;
+            this.mtxtsLookupAutoSetControl.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.mtxtsLookupAutoSetControl.Name = "mtxtsLookupAutoSetControl";
+            // 
+            // colsLookupAutoSetGrid
+            // 
+            this.colsLookupAutoSetGrid.Caption = "LookUp自动设置Grid";
+            this.colsLookupAutoSetGrid.ColumnEdit = this.mtxtsLookupAutoSetGrid;
+            this.colsLookupAutoSetGrid.FieldName = "sLookupAutoSetGrid";
+            this.colsLookupAutoSetGrid.Name = "colsLookupAutoSetGrid";
+            this.colsLookupAutoSetGrid.Width = 139;
+            // 
+            // mtxtsLookupAutoSetGrid
+            // 
+            this.mtxtsLookupAutoSetGrid.AutoHeight = false;
+            this.mtxtsLookupAutoSetGrid.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.mtxtsLookupAutoSetGrid.Name = "mtxtsLookupAutoSetGrid";
+            // 
             // colbSystemColumn
             // 
             this.colbSystemColumn.Caption = "系统列";
@@ -463,7 +507,7 @@
             this.colbSystemColumn.Name = "colbSystemColumn";
             this.colbSystemColumn.OptionsColumn.AllowEdit = false;
             this.colbSystemColumn.Visible = true;
-            this.colbSystemColumn.VisibleIndex = 8;
+            this.colbSystemColumn.VisibleIndex = 9;
             this.colbSystemColumn.Width = 58;
             // 
             // colbQuery
@@ -472,7 +516,7 @@
             this.colbQuery.FieldName = "bQuery";
             this.colbQuery.Name = "colbQuery";
             this.colbQuery.Visible = true;
-            this.colbQuery.VisibleIndex = 9;
+            this.colbQuery.VisibleIndex = 10;
             this.colbQuery.Width = 50;
             // 
             // colbSaveData
@@ -481,7 +525,7 @@
             this.colbSaveData.FieldName = "bSaveData";
             this.colbSaveData.Name = "colbSaveData";
             this.colbSaveData.Visible = true;
-            this.colbSaveData.VisibleIndex = 10;
+            this.colbSaveData.VisibleIndex = 11;
             this.colbSaveData.Width = 72;
             // 
             // colbNotNull
@@ -490,7 +534,7 @@
             this.colbNotNull.FieldName = "bNotNull";
             this.colbNotNull.Name = "colbNotNull";
             this.colbNotNull.Visible = true;
-            this.colbNotNull.VisibleIndex = 11;
+            this.colbNotNull.VisibleIndex = 12;
             this.colbNotNull.Width = 61;
             // 
             // colbHistory
@@ -499,7 +543,7 @@
             this.colbHistory.FieldName = "bHistory";
             this.colbHistory.Name = "colbHistory";
             this.colbHistory.Visible = true;
-            this.colbHistory.VisibleIndex = 12;
+            this.colbHistory.VisibleIndex = 13;
             this.colbHistory.Width = 68;
             // 
             // colbShowInGrid
@@ -508,8 +552,8 @@
             this.colbShowInGrid.FieldName = "bShowInGrid";
             this.colbShowInGrid.Name = "colbShowInGrid";
             this.colbShowInGrid.Visible = true;
-            this.colbShowInGrid.VisibleIndex = 13;
-            this.colbShowInGrid.Width = 92;
+            this.colbShowInGrid.VisibleIndex = 15;
+            this.colbShowInGrid.Width = 97;
             // 
             // colsLocation
             // 
@@ -517,7 +561,7 @@
             this.colsLocation.FieldName = "sLocation";
             this.colsLocation.Name = "colsLocation";
             this.colsLocation.Visible = true;
-            this.colsLocation.VisibleIndex = 14;
+            this.colsLocation.VisibleIndex = 16;
             this.colsLocation.Width = 97;
             // 
             // colsSize
@@ -526,7 +570,7 @@
             this.colsSize.FieldName = "sSize";
             this.colsSize.Name = "colsSize";
             this.colsSize.Visible = true;
-            this.colsSize.VisibleIndex = 15;
+            this.colsSize.VisibleIndex = 17;
             this.colsSize.Width = 80;
             // 
             // layoutControl1
@@ -838,6 +882,15 @@
             this.emptySpaceItem3.Text = "emptySpaceItem3";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // colbShowInPanel
+            // 
+            this.colbShowInPanel.Caption = "显示在Panel中";
+            this.colbShowInPanel.FieldName = "bShowInPanel";
+            this.colbShowInPanel.Name = "colbShowInPanel";
+            this.colbShowInPanel.Visible = true;
+            this.colbShowInPanel.VisibleIndex = 14;
+            this.colbShowInPanel.Width = 92;
+            // 
             // frmDynamicFormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -867,6 +920,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxsFieldType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxsControlType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chkbSyncLookUp.Properties)).EndInit();
@@ -951,5 +1006,10 @@
         private DevExpress.XtraGrid.Columns.GridColumn colsLocation;
         private DevExpress.XtraGrid.Columns.GridColumn colsSize;
         private DevExpress.XtraGrid.Columns.GridColumn colbQuery;
+        private DevExpress.XtraGrid.Columns.GridColumn colsLookupAutoSetControl;
+        private DevExpress.XtraGrid.Columns.GridColumn colsLookupAutoSetGrid;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit mtxtsLookupAutoSetControl;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit mtxtsLookupAutoSetGrid;
+        private DevExpress.XtraGrid.Columns.GridColumn colbShowInPanel;
     }
 }

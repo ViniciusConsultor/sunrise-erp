@@ -51,7 +51,7 @@ namespace Sunrise.ERP.BaseForm.DAL
         /// </summary>
         private DataRow[] SubDynamicData
         {
-            get { return dynamicdatatable.Select("bSystemColumn=0"); }
+            get { return dynamicdatatable.Select("bSystemColumn=0 AND bSaveData=1"); }
         }
 
         #endregion
@@ -99,7 +99,7 @@ namespace Sunrise.ERP.BaseForm.DAL
             SqlParameter[] parameters = CreateSqlParameter(dr, "Add", false);
             object obj = DbHelperSQL.GetSingle(strSql, trans, parameters);
             //添加自定义表
-            dr["ID"] = obj;
+            dr["ID"] = obj == null ? -1 : obj;
             UpdateSubData(dr, trans);
             if (obj == null)
             {
@@ -370,7 +370,7 @@ namespace Sunrise.ERP.BaseForm.DAL
                     //float or decimal
                     case "F":
                         {
-                            parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.Decimal, (int)dr["iFieldLength"]));
+                            parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.Decimal, 9));
                             parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
                             break;
                         }
