@@ -47,6 +47,7 @@
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
             this.btnOr = new DevExpress.XtraEditors.SimpleButton();
             this.btnAnd = new DevExpress.XtraEditors.SimpleButton();
+            this.lkpSearchValue = new Sunrise.ERP.Controls.SunriseLookUp();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearchValue.Properties)).BeginInit();
@@ -90,6 +91,7 @@
             // 
             // pnlTop
             // 
+            this.pnlTop.Controls.Add(this.lkpSearchValue);
             this.pnlTop.Controls.Add(this.txtSearchValue);
             this.pnlTop.Controls.Add(this.txtBtnSearchValue);
             this.pnlTop.Controls.Add(this.cbxSearchValue);
@@ -284,6 +286,26 @@
             this.btnAnd.Text = "并且(&A)";
             this.btnAnd.Click += new System.EventHandler(this.btnAnd_Click);
             // 
+            // lkpSearchValue
+            // 
+            this.lkpSearchValue.AutoSize = true;
+            this.lkpSearchValue.DataField = null;
+            this.lkpSearchValue.DisplayField = null;
+            this.lkpSearchValue.EditFormFilter = null;
+            this.lkpSearchValue.EditFormID = 0;
+            this.lkpSearchValue.EditFormName = null;
+            this.lkpSearchValue.EditValue = "";
+            this.lkpSearchValue.GridColumnText = null;
+            this.lkpSearchValue.GridDisplayField = null;
+            this.lkpSearchValue.Location = new System.Drawing.Point(370, 13);
+            this.lkpSearchValue.Name = "lkpSearchValue";
+            this.lkpSearchValue.SearchFormFilter = "";
+            this.lkpSearchValue.SearchFormText = "";
+            this.lkpSearchValue.Size = new System.Drawing.Size(131, 21);
+            this.lkpSearchValue.SQL = null;
+            this.lkpSearchValue.TabIndex = 9;
+            this.lkpSearchValue.TextFont = new System.Drawing.Font("Tahoma", 9F);
+            // 
             // frmSearchForm
             // 
             this.AcceptButton = this.btnOk;
@@ -342,5 +364,6 @@
         private DevExpress.XtraEditors.ImageComboBoxEdit cbxSearchValue;
         private DevExpress.XtraEditors.DateEdit detSearchValue;
         private DevExpress.XtraEditors.ButtonEdit txtBtnSearchValue;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpSearchValue;
     }
 }

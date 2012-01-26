@@ -1422,13 +1422,13 @@ namespace Sunrise.ERP.BaseForm
                         case "cbx":
                             {
                                 frmSearch.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
-                                                        dr["sFieldName"].ToString(), FiledType.C);
+                                                        dr["sFieldName"].ToString(), FiledType.C, dr["sLookupNo"].ToString());
                                 break;
                             }
                         case "lkp":
                             {
                                 frmSearch.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
-                                                        dr["sFieldName"].ToString(), FiledType.L);
+                                                        dr["sFieldName"].ToString(), FiledType.L, dr["sLookupNo"].ToString());
                                 break;
                             }
                         case "det":
