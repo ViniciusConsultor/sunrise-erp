@@ -6,13 +6,20 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using Sunrise.ERP.BasePublic;
+using Sunrise.ERP.BaseControl;
+using Sunrise.ERP.Common;
+
+using DevExpress.XtraEditors.Controls;
+
 namespace Sunrise.ERP.BaseForm
 {
     public partial class frmSearchForm : Sunrise.ERP.BaseForm.frmForm
     {
         private List<string> LItemName = new List<string>();
         private List<string> LItemFiled = new List<string>();
-        private List<Sunrise.ERP.BasePublic.FiledType> LFieldType = new List<Sunrise.ERP.BasePublic.FiledType>();
+        private List<FiledType> LFieldType = new List<FiledType>();
+        private List<string> LLookUpOrComboBoxSetting = new List<string>();
         /// <summary>
         /// 通用查询设置窗体
         /// </summary>
@@ -51,19 +58,14 @@ namespace Sunrise.ERP.BaseForm
 
         private void frmSearchForm_Load(object sender, EventArgs e)
         {
-            if (txtSearchText.Text == "")
-            {
+            if (string.IsNullOrEmpty(txtSearchText.Text))
                 btnOk.Enabled = false;
-            }
             for (int i = 0; i < LItemName.Count; i++)
             {
-                cbxSearchItem.Properties.Items.Add(new DevExpress.XtraEditors.Controls.ImageComboBoxItem(LItemName[i], LItemFiled[i]));
+                cbxSearchItem.Properties.Items.Add(new ImageComboBoxItem(LItemName[i], LItemFiled[i]));
             }
             if (cbxSearchItem.Properties.Items.Count > 0)
-            {
                 cbxSearchItem.SelectedIndex = 0;
-            }
-
         }
 
         private void txtSearchText_TextChanged(object sender, EventArgs e)
@@ -74,9 +76,7 @@ namespace Sunrise.ERP.BaseForm
                 btnOk.Focus();
             }
             else
-            {
                 btnOk.Enabled = false;
-            }
         }
         /// <summary>
         /// 创建查询值控件
@@ -87,20 +87,47 @@ namespace Sunrise.ERP.BaseForm
             txtSearchValue.Visible = false;
             detSearchValue.Visible = false;
             txtBtnSearchValue.Visible = false;
+            lkpSearchValue.Visible = false;
             ValueControl.Visible = true;
         }
         /// <summary>
-        /// 增加查询项目，-目前支持S，D，T，N，文本查询，暂不支持LookUp查询
+        /// 增加查询项目
         /// </summary>
         /// <param name="sItemName">查询项目名称</param>
         /// <param name="sItemFiled">查询项目字段</param>
         /// <param name="FiledType">查询项目类型</param>
-        public void AddSearchItem(string sItemName, string sItemFiled, Sunrise.ERP.BasePublic.FiledType FiledType)
+        public void AddSearchItem(string sItemName, string sItemFiled, FiledType FiledType)
         {
             LItemName.Add(sItemName);
             LItemFiled.Add(sItemFiled);
             LFieldType.Add(FiledType);
+            LLookUpOrComboBoxSetting.Add("NULL");
         }
+        public void AddSearchItem(string sItemName, string sItemFiled, FiledType FiledType,string LookUpOrComboBoxSetting)
+        {
+            LItemName.Add(sItemName);
+            LItemFiled.Add(sItemFiled);
+            LFieldType.Add(FiledType);
+            LLookUpOrComboBoxSetting.Add(LookUpOrComboBoxSetting);
+        }
+        public void AddSearchItem(string sItemName, string sItemFiled, FiledType FiledType, string sql, 
+            string returnfield, string displayfield, string columnfield, string columntetx, string text)
+        {
+            LItemName.Add(sItemName);
+            LItemFiled.Add(sItemFiled);
+            LFieldType.Add(FiledType);
+            string LookUpOrComboBoxSetting = sql + "|" + returnfield + "|" + displayfield + "|" + "|" + columnfield + "|" + columntetx + "|" + text;
+            LLookUpOrComboBoxSetting.Add(LookUpOrComboBoxSetting);
+        }
+        public void AddSearchItem(string sItemName, string sItemFiled, FiledType FiledType, string ComboBoxValues,string ComboBoxTexts)
+        {
+            LItemName.Add(sItemName);
+            LItemFiled.Add(sItemFiled);
+            LFieldType.Add(FiledType);
+            string LookUpOrComboBoxSetting = ComboBoxValues + "|" + ComboBoxTexts;
+            LLookUpOrComboBoxSetting.Add(LookUpOrComboBoxSetting);
+        }
+
 
         private void cbxSearchItem_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -110,51 +137,50 @@ namespace Sunrise.ERP.BaseForm
                 {
                     cbxSearchWhere.SelectedIndex = 0;
                 }
-                string sFiledType = "";
-                sFiledType = LFieldType[LItemName.IndexOf(cbxSearchItem.SelectedItem.ToString())].ToString();
-                switch (sFiledType)
+                FiledType filedType = LFieldType[LItemName.IndexOf(cbxSearchItem.SelectedItem.ToString())];
+                switch (filedType)
                 {
-                    case "S":
+                    case FiledType.S:
                         {
                             ShowSearchValueControl(txtSearchValue);
                             SetSearchValueDefault();
                             cbxSearchWhere.SelectedIndex = 5;
                             break;
                         }
-                    case "D":
+                    case FiledType.D:
                         {
                             ShowSearchValueControl(detSearchValue);
                             SetSearchValueDefault();
-                            if (cbxSearchWhere.SelectedIndex == 5)
-                            {
-                                cbxSearchWhere.SelectedIndex = 0;
-                            }
+                            cbxSearchWhere.SelectedIndex = 0;
                             break;
                         }
-                    case "C":
+                    case FiledType.C:
                         {
-                            ShowSearchValueControl(txtBtnSearchValue);
+                            ShowSearchValueControl(cbxSearchValue);
                             SetSearchValueDefault();
-                            if (cbxSearchWhere.SelectedIndex == 5)
-                            {
-                                cbxSearchWhere.SelectedIndex = 0;
-                            }
+                            InitComboBox(LItemName.IndexOf(cbxSearchItem.SelectedItem.ToString()));
+                            cbxSearchWhere.SelectedIndex = 0;
                             break;
                         }
-                    case "T":
+                    case FiledType.T:
                         {
                             ShowSearchValueControl(detSearchValue);
                             SetSearchValueDefault();
-                            if (cbxSearchWhere.SelectedIndex == 5)
-                            {
-                                cbxSearchWhere.SelectedIndex = 0;
-                            }
+                            cbxSearchWhere.SelectedIndex = 0;
                             break;
                         }
-                    case "N":
+                    case FiledType.N:
                         {
                             ShowSearchValueControl(txtSearchValue);
                             SetSearchValueDefault();
+                            break;
+                        }
+                    case FiledType.L:
+                        {
+                            ShowSearchValueControl(lkpSearchValue);
+                            SetSearchValueDefault();
+                            InitLookUp(LItemName.IndexOf(cbxSearchItem.SelectedItem.ToString()));
+                            cbxSearchWhere.SelectedIndex = 0;
                             break;
                         }
                 }
@@ -172,6 +198,7 @@ namespace Sunrise.ERP.BaseForm
             txtSearchValue.Text = "";
             cbxSearchValue.SelectedIndex = -1;
             detSearchValue.DateTime = DateTime.Now;
+            lkpSearchValue.EditValue = string.Empty;
             txtBtnSearchValue.Text = "";
 
         }
@@ -188,11 +215,15 @@ namespace Sunrise.ERP.BaseForm
             }
             else if (cbxSearchValue.Visible)
             {
-                sValue = cbxSearchValue.SelectedItem.ToString();
+                sValue = cbxSearchValue.EditValue.ToString();
             }
             else if (txtBtnSearchValue.Visible)
             {
                 sValue = txtBtnSearchValue.Text;
+            }
+            else if (lkpSearchValue.Visible)
+            {
+                sValue = lkpSearchValue.EditValue;
             }
             AddSearchText(cbxSearchItem.SelectedItem.ToString(), cbxSearchWhere.SelectedItem.ToString(), sValue, "AND");
         }
@@ -293,6 +324,43 @@ namespace Sunrise.ERP.BaseForm
             get
             {
                 return sSearchSql;
+            }
+        }
+
+        private void InitLookUp(int index)
+        {
+            string LookupSetting = LLookUpOrComboBoxSetting[index];
+            if (LookupSetting.Contains("|"))
+            {
+                string[] s = Public.GetSplitString(LookupSetting, "|");
+                SystemPublic.InitLookUpBase(lkpSearchValue, s[0], s[1], s[2], s[3], s[4], s[5]);
+            }
+            else if (LookupSetting != "NULL")
+            {
+                Base.InitLookup(lkpSearchValue, LookupSetting);
+            }
+        }
+
+        private void InitComboBox(int index)
+        {
+            string ComboBoxSetting = LLookUpOrComboBoxSetting[index];
+            if (ComboBoxSetting.Contains("|"))
+            {
+                string[] s = Public.GetSplitString(ComboBoxSetting, "|");
+                string[] value = Public.GetSplitString(s[0], ",");
+                string[] text = Public.GetSplitString(s[1], ",");
+                if (value.Length == text.Length)
+                {
+                    cbxSearchValue.Properties.Items.Clear();
+                    for (int i = 0; i < value.Length; i++)
+                    {
+                        cbxSearchValue.Properties.Items.Add(new ImageComboBoxItem(text[i], value[i]));
+                    }
+                }
+            }
+            else if (ComboBoxSetting != "NULL")
+            {
+                Base.InitComboBox(cbxSearchValue, ComboBoxSetting);
             }
         }
     }
