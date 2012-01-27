@@ -18,7 +18,7 @@ namespace Sunrise.ERP.Module.Test
                 Text = formtext;
             //创建自定义字段列
             CreateDynamicControl();
-            CreateGridColumn(gvMain, MasterTableName);
+            CreateMasterGridColumn(gvMain);
 
         }
 
