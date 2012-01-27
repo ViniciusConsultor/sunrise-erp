@@ -66,19 +66,33 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtsMasterTest.Properties)).BeginInit();
             this.SuspendLayout();
             // 
+            // sptLeftRight
+            // 
+            this.sptLeftRight.Location = new System.Drawing.Point(889, 35);
+            // 
             // pnlDetail
             // 
             this.pnlDetail.Controls.Add(this.gcDetail);
             this.pnlDetail.Controls.Add(this.pnlDetailMenu);
+            this.pnlDetail.Location = new System.Drawing.Point(895, 259);
+            this.pnlDetail.Size = new System.Drawing.Size(0, 237);
             // 
             // pnlGrid
             // 
             this.pnlGrid.Controls.Add(this.gcMain);
+            this.pnlGrid.Size = new System.Drawing.Size(887, 461);
+            // 
+            // sptUpDown
+            // 
+            this.sptUpDown.Location = new System.Drawing.Point(895, 253);
+            this.sptUpDown.Size = new System.Drawing.Size(0, 6);
             // 
             // pnlInfo
             // 
             this.pnlInfo.Controls.Add(this.txtsMasterTest);
             this.pnlInfo.Controls.Add(this.lblsMasterTest);
+            this.pnlInfo.Location = new System.Drawing.Point(895, 35);
+            this.pnlInfo.Size = new System.Drawing.Size(0, 218);
             // 
             // panelControl2
             // 
@@ -160,7 +174,7 @@
             this.gcMain.Location = new System.Drawing.Point(2, 2);
             this.gcMain.MainView = this.gvMain;
             this.gcMain.Name = "gcMain";
-            this.gcMain.Size = new System.Drawing.Size(235, 457);
+            this.gcMain.Size = new System.Drawing.Size(883, 457);
             this.gcMain.TabIndex = 5;
             this.gcMain.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvMain});
@@ -180,11 +194,11 @@
             this.pnlDetailMenu.Controls.Add(this.btnDetailDelete);
             this.pnlDetailMenu.Controls.Add(this.btnDetailAdd);
             this.pnlDetailMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlDetailMenu.Location = new System.Drawing.Point(2, 2);
+            this.pnlDetailMenu.Location = new System.Drawing.Point(1, 2);
             this.pnlDetailMenu.LookAndFeel.SkinName = "Blue";
             this.pnlDetailMenu.LookAndFeel.UseDefaultLookAndFeel = false;
             this.pnlDetailMenu.Name = "pnlDetailMenu";
-            this.pnlDetailMenu.Size = new System.Drawing.Size(618, 33);
+            this.pnlDetailMenu.Size = new System.Drawing.Size(0, 33);
             this.pnlDetailMenu.TabIndex = 6;
             // 
             // btnDetailDelete
@@ -214,7 +228,7 @@
             // gcDetail
             // 
             this.gcDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcDetail.Location = new System.Drawing.Point(2, 35);
+            this.gcDetail.Location = new System.Drawing.Point(1, 35);
             this.gcDetail.MainView = this.gvDetail;
             this.gcDetail.Name = "gcDetail";
             this.gcDetail.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -222,7 +236,7 @@
             this.cbxsControlType,
             this.mtxtsLookupAutoSetControl,
             this.mtxtsLookupAutoSetGrid});
-            this.gcDetail.Size = new System.Drawing.Size(618, 200);
+            this.gcDetail.Size = new System.Drawing.Size(0, 200);
             this.gcDetail.TabIndex = 7;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDetail});
