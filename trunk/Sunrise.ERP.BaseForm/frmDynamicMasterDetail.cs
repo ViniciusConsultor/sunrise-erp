@@ -26,6 +26,7 @@ namespace Sunrise.ERP.BaseForm
 {
     public partial class frmDynamicMasterDetail : frmDynamicSingleForm
     {
+        #region 定义
         /// <summary>
         /// 明细数据集集合
         /// </summary>
@@ -55,6 +56,9 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         protected Hashtable DetailOrderField = new Hashtable();
 
+        #endregion
+
+        #region 构造函数
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -167,7 +171,9 @@ namespace Sunrise.ERP.BaseForm
             InitializeComponent();
             dsMain.CurrentChanged += new EventHandler(MasterAllScroll);
         }
+        #endregion
 
+        #region 窗体公共设置方法
         /// <summary>
         /// 增加明细数据表
         /// 关联字段一定是要一一对应，否则系统无法建立其关系
@@ -273,6 +279,37 @@ namespace Sunrise.ERP.BaseForm
             return sResult;
         }
 
+        private void frmDynamicMasterDetail_Load(object sender, EventArgs e)
+        {
+            ShowLeft();
+        }
+
+        /// <summary>
+        /// 显示主表Grid
+        /// </summary>
+        private void ShowLeft()
+        {
+            pnlDetail.Visible = false;
+            sptUpDown.Visible = false;
+            pnlInfo.Visible = false;
+            pnlGrid.Visible = true;
+            pnlGrid.Dock = DockStyle.Fill;
+        }
+        /// <summary>
+        /// 显示数据操作部分
+        /// </summary>
+        private void ShowRight()
+        {
+            pnlInfo.Visible = true;
+            sptUpDown.Visible = true;
+            pnlDetail.Visible = true;
+            pnlGrid.Visible = false;
+            sptLeftRight.Visible = false;
+        }
+
+        #endregion
+
+        #region 数据操作方法
         public override bool DoSave()
         {
             SqlTransaction trans = ConnectSetting.SysSqlConnection.BeginTransaction();
@@ -314,6 +351,7 @@ namespace Sunrise.ERP.BaseForm
 
         public override bool DoAfterSave()
         {
+            ShowLeft();
             if (TopCount != 499 && SortField != "dInputDate DESC")
             {
                 if (IsCheckAuth)
@@ -338,6 +376,32 @@ namespace Sunrise.ERP.BaseForm
             return base.DoAfterSave();
         }
 
+        public override void DoEdit()
+        {
+            ShowRight();
+            base.DoEdit();
+        }
+
+        public override void DoCancel()
+        {
+            ShowLeft();
+            base.DoCancel();
+        }
+
+        public override void DoAdd()
+        {
+            ShowRight();
+            base.DoAdd();
+        }
+
+        public override void DoCopy()
+        {
+            ShowRight();
+            base.DoCopy();
+        }
+        #endregion
+
+        #region 窗体自定义设置
         /// <summary>
         /// 创建明细数据表Grid列
         /// </summary>
@@ -435,6 +499,7 @@ namespace Sunrise.ERP.BaseForm
             OnKeyDown(new KeyEventArgs(Keys.Enter));
             return true;
         }
+        #endregion
 
     }
 }

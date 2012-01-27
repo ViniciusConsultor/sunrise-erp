@@ -45,17 +45,17 @@
             // 
             this.pnlGrid.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlGrid.Location = new System.Drawing.Point(2, 35);
-            this.pnlGrid.Size = new System.Drawing.Size(239, 461);
+            this.pnlGrid.Size = new System.Drawing.Size(307, 461);
             // 
             // sptUpDown
             // 
-            this.sptUpDown.Location = new System.Drawing.Point(247, 253);
-            this.sptUpDown.Size = new System.Drawing.Size(622, 6);
+            this.sptUpDown.Location = new System.Drawing.Point(315, 253);
+            this.sptUpDown.Size = new System.Drawing.Size(554, 6);
             // 
             // pnlInfo
             // 
-            this.pnlInfo.Location = new System.Drawing.Point(247, 35);
-            this.pnlInfo.Size = new System.Drawing.Size(622, 218);
+            this.pnlInfo.Location = new System.Drawing.Point(315, 35);
+            this.pnlInfo.Size = new System.Drawing.Size(554, 218);
             // 
             // panelControl2
             // 
@@ -141,7 +141,7 @@
             // 
             // sptLeftRight
             // 
-            this.sptLeftRight.Location = new System.Drawing.Point(241, 35);
+            this.sptLeftRight.Location = new System.Drawing.Point(309, 35);
             this.sptLeftRight.Name = "sptLeftRight";
             this.sptLeftRight.Size = new System.Drawing.Size(6, 461);
             this.sptLeftRight.TabIndex = 9;
@@ -150,9 +150,9 @@
             // pnlDetail
             // 
             this.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDetail.Location = new System.Drawing.Point(247, 259);
+            this.pnlDetail.Location = new System.Drawing.Point(315, 259);
             this.pnlDetail.Name = "pnlDetail";
-            this.pnlDetail.Size = new System.Drawing.Size(622, 237);
+            this.pnlDetail.Size = new System.Drawing.Size(554, 237);
             this.pnlDetail.TabIndex = 10;
             // 
             // frmDynamicMasterDetail
@@ -162,6 +162,7 @@
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmDynamicMasterDetail";
+            this.Load += new System.EventHandler(this.frmDynamicMasterDetail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).EndInit();
