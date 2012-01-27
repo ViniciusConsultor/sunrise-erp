@@ -29,25 +29,25 @@
         private void InitializeComponent()
         {
             this.txtSearchValue = new DevExpress.XtraEditors.TextEdit();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblSearchItem = new System.Windows.Forms.Label();
             this.pnlTop = new DevExpress.XtraEditors.PanelControl();
+            this.lkpSearchValue = new Sunrise.ERP.Controls.SunriseLookUp();
             this.txtBtnSearchValue = new DevExpress.XtraEditors.ButtonEdit();
             this.cbxSearchValue = new DevExpress.XtraEditors.ImageComboBoxEdit();
             this.detSearchValue = new DevExpress.XtraEditors.DateEdit();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblSearchValue = new System.Windows.Forms.Label();
             this.cbxSearchWhere = new DevExpress.XtraEditors.ImageComboBoxEdit();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblSearchWhere = new System.Windows.Forms.Label();
             this.cbxSearchItem = new DevExpress.XtraEditors.ImageComboBoxEdit();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.txtSearchText = new DevExpress.XtraEditors.MemoEdit();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblSearchText = new System.Windows.Forms.Label();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.btnOk = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
             this.btnOr = new DevExpress.XtraEditors.SimpleButton();
             this.btnAnd = new DevExpress.XtraEditors.SimpleButton();
-            this.lkpSearchValue = new Sunrise.ERP.Controls.SunriseLookUp();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearchValue.Properties)).BeginInit();
@@ -71,23 +71,23 @@
             this.panelControl1.Controls.Add(this.panelControl3);
             this.panelControl1.Controls.Add(this.panelControl4);
             this.panelControl1.Controls.Add(this.pnlTop);
-            this.panelControl1.Size = new System.Drawing.Size(515, 328);
+            this.panelControl1.Size = new System.Drawing.Size(610, 357);
             // 
             // txtSearchValue
             // 
-            this.txtSearchValue.Location = new System.Drawing.Point(370, 13);
+            this.txtSearchValue.Location = new System.Drawing.Point(465, 13);
             this.txtSearchValue.Name = "txtSearchValue";
             this.txtSearchValue.Size = new System.Drawing.Size(131, 21);
             this.txtSearchValue.TabIndex = 0;
             // 
-            // label1
+            // lblSearchItem
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 14);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "查询项目";
+            this.lblSearchItem.AutoSize = true;
+            this.lblSearchItem.Location = new System.Drawing.Point(6, 16);
+            this.lblSearchItem.Name = "lblSearchItem";
+            this.lblSearchItem.Size = new System.Drawing.Size(55, 14);
+            this.lblSearchItem.TabIndex = 1;
+            this.lblSearchItem.Text = "查询项目";
             // 
             // pnlTop
             // 
@@ -96,20 +96,40 @@
             this.pnlTop.Controls.Add(this.txtBtnSearchValue);
             this.pnlTop.Controls.Add(this.cbxSearchValue);
             this.pnlTop.Controls.Add(this.detSearchValue);
-            this.pnlTop.Controls.Add(this.label4);
+            this.pnlTop.Controls.Add(this.lblSearchValue);
             this.pnlTop.Controls.Add(this.cbxSearchWhere);
-            this.pnlTop.Controls.Add(this.label3);
+            this.pnlTop.Controls.Add(this.lblSearchWhere);
             this.pnlTop.Controls.Add(this.cbxSearchItem);
-            this.pnlTop.Controls.Add(this.label1);
+            this.pnlTop.Controls.Add(this.lblSearchItem);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(2, 2);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(511, 47);
+            this.pnlTop.Size = new System.Drawing.Size(606, 47);
             this.pnlTop.TabIndex = 2;
+            // 
+            // lkpSearchValue
+            // 
+            this.lkpSearchValue.AutoSize = true;
+            this.lkpSearchValue.DataField = null;
+            this.lkpSearchValue.DisplayField = null;
+            this.lkpSearchValue.EditFormFilter = null;
+            this.lkpSearchValue.EditFormID = 0;
+            this.lkpSearchValue.EditFormName = null;
+            this.lkpSearchValue.EditValue = "";
+            this.lkpSearchValue.GridColumnText = null;
+            this.lkpSearchValue.GridDisplayField = null;
+            this.lkpSearchValue.Location = new System.Drawing.Point(465, 13);
+            this.lkpSearchValue.Name = "lkpSearchValue";
+            this.lkpSearchValue.SearchFormFilter = "";
+            this.lkpSearchValue.SearchFormText = "";
+            this.lkpSearchValue.Size = new System.Drawing.Size(131, 21);
+            this.lkpSearchValue.SQL = null;
+            this.lkpSearchValue.TabIndex = 9;
+            this.lkpSearchValue.TextFont = new System.Drawing.Font("Tahoma", 9F);
             // 
             // txtBtnSearchValue
             // 
-            this.txtBtnSearchValue.Location = new System.Drawing.Point(370, 13);
+            this.txtBtnSearchValue.Location = new System.Drawing.Point(465, 13);
             this.txtBtnSearchValue.Name = "txtBtnSearchValue";
             this.txtBtnSearchValue.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -118,7 +138,7 @@
             // 
             // cbxSearchValue
             // 
-            this.cbxSearchValue.Location = new System.Drawing.Point(370, 13);
+            this.cbxSearchValue.Location = new System.Drawing.Point(465, 13);
             this.cbxSearchValue.Name = "cbxSearchValue";
             this.cbxSearchValue.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -128,7 +148,7 @@
             // detSearchValue
             // 
             this.detSearchValue.EditValue = null;
-            this.detSearchValue.Location = new System.Drawing.Point(370, 13);
+            this.detSearchValue.Location = new System.Drawing.Point(465, 13);
             this.detSearchValue.Name = "detSearchValue";
             this.detSearchValue.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -137,23 +157,24 @@
             this.detSearchValue.Size = new System.Drawing.Size(131, 21);
             this.detSearchValue.TabIndex = 6;
             // 
-            // label4
+            // lblSearchValue
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(324, 16);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 14);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "查询值";
+            this.lblSearchValue.AutoSize = true;
+            this.lblSearchValue.Location = new System.Drawing.Point(388, 16);
+            this.lblSearchValue.Name = "lblSearchValue";
+            this.lblSearchValue.Size = new System.Drawing.Size(43, 14);
+            this.lblSearchValue.TabIndex = 5;
+            this.lblSearchValue.Text = "查询值";
             // 
             // cbxSearchWhere
             // 
-            this.cbxSearchWhere.Location = new System.Drawing.Point(247, 13);
+            this.cbxSearchWhere.Location = new System.Drawing.Point(289, 13);
             this.cbxSearchWhere.Name = "cbxSearchWhere";
             this.cbxSearchWhere.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cbxSearchWhere.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("等于", "=", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("不等于", "<>", -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("大于", ">", -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("大于等于", ">=", -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("小于", "<", -1),
@@ -161,21 +182,21 @@
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("类似于", "LIKE", -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("为空", "IS NULL", -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("不为空", "IS NOT NULL", -1)});
-            this.cbxSearchWhere.Size = new System.Drawing.Size(69, 21);
+            this.cbxSearchWhere.Size = new System.Drawing.Size(93, 21);
             this.cbxSearchWhere.TabIndex = 4;
             // 
-            // label3
+            // lblSearchWhere
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(191, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 14);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "查询条件";
+            this.lblSearchWhere.AutoSize = true;
+            this.lblSearchWhere.Location = new System.Drawing.Point(207, 16);
+            this.lblSearchWhere.Name = "lblSearchWhere";
+            this.lblSearchWhere.Size = new System.Drawing.Size(55, 14);
+            this.lblSearchWhere.TabIndex = 3;
+            this.lblSearchWhere.Text = "查询条件";
             // 
             // cbxSearchItem
             // 
-            this.cbxSearchItem.Location = new System.Drawing.Point(62, 13);
+            this.cbxSearchItem.Location = new System.Drawing.Point(79, 13);
             this.cbxSearchItem.Name = "cbxSearchItem";
             this.cbxSearchItem.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -186,11 +207,11 @@
             // panelControl3
             // 
             this.panelControl3.Controls.Add(this.txtSearchText);
-            this.panelControl3.Controls.Add(this.label2);
+            this.panelControl3.Controls.Add(this.lblSearchText);
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl3.Location = new System.Drawing.Point(2, 49);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(511, 237);
+            this.panelControl3.Size = new System.Drawing.Size(606, 266);
             this.panelControl3.TabIndex = 3;
             // 
             // txtSearchText
@@ -200,18 +221,18 @@
             this.txtSearchText.Properties.Appearance.BackColor = System.Drawing.Color.White;
             this.txtSearchText.Properties.Appearance.Options.UseBackColor = true;
             this.txtSearchText.Properties.ReadOnly = true;
-            this.txtSearchText.Size = new System.Drawing.Size(494, 208);
+            this.txtSearchText.Size = new System.Drawing.Size(586, 235);
             this.txtSearchText.TabIndex = 2;
             this.txtSearchText.TextChanged += new System.EventHandler(this.txtSearchText_TextChanged);
             // 
-            // label2
+            // lblSearchText
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 14);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "组合的查询结果";
+            this.lblSearchText.AutoSize = true;
+            this.lblSearchText.Location = new System.Drawing.Point(10, 5);
+            this.lblSearchText.Name = "lblSearchText";
+            this.lblSearchText.Size = new System.Drawing.Size(91, 14);
+            this.lblSearchText.TabIndex = 1;
+            this.lblSearchText.Text = "组合的查询结果";
             // 
             // panelControl4
             // 
@@ -221,15 +242,15 @@
             this.panelControl4.Controls.Add(this.btnOr);
             this.panelControl4.Controls.Add(this.btnAnd);
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl4.Location = new System.Drawing.Point(2, 286);
+            this.panelControl4.Location = new System.Drawing.Point(2, 315);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(511, 40);
+            this.panelControl4.Size = new System.Drawing.Size(606, 40);
             this.panelControl4.TabIndex = 4;
             // 
             // btnOk
             // 
             this.btnOk.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.yes;
-            this.btnOk.Location = new System.Drawing.Point(349, 9);
+            this.btnOk.Location = new System.Drawing.Point(446, 9);
             this.btnOk.LookAndFeel.SkinName = "Blue";
             this.btnOk.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnOk.Name = "btnOk";
@@ -242,7 +263,7 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.cancel;
-            this.btnCancel.Location = new System.Drawing.Point(425, 9);
+            this.btnCancel.Location = new System.Drawing.Point(522, 9);
             this.btnCancel.LookAndFeel.SkinName = "Blue";
             this.btnCancel.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnCancel.Name = "btnCancel";
@@ -259,7 +280,7 @@
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(70, 23);
             this.btnClear.TabIndex = 2;
-            this.btnClear.Text = "清除(&X)";
+            this.btnClear.Text = "清除(&L)";
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnOr
@@ -286,32 +307,12 @@
             this.btnAnd.Text = "并且(&A)";
             this.btnAnd.Click += new System.EventHandler(this.btnAnd_Click);
             // 
-            // lkpSearchValue
-            // 
-            this.lkpSearchValue.AutoSize = true;
-            this.lkpSearchValue.DataField = null;
-            this.lkpSearchValue.DisplayField = null;
-            this.lkpSearchValue.EditFormFilter = null;
-            this.lkpSearchValue.EditFormID = 0;
-            this.lkpSearchValue.EditFormName = null;
-            this.lkpSearchValue.EditValue = "";
-            this.lkpSearchValue.GridColumnText = null;
-            this.lkpSearchValue.GridDisplayField = null;
-            this.lkpSearchValue.Location = new System.Drawing.Point(370, 13);
-            this.lkpSearchValue.Name = "lkpSearchValue";
-            this.lkpSearchValue.SearchFormFilter = "";
-            this.lkpSearchValue.SearchFormText = "";
-            this.lkpSearchValue.Size = new System.Drawing.Size(131, 21);
-            this.lkpSearchValue.SQL = null;
-            this.lkpSearchValue.TabIndex = 9;
-            this.lkpSearchValue.TextFont = new System.Drawing.Font("Tahoma", 9F);
-            // 
             // frmSearchForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(515, 328);
+            this.ClientSize = new System.Drawing.Size(610, 357);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -347,14 +348,14 @@
 
         private DevExpress.XtraEditors.TextEdit txtSearchValue;
         private DevExpress.XtraEditors.PanelControl panelControl3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblSearchText;
         private DevExpress.XtraEditors.PanelControl panelControl4;
         private DevExpress.XtraEditors.PanelControl pnlTop;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSearchItem;
         private DevExpress.XtraEditors.MemoEdit txtSearchText;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblSearchValue;
         private DevExpress.XtraEditors.ImageComboBoxEdit cbxSearchWhere;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblSearchWhere;
         private DevExpress.XtraEditors.ImageComboBoxEdit cbxSearchItem;
         private DevExpress.XtraEditors.SimpleButton btnAnd;
         private DevExpress.XtraEditors.SimpleButton btnOk;

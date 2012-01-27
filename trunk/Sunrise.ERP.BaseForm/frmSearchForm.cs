@@ -11,6 +11,7 @@ using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.Common;
 
 using DevExpress.XtraEditors.Controls;
+using Sunrise.ERP.Lang;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -66,6 +67,7 @@ namespace Sunrise.ERP.BaseForm
             }
             if (cbxSearchItem.Properties.Items.Count > 0)
                 cbxSearchItem.SelectedIndex = 0;
+            LoadLangSetting();
         }
 
         private void txtSearchText_TextChanged(object sender, EventArgs e)
@@ -144,14 +146,12 @@ namespace Sunrise.ERP.BaseForm
                         {
                             ShowSearchValueControl(txtSearchValue);
                             SetSearchValueDefault();
-                            cbxSearchWhere.SelectedIndex = 5;
                             break;
                         }
                     case FiledType.D:
                         {
                             ShowSearchValueControl(detSearchValue);
                             SetSearchValueDefault();
-                            cbxSearchWhere.SelectedIndex = 0;
                             break;
                         }
                     case FiledType.C:
@@ -159,14 +159,12 @@ namespace Sunrise.ERP.BaseForm
                             ShowSearchValueControl(cbxSearchValue);
                             SetSearchValueDefault();
                             InitComboBox(LItemName.IndexOf(cbxSearchItem.SelectedItem.ToString()));
-                            cbxSearchWhere.SelectedIndex = 0;
                             break;
                         }
                     case FiledType.T:
                         {
                             ShowSearchValueControl(detSearchValue);
                             SetSearchValueDefault();
-                            cbxSearchWhere.SelectedIndex = 0;
                             break;
                         }
                     case FiledType.N:
@@ -180,7 +178,6 @@ namespace Sunrise.ERP.BaseForm
                             ShowSearchValueControl(lkpSearchValue);
                             SetSearchValueDefault();
                             InitLookUp(LItemName.IndexOf(cbxSearchItem.SelectedItem.ToString()));
-                            cbxSearchWhere.SelectedIndex = 0;
                             break;
                         }
                 }
@@ -234,22 +231,28 @@ namespace Sunrise.ERP.BaseForm
             {
                 case "AND":
                     {
-                        if (sWhere != "为空" && sWhere != "不为空")
+                        if (sWhere != LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText7") &&
+                            sWhere != LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText8"))
                         {
                             if (txtSearchText.Text != "")
                             {
-                                txtSearchText.Text += "\r\n  并且 (" + sItemName + " " + sWhere + (sWhere == "类似于" ? " '%" : " '") + sValue + (sWhere == "类似于" ? "%' )" : "' )");
+                                txtSearchText.Text += "\r\n  " + LangCenter.Instance.GetFormLangInfo("frmSearchForm", "WhereAnd")
+                                                    + " (" + sItemName + " " + sWhere + (sWhere == LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText6") ? " '%" : " '")
+                                                    + sValue + (sWhere == LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText6") ? "%' )" : "' )");
                             }
                             else
                             {
-                                txtSearchText.Text += "(" + sItemName + " " + sWhere + (sWhere == "类似于" ? " '%" : " '") + sValue + (sWhere == "类似于" ? "%' )" : "' )");
+                                txtSearchText.Text += "(" + sItemName + " " + sWhere 
+                                                    + (sWhere == LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText6") ? " '%" : " '")
+                                                    + sValue + (sWhere == LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText6") ? "%' )" : "' )");
                             }
                         }
                         else
                         {
                             if (txtSearchText.Text != "")
                             {
-                                txtSearchText.Text += "\r\n  并且 (" + sItemName + " " + sWhere + " )";
+                                txtSearchText.Text += "\r\n  " + LangCenter.Instance.GetFormLangInfo("frmSearchForm", "WhereAnd") 
+                                                    + " (" + sItemName + " " + sWhere + " )";
                             }
                             else
                             {
@@ -261,22 +264,28 @@ namespace Sunrise.ERP.BaseForm
                     }
                 case "OR":
                     {
-                        if (sWhere != "为空" && sWhere != "不为空")
+                        if (sWhere != LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText7") &&
+                            sWhere != LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText8"))
                         {
                             if (txtSearchText.Text != "")
                             {
-                                txtSearchText.Text += "\r\n  或者 (" + sItemName + " " + sWhere + (sWhere == "类似于" ? " '%" : " '") + sValue + (sWhere == "类似于" ? "%' )" : "' )");
+                                txtSearchText.Text += "\r\n  "+ LangCenter.Instance.GetFormLangInfo("frmSearchForm", "WhereOr")
+                                                    + " (" + sItemName + " " + sWhere + (sWhere == LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText6") ? " '%" : " '")
+                                                    + sValue + (sWhere == LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText6") ? "%' )" : "' )");
                             }
                             else
                             {
-                                txtSearchText.Text += "(" + sItemName + " " + sWhere + (sWhere == "类似于" ? " '%" : " '") + sValue + (sWhere == "类似于" ? "%' )" : "' )");
+                                txtSearchText.Text += "(" + sItemName + " " + sWhere
+                                                    + (sWhere == LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText6") ? " '%" : " '")
+                                                    + sValue + (sWhere == LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText6") ? "%' )" : "' )");
                             }
                         }
                         else
                         {
                             if (txtSearchText.Text != "")
                             {
-                                txtSearchText.Text += "\r\n  或者 (" + sItemName + " " + sWhere + " )";
+                                txtSearchText.Text += "\r\n  " + LangCenter.Instance.GetFormLangInfo("frmSearchForm", "WhereOr") 
+                                                    + " (" + sItemName + " " + sWhere + " )";
                             }
                             else
                             {
@@ -301,11 +310,15 @@ namespace Sunrise.ERP.BaseForm
             }
             else if (cbxSearchValue.Visible)
             {
-                sValue = cbxSearchValue.SelectedItem.ToString();
+                sValue = cbxSearchValue.EditValue.ToString();
             }
             else if (txtBtnSearchValue.Visible)
             {
                 sValue = txtBtnSearchValue.Text;
+            }
+            else if (lkpSearchValue.Visible)
+            {
+                sValue = lkpSearchValue.EditValue;
             }
             AddSearchText(cbxSearchItem.SelectedItem.ToString(), cbxSearchWhere.SelectedItem.ToString(), sValue, "OR");
         }
@@ -335,10 +348,8 @@ namespace Sunrise.ERP.BaseForm
                 string[] s = Public.GetSplitString(LookupSetting, "|");
                 SystemPublic.InitLookUpBase(lkpSearchValue, s[0], s[1], s[2], s[3], s[4], s[5]);
             }
-            else if (LookupSetting != "NULL")
-            {
+            else if (!string.IsNullOrEmpty(LookupSetting) && LookupSetting != "NULL")
                 Base.InitLookup(lkpSearchValue, LookupSetting);
-            }
         }
 
         private void InitComboBox(int index)
@@ -358,9 +369,28 @@ namespace Sunrise.ERP.BaseForm
                     }
                 }
             }
-            else if (ComboBoxSetting != "NULL")
-            {
+            else if (!string.IsNullOrEmpty(ComboBoxSetting) && ComboBoxSetting != "NULL")
                 Base.InitComboBox(cbxSearchValue, ComboBoxSetting);
+        }
+
+        /// <summary>
+        /// 加载语言数据
+        /// </summary>
+        private void LoadLangSetting()
+        {
+            this.Text = LangCenter.Instance.GetFormLangInfo("frmSearchForm", this.Name);
+            lblSearchItem.Text = LangCenter.Instance.GetFormLangInfo("frmSearchForm", lblSearchItem.Name);
+            lblSearchText.Text = LangCenter.Instance.GetFormLangInfo("frmSearchForm", lblSearchText.Name);
+            lblSearchWhere.Text = LangCenter.Instance.GetFormLangInfo("frmSearchForm", lblSearchWhere.Name);
+            lblSearchValue.Text = LangCenter.Instance.GetFormLangInfo("frmSearchForm", lblSearchValue.Name);
+            btnAnd.Text = LangCenter.Instance.GetFormLangInfo("frmSearchForm", btnAnd.Name);
+            btnCancel.Text = LangCenter.Instance.GetFormLangInfo("frmSearchForm", btnCancel.Name);
+            btnClear.Text = LangCenter.Instance.GetFormLangInfo("frmSearchForm", btnClear.Name);
+            btnOk.Text = LangCenter.Instance.GetFormLangInfo("frmSearchForm", btnOk.Name);
+            btnOr.Text = LangCenter.Instance.GetFormLangInfo("frmSearchForm", btnOr.Name);
+            for (int i = 0; i < cbxSearchWhere.Properties.Items.Count; i++)
+            {
+                cbxSearchWhere.Properties.Items[i].Description = LangCenter.Instance.GetFormLangInfo("frmSearchForm", "cbxSearchWhereText" + i.ToString());
             }
         }
     }
