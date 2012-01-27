@@ -1,6 +1,6 @@
-﻿namespace Sunrise.ERP.Module.Test
+﻿namespace Sunrise.ERP.BaseForm
 {
-    partial class frmTest2
+    partial class frmDynamicMasterDetail
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,40 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtsTest = new DevExpress.XtraEditors.TextEdit();
-            this.lblsTest = new DevExpress.XtraEditors.LabelControl();
-            this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
-            this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.sptLeftRight = new DevExpress.XtraEditors.SplitterControl();
+            this.pnlDetail = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).BeginInit();
-            this.pnlGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
-            this.pnlInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtsTest.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gcMain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlGrid
             // 
-            this.pnlGrid.Controls.Add(this.gcMain);
-            this.pnlGrid.Location = new System.Drawing.Point(2, 108);
-            this.pnlGrid.Size = new System.Drawing.Size(867, 388);
+            this.pnlGrid.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlGrid.Location = new System.Drawing.Point(2, 35);
+            this.pnlGrid.Size = new System.Drawing.Size(239, 461);
             // 
-            // splitterControl1
+            // sptUpDown
             // 
-            this.sptUpDown.Location = new System.Drawing.Point(2, 102);
+            this.sptUpDown.Location = new System.Drawing.Point(247, 253);
+            this.sptUpDown.Size = new System.Drawing.Size(622, 6);
             // 
             // pnlInfo
             // 
-            this.pnlInfo.Controls.Add(this.txtsTest);
-            this.pnlInfo.Controls.Add(this.lblsTest);
-            this.pnlInfo.Size = new System.Drawing.Size(867, 67);
+            this.pnlInfo.Location = new System.Drawing.Point(247, 35);
+            this.pnlInfo.Size = new System.Drawing.Size(622, 218);
             // 
             // panelControl2
             // 
@@ -133,77 +127,58 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.pnlDetail);
+            this.panelControl1.Controls.Add(this.sptLeftRight);
             this.panelControl1.LookAndFeel.SkinName = "Blue";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.panelControl1.Controls.SetChildIndex(this.txtDataFlag, 0);
+            this.panelControl1.Controls.SetChildIndex(this.panelControl2, 0);
+            this.panelControl1.Controls.SetChildIndex(this.pnlGrid, 0);
+            this.panelControl1.Controls.SetChildIndex(this.sptLeftRight, 0);
+            this.panelControl1.Controls.SetChildIndex(this.pnlInfo, 0);
+            this.panelControl1.Controls.SetChildIndex(this.sptUpDown, 0);
+            this.panelControl1.Controls.SetChildIndex(this.pnlDetail, 0);
             // 
-            // txtsTest
+            // sptLeftRight
             // 
-            this.txtsTest.Location = new System.Drawing.Point(88, 24);
-            this.txtsTest.Name = "txtsTest";
-            this.txtsTest.Size = new System.Drawing.Size(290, 21);
-            this.txtsTest.TabIndex = 9;
+            this.sptLeftRight.Location = new System.Drawing.Point(241, 35);
+            this.sptLeftRight.Name = "sptLeftRight";
+            this.sptLeftRight.Size = new System.Drawing.Size(6, 461);
+            this.sptLeftRight.TabIndex = 9;
+            this.sptLeftRight.TabStop = false;
             // 
-            // lblsTest
+            // pnlDetail
             // 
-            this.lblsTest.Location = new System.Drawing.Point(22, 27);
-            this.lblsTest.Name = "lblsTest";
-            this.lblsTest.Size = new System.Drawing.Size(24, 14);
-            this.lblsTest.TabIndex = 8;
-            this.lblsTest.Text = "测试";
+            this.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDetail.Location = new System.Drawing.Point(247, 259);
+            this.pnlDetail.Name = "pnlDetail";
+            this.pnlDetail.Size = new System.Drawing.Size(622, 237);
+            this.pnlDetail.TabIndex = 10;
             // 
-            // gcMain
-            // 
-            this.gcMain.DataSource = this.dsMain;
-            this.gcMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcMain.Location = new System.Drawing.Point(2, 2);
-            this.gcMain.MainView = this.gvMain;
-            this.gcMain.Name = "gcMain";
-            this.gcMain.Size = new System.Drawing.Size(863, 384);
-            this.gcMain.TabIndex = 4;
-            this.gcMain.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvMain});
-            // 
-            // gvMain
-            // 
-            this.gvMain.GridControl = this.gcMain;
-            this.gvMain.Name = "gvMain";
-            this.gvMain.OptionsBehavior.Editable = false;
-            this.gvMain.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.gvMain.OptionsView.ColumnAutoWidth = false;
-            this.gvMain.OptionsView.ShowAutoFilterRow = true;
-            this.gvMain.OptionsView.ShowFooter = true;
-            this.gvMain.OptionsView.ShowGroupPanel = false;
-            // 
-            // frmTest2
+            // frmDynamicMasterDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.ClientSize = new System.Drawing.Size(871, 498);
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.Name = "frmTest2";
+            this.Name = "frmDynamicMasterDetail";
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).EndInit();
-            this.pnlGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).EndInit();
-            this.pnlInfo.ResumeLayout(false);
-            this.pnlInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.txtsTest.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gcMain)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private DevExpress.XtraEditors.TextEdit txtsTest;
-        private DevExpress.XtraEditors.LabelControl lblsTest;
-        private Sunrise.ERP.Controls.SunriseGridControl gcMain;
-        private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
+        protected DevExpress.XtraEditors.SplitterControl sptLeftRight;
+        protected DevExpress.XtraEditors.PanelControl pnlDetail;
+
     }
 }

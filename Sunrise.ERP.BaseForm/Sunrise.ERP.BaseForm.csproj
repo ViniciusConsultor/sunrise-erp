@@ -89,6 +89,12 @@
     <Compile Include="frmDynamicFormSetting.Designer.cs">
       <DependentUpon>frmDynamicFormSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDynamicMasterDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDynamicMasterDetail.Designer.cs">
+      <DependentUpon>frmDynamicMasterDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDynamicSingleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDynamicFormSetting.resx">
       <DependentUpon>frmDynamicFormSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDynamicMasterDetail.resx">
+      <DependentUpon>frmDynamicMasterDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDynamicSingleForm.resx">
       <DependentUpon>frmDynamicSingleForm.cs</DependentUpon>

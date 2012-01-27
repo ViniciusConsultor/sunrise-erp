@@ -359,6 +359,11 @@ namespace Sunrise.ERP.Controls
                                 _dt = frm.ReturnData;
                                 txtDisplayText.Focus();
                                 txtValueText.Text = _dt.Rows[0][DataField].ToString();
+                                if (this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                                {
+                                    ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                    ((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
+                                }
                                 //for (int i = 0; i < LAutoSetControl.ToArray().Length; i++)
                                 //{
                                 //    LAutoSetControl[i].Focus();
@@ -424,6 +429,7 @@ namespace Sunrise.ERP.Controls
                     {
                         //txtDisplayText.Text = dt.Rows[0][DisplayField].ToString();
                         txtDisplayText.Text = dr[0][DisplayField].ToString();
+                        txtDisplayText.Focus();
                         for (int i = 0; i < LAutoSetControl.ToArray().Length; i++)
                         {
                             LAutoSetControl[i].Focus();

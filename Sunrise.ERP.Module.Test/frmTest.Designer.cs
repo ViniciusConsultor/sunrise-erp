@@ -58,7 +58,7 @@
             // 
             // splitterControl1
             // 
-            this.splitterControl1.Location = new System.Drawing.Point(2, 194);
+            this.sptUpDown.Location = new System.Drawing.Point(2, 194);
             // 
             // pnlInfo
             // 

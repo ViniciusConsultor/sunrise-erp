@@ -41,8 +41,8 @@ namespace Sunrise.ERP.BaseForm
                     {
                         sSearchSql = sSearchSql.Replace(LItemName[i], LItemFiled[i]);
                     }
-                    //替换查询条件
-                    for (int i = 0; i < cbxSearchWhere.Properties.Items.Count; i++)
+                    //替换查询条件,倒序进行替换
+                    for (int i = cbxSearchWhere.Properties.Items.Count - 1; i >= 0; i--)
                     {
                         sSearchSql = sSearchSql.Replace(cbxSearchWhere.Properties.Items[i].Description, cbxSearchWhere.Properties.Items[i].Value.ToString());
                     }

@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.dsMain = new System.Windows.Forms.BindingSource(this.components);
             this.toolTipController1 = new DevExpress.Utils.ToolTipController(this.components);
-            this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
+            this.sptUpDown = new DevExpress.XtraEditors.SplitterControl();
             this.pnlGrid = new DevExpress.XtraEditors.PanelControl();
             this.pnlInfo = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -117,14 +117,14 @@
             // panelControl1
             // 
             this.panelControl1.Controls.Add(this.pnlGrid);
-            this.panelControl1.Controls.Add(this.splitterControl1);
+            this.panelControl1.Controls.Add(this.sptUpDown);
             this.panelControl1.Controls.Add(this.pnlInfo);
             this.panelControl1.LookAndFeel.SkinName = "Blue";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl1.Controls.SetChildIndex(this.txtDataFlag, 0);
             this.panelControl1.Controls.SetChildIndex(this.panelControl2, 0);
             this.panelControl1.Controls.SetChildIndex(this.pnlInfo, 0);
-            this.panelControl1.Controls.SetChildIndex(this.splitterControl1, 0);
+            this.panelControl1.Controls.SetChildIndex(this.sptUpDown, 0);
             this.panelControl1.Controls.SetChildIndex(this.pnlGrid, 0);
             // 
             // dsMain
@@ -137,17 +137,17 @@
             this.toolTipController1.Rounded = true;
             this.toolTipController1.ShowBeak = true;
             // 
-            // splitterControl1
+            // sptUpDown
             // 
-            this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitterControl1.Location = new System.Drawing.Point(2, 237);
-            this.splitterControl1.MinExtra = 0;
-            this.splitterControl1.MinSize = 0;
-            this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(867, 6);
-            this.splitterControl1.TabIndex = 7;
-            this.splitterControl1.TabStop = false;
-            this.splitterControl1.DoubleClick += new System.EventHandler(this.splitterControl1_DoubleClick);
+            this.sptUpDown.Dock = System.Windows.Forms.DockStyle.Top;
+            this.sptUpDown.Location = new System.Drawing.Point(2, 237);
+            this.sptUpDown.MinExtra = 0;
+            this.sptUpDown.MinSize = 0;
+            this.sptUpDown.Name = "sptUpDown";
+            this.sptUpDown.Size = new System.Drawing.Size(867, 6);
+            this.sptUpDown.TabIndex = 7;
+            this.sptUpDown.TabStop = false;
+            this.sptUpDown.DoubleClick += new System.EventHandler(this.splitterControl1_DoubleClick);
             // 
             // pnlGrid
             // 
@@ -189,7 +189,7 @@
         protected System.Windows.Forms.BindingSource dsMain;
         private DevExpress.Utils.ToolTipController toolTipController1;
         protected DevExpress.XtraEditors.PanelControl pnlGrid;
-        protected DevExpress.XtraEditors.SplitterControl splitterControl1;
+        protected DevExpress.XtraEditors.SplitterControl sptUpDown;
         protected DevExpress.XtraEditors.PanelControl pnlInfo;
     }
 }

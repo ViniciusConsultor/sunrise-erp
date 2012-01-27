@@ -972,7 +972,7 @@ namespace Sunrise.ERP.BaseForm
         /// <param name="e"></param>
         public override void DataStateChange(object sender, EventArgs e)
         {
-            Sunrise.ERP.BasePublic.Base.SetControlsGridEnable(this.pnlGrid, FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsBrowse);
+            Base.SetControlsGridEnable(this.pnlGrid, FormDataFlag == DataFlag.dsBrowse);
         }
         private void dsMain_CurrentItemChanged(object sender, EventArgs e)
         {

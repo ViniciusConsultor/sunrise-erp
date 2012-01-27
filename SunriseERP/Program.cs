@@ -31,6 +31,7 @@ namespace SunriseERP
                 //Sunrise.ERP.Security.SecurityCenter.CurrentUserID = "admin";
                 //Sunrise.ERP.Module.Test.frmTest2 frm = new Sunrise.ERP.Module.Test.frmTest2(9002, "≤‚ ‘2");
                 //Sunrise.ERP.Module.Test.frmTest frm = new Sunrise.ERP.Module.Test.frmTest(9001, "≤‚ ‘");
+                //Sunrise.ERP.Module.Test.frmMasterDetailTest frm = new Sunrise.ERP.Module.Test.frmMasterDetailTest(9003, "∂‡±Ì≤‚ ‘");
                 //Application.Run(frm);
             }
         }
