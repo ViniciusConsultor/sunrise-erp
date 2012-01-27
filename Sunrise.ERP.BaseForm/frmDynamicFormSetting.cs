@@ -105,6 +105,9 @@ namespace Sunrise.ERP.BaseForm
             gvDetail.GetFocusedDataRow()["bNotNull"] = 0;
             gvDetail.GetFocusedDataRow()["bHistory"] = 0;
             gvDetail.GetFocusedDataRow()["bShowInGrid"] = 1;
+            gvDetail.GetFocusedDataRow()["bShowInPanel"] = 1;
+            gvDetail.GetFocusedDataRow()["bIsSum"] = 0;
+            gvDetail.GetFocusedDataRow()["bIsCount"] = 0;
         }
 
         private void InitDetailComboBox(string dictNo)
@@ -230,6 +233,8 @@ namespace Sunrise.ERP.BaseForm
             colbSaveData.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbSaveData.Name);
             colbShowInGrid.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbShowInGrid.Name);
             colbShowInPanel.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbShowInPanel.Name);
+            colbIsSum.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbIsSum.Name);
+            colbIsCount.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbIsCount.Name);
             colbSystemColumn.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbSystemColumn.Name);
             coliFieldLength.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", coliFieldLength.Name);
             coliSort.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", coliSort.Name);

@@ -1299,13 +1299,21 @@ namespace Sunrise.ERP.BaseForm
                                         pnlInfo.Controls.Add(mtxt);
                                         break;
                                     }
+                                case "btxt":
+                                    {
+                                        MemoExEdit btxt = new MemoExEdit();
+                                        btxt.Size = new Size(120, 21);
+                                        btxt.Name = "btxt" + dr[iControl]["sFieldName"].ToString();
+                                        btxt.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        pnlInfo.Controls.Add(btxt);
+                                        break;
+                                    }
                                 case "cbx":
                                     {
                                         ImageComboBoxEdit cbx = new ImageComboBoxEdit();
                                         cbx.Size = new Size(120, 21);
                                         cbx.Name = "cbx" + dr[iControl]["sFieldName"].ToString();
                                         cbx.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
-                                        //初始化ComboBox数据
                                         pnlInfo.Controls.Add(cbx);
                                         break;
                                     }
@@ -1397,6 +1405,19 @@ namespace Sunrise.ERP.BaseForm
                 cols.Visible = true;
                 cols.VisibleIndex = iIndex;
                 iIndex++;
+                //先计算有没有合计的，再计算计数
+                if (dr["bIsSum"].ToString() != "" && Convert.ToBoolean(dr["bIsSum"]))
+                {
+                    cols.SummaryItem.FieldName = dr["sFieldName"].ToString();
+                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+                    gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, dr["sFieldName"].ToString(), cols);
+                }
+                if (dr["bIsCount"].ToString() != "" && Convert.ToBoolean(dr["bIsCount"]))
+                {
+                    cols.SummaryItem.FieldName = dr["sFieldName"].ToString();
+                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
+                    gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, dr["sFieldName"].ToString(), cols);
+                }
                 gv.Columns.Add(cols);
             }
         }

@@ -59,6 +59,8 @@
             this.colbHistory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbShowInPanel = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbShowInGrid = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colbIsSum = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colbIsCount = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsLocation = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsSize = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
@@ -368,6 +370,8 @@
             this.colbHistory,
             this.colbShowInPanel,
             this.colbShowInGrid,
+            this.colbIsSum,
+            this.colbIsCount,
             this.colsLocation,
             this.colsSize});
             this.gvDetail.GridControl = this.gcDetail;
@@ -553,7 +557,7 @@
             this.colbShowInPanel.Name = "colbShowInPanel";
             this.colbShowInPanel.Visible = true;
             this.colbShowInPanel.VisibleIndex = 14;
-            this.colbShowInPanel.Width = 92;
+            this.colbShowInPanel.Width = 100;
             // 
             // colbShowInGrid
             // 
@@ -564,13 +568,31 @@
             this.colbShowInGrid.VisibleIndex = 15;
             this.colbShowInGrid.Width = 97;
             // 
+            // colbIsSum
+            // 
+            this.colbIsSum.Caption = "合计";
+            this.colbIsSum.FieldName = "bIsSum";
+            this.colbIsSum.Name = "colbIsSum";
+            this.colbIsSum.Visible = true;
+            this.colbIsSum.VisibleIndex = 16;
+            this.colbIsSum.Width = 57;
+            // 
+            // colbIsCount
+            // 
+            this.colbIsCount.Caption = "计数";
+            this.colbIsCount.FieldName = "bIsCount";
+            this.colbIsCount.Name = "colbIsCount";
+            this.colbIsCount.Visible = true;
+            this.colbIsCount.VisibleIndex = 17;
+            this.colbIsCount.Width = 62;
+            // 
             // colsLocation
             // 
             this.colsLocation.Caption = "布局位置";
             this.colsLocation.FieldName = "sLocation";
             this.colsLocation.Name = "colsLocation";
             this.colsLocation.Visible = true;
-            this.colsLocation.VisibleIndex = 16;
+            this.colsLocation.VisibleIndex = 18;
             this.colsLocation.Width = 97;
             // 
             // colsSize
@@ -579,7 +601,7 @@
             this.colsSize.FieldName = "sSize";
             this.colsSize.Name = "colsSize";
             this.colsSize.Visible = true;
-            this.colsSize.VisibleIndex = 17;
+            this.colsSize.VisibleIndex = 19;
             this.colsSize.Width = 80;
             // 
             // layoutControl1
@@ -1011,5 +1033,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit mtxtsLookupAutoSetControl;
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit mtxtsLookupAutoSetGrid;
         private DevExpress.XtraGrid.Columns.GridColumn colbShowInPanel;
+        private DevExpress.XtraGrid.Columns.GridColumn colbIsSum;
+        private DevExpress.XtraGrid.Columns.GridColumn colbIsCount;
     }
 }
