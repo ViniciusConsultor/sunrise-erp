@@ -587,9 +587,9 @@ namespace Sunrise.ERP.Module.SystemManage
 
         private void btnEditUser_Click(object sender, EventArgs e)
         {
-            frmsysEditUser frm = new frmsysEditUser();
-            frm.StartPosition = FormStartPosition.CenterScreen;
-            frm.ShowDialog();
+            //frmsysEditUser frm = new frmsysEditUser();
+            //frm.StartPosition = FormStartPosition.CenterScreen;
+            //frm.ShowDialog();
         }
 
 

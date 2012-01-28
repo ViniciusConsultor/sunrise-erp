@@ -273,7 +273,6 @@
             this.lkpFormID.SQL = null;
             this.lkpFormID.TabIndex = 4;
             this.lkpFormID.TextFont = new System.Drawing.Font("Tahoma", 9F);
-            this.lkpFormID.LookUpAfterPost += new Sunrise.ERP.Controls.SunriseLookUp.SunriseLookUpEvent(this.lkpFormID_LookUpAfterPost);
             // 
             // txtFormID
             // 

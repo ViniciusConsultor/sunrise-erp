@@ -465,11 +465,16 @@ namespace Sunrise.ERP.Security
             //用户是admin的时候显示所有菜单
             if (CurrentUserID == "admin")
             {
-                sResult = "SELECT A.ID,A.iFormID,A.sMenuName,A.iParentID,A.sModuleName,A.sFormClassName,A.iSort,A.sQuickMenu FROM sysMenu A ORDER BY A.iSort";
+                sResult = "SELECT A.ID,A.iFormID,"
+                        + (LangCenter.Instance.IsDefaultLanguage ? "A.sMenuName" : "A.sMenuEngName AS sMenuName")
+                        + ",A.iParentID,A.sModuleName,A.sFormClassName,A.iSort,A.sQuickMenu FROM sysMenu A ORDER BY A.iSort";
+
             }
             else
             {
-                sResult = "SELECT DISTINCT E.ID,E.iFormID,E.sMenuName,E.iParentID,E.sModuleName,E.sFormClassName,E.iSort,E.sQuickMenu "
+                sResult = "SELECT DISTINCT E.ID,E.iFormID,"
+                        + (LangCenter.Instance.IsDefaultLanguage ? "E.sMenuName" : "E.sMenuEngName AS sMenuName")
+                        + ",E.iParentID,E.sModuleName,E.sFormClassName,E.iSort,E.sQuickMenu "
                         + "FROM sysRolesRights A "
                         + "LEFT JOIN sysRoles B ON A.RoleID=B.ID "
                         + "LEFT JOIN sysRolesUser C ON B.ID=C.RoleID "
@@ -480,6 +485,16 @@ namespace Sunrise.ERP.Security
 
             }
             return sResult;
+        }
+
+        /// <summary>
+        /// 获取所有菜单SQL
+        /// </summary>
+        /// <returns></returns>
+        public static string GetAllMenuSQL()
+        {
+            return "SELECT A.ID,A.iFormID,A.sMenuName,A.sMenuEngName,A.iParentID,A.sModuleName,"
+                   + "A.sFormClassName,A.iSort,A.sQuickMenu FROM sysMenu A ORDER BY A.iSort";
         }
 
         /// <summary>

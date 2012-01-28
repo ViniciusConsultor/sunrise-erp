@@ -62,6 +62,9 @@
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.tpAddMenu = new DevExpress.XtraTab.XtraTabPage();
+            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
+            this.txtEngMenuList = new DevExpress.XtraEditors.MemoEdit();
             this.btnAddMenu = new DevExpress.XtraEditors.SimpleButton();
             this.txtMenuList = new DevExpress.XtraEditors.MemoEdit();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
@@ -69,6 +72,8 @@
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.tvMenu = new DevExpress.XtraTreeList.TreeList();
+            this.treeListColumn1 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.treeListColumn3 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.tpModule = new DevExpress.XtraTab.XtraTabPage();
@@ -90,19 +95,15 @@
             this.splitterControl2 = new DevExpress.XtraEditors.SplitterControl();
             this.panelControl7 = new DevExpress.XtraEditors.PanelControl();
             this.tvModule = new DevExpress.XtraTreeList.TreeList();
+            this.treeListColumn2 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
             this.btnUpdateModule = new DevExpress.XtraEditors.SimpleButton();
             this.btnRefrshModule = new DevExpress.XtraEditors.SimpleButton();
-            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
-            this.pgbState = new DevExpress.XtraEditors.ProgressBarControl();
-            this.lblState = new DevExpress.XtraEditors.LabelControl();
             this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmRename = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.treeListColumn1 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
-            this.treeListColumn2 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tcMain)).BeginInit();
@@ -120,6 +121,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetailMenu)).BeginInit();
             this.pnlDetailMenu.SuspendLayout();
             this.tpAddMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEngMenuList.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMenuList.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rdgNode.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -144,17 +146,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.tvModule)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
             this.panelControl6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
-            this.panelControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pgbState.Properties)).BeginInit();
             this.cmsMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelControl1
             // 
             this.panelControl1.Controls.Add(this.tcMain);
-            this.panelControl1.Controls.Add(this.panelControl2);
-            this.panelControl1.Size = new System.Drawing.Size(798, 553);
+            this.panelControl1.Size = new System.Drawing.Size(865, 553);
             // 
             // tcMain
             // 
@@ -162,7 +160,7 @@
             this.tcMain.Location = new System.Drawing.Point(2, 2);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedTabPage = this.tpMenu;
-            this.tcMain.Size = new System.Drawing.Size(794, 505);
+            this.tcMain.Size = new System.Drawing.Size(861, 549);
             this.tcMain.TabIndex = 0;
             this.tcMain.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.tpMenu,
@@ -174,16 +172,16 @@
             this.tpMenu.Controls.Add(this.splitterControl1);
             this.tpMenu.Controls.Add(this.panelControl3);
             this.tpMenu.Name = "tpMenu";
-            this.tpMenu.Size = new System.Drawing.Size(787, 476);
+            this.tpMenu.Size = new System.Drawing.Size(854, 520);
             this.tpMenu.Text = "系统菜单管理(&M)";
             // 
             // panelControl4
             // 
             this.panelControl4.Controls.Add(this.xtraTabControl1);
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl4.Location = new System.Drawing.Point(244, 0);
+            this.panelControl4.Location = new System.Drawing.Point(395, 0);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(543, 476);
+            this.panelControl4.Size = new System.Drawing.Size(459, 520);
             this.panelControl4.TabIndex = 2;
             // 
             // xtraTabControl1
@@ -192,7 +190,7 @@
             this.xtraTabControl1.Location = new System.Drawing.Point(2, 2);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.tpMenuOperation;
-            this.xtraTabControl1.Size = new System.Drawing.Size(539, 472);
+            this.xtraTabControl1.Size = new System.Drawing.Size(455, 516);
             this.xtraTabControl1.TabIndex = 0;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.tpMenuOperation,
@@ -209,7 +207,7 @@
             this.tpMenuOperation.Controls.Add(this.gcPara);
             this.tpMenuOperation.Controls.Add(this.pnlDetailMenu);
             this.tpMenuOperation.Name = "tpMenuOperation";
-            this.tpMenuOperation.Size = new System.Drawing.Size(532, 443);
+            this.tpMenuOperation.Size = new System.Drawing.Size(448, 487);
             this.tpMenuOperation.Text = "菜单操作(M)";
             // 
             // labelControl3
@@ -370,7 +368,7 @@
             this.pnlDetailMenu.LookAndFeel.SkinName = "Blue";
             this.pnlDetailMenu.LookAndFeel.UseDefaultLookAndFeel = false;
             this.pnlDetailMenu.Name = "pnlDetailMenu";
-            this.pnlDetailMenu.Size = new System.Drawing.Size(532, 32);
+            this.pnlDetailMenu.Size = new System.Drawing.Size(448, 32);
             this.pnlDetailMenu.TabIndex = 3;
             // 
             // btnDelete
@@ -411,18 +409,45 @@
             // 
             // tpAddMenu
             // 
+            this.tpAddMenu.Controls.Add(this.labelControl12);
+            this.tpAddMenu.Controls.Add(this.labelControl11);
+            this.tpAddMenu.Controls.Add(this.txtEngMenuList);
             this.tpAddMenu.Controls.Add(this.btnAddMenu);
             this.tpAddMenu.Controls.Add(this.txtMenuList);
             this.tpAddMenu.Controls.Add(this.labelControl4);
             this.tpAddMenu.Controls.Add(this.rdgNode);
             this.tpAddMenu.Name = "tpAddMenu";
-            this.tpAddMenu.Size = new System.Drawing.Size(491, 388);
+            this.tpAddMenu.Size = new System.Drawing.Size(491, 432);
             this.tpAddMenu.Text = "新增菜单(&A)";
+            // 
+            // labelControl12
+            // 
+            this.labelControl12.Location = new System.Drawing.Point(204, 67);
+            this.labelControl12.Name = "labelControl12";
+            this.labelControl12.Size = new System.Drawing.Size(48, 14);
+            this.labelControl12.TabIndex = 14;
+            this.labelControl12.Text = "英文名称";
+            // 
+            // labelControl11
+            // 
+            this.labelControl11.Location = new System.Drawing.Point(49, 67);
+            this.labelControl11.Name = "labelControl11";
+            this.labelControl11.Size = new System.Drawing.Size(48, 14);
+            this.labelControl11.TabIndex = 13;
+            this.labelControl11.Text = "中文名称";
+            // 
+            // txtEngMenuList
+            // 
+            this.txtEngMenuList.EditValue = "";
+            this.txtEngMenuList.Location = new System.Drawing.Point(163, 87);
+            this.txtEngMenuList.Name = "txtEngMenuList";
+            this.txtEngMenuList.Size = new System.Drawing.Size(154, 269);
+            this.txtEngMenuList.TabIndex = 12;
             // 
             // btnAddMenu
             // 
             this.btnAddMenu.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.insert;
-            this.btnAddMenu.Location = new System.Drawing.Point(3, 339);
+            this.btnAddMenu.Location = new System.Drawing.Point(3, 362);
             this.btnAddMenu.LookAndFeel.SkinName = "Blue";
             this.btnAddMenu.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnAddMenu.Name = "btnAddMenu";
@@ -434,9 +459,9 @@
             // txtMenuList
             // 
             this.txtMenuList.EditValue = "";
-            this.txtMenuList.Location = new System.Drawing.Point(3, 64);
+            this.txtMenuList.Location = new System.Drawing.Point(3, 87);
             this.txtMenuList.Name = "txtMenuList";
-            this.txtMenuList.Size = new System.Drawing.Size(257, 269);
+            this.txtMenuList.Size = new System.Drawing.Size(154, 269);
             this.txtMenuList.TabIndex = 10;
             // 
             // labelControl4
@@ -457,14 +482,14 @@
             new DevExpress.XtraEditors.Controls.RadioGroupItem("1", "根节点下")});
             this.rdgNode.Properties.LookAndFeel.SkinName = "Blue";
             this.rdgNode.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.rdgNode.Size = new System.Drawing.Size(257, 32);
+            this.rdgNode.Size = new System.Drawing.Size(314, 32);
             this.rdgNode.TabIndex = 0;
             // 
             // splitterControl1
             // 
-            this.splitterControl1.Location = new System.Drawing.Point(238, 0);
+            this.splitterControl1.Location = new System.Drawing.Point(389, 0);
             this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(6, 476);
+            this.splitterControl1.Size = new System.Drawing.Size(6, 520);
             this.splitterControl1.TabIndex = 1;
             this.splitterControl1.TabStop = false;
             // 
@@ -475,13 +500,14 @@
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl3.Location = new System.Drawing.Point(0, 0);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(238, 476);
+            this.panelControl3.Size = new System.Drawing.Size(389, 520);
             this.panelControl3.TabIndex = 0;
             // 
             // tvMenu
             // 
             this.tvMenu.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
-            this.treeListColumn1});
+            this.treeListColumn1,
+            this.treeListColumn3});
             this.tvMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvMenu.KeyFieldName = "";
             this.tvMenu.Location = new System.Drawing.Point(2, 32);
@@ -492,14 +518,14 @@
             this.tvMenu.OptionsBehavior.Editable = false;
             this.tvMenu.OptionsMenu.EnableColumnMenu = false;
             this.tvMenu.OptionsMenu.EnableFooterMenu = false;
+            this.tvMenu.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.tvMenu.OptionsSelection.MultiSelect = true;
-            this.tvMenu.OptionsView.ShowColumns = false;
             this.tvMenu.OptionsView.ShowHorzLines = false;
             this.tvMenu.OptionsView.ShowIndicator = false;
             this.tvMenu.OptionsView.ShowVertLines = false;
             this.tvMenu.ParentFieldName = "";
             this.tvMenu.ShowButtonMode = DevExpress.XtraTreeList.ShowButtonModeEnum.ShowForFocusedRow;
-            this.tvMenu.Size = new System.Drawing.Size(234, 442);
+            this.tvMenu.Size = new System.Drawing.Size(385, 486);
             this.tvMenu.StateImageList = this.imageList1;
             this.tvMenu.TabIndex = 1;
             this.tvMenu.TreeLineStyle = DevExpress.XtraTreeList.LineStyle.None;
@@ -507,13 +533,30 @@
             this.tvMenu.GetStateImage += new DevExpress.XtraTreeList.GetStateImageEventHandler(this.tvMenu_GetStateImage);
             this.tvMenu.Click += new System.EventHandler(this.tvMenu_Click);
             // 
+            // treeListColumn1
+            // 
+            this.treeListColumn1.Caption = "菜单名称";
+            this.treeListColumn1.FieldName = "sMenuName";
+            this.treeListColumn1.Name = "treeListColumn1";
+            this.treeListColumn1.Visible = true;
+            this.treeListColumn1.VisibleIndex = 0;
+            this.treeListColumn1.Width = 92;
+            // 
+            // treeListColumn3
+            // 
+            this.treeListColumn3.Caption = "菜单英文名称";
+            this.treeListColumn3.FieldName = "sMenuEngName";
+            this.treeListColumn3.Name = "treeListColumn3";
+            this.treeListColumn3.Visible = true;
+            this.treeListColumn3.VisibleIndex = 1;
+            // 
             // panelControl5
             // 
             this.panelControl5.Controls.Add(this.labelControl2);
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl5.Location = new System.Drawing.Point(2, 2);
             this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(234, 30);
+            this.panelControl5.Size = new System.Drawing.Size(385, 30);
             this.panelControl5.TabIndex = 0;
             // 
             // labelControl2
@@ -531,7 +574,7 @@
             this.tpModule.Controls.Add(this.panelControl7);
             this.tpModule.Controls.Add(this.panelControl6);
             this.tpModule.Name = "tpModule";
-            this.tpModule.Size = new System.Drawing.Size(787, 476);
+            this.tpModule.Size = new System.Drawing.Size(746, 465);
             this.tpModule.Text = "系统模块升级(&S)";
             // 
             // panelControl8
@@ -552,7 +595,7 @@
             this.panelControl8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl8.Location = new System.Drawing.Point(231, 32);
             this.panelControl8.Name = "panelControl8";
-            this.panelControl8.Size = new System.Drawing.Size(556, 444);
+            this.panelControl8.Size = new System.Drawing.Size(515, 433);
             this.panelControl8.TabIndex = 23;
             // 
             // txtFormID
@@ -687,7 +730,7 @@
             // 
             this.splitterControl2.Location = new System.Drawing.Point(225, 32);
             this.splitterControl2.Name = "splitterControl2";
-            this.splitterControl2.Size = new System.Drawing.Size(6, 444);
+            this.splitterControl2.Size = new System.Drawing.Size(6, 433);
             this.splitterControl2.TabIndex = 7;
             this.splitterControl2.TabStop = false;
             // 
@@ -697,7 +740,7 @@
             this.panelControl7.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl7.Location = new System.Drawing.Point(0, 32);
             this.panelControl7.Name = "panelControl7";
-            this.panelControl7.Size = new System.Drawing.Size(225, 444);
+            this.panelControl7.Size = new System.Drawing.Size(225, 433);
             this.panelControl7.TabIndex = 6;
             // 
             // tvModule
@@ -722,12 +765,22 @@
             this.tvModule.OptionsView.ShowVertLines = false;
             this.tvModule.ParentFieldName = "";
             this.tvModule.ShowButtonMode = DevExpress.XtraTreeList.ShowButtonModeEnum.ShowForFocusedRow;
-            this.tvModule.Size = new System.Drawing.Size(221, 440);
+            this.tvModule.Size = new System.Drawing.Size(221, 429);
             this.tvModule.StateImageList = this.imageList1;
             this.tvModule.TabIndex = 5;
             this.tvModule.TreeLineStyle = DevExpress.XtraTreeList.LineStyle.None;
             this.tvModule.GetStateImage += new DevExpress.XtraTreeList.GetStateImageEventHandler(this.tvModule_GetStateImage);
             this.tvModule.AfterCheckNode += new DevExpress.XtraTreeList.NodeEventHandler(this.tvModule_AfterCheckNode);
+            // 
+            // treeListColumn2
+            // 
+            this.treeListColumn2.Caption = "模块名称";
+            this.treeListColumn2.FieldName = "sMenuName";
+            this.treeListColumn2.MinWidth = 32;
+            this.treeListColumn2.Name = "treeListColumn2";
+            this.treeListColumn2.Visible = true;
+            this.treeListColumn2.VisibleIndex = 0;
+            this.treeListColumn2.Width = 105;
             // 
             // panelControl6
             // 
@@ -738,7 +791,7 @@
             this.panelControl6.LookAndFeel.SkinName = "Blue";
             this.panelControl6.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl6.Name = "panelControl6";
-            this.panelControl6.Size = new System.Drawing.Size(787, 32);
+            this.panelControl6.Size = new System.Drawing.Size(746, 32);
             this.panelControl6.TabIndex = 4;
             // 
             // btnUpdateModule
@@ -765,32 +818,6 @@
             this.btnRefrshModule.Text = "刷新(&R)";
             this.btnRefrshModule.Click += new System.EventHandler(this.btnRefrshModule_Click);
             // 
-            // panelControl2
-            // 
-            this.panelControl2.Controls.Add(this.pgbState);
-            this.panelControl2.Controls.Add(this.lblState);
-            this.panelControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl2.Location = new System.Drawing.Point(2, 507);
-            this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(794, 44);
-            this.panelControl2.TabIndex = 1;
-            // 
-            // pgbState
-            // 
-            this.pgbState.Location = new System.Drawing.Point(76, 9);
-            this.pgbState.Name = "pgbState";
-            this.pgbState.Properties.ShowTitle = true;
-            this.pgbState.Size = new System.Drawing.Size(331, 28);
-            this.pgbState.TabIndex = 1;
-            // 
-            // lblState
-            // 
-            this.lblState.Location = new System.Drawing.Point(15, 16);
-            this.lblState.Name = "lblState";
-            this.lblState.Size = new System.Drawing.Size(52, 14);
-            this.lblState.TabIndex = 0;
-            this.lblState.Text = "完成状态:";
-            // 
             // cmsMenu
             // 
             this.cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -813,32 +840,13 @@
             this.tsmDelete.Text = "删除(&D)";
             this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
             // 
-            // treeListColumn1
-            // 
-            this.treeListColumn1.Caption = "菜单名称";
-            this.treeListColumn1.FieldName = "sMenuName";
-            this.treeListColumn1.Name = "treeListColumn1";
-            this.treeListColumn1.Visible = true;
-            this.treeListColumn1.VisibleIndex = 0;
-            this.treeListColumn1.Width = 92;
-            // 
-            // treeListColumn2
-            // 
-            this.treeListColumn2.Caption = "模块名称";
-            this.treeListColumn2.FieldName = "sMenuName";
-            this.treeListColumn2.MinWidth = 32;
-            this.treeListColumn2.Name = "treeListColumn2";
-            this.treeListColumn2.Visible = true;
-            this.treeListColumn2.VisibleIndex = 0;
-            this.treeListColumn2.Width = 105;
-            // 
-            // frmsysPaltformManage
+            // frmsysPlatformManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.ClientSize = new System.Drawing.Size(798, 553);
+            this.ClientSize = new System.Drawing.Size(865, 553);
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.Name = "frmsysPaltformManage";
+            this.Name = "frmsysPlatformManage";
             this.Text = "系统平台管理";
             this.Load += new System.EventHandler(this.frmsysPaltformManage_Load);
             this.Controls.SetChildIndex(this.panelControl1, 0);
@@ -861,6 +869,7 @@
             this.pnlDetailMenu.ResumeLayout(false);
             this.tpAddMenu.ResumeLayout(false);
             this.tpAddMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEngMenuList.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMenuList.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rdgNode.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
@@ -887,10 +896,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tvModule)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
             this.panelControl6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
-            this.panelControl2.ResumeLayout(false);
-            this.panelControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pgbState.Properties)).EndInit();
             this.cmsMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -901,7 +906,6 @@
         private DevExpress.XtraTab.XtraTabControl tcMain;
         private DevExpress.XtraTab.XtraTabPage tpMenu;
         private DevExpress.XtraTab.XtraTabPage tpModule;
-        private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.PanelControl panelControl4;
         private DevExpress.XtraEditors.SplitterControl splitterControl1;
         private DevExpress.XtraEditors.PanelControl panelControl3;
@@ -914,8 +918,6 @@
         protected DevExpress.XtraEditors.SimpleButton btnDelete;
         protected DevExpress.XtraEditors.SimpleButton btnSave;
         protected DevExpress.XtraEditors.SimpleButton btnRefresh;
-        private DevExpress.XtraEditors.ProgressBarControl pgbState;
-        private DevExpress.XtraEditors.LabelControl lblState;
         private DevExpress.XtraGrid.GridControl gcPara;
         private DevExpress.XtraGrid.Views.Grid.GridView gvPara;
         private DevExpress.XtraGrid.Columns.GridColumn colParamName;
@@ -962,5 +964,9 @@
         private DevExpress.XtraEditors.PanelControl panelControl8;
         private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumn1;
         private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumn2;
+        private DevExpress.XtraEditors.MemoEdit txtEngMenuList;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumn3;
+        private DevExpress.XtraEditors.LabelControl labelControl12;
+        private DevExpress.XtraEditors.LabelControl labelControl11;
     }
 }
