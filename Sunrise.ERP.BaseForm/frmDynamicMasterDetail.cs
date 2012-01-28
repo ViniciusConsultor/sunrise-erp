@@ -56,6 +56,8 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         protected Hashtable DetailOrderField = new Hashtable();
 
+        private bool CanCloseWindow = true;
+
         #endregion
 
         #region 构造函数
@@ -279,32 +281,29 @@ namespace Sunrise.ERP.BaseForm
             return sResult;
         }
 
-        private void frmDynamicMasterDetail_Load(object sender, EventArgs e)
-        {
-            ShowLeft();
-        }
-
         /// <summary>
         /// 显示主表Grid
         /// </summary>
-        private void ShowLeft()
+        public void ShowLeft()
         {
             pnlDetail.Visible = false;
             sptUpDown.Visible = false;
             pnlInfo.Visible = false;
             pnlGrid.Visible = true;
             pnlGrid.Dock = DockStyle.Fill;
+            CanCloseWindow = true;
         }
         /// <summary>
         /// 显示数据操作部分
         /// </summary>
-        private void ShowRight()
+        public void ShowRight()
         {
             pnlInfo.Visible = true;
             sptUpDown.Visible = true;
             pnlDetail.Visible = true;
             pnlGrid.Visible = false;
             sptLeftRight.Visible = false;
+            CanCloseWindow = false;
         }
 
         #endregion
@@ -399,6 +398,29 @@ namespace Sunrise.ERP.BaseForm
             ShowRight();
             base.DoCopy();
         }
+
+        public override bool DoBeforeClose()
+        {
+            if (!CanCloseWindow)
+            {
+                if (FormDataFlag != DataFlag.dsBrowse)
+                {
+                    if (base.DoBeforeCancel())
+                    {
+                        DoCancel();
+                        FormDataFlag = DataFlag.dsBrowse;
+                        txtDataFlag.Text = FormDataFlag.ToString();
+                        IsDataChange = false;
+                    }
+                }
+                else
+                    ShowLeft();
+                return false;
+            }
+            else
+                return base.DoBeforeClose();
+        }
+
         #endregion
 
         #region 窗体自定义设置

@@ -847,6 +847,7 @@ namespace Sunrise.ERP.BasePublic
                     dtTmp.Rows[0]["sGridColumnText"].ToString() : dtTmp.Rows[0]["sEnGridColumnText"].ToString(), ",");
                 if (ValueFields.Length == DisplayText.Length)
                 {
+                    cbx.Properties.Items.Clear();
                     for (int i = 0; i < ValueFields.Length; i++)
                     {
                         cbx.Properties.Items.Add(new ImageComboBoxItem(DisplayText[i], ValueFields[i]));
@@ -875,6 +876,7 @@ namespace Sunrise.ERP.BasePublic
                     dtTmp.Rows[0]["sGridColumnText"].ToString() : dtTmp.Rows[0]["sEnGridColumnText"].ToString(), ",");
                 if (ValueFields.Length == DisplayText.Length)
                 {
+                    cbx.Items.Clear();
                     for (int i = 0; i < ValueFields.Length; i++)
                     {
                         cbx.Items.Add(new ImageComboBoxItem(DisplayText[i], ValueFields[i]));

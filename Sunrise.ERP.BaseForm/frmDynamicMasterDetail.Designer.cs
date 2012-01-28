@@ -162,7 +162,6 @@
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmDynamicMasterDetail";
-            this.Load += new System.EventHandler(this.frmDynamicMasterDetail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).EndInit();

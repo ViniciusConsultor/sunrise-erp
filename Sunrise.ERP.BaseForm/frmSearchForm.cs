@@ -100,31 +100,31 @@ namespace Sunrise.ERP.BaseForm
         /// <param name="FiledType">查询项目类型</param>
         public void AddSearchItem(string sItemName, string sItemFiled, FiledType FiledType)
         {
-            LItemName.Add(sItemName);
-            LItemFiled.Add(sItemFiled);
+            LItemName.Add("[" + sItemName + "]");
+            LItemFiled.Add("[" + sItemFiled + "]");
             LFieldType.Add(FiledType);
             LLookUpOrComboBoxSetting.Add("NULL");
         }
         public void AddSearchItem(string sItemName, string sItemFiled, FiledType FiledType,string LookUpOrComboBoxSetting)
         {
-            LItemName.Add(sItemName);
-            LItemFiled.Add(sItemFiled);
+            LItemName.Add("[" + sItemName + "]");
+            LItemFiled.Add("[" + sItemFiled + "]");
             LFieldType.Add(FiledType);
             LLookUpOrComboBoxSetting.Add(LookUpOrComboBoxSetting);
         }
         public void AddSearchItem(string sItemName, string sItemFiled, FiledType FiledType, string sql, 
             string returnfield, string displayfield, string columnfield, string columntetx, string text)
         {
-            LItemName.Add(sItemName);
-            LItemFiled.Add(sItemFiled);
+            LItemName.Add("[" + sItemName + "]");
+            LItemFiled.Add("[" + sItemFiled + "]");
             LFieldType.Add(FiledType);
             string LookUpOrComboBoxSetting = sql + "|" + returnfield + "|" + displayfield + "|" + "|" + columnfield + "|" + columntetx + "|" + text;
             LLookUpOrComboBoxSetting.Add(LookUpOrComboBoxSetting);
         }
         public void AddSearchItem(string sItemName, string sItemFiled, FiledType FiledType, string ComboBoxValues,string ComboBoxTexts)
         {
-            LItemName.Add(sItemName);
-            LItemFiled.Add(sItemFiled);
+            LItemName.Add("[" + sItemName + "]");
+            LItemFiled.Add("[" + sItemFiled + "]");
             LFieldType.Add(FiledType);
             string LookUpOrComboBoxSetting = ComboBoxValues + "|" + ComboBoxTexts;
             LLookUpOrComboBoxSetting.Add(LookUpOrComboBoxSetting);

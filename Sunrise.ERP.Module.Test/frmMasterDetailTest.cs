@@ -25,6 +25,7 @@ namespace Sunrise.ERP.Module.Test
 
         private void frmMasterDetailTest_Load(object sender, EventArgs e)
         {
+            ShowLeft();
             AddDetailData("salTestDetail", "MainID", "ID");
             CreateDetailGridColumn(gvDetail, "salTestDetail");
             gcDetail.DataSource = LDetailBindingSource[LDetailTableName.IndexOf("salTestDetail")];
@@ -66,6 +67,12 @@ namespace Sunrise.ERP.Module.Test
         private void gvDetail_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
             gvDetail.GetFocusedDataRow()["sUserID"] = SecurityCenter.CurrentUserID;
+        }
+
+        private void gvMain_DoubleClick(object sender, EventArgs e)
+        {
+            if (gvMain.GetFocusedDataRow() != null)
+                ShowRight();
         }
     }
 }
