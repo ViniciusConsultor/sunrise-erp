@@ -172,6 +172,7 @@
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmDynamicSingleForm";
+            this.Load += new System.EventHandler(this.frmDynamicSingleForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).EndInit();

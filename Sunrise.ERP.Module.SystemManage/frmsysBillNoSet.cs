@@ -14,6 +14,8 @@ namespace Sunrise.ERP.Module.SystemManage
             : base(formid, "Sunrise.ERP.SystemManage.DAL", "sysBillNoSetDAL")
         {
             InitializeComponent();
+            if (!string.IsNullOrEmpty(formtext))
+                Text = formtext;
             lkpDateFormatStr.DataBindings.Add("EditValue", dsMain, "sDateType");
             txtsFieldName.DataBindings.Add("EditValue", dsMain, "sFieldName");
             lkpFormID.DataBindings.Add("EditValue", dsMain, "iFormID");
@@ -32,16 +34,6 @@ namespace Sunrise.ERP.Module.SystemManage
         {
             AddNotNullFields(new string[] { "lkpFormID", "lkpTableName", "txtsFieldName", "txtNoFormatStr" });
             base.initBase();
-        }
-
-        private bool lkpFormID_LookUpAfterPost(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-        {
-            if (lkpFormID.ReturnData.Rows.Count > 0)
-            {
-                dsMain.EndEdit();
-                ((DataRowView)dsMain.Current).Row["sMenuName"] = lkpFormID.ReturnData.Rows[0]["sMenuName"];
-            }
-            return default(bool);
         }
 
         private void frmsysBillNoSet_Load(object sender, EventArgs e)

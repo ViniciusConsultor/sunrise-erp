@@ -10,10 +10,13 @@ namespace Sunrise.ERP.Module.SystemManage
 {
     public partial class frmsysEditUser : Sunrise.ERP.BaseForm.frmSingleForm
     {
-        public frmsysEditUser()
-            : base(0, "Sunrise.ERP.SystemManage.DAL", "sysUserDAL", false)
+        private bool isPasswordChanged = false;
+        public frmsysEditUser(int formid, string formtext)
+            : base(formid, "Sunrise.ERP.SystemManage.DAL", "sysUserDAL", false)
         {
             InitializeComponent();
+            if (!string.IsNullOrEmpty(formtext))
+                Text = formtext;
             txtsPassword.DataBindings.Add("EditValue", dsMain, "sPassword");
             txtsRemark.DataBindings.Add("EditValue", dsMain, "sRemark");
             txtsUserCName.DataBindings.Add("EditValue", dsMain, "sUserCName");
@@ -71,9 +74,19 @@ namespace Sunrise.ERP.Module.SystemManage
         }
         public override bool DoBeforeSave()
         {
-            ((DataRowView)dsMain.Current).Row["sPassword"] = Sunrise.ERP.BaseControl.SysEncrypt.EncryptStr(((DataRowView)dsMain.Current).Row["sPassword"].ToString());
-            dsMain.EndEdit();
+            if (isPasswordChanged)
+            {
+                ((DataRowView)dsMain.Current).Row["sPassword"] = Sunrise.ERP.BaseControl.SysEncrypt.EncryptStr(((DataRowView)dsMain.Current).Row["sPassword"].ToString());
+                dsMain.EndEdit();
+                isPasswordChanged = false;
+            }
             return base.DoBeforeSave();
+        }
+
+        private void txtsPassword_TextChanged(object sender, EventArgs e)
+        {
+            if (FormDataFlag != Sunrise.ERP.BasePublic.DataFlag.dsBrowse)
+                isPasswordChanged = true;
         }
     }
 }

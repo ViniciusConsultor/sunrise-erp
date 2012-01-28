@@ -48,6 +48,7 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsUserID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -86,6 +87,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
             this.SuspendLayout();
@@ -115,11 +117,14 @@
             // 
             // btnPrint
             // 
+            this.btnPrint.Location = new System.Drawing.Point(653, 3);
             this.btnPrint.LookAndFeel.SkinName = "Blue";
             this.btnPrint.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnPrint.Visible = false;
             // 
             // btnClose
             // 
+            this.btnClose.Location = new System.Drawing.Point(502, 4);
             this.btnClose.LookAndFeel.SkinName = "Blue";
             this.btnClose.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
@@ -153,13 +158,18 @@
             this.btnView.LookAndFeel.SkinName = "Blue";
             this.btnView.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
-            // btnRefesh
+            // btnRefresh
             // 
             this.btnRefresh.LookAndFeel.SkinName = "Blue";
             this.btnRefresh.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // txtDataFlag
             // 
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.LookAndFeel.SkinName = "Blue";
+            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // panelControl1
             // 
@@ -191,20 +201,20 @@
             this.chkbIsLock.Location = new System.Drawing.Point(8, 105);
             this.chkbIsLock.Name = "chkbIsLock";
             this.chkbIsLock.Properties.Caption = "是否锁定";
-            this.chkbIsLock.Size = new System.Drawing.Size(730, 19);
+            this.chkbIsLock.Size = new System.Drawing.Size(713, 19);
             this.chkbIsLock.StyleController = this.layoutControl1;
             this.chkbIsLock.TabIndex = 14;
             // 
             // cbxUserType
             // 
-            this.cbxUserType.Location = new System.Drawing.Point(439, 80);
+            this.cbxUserType.Location = new System.Drawing.Point(434, 80);
             this.cbxUserType.Name = "cbxUserType";
             this.cbxUserType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cbxUserType.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("一般用户", 0, -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("超级用户", 1, -1)});
-            this.cbxUserType.Size = new System.Drawing.Size(299, 21);
+            this.cbxUserType.Size = new System.Drawing.Size(287, 21);
             this.cbxUserType.StyleController = this.layoutControl1;
             this.cbxUserType.TabIndex = 13;
             // 
@@ -222,15 +232,16 @@
             this.lkpParantID.Name = "lkpParantID";
             this.lkpParantID.SearchFormFilter = "";
             this.lkpParantID.SearchFormText = "";
-            this.lkpParantID.Size = new System.Drawing.Size(299, 21);
+            this.lkpParantID.Size = new System.Drawing.Size(294, 21);
             this.lkpParantID.SQL = null;
             this.lkpParantID.TabIndex = 12;
+            this.lkpParantID.TextFont = new System.Drawing.Font("Tahoma", 9F);
             // 
             // txtsUserEName
             // 
-            this.txtsUserEName.Location = new System.Drawing.Point(439, 55);
+            this.txtsUserEName.Location = new System.Drawing.Point(434, 55);
             this.txtsUserEName.Name = "txtsUserEName";
-            this.txtsUserEName.Size = new System.Drawing.Size(299, 21);
+            this.txtsUserEName.Size = new System.Drawing.Size(287, 21);
             this.txtsUserEName.StyleController = this.layoutControl1;
             this.txtsUserEName.TabIndex = 11;
             // 
@@ -238,18 +249,19 @@
             // 
             this.txtsUserCName.Location = new System.Drawing.Point(72, 55);
             this.txtsUserCName.Name = "txtsUserCName";
-            this.txtsUserCName.Size = new System.Drawing.Size(299, 21);
+            this.txtsUserCName.Size = new System.Drawing.Size(294, 21);
             this.txtsUserCName.StyleController = this.layoutControl1;
             this.txtsUserCName.TabIndex = 10;
             // 
             // txtsPassword
             // 
-            this.txtsPassword.Location = new System.Drawing.Point(439, 30);
+            this.txtsPassword.Location = new System.Drawing.Point(434, 30);
             this.txtsPassword.Name = "txtsPassword";
             this.txtsPassword.Properties.PasswordChar = '*';
-            this.txtsPassword.Size = new System.Drawing.Size(299, 21);
+            this.txtsPassword.Size = new System.Drawing.Size(287, 21);
             this.txtsPassword.StyleController = this.layoutControl1;
             this.txtsPassword.TabIndex = 9;
+            this.txtsPassword.TextChanged += new System.EventHandler(this.txtsPassword_TextChanged);
             // 
             // lkpsUserID
             // 
@@ -265,15 +277,16 @@
             this.lkpsUserID.Name = "lkpsUserID";
             this.lkpsUserID.SearchFormFilter = "";
             this.lkpsUserID.SearchFormText = "";
-            this.lkpsUserID.Size = new System.Drawing.Size(299, 21);
+            this.lkpsUserID.Size = new System.Drawing.Size(294, 21);
             this.lkpsUserID.SQL = null;
             this.lkpsUserID.TabIndex = 8;
+            this.lkpsUserID.TextFont = new System.Drawing.Font("Tahoma", 9F);
             // 
             // txtsRemark
             // 
             this.txtsRemark.Location = new System.Drawing.Point(72, 128);
             this.txtsRemark.Name = "txtsRemark";
-            this.txtsRemark.Size = new System.Drawing.Size(666, 58);
+            this.txtsRemark.Size = new System.Drawing.Size(649, 58);
             this.txtsRemark.StyleController = this.layoutControl1;
             this.txtsRemark.TabIndex = 7;
             this.txtsRemark.Tag = "NoTab";
@@ -318,7 +331,8 @@
             this.layoutControlItem5,
             this.layoutControlItem6,
             this.layoutControlItem7,
-            this.layoutControlItem8});
+            this.layoutControlItem8,
+            this.emptySpaceItem1});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Size = new System.Drawing.Size(734, 160);
@@ -330,8 +344,11 @@
             this.layoutControlItem1.Control = this.txtsRemark;
             this.layoutControlItem1.CustomizationFormText = "备注";
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 98);
+            this.layoutControlItem1.MaxSize = new System.Drawing.Size(717, 62);
+            this.layoutControlItem1.MinSize = new System.Drawing.Size(717, 62);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(734, 62);
+            this.layoutControlItem1.Size = new System.Drawing.Size(717, 62);
+            this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "备注";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(60, 14);
             // 
@@ -340,8 +357,11 @@
             this.layoutControlItem2.Control = this.lkpsUserID;
             this.layoutControlItem2.CustomizationFormText = "登录用户名";
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem2.MaxSize = new System.Drawing.Size(362, 25);
+            this.layoutControlItem2.MinSize = new System.Drawing.Size(362, 25);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(367, 25);
+            this.layoutControlItem2.Size = new System.Drawing.Size(362, 25);
+            this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.Text = "登录用户名";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(60, 14);
             // 
@@ -349,9 +369,9 @@
             // 
             this.layoutControlItem3.Control = this.txtsPassword;
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
-            this.layoutControlItem3.Location = new System.Drawing.Point(367, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(362, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(367, 25);
+            this.layoutControlItem3.Size = new System.Drawing.Size(355, 25);
             this.layoutControlItem3.Text = "登录密码";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(60, 14);
             // 
@@ -360,8 +380,11 @@
             this.layoutControlItem4.Control = this.txtsUserCName;
             this.layoutControlItem4.CustomizationFormText = "用户名称";
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 25);
+            this.layoutControlItem4.MaxSize = new System.Drawing.Size(362, 25);
+            this.layoutControlItem4.MinSize = new System.Drawing.Size(362, 25);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(367, 25);
+            this.layoutControlItem4.Size = new System.Drawing.Size(362, 25);
+            this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem4.Text = "用户名称";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(60, 14);
             // 
@@ -369,9 +392,12 @@
             // 
             this.layoutControlItem5.Control = this.txtsUserEName;
             this.layoutControlItem5.CustomizationFormText = "用户英文名";
-            this.layoutControlItem5.Location = new System.Drawing.Point(367, 25);
+            this.layoutControlItem5.Location = new System.Drawing.Point(362, 25);
+            this.layoutControlItem5.MaxSize = new System.Drawing.Size(355, 25);
+            this.layoutControlItem5.MinSize = new System.Drawing.Size(355, 25);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(367, 25);
+            this.layoutControlItem5.Size = new System.Drawing.Size(355, 25);
+            this.layoutControlItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem5.Text = "用户英文名";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(60, 14);
             // 
@@ -380,8 +406,11 @@
             this.layoutControlItem6.Control = this.lkpParantID;
             this.layoutControlItem6.CustomizationFormText = "所属上级";
             this.layoutControlItem6.Location = new System.Drawing.Point(0, 50);
+            this.layoutControlItem6.MaxSize = new System.Drawing.Size(362, 25);
+            this.layoutControlItem6.MinSize = new System.Drawing.Size(362, 25);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(367, 25);
+            this.layoutControlItem6.Size = new System.Drawing.Size(362, 25);
+            this.layoutControlItem6.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem6.Text = "所属上级";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(60, 14);
             // 
@@ -389,9 +418,12 @@
             // 
             this.layoutControlItem7.Control = this.cbxUserType;
             this.layoutControlItem7.CustomizationFormText = "用户类型";
-            this.layoutControlItem7.Location = new System.Drawing.Point(367, 50);
+            this.layoutControlItem7.Location = new System.Drawing.Point(362, 50);
+            this.layoutControlItem7.MaxSize = new System.Drawing.Size(355, 25);
+            this.layoutControlItem7.MinSize = new System.Drawing.Size(355, 25);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(367, 25);
+            this.layoutControlItem7.Size = new System.Drawing.Size(355, 25);
+            this.layoutControlItem7.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem7.Text = "用户类型";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(60, 14);
             // 
@@ -401,11 +433,20 @@
             this.layoutControlItem8.CustomizationFormText = "layoutControlItem8";
             this.layoutControlItem8.Location = new System.Drawing.Point(0, 75);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(734, 23);
+            this.layoutControlItem8.Size = new System.Drawing.Size(717, 23);
             this.layoutControlItem8.Text = "layoutControlItem8";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextToControlDistance = 0;
             this.layoutControlItem8.TextVisible = false;
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
+            this.emptySpaceItem1.Location = new System.Drawing.Point(717, 0);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(17, 160);
+            this.emptySpaceItem1.Text = "emptySpaceItem1";
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // gcMain
             // 
@@ -436,6 +477,7 @@
             this.gvMain.OptionsView.ColumnAutoWidth = false;
             this.gvMain.OptionsView.ShowAutoFilterRow = true;
             this.gvMain.OptionsView.ShowFooter = true;
+            this.gvMain.OptionsView.ShowGroupPanel = false;
             this.gvMain.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gvMain_CustomDrawCell);
             // 
             // colsUserID
@@ -536,6 +578,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).EndInit();
             this.ResumeLayout(false);
@@ -573,5 +616,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colsUserTypeName;
         private DevExpress.XtraGrid.Columns.GridColumn colbIsLock;
         private DevExpress.XtraGrid.Columns.GridColumn colsRemark;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
     }
 }

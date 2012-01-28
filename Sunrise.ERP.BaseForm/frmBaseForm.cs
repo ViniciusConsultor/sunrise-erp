@@ -59,6 +59,7 @@ namespace Sunrise.ERP.BaseForm
             //DoView();
             //initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.None);
             DoBaseView();
+            //下面这句代码在发布的时候需要取消注释
             //LoadLangSetting();
         }
 

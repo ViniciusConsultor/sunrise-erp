@@ -350,7 +350,6 @@ namespace Sunrise.ERP.BaseForm
 
         public override bool DoAfterSave()
         {
-            ShowLeft();
             if (TopCount != 499 && SortField != "dInputDate DESC")
             {
                 if (IsCheckAuth)
@@ -381,12 +380,6 @@ namespace Sunrise.ERP.BaseForm
             base.DoEdit();
         }
 
-        public override void DoCancel()
-        {
-            ShowLeft();
-            base.DoCancel();
-        }
-
         public override void DoAdd()
         {
             ShowRight();
@@ -407,7 +400,8 @@ namespace Sunrise.ERP.BaseForm
                 {
                     if (base.DoBeforeCancel())
                     {
-                        DoCancel();
+                        ShowLeft();
+                        base.DoCancel();
                         FormDataFlag = DataFlag.dsBrowse;
                         txtDataFlag.Text = FormDataFlag.ToString();
                         IsDataChange = false;

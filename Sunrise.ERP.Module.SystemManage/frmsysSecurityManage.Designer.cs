@@ -273,6 +273,7 @@
             this.gvRole.OptionsView.ColumnAutoWidth = false;
             this.gvRole.OptionsView.ShowAutoFilterRow = true;
             this.gvRole.OptionsView.ShowFooter = true;
+            this.gvRole.OptionsView.ShowGroupPanel = false;
             // 
             // colsRoleNo
             // 
@@ -389,7 +390,7 @@
             this.layoutControlItem4});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(528, 116);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(632, 116);
             this.layoutControlGroup2.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup2.Text = "角色信息";
             // 
@@ -892,6 +893,7 @@
             this.btnEditUser.TabIndex = 11;
             this.btnEditUser.Text = "编辑系统用户";
             this.btnEditUser.ToolTip = "编辑系统用户";
+            this.btnEditUser.Visible = false;
             this.btnEditUser.Click += new System.EventHandler(this.btnEditUser_Click);
             // 
             // frmsysSecurityManage

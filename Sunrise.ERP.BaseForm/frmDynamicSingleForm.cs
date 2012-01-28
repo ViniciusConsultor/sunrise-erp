@@ -666,6 +666,7 @@ namespace Sunrise.ERP.BaseForm
             //设置非空字段颜色
             Sunrise.ERP.BasePublic.Base.SetNotNullFiledsColor(this.pnlInfo, NotNullFields);
             IsDataChange = false;
+            //下面这句代码在发布的时候需要取消注释
             //toolTipController1.SetToolTip(splitterControl1, LangCenter.Instance.GetFormLangInfo("BaseForm", "DbClickToExpand"));
 
         }
@@ -774,6 +775,12 @@ namespace Sunrise.ERP.BaseForm
                 base.OnKeyDown(e);
             }
 
+        }
+
+        private void frmDynamicSingleForm_Load(object sender, EventArgs e)
+        {
+            //下面这句代码在发布的时候需要取消注释
+            //btnSettings.Visible = SecurityCenter.IsAdmin;
         }
 
         #endregion

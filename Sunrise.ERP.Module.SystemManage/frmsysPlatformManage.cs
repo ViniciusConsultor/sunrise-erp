@@ -30,6 +30,8 @@ namespace Sunrise.ERP.Module.SystemManage
             : base(formid, formtext)
         {
             InitializeComponent();
+            if (!string.IsNullOrEmpty(formtext))
+                Text = formtext;
         }
 
         private void frmsysPaltformManage_Load(object sender, EventArgs e)
@@ -312,16 +314,24 @@ namespace Sunrise.ERP.Module.SystemManage
                 Sunrise.ERP.BaseControl.Public.SystemInfo("请输入菜单名称!");
                 return;
             }
+            string[] MenuText = txtMenuList.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] EngMenuText = txtEngMenuList.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            if (MenuText.Length != EngMenuText.Length)
+            {
+                Sunrise.ERP.BaseControl.Public.SystemInfo("请输入完整的中英文菜单名称！");
+                return;
+            }
             //在当前节点下添加
             if (rdgNode.SelectedIndex == 0)
             {
                 if (tvMenu.FocusedNode != null)
                 {
-                    foreach (string str in txtMenuList.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
+                    for (int i = 0; i < MenuText.Length; i++)
                     {
                         DataRow drNew = dsMenu.Tables[0].NewRow();
                         drNew["iParentID"] = tvMenu.FocusedNode.GetValue("ID");
-                        drNew["sMenuName"] = str;
+                        drNew["sMenuName"] = MenuText[i];
+                        drNew["sMenuEngName"] = EngMenuText[i];
                         drNew["sUserID"] = Sunrise.ERP.Security.SecurityCenter.CurrentUserID;
                         dsMenu.Tables[0].Rows.Add(drNew);
                     }
@@ -335,11 +345,12 @@ namespace Sunrise.ERP.Module.SystemManage
             else
             {
                 //在根节点下添加
-                foreach (string str in txtMenuList.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
+                for (int i = 0; i < MenuText.Length; i++)
                 {
                     DataRow drNew = dsMenu.Tables[0].NewRow();
-                    drNew["sMenuName"] = str;
                     drNew["iParentID"] = 0;
+                    drNew["sMenuName"] = MenuText[i];
+                    drNew["sMenuEngName"] = EngMenuText[i];
                     drNew["sUserID"] = Sunrise.ERP.Security.SecurityCenter.CurrentUserID;
                     dsMenu.Tables[0].Rows.Add(drNew);
                 }

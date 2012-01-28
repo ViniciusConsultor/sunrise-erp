@@ -429,7 +429,7 @@ namespace Sunrise.ERP.Controls
                     {
                         //txtDisplayText.Text = dt.Rows[0][DisplayField].ToString();
                         txtDisplayText.Text = dr[0][DisplayField].ToString();
-                        txtDisplayText.Focus();
+                        //txtDisplayText.Focus();
                         for (int i = 0; i < LAutoSetControl.ToArray().Length; i++)
                         {
                             LAutoSetControl[i].Focus();
