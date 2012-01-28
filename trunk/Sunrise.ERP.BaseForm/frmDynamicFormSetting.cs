@@ -13,6 +13,7 @@ using Sunrise.ERP.DataAccess;
 using Sunrise.ERP.Lang;
 
 using DevExpress.XtraEditors.Controls;
+using Sunrise.ERP.BaseControl;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -181,6 +182,29 @@ namespace Sunrise.ERP.BaseForm
                 else
                     gvDetail.Columns["sControlType"].OptionsColumn.AllowEdit = true;
             }
+        }
+
+        public override bool DoBeforeSave()
+        {
+            bool result= base.DoBeforeSave();
+            if (result)
+            {
+                //验证明细数据中字段名称不能够重复
+                string sFieldName = string.Empty;
+                DataTable dtTmp = LDetailDataSet[LDetailDALName.IndexOf("sysDynamicFormDetailDAL")].Tables[0];
+                for (int i = 0; i < dtTmp.Rows.Count; i++)
+                {
+                    for (int j = i + 1; j < dtTmp.Rows.Count; j++)
+                    {
+                        if (dtTmp.Rows[i]["sFieldName"].ToString() == dtTmp.Rows[j]["sFieldName"].ToString())
+                        {
+                            Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SQLDataIsRepeat"), true);
+                            result = false;
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
         public override bool DoAfterSave()
