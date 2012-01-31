@@ -88,6 +88,9 @@
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.colbEdit = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colsColumnType = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.cbxsColumnType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -135,6 +138,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxsColumnType)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlDetail
@@ -344,7 +348,8 @@
             this.cbxsFieldType,
             this.cbxsControlType,
             this.mtxtsLookupAutoSetControl,
-            this.mtxtsLookupAutoSetGrid});
+            this.mtxtsLookupAutoSetGrid,
+            this.cbxsColumnType});
             this.gcDetail.Size = new System.Drawing.Size(610, 261);
             this.gcDetail.TabIndex = 6;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -364,6 +369,8 @@
             this.colsLookupAutoSetControl,
             this.colsLookupAutoSetGrid,
             this.colbSystemColumn,
+            this.colsColumnType,
+            this.colbEdit,
             this.colbQuery,
             this.colbSaveData,
             this.colbNotNull,
@@ -529,7 +536,7 @@
             this.colbSaveData.FieldName = "bSaveData";
             this.colbSaveData.Name = "colbSaveData";
             this.colbSaveData.Visible = true;
-            this.colbSaveData.VisibleIndex = 11;
+            this.colbSaveData.VisibleIndex = 13;
             this.colbSaveData.Width = 72;
             // 
             // colbNotNull
@@ -538,7 +545,7 @@
             this.colbNotNull.FieldName = "bNotNull";
             this.colbNotNull.Name = "colbNotNull";
             this.colbNotNull.Visible = true;
-            this.colbNotNull.VisibleIndex = 12;
+            this.colbNotNull.VisibleIndex = 14;
             this.colbNotNull.Width = 61;
             // 
             // colbHistory
@@ -547,7 +554,7 @@
             this.colbHistory.FieldName = "bHistory";
             this.colbHistory.Name = "colbHistory";
             this.colbHistory.Visible = true;
-            this.colbHistory.VisibleIndex = 13;
+            this.colbHistory.VisibleIndex = 15;
             this.colbHistory.Width = 68;
             // 
             // colbShowInPanel
@@ -556,7 +563,7 @@
             this.colbShowInPanel.FieldName = "bShowInPanel";
             this.colbShowInPanel.Name = "colbShowInPanel";
             this.colbShowInPanel.Visible = true;
-            this.colbShowInPanel.VisibleIndex = 14;
+            this.colbShowInPanel.VisibleIndex = 16;
             this.colbShowInPanel.Width = 100;
             // 
             // colbShowInGrid
@@ -565,7 +572,7 @@
             this.colbShowInGrid.FieldName = "bShowInGrid";
             this.colbShowInGrid.Name = "colbShowInGrid";
             this.colbShowInGrid.Visible = true;
-            this.colbShowInGrid.VisibleIndex = 15;
+            this.colbShowInGrid.VisibleIndex = 17;
             this.colbShowInGrid.Width = 97;
             // 
             // colbIsSum
@@ -574,7 +581,7 @@
             this.colbIsSum.FieldName = "bIsSum";
             this.colbIsSum.Name = "colbIsSum";
             this.colbIsSum.Visible = true;
-            this.colbIsSum.VisibleIndex = 16;
+            this.colbIsSum.VisibleIndex = 18;
             this.colbIsSum.Width = 57;
             // 
             // colbIsCount
@@ -583,7 +590,7 @@
             this.colbIsCount.FieldName = "bIsCount";
             this.colbIsCount.Name = "colbIsCount";
             this.colbIsCount.Visible = true;
-            this.colbIsCount.VisibleIndex = 17;
+            this.colbIsCount.VisibleIndex = 19;
             this.colbIsCount.Width = 62;
             // 
             // colsLocation
@@ -592,7 +599,7 @@
             this.colsLocation.FieldName = "sLocation";
             this.colsLocation.Name = "colsLocation";
             this.colsLocation.Visible = true;
-            this.colsLocation.VisibleIndex = 18;
+            this.colsLocation.VisibleIndex = 20;
             this.colsLocation.Width = 97;
             // 
             // colsSize
@@ -601,7 +608,7 @@
             this.colsSize.FieldName = "sSize";
             this.colsSize.Name = "colsSize";
             this.colsSize.Visible = true;
-            this.colsSize.VisibleIndex = 19;
+            this.colsSize.VisibleIndex = 21;
             this.colsSize.Width = 80;
             // 
             // layoutControl1
@@ -913,6 +920,36 @@
             this.emptySpaceItem3.Text = "emptySpaceItem3";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // colbEdit
+            // 
+            this.colbEdit.Caption = "可编辑";
+            this.colbEdit.FieldName = "bEdit";
+            this.colbEdit.Name = "colbEdit";
+            this.colbEdit.Visible = true;
+            this.colbEdit.VisibleIndex = 12;
+            this.colbEdit.Width = 63;
+            // 
+            // colsColumnType
+            // 
+            this.colsColumnType.Caption = "列属性";
+            this.colsColumnType.ColumnEdit = this.cbxsColumnType;
+            this.colsColumnType.FieldName = "sColumnType";
+            this.colsColumnType.Name = "colsColumnType";
+            this.colsColumnType.Visible = true;
+            this.colsColumnType.VisibleIndex = 11;
+            this.colsColumnType.Width = 80;
+            // 
+            // cbxsColumnType
+            // 
+            this.cbxsColumnType.AutoHeight = false;
+            this.cbxsColumnType.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxsColumnType.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("数据", "001", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("价格", "002", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("数量", "003", -1)});
+            this.cbxsColumnType.Name = "cbxsColumnType";
+            // 
             // frmDynamicFormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -969,6 +1006,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxsColumnType)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1035,5 +1073,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colbShowInPanel;
         private DevExpress.XtraGrid.Columns.GridColumn colbIsSum;
         private DevExpress.XtraGrid.Columns.GridColumn colbIsCount;
+        private DevExpress.XtraGrid.Columns.GridColumn colsColumnType;
+        private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox cbxsColumnType;
+        private DevExpress.XtraGrid.Columns.GridColumn colbEdit;
     }
 }
