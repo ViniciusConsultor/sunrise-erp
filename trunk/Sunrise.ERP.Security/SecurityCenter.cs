@@ -596,7 +596,7 @@ namespace Sunrise.ERP.Security
 
         /// <summary>
         /// 判断权限
-        /// 用于判断增加权限
+        /// 用于判断增加,单价,数量权限
         /// </summary>
         /// <param name="so">权限操作类型</param>
         /// <param name="formid">窗体ID</param>
@@ -613,8 +613,8 @@ namespace Sunrise.ERP.Security
             {
                 foreach (Hashtable ht in GetFormSecurity(formid))
                 {
-                    //增加权限，只要设置的不为None，其他的都具有
-                    if (so == SecurityOperation.Add)
+                    //增加,单价,数量权限，只要设置的不为None，其他的都具有
+                    if (so == SecurityOperation.Add || so == SecurityOperation.Num || so == SecurityOperation.Price)
                     {
                         if ((SecurityOperationValue)ht[so] != SecurityOperationValue.None)
                         {

@@ -489,8 +489,22 @@ namespace Sunrise.ERP.BaseForm
                 //Grid 列命名为cols+列名+序号
                 cols.Name = "cols" + dr["sFieldName"].ToString() + iIndex.ToString();
                 cols.Width = 120;
-                cols.Visible = true;
+                if (dr["sColumnType"].ToString() == "002")
+                {
+                    //检测是否有价格权限
+                    bool HasPrice = SC.CheckAuth(SecurityOperation.Price, FormID);
+                    cols.Visible = HasPrice;
+                }
+                else if (dr["sColumnType"].ToString() == "003")
+                {
+                    //检测是否有数量权限
+                    bool HasNum = SC.CheckAuth(SecurityOperation.Num, FormID);
+                    cols.Visible = HasNum;
+                }
+                else
+                    cols.Visible = true;
                 cols.VisibleIndex = iIndex;
+                cols.OptionsColumn.AllowEdit = Convert.ToBoolean(dr["bEdit"] == null ? 1 : 0);
                 iIndex++;
                 //先计算有没有合计的，再计算计数
                 if (dr["bIsSum"].ToString() != "" && Convert.ToBoolean(dr["bIsSum"]))

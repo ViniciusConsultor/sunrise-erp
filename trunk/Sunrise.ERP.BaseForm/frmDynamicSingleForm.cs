@@ -1397,6 +1397,7 @@ namespace Sunrise.ERP.BaseForm
                 cols.Width = 120;
                 cols.Visible = true;
                 cols.VisibleIndex = iIndex;
+                cols.OptionsColumn.AllowEdit = Convert.ToBoolean(dr["bEdit"]);
                 iIndex++;
                 //先计算有没有合计的，再计算计数
                 if (dr["bIsSum"].ToString() != "" && Convert.ToBoolean(dr["bIsSum"]))
