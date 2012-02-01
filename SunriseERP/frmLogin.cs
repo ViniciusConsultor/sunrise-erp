@@ -50,18 +50,18 @@ namespace SunriseERP
                     txtPassword.Focus();
                     return;
                 }
-                int iLoginResult = Sunrise.ERP.Security.SecurityCenter.CheckSystemLogin(txtUserID.Text, txtPassword.Text.Trim());
+                int iLoginResult = SecurityCenter.CheckSystemLogin(txtUserID.Text, txtPassword.Text.Trim());
                 if (iLoginResult == 1)
                 {
                     ConnectSetting.SaveAppConfig("LastUserID", txtUserID.Text, true);
                     lblLoadingRight.Visible = true;
                     this.Refresh();
-                    SysMenuData = Sunrise.ERP.DataAccess.DbHelperSQL.Query(SecurityCenter.GetMenuAuthSQL());
+                    SysMenuData = SecurityCenter.SysMenuDataSet;
                     DialogResult = DialogResult.OK;
                 }
                 else if (iLoginResult == 0)
                 {
-                    Sunrise.ERP.BaseControl.Public.SystemInfo(LangCenter.Instance.GetSystemMessage("UserNotExist"));
+                    Public.SystemInfo(LangCenter.Instance.GetSystemMessage("UserNotExist"));
                     txtUserID.Focus();
                 }
                 else if (iLoginResult == 2)

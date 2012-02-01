@@ -913,6 +913,76 @@ namespace Sunrise.ERP.BaseForm
             }
         }
 
+        /// <summary>
+        /// 加载窗体数据
+        /// </summary>
+        /// <param name="filters">过滤条件注意SQL拼接，e.g: "AND 1=1"</param>
+        public void LoadFormData(string filters)
+        {
+            //添加空格用于SQL拼接
+            MasterFilerSQL = filters;
+            if (MasterFilerSQL != "")
+            {
+                if (TopCount != 499 && SortField != "dInputDate DESC")
+                {
+                    if (IsCheckAuth)
+                    {
+                        dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(ShowType.FormQuery, FormID) + pWhere + " " + MasterFilerSQL, SortField).Tables[0];
+                    }
+                    else
+                    {
+                        dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere + " " + MasterFilerSQL, SortField).Tables[0];
+                    }
+                    dsMain.DataSource = dtMain;
+                    dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
+                }
+                else
+                {
+                    if (IsCheckAuth)
+                    {
+                        dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(ShowType.FormQuery, FormID) + pWhere + " " + MasterFilerSQL).Tables[0];
+                    }
+                    else
+                    {
+                        dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere + " " + MasterFilerSQL).Tables[0];
+                    }
+                    dsMain.DataSource = dtMain;
+                    dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
+                }
+            }
+            if (dsMain.Current != null)
+            {
+                base.DoView();
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                IsDataChange = false;
+            }
+            else
+            {
+                initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.None);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                IsDataChange = false;
+            }
+        }
+
+        /// <summary>
+        /// 根据单据ID加载窗体数据
+        /// </summary>
+        /// <param name="id">单据ID</param>
+        public void LoadFormData(int id)
+        {
+            LoadFormData(" AND ma.ID=" + id.ToString() + " ");
+        }
+
+        /// <summary>
+        /// 根据单据编号加载窗体数据
+        /// </summary>
+        /// <param name="billnofield">单据编号字段</param>
+        /// <param name="billno">单据编号</param>
+        public void LoadFormData(string billnofield, string billno)
+        {
+            LoadFormData(" AND ma." + billnofield + "='" + billno + "' ");
+        }
+
         #endregion
 
         #region 属性设置
@@ -1397,7 +1467,7 @@ namespace Sunrise.ERP.BaseForm
                 cols.Width = 120;
                 cols.Visible = true;
                 cols.VisibleIndex = iIndex;
-                cols.OptionsColumn.AllowEdit = Convert.ToBoolean(dr["bEdit"]);
+                cols.OptionsColumn.AllowEdit = Convert.ToBoolean(dr["bEdit"] == null ? 1 : dr["bEdit"]);
                 iIndex++;
                 //先计算有没有合计的，再计算计数
                 if (dr["bIsSum"].ToString() != "" && Convert.ToBoolean(dr["bIsSum"]))

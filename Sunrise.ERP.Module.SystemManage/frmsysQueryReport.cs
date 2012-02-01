@@ -333,10 +333,14 @@ namespace Sunrise.ERP.Module.SystemManage
                         sDealFields = dtMain.Rows[0]["sDealFields"].ToString();
                         sSortFields = dtMain.Rows[0]["sSortFields"].ToString();
                         //控制界面布局显示
-                        btnSet.Visible = Convert.ToBoolean(dtMain.Rows[0]["bIsShowExecBtn"]);
+                        //控制按钮是否可用
+                        btnSet.Enabled = Convert.ToBoolean(dtMain.Rows[0]["bIsShowExecBtn"]);
                         btnSet.Text = dtMain.Rows[0]["sExecBtnText"].ToString() == "" ? "执行(&R)" : dtMain.Rows[0]["sExecBtnText"].ToString();
-                        btnPrint.Visible = Convert.ToBoolean(dtMain.Rows[0]["bIsShowPrintBtn"]);
-                        this.Text = this.Text == "" ? dtMain.Rows[0]["sReportName"].ToString() : this.Text;
+                        btnPrint.Enabled = Convert.ToBoolean(dtMain.Rows[0]["bIsShowPrintBtn"]);
+                        btnAdd.Enabled = Convert.ToBoolean(dtMain.Rows[0]["bOptionData"]);
+                        btnEdit.Enabled = Convert.ToBoolean(dtMain.Rows[0]["bOptionData"]);
+
+                        //this.Text = this.Text == "" ? dtMain.Rows[0]["sReportName"].ToString() : this.Text;
                         IsChart = Convert.ToBoolean(dtMain.Rows[0]["bIsChart"].ToString());
                         IsAutoRun = Convert.ToBoolean(dtMain.Rows[0]["bIsAutoRun"].ToString());
                         if (!IsChart)
@@ -893,6 +897,17 @@ namespace Sunrise.ERP.Module.SystemManage
             {
                 ShowChart();
             }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            //((Form)this.Parent.Parent).MdiChildren[0].BringToFront();
+            //((BaseForm.frmDynamicSingleForm)((Form)this.Parent.Parent).MdiChildren[0]).LoadFormData(2);
         }
 
 
