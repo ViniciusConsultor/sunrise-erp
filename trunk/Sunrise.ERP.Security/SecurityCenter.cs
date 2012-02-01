@@ -26,6 +26,7 @@ namespace Sunrise.ERP.Security
         private string _strselfandunder = "";
         private static string _suserid = "";
         private static bool _isadmin;
+        private static DataSet _dsMenu;
 
         /// <summary>
         /// 窗体权限表
@@ -159,6 +160,21 @@ namespace Sunrise.ERP.Security
                     }
                 }
                 return _isadmin;
+            }
+        }
+
+        /// <summary>
+        /// 系统菜单数据
+        /// </summary>
+        public static DataSet SysMenuDataSet
+        {
+            get
+            {
+                if (_dsMenu == null)
+                {
+                    _dsMenu = Sunrise.ERP.DataAccess.DbHelperSQL.Query(GetMenuAuthSQL());
+                }
+                return _dsMenu;
             }
         }
         #endregion

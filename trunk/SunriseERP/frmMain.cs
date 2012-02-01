@@ -257,7 +257,7 @@ namespace SunriseERP
                 }                
             }
         }
-        private bool HaveOpened(string childname)
+        public bool HaveOpened(string childname)
         {
             //查看窗口是否已经被打开
             bool bReturn = true;
@@ -503,6 +503,11 @@ namespace SunriseERP
                     Public.SystemInfo(toolQuickMenu.EditValue.ToString());
                 }
             }
+        }
+
+        private void frmMain_MdiChildActivate(object sender, EventArgs e)
+        {
+
         }
     }
 }

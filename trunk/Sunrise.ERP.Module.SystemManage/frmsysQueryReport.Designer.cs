@@ -30,12 +30,12 @@
         {
             DevExpress.XtraCharts.SideBySideBarSeriesLabel sideBySideBarSeriesLabel1 = new DevExpress.XtraCharts.SideBySideBarSeriesLabel();
             this.grbFilter = new DevExpress.XtraEditors.GroupControl();
+            this.grbGroup = new DevExpress.XtraEditors.GroupControl();
             this.btnSet = new DevExpress.XtraEditors.SimpleButton();
             this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
             this.btnClose = new DevExpress.XtraEditors.SimpleButton();
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
             this.btnView = new DevExpress.XtraEditors.SimpleButton();
-            this.grbGroup = new DevExpress.XtraEditors.GroupControl();
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
             this.tbDetail = new DevExpress.XtraTab.XtraTabControl();
             this.tpDetail = new DevExpress.XtraTab.XtraTabPage();
@@ -50,6 +50,9 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.lbltype = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
+            this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grbFilter)).BeginInit();
@@ -68,6 +71,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbxValueType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxField.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxChartType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            this.panelControl3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -75,77 +80,18 @@
             this.panelControl1.Controls.Add(this.tbDetail);
             this.panelControl1.Controls.Add(this.splitterControl1);
             this.panelControl1.Controls.Add(this.grbFilter);
-            this.panelControl1.Size = new System.Drawing.Size(679, 498);
+            this.panelControl1.Controls.Add(this.panelControl3);
+            this.panelControl1.Size = new System.Drawing.Size(879, 498);
             // 
             // grbFilter
             // 
-            this.grbFilter.Controls.Add(this.btnSet);
-            this.grbFilter.Controls.Add(this.btnPrint);
-            this.grbFilter.Controls.Add(this.btnClose);
-            this.grbFilter.Controls.Add(this.btnClear);
-            this.grbFilter.Controls.Add(this.btnView);
             this.grbFilter.Controls.Add(this.grbGroup);
             this.grbFilter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.grbFilter.Location = new System.Drawing.Point(2, 2);
+            this.grbFilter.Location = new System.Drawing.Point(2, 35);
             this.grbFilter.Name = "grbFilter";
-            this.grbFilter.Size = new System.Drawing.Size(675, 137);
+            this.grbFilter.Size = new System.Drawing.Size(875, 143);
             this.grbFilter.TabIndex = 0;
             this.grbFilter.Text = "查询条件";
-            // 
-            // btnSet
-            // 
-            this.btnSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSet.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.insert;
-            this.btnSet.Location = new System.Drawing.Point(509, 34);
-            this.btnSet.Name = "btnSet";
-            this.btnSet.Size = new System.Drawing.Size(75, 23);
-            this.btnSet.TabIndex = 5;
-            this.btnSet.Text = "执行(&R)";
-            this.btnSet.Click += new System.EventHandler(this.btnSet_Click);
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrint.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.print;
-            this.btnPrint.Location = new System.Drawing.Point(509, 63);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(75, 23);
-            this.btnPrint.TabIndex = 4;
-            this.btnPrint.Text = "打印(&P)";
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.close;
-            this.btnClose.Location = new System.Drawing.Point(590, 92);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
-            this.btnClose.TabIndex = 3;
-            this.btnClose.Text = "关闭(&X)";
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnClear
-            // 
-            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.cancel;
-            this.btnClear.Location = new System.Drawing.Point(590, 63);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(75, 23);
-            this.btnClear.TabIndex = 2;
-            this.btnClear.Text = "清除(&C)";
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // btnView
-            // 
-            this.btnView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnView.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.view;
-            this.btnView.Location = new System.Drawing.Point(590, 34);
-            this.btnView.Name = "btnView";
-            this.btnView.Size = new System.Drawing.Size(75, 23);
-            this.btnView.TabIndex = 1;
-            this.btnView.Text = "查询(&V)";
-            this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // grbGroup
             // 
@@ -155,22 +101,72 @@
             this.grbGroup.TabIndex = 0;
             this.grbGroup.Text = "分组字段";
             // 
+            // btnSet
+            // 
+            this.btnSet.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.insert;
+            this.btnSet.Location = new System.Drawing.Point(218, 5);
+            this.btnSet.Name = "btnSet";
+            this.btnSet.Size = new System.Drawing.Size(70, 24);
+            this.btnSet.TabIndex = 5;
+            this.btnSet.Text = "执行(&R)";
+            this.btnSet.Click += new System.EventHandler(this.btnSet_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.print;
+            this.btnPrint.Location = new System.Drawing.Point(147, 5);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(70, 24);
+            this.btnPrint.TabIndex = 4;
+            this.btnPrint.Text = "打印(&P)";
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.close;
+            this.btnClose.Location = new System.Drawing.Point(431, 5);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(70, 24);
+            this.btnClose.TabIndex = 3;
+            this.btnClose.Text = "关闭(&X)";
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.cancel;
+            this.btnClear.Location = new System.Drawing.Point(76, 5);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(70, 24);
+            this.btnClear.TabIndex = 2;
+            this.btnClear.Text = "清除(&C)";
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnView
+            // 
+            this.btnView.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.view;
+            this.btnView.Location = new System.Drawing.Point(5, 5);
+            this.btnView.Name = "btnView";
+            this.btnView.Size = new System.Drawing.Size(70, 24);
+            this.btnView.TabIndex = 1;
+            this.btnView.Text = "过滤(&V)";
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
+            // 
             // splitterControl1
             // 
             this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitterControl1.Location = new System.Drawing.Point(2, 139);
+            this.splitterControl1.Location = new System.Drawing.Point(2, 178);
             this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(675, 6);
+            this.splitterControl1.Size = new System.Drawing.Size(875, 6);
             this.splitterControl1.TabIndex = 1;
             this.splitterControl1.TabStop = false;
             // 
             // tbDetail
             // 
             this.tbDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbDetail.Location = new System.Drawing.Point(2, 145);
+            this.tbDetail.Location = new System.Drawing.Point(2, 184);
             this.tbDetail.Name = "tbDetail";
             this.tbDetail.SelectedTabPage = this.tpDetail;
-            this.tbDetail.Size = new System.Drawing.Size(675, 351);
+            this.tbDetail.Size = new System.Drawing.Size(875, 312);
             this.tbDetail.TabIndex = 2;
             this.tbDetail.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.tpDetail,
@@ -181,7 +177,7 @@
             // 
             this.tpDetail.Controls.Add(this.gcSearch);
             this.tpDetail.Name = "tpDetail";
-            this.tpDetail.Size = new System.Drawing.Size(668, 322);
+            this.tpDetail.Size = new System.Drawing.Size(868, 283);
             this.tpDetail.Text = "明细";
             // 
             // gcSearch
@@ -190,7 +186,7 @@
             this.gcSearch.Location = new System.Drawing.Point(0, 0);
             this.gcSearch.MainView = this.gvSearch;
             this.gcSearch.Name = "gcSearch";
-            this.gcSearch.Size = new System.Drawing.Size(668, 322);
+            this.gcSearch.Size = new System.Drawing.Size(868, 283);
             this.gcSearch.TabIndex = 5;
             this.gcSearch.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvSearch});
@@ -210,7 +206,7 @@
             this.tpChart.Controls.Add(this.chtMain);
             this.tpChart.Controls.Add(this.panelControl2);
             this.tpChart.Name = "tpChart";
-            this.tpChart.Size = new System.Drawing.Size(746, 322);
+            this.tpChart.Size = new System.Drawing.Size(746, 283);
             this.tpChart.Text = "图表";
             // 
             // chtMain
@@ -221,7 +217,7 @@
             this.chtMain.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
             sideBySideBarSeriesLabel1.LineVisible = true;
             this.chtMain.SeriesTemplate.Label = sideBySideBarSeriesLabel1;
-            this.chtMain.Size = new System.Drawing.Size(642, 322);
+            this.chtMain.Size = new System.Drawing.Size(642, 283);
             this.chtMain.TabIndex = 1;
             // 
             // panelControl2
@@ -235,7 +231,7 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(104, 322);
+            this.panelControl2.Size = new System.Drawing.Size(104, 283);
             this.panelControl2.TabIndex = 0;
             // 
             // cbxValueType
@@ -299,10 +295,45 @@
             this.lbltype.TabIndex = 1;
             this.lbltype.Text = "图表类型：";
             // 
+            // panelControl3
+            // 
+            this.panelControl3.Controls.Add(this.btnEdit);
+            this.panelControl3.Controls.Add(this.btnAdd);
+            this.panelControl3.Controls.Add(this.btnClose);
+            this.panelControl3.Controls.Add(this.btnSet);
+            this.panelControl3.Controls.Add(this.btnView);
+            this.panelControl3.Controls.Add(this.btnPrint);
+            this.panelControl3.Controls.Add(this.btnClear);
+            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl3.Location = new System.Drawing.Point(2, 2);
+            this.panelControl3.Name = "panelControl3";
+            this.panelControl3.Size = new System.Drawing.Size(875, 33);
+            this.panelControl3.TabIndex = 3;
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.edit;
+            this.btnEdit.Location = new System.Drawing.Point(360, 5);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(70, 24);
+            this.btnEdit.TabIndex = 7;
+            this.btnEdit.Text = "修改(&E)";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.add;
+            this.btnAdd.Location = new System.Drawing.Point(289, 5);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(70, 24);
+            this.btnAdd.TabIndex = 6;
+            this.btnAdd.Text = "新增(&A)";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // frmsysQueryReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.ClientSize = new System.Drawing.Size(679, 498);
+            this.ClientSize = new System.Drawing.Size(879, 498);
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmsysQueryReport";
@@ -326,6 +357,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbxValueType.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxField.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxChartType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            this.panelControl3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -353,6 +386,9 @@
         private DevExpress.XtraEditors.SimpleButton btnView;
         private DevExpress.XtraEditors.SimpleButton btnSet;
         private DevExpress.XtraEditors.SimpleButton btnPrint;
+        private DevExpress.XtraEditors.PanelControl panelControl3;
+        private DevExpress.XtraEditors.SimpleButton btnEdit;
+        private DevExpress.XtraEditors.SimpleButton btnAdd;
 
     }
 }
