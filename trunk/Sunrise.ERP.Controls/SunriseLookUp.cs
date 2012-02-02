@@ -278,6 +278,16 @@ namespace Sunrise.ERP.Controls
                 txtDisplayText.Font = value;
             }
         }
+
+        private int _formid;
+        /// <summary>
+        /// 获取或设置控件所属FormID
+        /// </summary>
+        public int FormID
+        {
+            get { return _formid; }
+            set { _formid = value; }
+        }
         #endregion
 
         /// <summary>

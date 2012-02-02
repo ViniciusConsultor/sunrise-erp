@@ -906,8 +906,8 @@ namespace Sunrise.ERP.Module.SystemManage
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            //((Form)this.Parent.Parent).MdiChildren[0].BringToFront();
-            //((BaseForm.frmDynamicSingleForm)((Form)this.Parent.Parent).MdiChildren[0]).LoadFormData(2);
+            ((Form)this.Parent.Parent).MdiChildren[0].BringToFront();
+            ((BaseForm.frmDynamicSingleForm)((Form)this.Parent.Parent).MdiChildren[0]).LoadFormData(2);
         }
 
 
