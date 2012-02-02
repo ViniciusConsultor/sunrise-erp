@@ -39,6 +39,8 @@ namespace Sunrise.ERP.BaseForm
             InitDetailComboBox("1009");
             //sControlType
             InitDetailComboBox("1017");
+            //sColumnType
+            InitDetailComboBox("1019");
         }
 
         private void frmDynamicFormSetting_Load(object sender, EventArgs e)
@@ -120,8 +122,9 @@ namespace Sunrise.ERP.BaseForm
                         + "FROM vwbasDataDictDetail A "
                         + "WHERE A.sDictCategoryNo='" + dictNo + "'";
             DataTable dtTmp = DbHelperSQL.Query(sSql).Tables[0];
-            if (dictNo == "1009")
+            if (dictNo == "1009") //数据类型
             {
+                cbxsFieldType.Items.Clear();
                 foreach (DataRow dr in dtTmp.Rows)
                 {
                     ImageComboBoxItem item = new ImageComboBoxItem();
@@ -130,14 +133,26 @@ namespace Sunrise.ERP.BaseForm
                     cbxsFieldType.Items.Add(item);
                 }
             }
-            else if (dictNo == "1017")
+            else if (dictNo == "1017") //控件类型
             {
+                cbxsControlType.Items.Clear();
                 foreach (DataRow dr in dtTmp.Rows)
                 {
                     ImageComboBoxItem item = new ImageComboBoxItem();
                     item.Description = LangCenter.Instance.IsDefaultLanguage ? dr["sDictDataCName"].ToString() : dr["sDictDataEName"].ToString();
                     item.Value = dr["sDictDataNo"];
                     cbxsControlType.Items.Add(item);
+                }
+            }
+            else if (dictNo == "1019") //字段属性
+            {
+                cbxsColumnType.Items.Clear();
+                foreach (DataRow dr in dtTmp.Rows)
+                {
+                    ImageComboBoxItem item = new ImageComboBoxItem();
+                    item.Description = LangCenter.Instance.IsDefaultLanguage ? dr["sDictDataCName"].ToString() : dr["sDictDataEName"].ToString();
+                    item.Value = dr["sDictDataNo"];
+                    cbxsColumnType.Items.Add(item);
                 }
             }
         }
@@ -190,23 +205,25 @@ namespace Sunrise.ERP.BaseForm
         public override bool DoBeforeSave()
         {
             bool result= base.DoBeforeSave();
-            //if (result)
-            //{
-            //    //验证明细数据中字段名称不能够重复
-            //    string sFieldName = string.Empty;
-            //    DataTable dtTmp = LDetailDataSet[LDetailDALName.IndexOf("sysDynamicFormDetailDAL")].Tables[0];
-            //    for (int i = 0; i < dtTmp.Rows.Count; i++)
-            //    {
-            //        for (int j = i + 1; j < dtTmp.Rows.Count; j++)
-            //        {
-            //            if (dtTmp.Rows[i]["sFieldName"].ToString() == dtTmp.Rows[j]["sFieldName"].ToString())
-            //            {
-            //                Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SQLDataIsRepeat"), true);
-            //                result = false;
-            //            }
-            //        }
-            //    }
-            //}
+            if (result)
+            {
+                //验证明细数据中字段名称不能够重复
+                string sFieldName = string.Empty;
+                DataTable dtTmp = LDetailDataSet[LDetailDALName.IndexOf("sysDynamicFormDetailDAL")].Tables[0];
+                for (int i = 0; i < dtTmp.Rows.Count; i++)
+                {
+                    for (int j = i + 1; j < dtTmp.Rows.Count; j++)
+                    {
+                        //如果是已经删除的字段则不验证
+                        if (dtTmp.Rows[i].RowState != DataRowState.Deleted && dtTmp.Rows[j].RowState != DataRowState.Deleted)
+                            if (dtTmp.Rows[i]["sFieldName"].ToString() == dtTmp.Rows[j]["sFieldName"].ToString())
+                            {
+                                Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SQLDataIsRepeat"), true);
+                                result = false;
+                            }
+                    }
+                }
+            }
             return result;
         }
 
@@ -288,6 +305,8 @@ namespace Sunrise.ERP.BaseForm
             lblsTableName.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", lblsTableName.Name);
             chkbCreateLookUp.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", chkbCreateLookUp.Name);
             chkbSyncLookUp.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", chkbSyncLookUp.Name);
+            colbEdit.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbEdit.Name);
+            colsColumnType.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsColumnType.Name);
         }
 
     }

@@ -335,7 +335,14 @@ namespace Sunrise.ERP.BaseForm.DAL
                     //varchar
                     case "S":
                         {
-                            parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.VarChar, (int)dr["iFieldLength"]));
+                            //当字符超过8000则创建字符串为varchar(max)类型
+                            //varchar(max)在SqlParameter中长度用-1表示
+                            int iLeng = 0;
+                            if (dr["iFieldLength"] != null && Convert.ToInt32(dr["iFieldLength"]) > 8000)
+                                iLeng = -1;
+                            else
+                                iLeng=(int)dr["iFieldLength"];
+                            parameters.Add(new SqlParameter("@" + dr["sFieldName"], SqlDbType.VarChar, iLeng));
                             parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
                             break;
                         }

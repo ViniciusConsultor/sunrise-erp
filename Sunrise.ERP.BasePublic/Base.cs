@@ -629,7 +629,13 @@ namespace Sunrise.ERP.BasePublic
                     {
                         case "S":
                             {
-                                sCreateSQL.Append("[varchar] (" + dr["iFieldLength"].ToString() + ")");
+                                //当字符超过8000则创建字符串为varchar(max)类型
+                                string sLeng = string.Empty;
+                                if (dr["iFieldLength"] != null && Convert.ToInt32(dr["iFieldLength"]) > 8000)
+                                    sLeng = "max";
+                                else
+                                    sLeng = dr["iFieldLength"].ToString();
+                                sCreateSQL.Append("[varchar] (" + sLeng + ")");
                                 break;
                             }
                         case "B":
@@ -711,7 +717,13 @@ namespace Sunrise.ERP.BasePublic
                             {
                                 case "S":
                                     {
-                                        sCreateSQL.Append(" [varchar] (" + dr["iFieldLength"].ToString() + ")");
+                                        //当字符超过8000则创建字符串为varchar(max)类型
+                                        string sLeng = string.Empty;
+                                        if (dr["iFieldLength"] != null && Convert.ToInt32(dr["iFieldLength"]) > 8000)
+                                            sLeng = "max";
+                                        else
+                                            sLeng = dr["iFieldLength"].ToString();
+                                        sCreateSQL.Append(" [varchar] (" + sLeng + ")");
                                         break;
                                     }
                                 case "F":

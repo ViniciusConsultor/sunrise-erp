@@ -40,6 +40,7 @@
             this.gvDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.coliSort = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsFieldName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.txtsFieldName = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.colsCaption = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsEngCaption = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsFieldType = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -53,6 +54,9 @@
             this.colsLookupAutoSetGrid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.mtxtsLookupAutoSetGrid = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             this.colbSystemColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colsColumnType = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.cbxsColumnType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
+            this.colbEdit = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbQuery = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbSaveData = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbNotNull = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -88,9 +92,6 @@
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.colbEdit = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colsColumnType = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.cbxsColumnType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -109,10 +110,12 @@
             this.pnlDetailMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsFieldName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxsFieldType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxsControlType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxsColumnType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkbSyncLookUp.Properties)).BeginInit();
@@ -138,7 +141,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxsColumnType)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlDetail
@@ -280,7 +282,7 @@
             // colsFormType
             // 
             this.colsFormType.Caption = "窗体类型";
-            this.colsFormType.FieldName = "sFormTypeName";
+            this.colsFormType.FieldName = "sFormTypeEngName";
             this.colsFormType.Name = "colsFormType";
             this.colsFormType.Visible = true;
             this.colsFormType.VisibleIndex = 0;
@@ -349,7 +351,8 @@
             this.cbxsControlType,
             this.mtxtsLookupAutoSetControl,
             this.mtxtsLookupAutoSetGrid,
-            this.cbxsColumnType});
+            this.cbxsColumnType,
+            this.txtsFieldName});
             this.gcDetail.Size = new System.Drawing.Size(610, 261);
             this.gcDetail.TabIndex = 6;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -403,11 +406,19 @@
             // colsFieldName
             // 
             this.colsFieldName.Caption = "字段名称";
+            this.colsFieldName.ColumnEdit = this.txtsFieldName;
             this.colsFieldName.FieldName = "sFieldName";
             this.colsFieldName.Name = "colsFieldName";
             this.colsFieldName.Visible = true;
             this.colsFieldName.VisibleIndex = 1;
             this.colsFieldName.Width = 109;
+            // 
+            // txtsFieldName
+            // 
+            this.txtsFieldName.AutoHeight = false;
+            this.txtsFieldName.Mask.EditMask = "[a-zA-Z]+";
+            this.txtsFieldName.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            this.txtsFieldName.Name = "txtsFieldName";
             // 
             // colsCaption
             // 
@@ -520,6 +531,36 @@
             this.colbSystemColumn.Visible = true;
             this.colbSystemColumn.VisibleIndex = 9;
             this.colbSystemColumn.Width = 58;
+            // 
+            // colsColumnType
+            // 
+            this.colsColumnType.Caption = "列属性";
+            this.colsColumnType.ColumnEdit = this.cbxsColumnType;
+            this.colsColumnType.FieldName = "sColumnType";
+            this.colsColumnType.Name = "colsColumnType";
+            this.colsColumnType.Visible = true;
+            this.colsColumnType.VisibleIndex = 11;
+            this.colsColumnType.Width = 80;
+            // 
+            // cbxsColumnType
+            // 
+            this.cbxsColumnType.AutoHeight = false;
+            this.cbxsColumnType.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxsColumnType.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("数据", "001", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("价格", "002", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("数量", "003", -1)});
+            this.cbxsColumnType.Name = "cbxsColumnType";
+            // 
+            // colbEdit
+            // 
+            this.colbEdit.Caption = "可编辑";
+            this.colbEdit.FieldName = "bEdit";
+            this.colbEdit.Name = "colbEdit";
+            this.colbEdit.Visible = true;
+            this.colbEdit.VisibleIndex = 12;
+            this.colbEdit.Width = 63;
             // 
             // colbQuery
             // 
@@ -666,6 +707,7 @@
             this.lkpsFormType.EditFormID = 0;
             this.lkpsFormType.EditFormName = null;
             this.lkpsFormType.EditValue = "";
+            this.lkpsFormType.FormID = 0;
             this.lkpsFormType.GridColumnText = null;
             this.lkpsFormType.GridDisplayField = null;
             this.lkpsFormType.IsReadOnly = false;
@@ -920,36 +962,6 @@
             this.emptySpaceItem3.Text = "emptySpaceItem3";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // colbEdit
-            // 
-            this.colbEdit.Caption = "可编辑";
-            this.colbEdit.FieldName = "bEdit";
-            this.colbEdit.Name = "colbEdit";
-            this.colbEdit.Visible = true;
-            this.colbEdit.VisibleIndex = 12;
-            this.colbEdit.Width = 63;
-            // 
-            // colsColumnType
-            // 
-            this.colsColumnType.Caption = "列属性";
-            this.colsColumnType.ColumnEdit = this.cbxsColumnType;
-            this.colsColumnType.FieldName = "sColumnType";
-            this.colsColumnType.Name = "colsColumnType";
-            this.colsColumnType.Visible = true;
-            this.colsColumnType.VisibleIndex = 11;
-            this.colsColumnType.Width = 80;
-            // 
-            // cbxsColumnType
-            // 
-            this.cbxsColumnType.AutoHeight = false;
-            this.cbxsColumnType.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxsColumnType.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("数据", "001", -1),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("价格", "002", -1),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("数量", "003", -1)});
-            this.cbxsColumnType.Name = "cbxsColumnType";
-            // 
             // frmDynamicFormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -977,10 +989,12 @@
             this.pnlDetailMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDetail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsFieldName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxsFieldType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxsControlType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxsColumnType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chkbSyncLookUp.Properties)).EndInit();
@@ -1006,7 +1020,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxsColumnType)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1076,5 +1089,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colsColumnType;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox cbxsColumnType;
         private DevExpress.XtraGrid.Columns.GridColumn colbEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit txtsFieldName;
     }
 }
