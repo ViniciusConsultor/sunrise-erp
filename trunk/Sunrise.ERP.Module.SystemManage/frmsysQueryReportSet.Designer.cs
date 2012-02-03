@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
             this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsReportNo = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -102,6 +102,30 @@
             this.lkpsGoodID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.lkpFlag = new Sunrise.ERP.Controls.SunriseLookUp();
             this.btnPreview = new DevExpress.XtraEditors.SimpleButton();
+            this.tpUserDetail = new DevExpress.XtraTab.XtraTabPage();
+            this.gcUserDetail = new Sunrise.ERP.Controls.SunriseGridControl();
+            this.gvUserDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemComboBox2 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemImageComboBox3 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemImageComboBox4 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
+            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn11 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.repositoryItemComboBox3 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -161,6 +185,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.colbtnsGoodID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            this.tpUserDetail.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcUserDetail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUserDetail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlDetail
@@ -308,6 +341,7 @@
             this.gvMain.OptionsView.ColumnAutoWidth = false;
             this.gvMain.OptionsView.ShowAutoFilterRow = true;
             this.gvMain.OptionsView.ShowFooter = true;
+            this.gvMain.OptionsView.ShowGroupPanel = false;
             // 
             // colsReportNo
             // 
@@ -366,9 +400,9 @@
             this.txtsDealFields.Name = "txtsDealFields";
             this.txtsDealFields.Size = new System.Drawing.Size(384, 21);
             this.txtsDealFields.StyleController = this.layoutControl1;
-            toolTipItem4.Text = "如果有分组时,应写入SUM等分组统计,例如SUM(fQuantity) AS fQuantity;非分组时,默认*表示所有字段";
-            superToolTip4.Items.Add(toolTipItem4);
-            this.txtsDealFields.SuperTip = superToolTip4;
+            toolTipItem1.Text = "如果有分组时,应写入SUM等分组统计,例如SUM(fQuantity) AS fQuantity;非分组时,默认*表示所有字段";
+            superToolTip1.Items.Add(toolTipItem1);
+            this.txtsDealFields.SuperTip = superToolTip1;
             this.txtsDealFields.TabIndex = 16;
             // 
             // txtsExecSQL
@@ -379,9 +413,9 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.txtsExecSQL.Size = new System.Drawing.Size(158, 21);
             this.txtsExecSQL.StyleController = this.layoutControl1;
-            toolTipItem1.Text = "需要执行的SQL语句,支持通配符\r\n<字段名>:当前选择行中该列的值\r\n<UserID>:当前登录用户ID\r\n<GetDate>:当前系统时间";
-            superToolTip1.Items.Add(toolTipItem1);
-            this.txtsExecSQL.SuperTip = superToolTip1;
+            toolTipItem2.Text = "需要执行的SQL语句,支持通配符\r\n<字段名>:当前选择行中该列的值\r\n<UserID>:当前登录用户ID\r\n<GetDate>:当前系统时间";
+            superToolTip2.Items.Add(toolTipItem2);
+            this.txtsExecSQL.SuperTip = superToolTip2;
             this.txtsExecSQL.TabIndex = 15;
             // 
             // txtsExecBtnText
@@ -432,9 +466,9 @@
             this.txtsReportSQL.Name = "txtsReportSQL";
             this.txtsReportSQL.Size = new System.Drawing.Size(384, 78);
             this.txtsReportSQL.StyleController = this.layoutControl1;
-            toolTipItem2.Text = "查询SQL,支持通配符\r\n<UserID>:当前登录用户ID\r\n<GetDate>:当前系统时间";
-            superToolTip2.Items.Add(toolTipItem2);
-            this.txtsReportSQL.SuperTip = superToolTip2;
+            toolTipItem3.Text = "查询SQL,支持通配符\r\n<UserID>:当前登录用户ID\r\n<GetDate>:当前系统时间";
+            superToolTip3.Items.Add(toolTipItem3);
+            this.txtsReportSQL.SuperTip = superToolTip3;
             this.txtsReportSQL.TabIndex = 7;
             this.txtsReportSQL.Tag = "NoTab";
             // 
@@ -764,7 +798,8 @@
             this.tcDetail.Size = new System.Drawing.Size(564, 176);
             this.tcDetail.TabIndex = 9;
             this.tcDetail.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.tpDetail});
+            this.tpDetail,
+            this.tpUserDetail});
             // 
             // tpDetail
             // 
@@ -773,7 +808,7 @@
             this.tpDetail.Controls.Add(this.lkpFlag);
             this.tpDetail.Name = "tpDetail";
             this.tpDetail.Size = new System.Drawing.Size(557, 147);
-            this.tpDetail.Text = "入库明细";
+            this.tpDetail.Text = "系统配置";
             // 
             // gcDetail
             // 
@@ -1025,6 +1060,7 @@
             this.lkpsGoodID.EditFormID = 0;
             this.lkpsGoodID.EditFormName = null;
             this.lkpsGoodID.EditValue = "";
+            this.lkpsGoodID.FormID = 0;
             this.lkpsGoodID.GridColumnText = null;
             this.lkpsGoodID.GridDisplayField = null;
             this.lkpsGoodID.Location = new System.Drawing.Point(28, 117);
@@ -1045,6 +1081,7 @@
             this.lkpFlag.EditFormID = 0;
             this.lkpFlag.EditFormName = null;
             this.lkpFlag.EditValue = "";
+            this.lkpFlag.FormID = 0;
             this.lkpFlag.GridColumnText = null;
             this.lkpFlag.GridDisplayField = null;
             this.lkpFlag.Location = new System.Drawing.Point(28, 129);
@@ -1064,6 +1101,252 @@
             this.btnPreview.TabIndex = 11;
             this.btnPreview.Text = "预览查询(&V)";
             this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
+            // 
+            // tpUserDetail
+            // 
+            this.tpUserDetail.Controls.Add(this.gcUserDetail);
+            this.tpUserDetail.Name = "tpUserDetail";
+            this.tpUserDetail.Size = new System.Drawing.Size(557, 147);
+            this.tpUserDetail.Text = "用户配置";
+            // 
+            // gcUserDetail
+            // 
+            this.gcUserDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcUserDetail.Location = new System.Drawing.Point(0, 0);
+            this.gcUserDetail.MainView = this.gvUserDetail;
+            this.gcUserDetail.Name = "gcUserDetail";
+            this.gcUserDetail.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemButtonEdit1,
+            this.repositoryItemComboBox3,
+            this.repositoryItemImageComboBox3,
+            this.repositoryItemImageComboBox4,
+            this.repositoryItemComboBox2});
+            this.gcUserDetail.Size = new System.Drawing.Size(557, 147);
+            this.gcUserDetail.TabIndex = 5;
+            this.gcUserDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvUserDetail,
+            this.gridView3});
+            // 
+            // gvUserDetail
+            // 
+            this.gvUserDetail.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn1,
+            this.gridColumn2,
+            this.gridColumn3,
+            this.gridColumn4,
+            this.gridColumn5,
+            this.gridColumn6,
+            this.gridColumn7,
+            this.gridColumn8,
+            this.gridColumn9,
+            this.gridColumn10,
+            this.gridColumn11,
+            this.gridColumn12,
+            this.gridColumn13,
+            this.gridColumn14,
+            this.gridColumn15});
+            this.gvUserDetail.GridControl = this.gcUserDetail;
+            this.gvUserDetail.Name = "gvUserDetail";
+            this.gvUserDetail.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gvUserDetail.OptionsView.ColumnAutoWidth = false;
+            this.gvUserDetail.OptionsView.ShowFooter = true;
+            this.gvUserDetail.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn1
+            // 
+            this.gridColumn1.Caption = "序号";
+            this.gridColumn1.FieldName = "iSort";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 0;
+            this.gridColumn1.Width = 55;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "字段名";
+            this.gridColumn2.ColumnEdit = this.repositoryItemComboBox2;
+            this.gridColumn2.FieldName = "sColumnFieldName";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 1;
+            this.gridColumn2.Width = 87;
+            // 
+            // repositoryItemComboBox2
+            // 
+            this.repositoryItemComboBox2.AutoHeight = false;
+            this.repositoryItemComboBox2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemComboBox2.Name = "repositoryItemComboBox2";
+            this.repositoryItemComboBox2.Sorted = true;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Caption = "显示名";
+            this.gridColumn3.FieldName = "sColumnCaption";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.Visible = true;
+            this.gridColumn3.VisibleIndex = 2;
+            this.gridColumn3.Width = 88;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "字段类型";
+            this.gridColumn4.ColumnEdit = this.repositoryItemImageComboBox3;
+            this.gridColumn4.FieldName = "sColumnType";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 3;
+            this.gridColumn4.Width = 97;
+            // 
+            // repositoryItemImageComboBox3
+            // 
+            this.repositoryItemImageComboBox3.AutoHeight = false;
+            this.repositoryItemImageComboBox3.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemImageComboBox3.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("S-字符型", "S", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("D-日期型", "D", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("N-数字型", "N", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("C-ComboBox选择", "C", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("K-复选框", "K", -1)});
+            this.repositoryItemImageComboBox3.Name = "repositoryItemImageComboBox3";
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Caption = "查询类型";
+            this.gridColumn5.ColumnEdit = this.repositoryItemImageComboBox4;
+            this.gridColumn5.FieldName = "sSearchType";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.Visible = true;
+            this.gridColumn5.VisibleIndex = 4;
+            this.gridColumn5.Width = 84;
+            // 
+            // repositoryItemImageComboBox4
+            // 
+            this.repositoryItemImageComboBox4.AutoHeight = false;
+            this.repositoryItemImageComboBox4.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemImageComboBox4.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("等于", "=", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("不等于", "<>", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("类似于", "LIKE", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("大于", ">", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("大于等于", ">=", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("小于", "<", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("小于等于", "<=", -1)});
+            this.repositoryItemImageComboBox4.Name = "repositoryItemImageComboBox4";
+            // 
+            // gridColumn6
+            // 
+            this.gridColumn6.Caption = "查询默认值";
+            this.gridColumn6.FieldName = "sDefaultValue";
+            this.gridColumn6.Name = "gridColumn6";
+            this.gridColumn6.ToolTip = "支持通配符,<UserID>:当前登录用户ID;<GetDate>:当前系统时间,例如:<GetDate>-30,表示上个月,<GetDate>+30,表示下个月" +
+                "";
+            this.gridColumn6.Visible = true;
+            this.gridColumn6.VisibleIndex = 5;
+            this.gridColumn6.Width = 87;
+            // 
+            // gridColumn7
+            // 
+            this.gridColumn7.Caption = "返回值";
+            this.gridColumn7.FieldName = "sReturnValue";
+            this.gridColumn7.Name = "gridColumn7";
+            this.gridColumn7.Visible = true;
+            this.gridColumn7.VisibleIndex = 6;
+            // 
+            // gridColumn8
+            // 
+            this.gridColumn8.Caption = "查询";
+            this.gridColumn8.FieldName = "bIsQuery";
+            this.gridColumn8.Name = "gridColumn8";
+            this.gridColumn8.Visible = true;
+            this.gridColumn8.VisibleIndex = 7;
+            this.gridColumn8.Width = 45;
+            // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "显示";
+            this.gridColumn9.FieldName = "bIsShow";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.Visible = true;
+            this.gridColumn9.VisibleIndex = 8;
+            this.gridColumn9.Width = 45;
+            // 
+            // gridColumn10
+            // 
+            this.gridColumn10.Caption = "分组";
+            this.gridColumn10.FieldName = "bIsGroup";
+            this.gridColumn10.Name = "gridColumn10";
+            this.gridColumn10.Visible = true;
+            this.gridColumn10.VisibleIndex = 9;
+            this.gridColumn10.Width = 45;
+            // 
+            // gridColumn11
+            // 
+            this.gridColumn11.Caption = "统计";
+            this.gridColumn11.FieldName = "bIsStat";
+            this.gridColumn11.Name = "gridColumn11";
+            this.gridColumn11.Visible = true;
+            this.gridColumn11.VisibleIndex = 10;
+            this.gridColumn11.Width = 45;
+            // 
+            // gridColumn12
+            // 
+            this.gridColumn12.Caption = "计数";
+            this.gridColumn12.FieldName = "bIsCount";
+            this.gridColumn12.Name = "gridColumn12";
+            this.gridColumn12.Visible = true;
+            this.gridColumn12.VisibleIndex = 11;
+            this.gridColumn12.Width = 45;
+            // 
+            // gridColumn13
+            // 
+            this.gridColumn13.Caption = "合计";
+            this.gridColumn13.FieldName = "bIsSum";
+            this.gridColumn13.Name = "gridColumn13";
+            this.gridColumn13.Visible = true;
+            this.gridColumn13.VisibleIndex = 12;
+            this.gridColumn13.Width = 45;
+            // 
+            // gridColumn14
+            // 
+            this.gridColumn14.Caption = "图表字段";
+            this.gridColumn14.FieldName = "bChartField";
+            this.gridColumn14.Name = "gridColumn14";
+            this.gridColumn14.Visible = true;
+            this.gridColumn14.VisibleIndex = 13;
+            this.gridColumn14.Width = 71;
+            // 
+            // gridColumn15
+            // 
+            this.gridColumn15.Caption = "图表值";
+            this.gridColumn15.FieldName = "bChartValue";
+            this.gridColumn15.Name = "gridColumn15";
+            this.gridColumn15.Visible = true;
+            this.gridColumn15.VisibleIndex = 14;
+            this.gridColumn15.Width = 59;
+            // 
+            // repositoryItemButtonEdit1
+            // 
+            this.repositoryItemButtonEdit1.AutoHeight = false;
+            this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
+            this.repositoryItemButtonEdit1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            // 
+            // repositoryItemComboBox3
+            // 
+            this.repositoryItemComboBox3.AutoHeight = false;
+            this.repositoryItemComboBox3.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemComboBox3.Name = "repositoryItemComboBox3";
+            // 
+            // gridView3
+            // 
+            this.gridView3.GridControl = this.gcUserDetail;
+            this.gridView3.Name = "gridView3";
             // 
             // frmsysQueryReportSet
             // 
@@ -1134,6 +1417,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.colbtnsGoodID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            this.tpUserDetail.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcUserDetail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUserDetail)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1208,5 +1500,29 @@
         private DevExpress.XtraGrid.Columns.GridColumn colbChartValue;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxFieldName;
         private DevExpress.XtraEditors.SimpleButton btnPreview;
+        private DevExpress.XtraTab.XtraTabPage tpUserDetail;
+        private Sunrise.ERP.Controls.SunriseGridControl gcUserDetail;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvUserDetail;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox repositoryItemImageComboBox3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox repositoryItemImageComboBox4;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn11;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn13;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn15;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox3;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
     }
 }
