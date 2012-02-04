@@ -34,7 +34,9 @@ namespace Sunrise.ERP.BaseForm
         /// <summary>
         /// 权限处理定义
         /// </summary>
-        protected SecurityCenter SC = new SecurityCenter();
+        protected SecurityCenter _sc;
+
+        protected SqlTransaction SqlTrans;
 
         #endregion
 
@@ -488,89 +490,14 @@ namespace Sunrise.ERP.BaseForm
             //IsDataChange = false;
 
         }
-        /// <summary>
-        /// 保存
-        /// </summary>
-        /// <returns></returns>
-        public override bool DoSave()
-        {
-            SqlTransaction trans = Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.BeginTransaction();
-            if (FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsInsert)
-            {
-                try
-                {
-                    Add(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, trans);
-                    trans.Commit();
-                    if (TopCount != 499 & SortField != "dInputDate DESC")
-                    {
-                        if (IsCheckAuth)
-                            dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere, SortField).Tables[0];
-                        else
-                            dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere, SortField).Tables[0];
-                        dsMain.DataSource = dtMain;
-                        dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
-                    }
-                    else
-                    {
-                        if (IsCheckAuth)
-                            dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere).Tables[0];
-                        else
-                            dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere).Tables[0];
-                        dsMain.DataSource = dtMain;
-                        dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
-                    }
-                    Base.SetAllControlsReadOnly(this.pnlInfo, true);
-                    IsDataChange = false;
-                    return base.DoSave();
 
-                }
-                catch
-                {
-                    trans.Rollback();
-                    return false;
-                }
-            }
-            else
-            {
-                try
-                {
-                    Update(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, trans);
-                    trans.Commit();
-                    if (TopCount != 499 & SortField != "dInputDate DESC")
-                    {
-                        if (IsCheckAuth)
-                            dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere, SortField).Tables[0];
-                        else
-                            dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere, SortField).Tables[0];
-                        dsMain.DataSource = dtMain;
-                        dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
-                    }
-                    else
-                    {
-                        if (IsCheckAuth)
-                            dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere).Tables[0];
-                        else
-                            dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere).Tables[0];
-                        dsMain.DataSource = dtMain;
-                        dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
-                    }
-                    Base.SetAllControlsReadOnly(this.pnlInfo, true);
-                    IsDataChange = false;
-                    return base.DoSave();
-                }
-                catch
-                {
-                    trans.Rollback();
-                    return false;
-                }
-            }
-        }
         /// <summary>
         /// 保存前执行的方法
         /// </summary>
         /// <returns></returns>
         public override bool DoBeforeSave()
         {
+            bool result = false;
             //非空验证
             if (dsMain.Current != null)
             {
@@ -585,9 +512,108 @@ namespace Sunrise.ERP.BaseForm
                     }
                 }
             }
-            return true;
+            SqlTrans = ConnectSetting.SysSqlConnection.BeginTransaction();
+            try
+            {
+                result = DoBeforceSaveInTrans(SqlTrans);
+                //SqlTrans.Save("BeforceSave");
+            }
+            catch
+            {
+                SqlTrans.Rollback();
+                return false;
+            }
+            return result;
 
         }
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <returns></returns>
+        public override bool DoSave()
+        {
+            if (FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsInsert)
+            {
+                try
+                {
+                    Add(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, SqlTrans);                  
+                    return base.DoSave();
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                try
+                {
+                    Update(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, SqlTrans);                   
+                    return base.DoSave();
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        public override bool DoAfterSave()
+        {
+            //先处理保存后的SQL事务
+            try
+            {
+                if (DoAfterSaveInTrans(SqlTrans))
+                    SqlTrans.Commit();
+            }
+            catch
+            {
+                SqlTrans.Rollback();
+                return false;
+            }
+            if (TopCount != 499 & SortField != "dInputDate DESC")
+            {
+                if (IsCheckAuth)
+                    dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere, SortField).Tables[0];
+                else
+                    dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere, SortField).Tables[0];
+                dsMain.DataSource = dtMain;
+                dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
+            }
+            else
+            {
+                if (IsCheckAuth)
+                    dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere).Tables[0];
+                else
+                    dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere).Tables[0];
+                dsMain.DataSource = dtMain;
+                dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
+            }
+            Base.SetAllControlsReadOnly(this.pnlInfo, true);
+            IsDataChange = false;
+            return base.DoAfterSave();
+        }
+        /// <summary>
+        /// 保存之前执行的方法，加入事务处理
+        /// </summary>
+        /// <param name="trans"></param>
+        /// <returns></returns>
+        public virtual bool DoBeforceSaveInTrans(SqlTransaction trans)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// 保存之后执行的方法，加入事务处理
+        /// </summary>
+        /// <param name="trans"></param>
+        /// <returns></returns>
+        public virtual bool DoAfterSaveInTrans(SqlTransaction trans)
+        {
+            return true;
+        }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -1139,6 +1165,28 @@ namespace Sunrise.ERP.BaseForm
                 _MasterFilterSql = value;
             }
         }
+
+        /// <summary>
+        /// 系统权限处理类
+        /// </summary>
+        protected SecurityCenter SC
+        {
+            get
+            {
+                if (_sc == null)
+                    _sc = new SecurityCenter();
+                return _sc;
+            }
+        }
+
+        //protected SqlTransaction SqlTrans
+        //{
+        //    get
+        //    {
+        //        return ConnectSetting.SysSqlConnection.BeginTransaction();
+
+        //    }
+        //}
 
         private DynamicDALSetting _MasterDynamicDAL;
         /// <summary>

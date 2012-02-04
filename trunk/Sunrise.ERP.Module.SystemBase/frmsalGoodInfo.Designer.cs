@@ -193,13 +193,18 @@
             this.btnView.LookAndFeel.SkinName = "Blue";
             this.btnView.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
-            // btnRefesh
+            // btnRefresh
             // 
             this.btnRefresh.LookAndFeel.SkinName = "Blue";
             this.btnRefresh.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // txtDataFlag
             // 
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.LookAndFeel.SkinName = "Blue";
+            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // panelControl1
             // 
@@ -234,6 +239,7 @@
             this.gvMain.OptionsView.ColumnAutoWidth = false;
             this.gvMain.OptionsView.ShowAutoFilterRow = true;
             this.gvMain.OptionsView.ShowFooter = true;
+            this.gvMain.OptionsView.ShowGroupPanel = false;
             // 
             // colsGoodID
             // 
@@ -325,6 +331,7 @@
             this.lkpsShopID.EditFormID = 0;
             this.lkpsShopID.EditFormName = null;
             this.lkpsShopID.EditValue = "";
+            this.lkpsShopID.FormID = 0;
             this.lkpsShopID.GridColumnText = null;
             this.lkpsShopID.GridDisplayField = null;
             this.lkpsShopID.Location = new System.Drawing.Point(310, 81);
@@ -344,6 +351,7 @@
             this.lkpsGoodTypeID.EditFormID = 0;
             this.lkpsGoodTypeID.EditFormName = null;
             this.lkpsGoodTypeID.EditValue = "";
+            this.lkpsGoodTypeID.FormID = 0;
             this.lkpsGoodTypeID.GridColumnText = null;
             this.lkpsGoodTypeID.GridDisplayField = null;
             this.lkpsGoodTypeID.Location = new System.Drawing.Point(61, 81);
@@ -363,6 +371,7 @@
             this.lkpsUnitID.EditFormID = 0;
             this.lkpsUnitID.EditFormName = null;
             this.lkpsUnitID.EditValue = "";
+            this.lkpsUnitID.FormID = 0;
             this.lkpsUnitID.GridColumnText = null;
             this.lkpsUnitID.GridDisplayField = null;
             this.lkpsUnitID.Location = new System.Drawing.Point(310, 56);

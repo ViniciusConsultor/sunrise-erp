@@ -177,6 +177,31 @@ namespace Sunrise.ERP.DataAccess
             }
         }
 
+        /// <summary>
+        /// 执行SQL语句，返回影响的记录数
+        /// </summary>
+        /// <param name="SQLString">SQL语句</param>
+        /// <param name="trans">SQL事务</param>
+        /// <returns>影响的记录数</returns>
+        public static int ExecuteSql(string SQLString, SqlTransaction trans,int Times)
+        {
+            using (SqlCommand cmd = new SqlCommand(SQLString, trans.Connection))
+            {
+                try
+                {
+                    cmd.Transaction = trans;
+                    cmd.CommandTimeout = Times;
+                    int rows = cmd.ExecuteNonQuery();
+                    return rows;
+                }
+                catch (System.Data.SqlClient.SqlException e)
+                {
+                    SqlErrorCenter(e);
+                    throw e;
+                }
+            }
+        }
+
         public static int ExecuteSqlByTime(string SQLString, int Times)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -877,6 +902,38 @@ namespace Sunrise.ERP.DataAccess
                 try
                 {
                     cmd.Transaction = trans;
+                    object obj = cmd.ExecuteScalar();
+                    if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return obj;
+                    }
+                }
+                catch (System.Data.SqlClient.SqlException e)
+                {
+                    SqlErrorCenter(e);
+                    throw e;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 执行一条计算查询结果语句，返回查询结果（object）。
+        /// </summary>
+        /// <param name="SQLString">计算查询结果语句</param>
+        /// <param name="trans">SQL事务</param>
+        /// <returns>查询结果（object）</returns>
+        public static object GetSingle(string SQLString, SqlTransaction trans,int Times)
+        {
+            using (SqlCommand cmd = new SqlCommand(SQLString, trans.Connection))
+            {
+                try
+                {
+                    cmd.Transaction = trans;
+                    cmd.CommandTimeout = Times;
                     object obj = cmd.ExecuteScalar();
                     if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
                     {

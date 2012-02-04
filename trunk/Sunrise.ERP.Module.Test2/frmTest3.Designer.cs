@@ -1,6 +1,6 @@
-﻿namespace Sunrise.ERP.Module.Test
+﻿namespace Sunrise.ERP.Module.Test2
 {
-    partial class frmTest2
+    partial class frmTest3
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.txtsTest = new DevExpress.XtraEditors.TextEdit();
+            this.mtxtsRemark = new DevExpress.XtraEditors.TextEdit();
             this.lblsTest = new DevExpress.XtraEditors.LabelControl();
+            this.lblsRemark = new DevExpress.XtraEditors.LabelControl();
             this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.dataNavigator1 = new DevExpress.XtraEditors.DataNavigator();
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).BeginInit();
             this.pnlGrid.SuspendLayout();
@@ -44,6 +45,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtsTest.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mtxtsRemark.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
             this.SuspendLayout();
@@ -51,19 +53,20 @@
             // pnlGrid
             // 
             this.pnlGrid.Controls.Add(this.gcMain);
-            this.pnlGrid.Location = new System.Drawing.Point(2, 108);
-            this.pnlGrid.Size = new System.Drawing.Size(867, 388);
+            this.pnlGrid.Location = new System.Drawing.Point(2, 179);
+            this.pnlGrid.Size = new System.Drawing.Size(867, 317);
             // 
             // sptUpDown
             // 
-            this.sptUpDown.Location = new System.Drawing.Point(2, 102);
+            this.sptUpDown.Location = new System.Drawing.Point(2, 173);
             // 
             // pnlInfo
             // 
-            this.pnlInfo.Controls.Add(this.dataNavigator1);
-            this.pnlInfo.Controls.Add(this.txtsTest);
+            this.pnlInfo.Controls.Add(this.lblsRemark);
             this.pnlInfo.Controls.Add(this.lblsTest);
-            this.pnlInfo.Size = new System.Drawing.Size(867, 67);
+            this.pnlInfo.Controls.Add(this.mtxtsRemark);
+            this.pnlInfo.Controls.Add(this.txtsTest);
+            this.pnlInfo.Size = new System.Drawing.Size(867, 138);
             // 
             // panelControl2
             // 
@@ -140,18 +143,33 @@
             // 
             // txtsTest
             // 
-            this.txtsTest.Location = new System.Drawing.Point(88, 24);
+            this.txtsTest.Location = new System.Drawing.Point(93, 24);
             this.txtsTest.Name = "txtsTest";
-            this.txtsTest.Size = new System.Drawing.Size(290, 21);
-            this.txtsTest.TabIndex = 9;
+            this.txtsTest.Size = new System.Drawing.Size(100, 21);
+            this.txtsTest.TabIndex = 0;
+            // 
+            // mtxtsRemark
+            // 
+            this.mtxtsRemark.Location = new System.Drawing.Point(93, 61);
+            this.mtxtsRemark.Name = "mtxtsRemark";
+            this.mtxtsRemark.Size = new System.Drawing.Size(100, 21);
+            this.mtxtsRemark.TabIndex = 1;
             // 
             // lblsTest
             // 
-            this.lblsTest.Location = new System.Drawing.Point(22, 27);
+            this.lblsTest.Location = new System.Drawing.Point(11, 27);
             this.lblsTest.Name = "lblsTest";
-            this.lblsTest.Size = new System.Drawing.Size(24, 14);
-            this.lblsTest.TabIndex = 8;
-            this.lblsTest.Text = "测试";
+            this.lblsTest.Size = new System.Drawing.Size(70, 14);
+            this.lblsTest.TabIndex = 2;
+            this.lblsTest.Text = "labelControl1";
+            // 
+            // lblsRemark
+            // 
+            this.lblsRemark.Location = new System.Drawing.Point(11, 68);
+            this.lblsRemark.Name = "lblsRemark";
+            this.lblsRemark.Size = new System.Drawing.Size(70, 14);
+            this.lblsRemark.TabIndex = 3;
+            this.lblsRemark.Text = "labelControl1";
             // 
             // gcMain
             // 
@@ -160,8 +178,8 @@
             this.gcMain.Location = new System.Drawing.Point(2, 2);
             this.gcMain.MainView = this.gvMain;
             this.gcMain.Name = "gcMain";
-            this.gcMain.Size = new System.Drawing.Size(863, 384);
-            this.gcMain.TabIndex = 4;
+            this.gcMain.Size = new System.Drawing.Size(863, 313);
+            this.gcMain.TabIndex = 5;
             this.gcMain.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvMain});
             // 
@@ -176,22 +194,13 @@
             this.gvMain.OptionsView.ShowFooter = true;
             this.gvMain.OptionsView.ShowGroupPanel = false;
             // 
-            // dataNavigator1
-            // 
-            this.dataNavigator1.DataSource = this.dsMain;
-            this.dataNavigator1.Location = new System.Drawing.Point(431, 16);
-            this.dataNavigator1.Name = "dataNavigator1";
-            this.dataNavigator1.Size = new System.Drawing.Size(172, 24);
-            this.dataNavigator1.TabIndex = 10;
-            this.dataNavigator1.Text = "dataNavigator1";
-            // 
-            // frmTest2
+            // frmTest3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.ClientSize = new System.Drawing.Size(871, 498);
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.Name = "frmTest2";
+            this.Name = "frmTest3";
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).EndInit();
             this.pnlGrid.ResumeLayout(false);
@@ -204,6 +213,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtsTest.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mtxtsRemark.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).EndInit();
             this.ResumeLayout(false);
@@ -213,9 +223,10 @@
         #endregion
 
         private DevExpress.XtraEditors.TextEdit txtsTest;
+        private DevExpress.XtraEditors.TextEdit mtxtsRemark;
+        private DevExpress.XtraEditors.LabelControl lblsRemark;
         private DevExpress.XtraEditors.LabelControl lblsTest;
         private Sunrise.ERP.Controls.SunriseGridControl gcMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
-        private DevExpress.XtraEditors.DataNavigator dataNavigator1;
     }
 }
