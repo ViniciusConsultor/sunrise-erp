@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 using Sunrise.ERP.BasePublic;
 using Sunrise.ERP.Security;
+using Sunrise.ERP.DataAccess;
 
 namespace Sunrise.ERP.Module.Test
 {
@@ -73,6 +74,21 @@ namespace Sunrise.ERP.Module.Test
         {
             if (gvMain.GetFocusedDataRow() != null)
                 ShowRight();
+        }
+
+        public override bool DoBeforceSaveInTrans(System.Data.SqlClient.SqlTransaction trans)
+        {
+            string sSql = "update salTest2 set sTest='Masteraabbcc1' where id=1";
+            DbHelperSQL.ExecuteSql(sSql, trans);
+            return base.DoBeforceSaveInTrans(trans);
+        }
+
+        public override bool DoAfterSaveInTrans(System.Data.SqlClient.SqlTransaction trans)
+        {
+            string sSql = "update salTest2 set sTest='Masteraabbcc13' where id=13";
+            //throw new Exception();
+            DbHelperSQL.ExecuteSql(sSql, trans);
+            return base.DoAfterSaveInTrans(trans);
         }
     }
 }

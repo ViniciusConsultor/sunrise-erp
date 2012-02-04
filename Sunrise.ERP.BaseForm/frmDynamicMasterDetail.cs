@@ -311,14 +311,13 @@ namespace Sunrise.ERP.BaseForm
         #region 数据操作方法
         public override bool DoSave()
         {
-            SqlTransaction trans = ConnectSetting.SysSqlConnection.BeginTransaction();
             try
             {
                 //先保存主表
                 if (FormDataFlag == DataFlag.dsInsert)
-                    BillID = Add(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, trans);
+                    BillID = Add(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, SqlTrans);
                 else
-                    Update(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, trans);
+                    Update(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, SqlTrans);
                 //保存从表
                 for (int i = 0; i < LDetailBindingSource.Count; i++)
                 {
@@ -328,50 +327,22 @@ namespace Sunrise.ERP.BaseForm
                         if (dr.RowState == DataRowState.Added && dr["ID"].ToString()=="")
                         {
                             dr[LDetailField[i]] = GetMasterLinkValue(LMasterField[i]);
-                            dr["ID"] = Add(LDetailDynamicDAL[i], dr, trans);
+                            dr["ID"] = Add(LDetailDynamicDAL[i], dr, SqlTrans);
                         }
                         //更新
-                        else if (dr.RowState == DataRowState.Modified && dr["ID"].ToString() != "")  
-                            Update(LDetailDynamicDAL[i], dr, trans);
+                        else if (dr.RowState == DataRowState.Modified && dr["ID"].ToString() != "")
+                            Update(LDetailDynamicDAL[i], dr, SqlTrans);
                         //删除
                         else if (dr.RowState == DataRowState.Deleted && dr["ID", DataRowVersion.Original].ToString() != "")
-                            Delete(LDetailDynamicDAL[i], Convert.ToInt32(dr["ID", DataRowVersion.Original]), trans);
+                            Delete(LDetailDynamicDAL[i], Convert.ToInt32(dr["ID", DataRowVersion.Original]), SqlTrans);
                     }
                 }
-                trans.Commit();
                 return true;
             }
             catch
             {
-                trans.Rollback();
                 return false;
             }
-        }
-
-        public override bool DoAfterSave()
-        {
-            if (TopCount != 499 && SortField != "dInputDate DESC")
-            {
-                if (IsCheckAuth)
-                    dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere, SortField).Tables[0];
-                else
-                    dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere, SortField).Tables[0];
-                dsMain.DataSource = dtMain;
-                dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
-            }
-            else
-            {
-                if (IsCheckAuth)
-                    dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere).Tables[0];
-                else
-                    dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere).Tables[0];
-                dsMain.DataSource = dtMain;
-                dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
-            }
-            Base.SetAllControlsReadOnly(this.pnlInfo, true);
-            IsDataChange = false;
-            initButtonsState(OperateFlag.Save);
-            return base.DoAfterSave();
         }
 
         public override void DoEdit()

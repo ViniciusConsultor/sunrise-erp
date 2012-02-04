@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 using Sunrise.ERP.Lang;
 using Sunrise.ERP.BaseControl;
@@ -294,7 +295,6 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public virtual bool DoSave()
         {
-            initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.Save);
             return true;
         }
 
@@ -305,7 +305,11 @@ namespace Sunrise.ERP.BaseForm
         /// <summary>
         /// 保存之后执行的方法
         /// </summary>
-        public virtual bool DoAfterSave() { return true; }
+        public virtual bool DoAfterSave()
+        {
+            initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.Save);
+            return true;
+        }
 
         /// <summary>
         /// 窗体关闭之前执行的方法
@@ -446,34 +450,29 @@ namespace Sunrise.ERP.BaseForm
 
         public virtual void btnSave_Click(object sender, EventArgs e)
         {
+
             if (DoBeforeSave())
             {
                 if (DoSave())
                 {
-                    FormDataFlag = Sunrise.ERP.BasePublic.DataFlag.dsBrowse;
-                    txtDataFlag.Text = FormDataFlag.ToString();
                     if (DoAfterSave())
                     {
+                        FormDataFlag = Sunrise.ERP.BasePublic.DataFlag.dsBrowse;
+                        txtDataFlag.Text = FormDataFlag.ToString();
                         if (ShowSaveInfo)
-                        {
                             Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SaveSuccess"));
-                        }
                     }
                     else
                     {
                         if (ShowSaveInfo)
-                        {
                             Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SaveFailed"));
-                        }
                         return;
                     }
                 }
                 else
                 {
                     if (ShowSaveInfo)
-                    {
                         Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SaveFailed"));
-                    }
                     return;
                 }
             }
