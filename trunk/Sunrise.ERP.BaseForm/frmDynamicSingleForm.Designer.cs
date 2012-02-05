@@ -48,9 +48,11 @@
             // 
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.panelControl2.Size = new System.Drawing.Size(963, 33);
             // 
             // btnInsert
             // 
+            this.btnInsert.Location = new System.Drawing.Point(895, 3);
             this.btnInsert.LookAndFeel.SkinName = "Blue";
             this.btnInsert.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
@@ -101,6 +103,7 @@
             // 
             // btnRefresh
             // 
+            this.btnRefresh.Location = new System.Drawing.Point(926, 3);
             this.btnRefresh.LookAndFeel.SkinName = "Blue";
             this.btnRefresh.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
@@ -114,6 +117,23 @@
             this.btnSettings.Visible = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
+            // dataNav
+            // 
+            this.dataNav.Buttons.Append.Visible = false;
+            this.dataNav.Buttons.CancelEdit.Visible = false;
+            this.dataNav.Buttons.EndEdit.Visible = false;
+            this.dataNav.Buttons.NextPage.Visible = false;
+            this.dataNav.Buttons.PrevPage.Visible = false;
+            this.dataNav.Buttons.Remove.Visible = false;
+            this.dataNav.DataSource = this.dsMain;
+            this.dataNav.Visible = true;
+            // 
+            // btnAction
+            // 
+            this.btnAction.LookAndFeel.SkinName = "Blue";
+            this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnAction.Visible = true;
+            // 
             // panelControl1
             // 
             this.panelControl1.Controls.Add(this.pnlGrid);
@@ -121,6 +141,7 @@
             this.panelControl1.Controls.Add(this.pnlInfo);
             this.panelControl1.LookAndFeel.SkinName = "Blue";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.panelControl1.Size = new System.Drawing.Size(967, 498);
             this.panelControl1.Controls.SetChildIndex(this.txtDataFlag, 0);
             this.panelControl1.Controls.SetChildIndex(this.panelControl2, 0);
             this.panelControl1.Controls.SetChildIndex(this.pnlInfo, 0);
@@ -144,7 +165,7 @@
             this.sptUpDown.MinExtra = 0;
             this.sptUpDown.MinSize = 0;
             this.sptUpDown.Name = "sptUpDown";
-            this.sptUpDown.Size = new System.Drawing.Size(867, 6);
+            this.sptUpDown.Size = new System.Drawing.Size(963, 6);
             this.sptUpDown.TabIndex = 7;
             this.sptUpDown.TabStop = false;
             this.sptUpDown.DoubleClick += new System.EventHandler(this.splitterControl1_DoubleClick);
@@ -154,7 +175,7 @@
             this.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlGrid.Location = new System.Drawing.Point(2, 243);
             this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new System.Drawing.Size(867, 253);
+            this.pnlGrid.Size = new System.Drawing.Size(963, 253);
             this.pnlGrid.TabIndex = 8;
             // 
             // pnlInfo
@@ -162,13 +183,13 @@
             this.pnlInfo.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlInfo.Location = new System.Drawing.Point(2, 35);
             this.pnlInfo.Name = "pnlInfo";
-            this.pnlInfo.Size = new System.Drawing.Size(867, 202);
+            this.pnlInfo.Size = new System.Drawing.Size(963, 202);
             this.pnlInfo.TabIndex = 6;
             // 
             // frmDynamicSingleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.ClientSize = new System.Drawing.Size(871, 498);
+            this.ClientSize = new System.Drawing.Size(967, 498);
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmDynamicSingleForm";

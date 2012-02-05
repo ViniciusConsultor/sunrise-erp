@@ -28,6 +28,12 @@ namespace Sunrise.ERP.BaseForm.DAL
             
         }
 
+
+        private string SubTableName
+        {
+            get { return MainDynamicData[0]["sTableName"].ToString() + MainDynamicData[0]["FormID"].ToString() + "_Z"; }
+        }
+
         /// <summary>
         /// 数据视图名
         /// </summary>
@@ -125,7 +131,7 @@ namespace Sunrise.ERP.BaseForm.DAL
         {
             if (SubDynamicData.Length > 0)
             {
-                string sDeleteSql = "DELETE FROM " + TableName + "_Z" + " WHERE MainTableID=" + (!string.IsNullOrEmpty(dr["ID"].ToString()) ? dr["ID"].ToString() : "-1");
+                string sDeleteSql = "DELETE FROM " + SubTableName + " WHERE MainTableID=" + (!string.IsNullOrEmpty(dr["ID"].ToString()) ? dr["ID"].ToString() : "-1");
                 DbHelperSQL.ExecuteSql(sDeleteSql, trans);
                 string sInsertSql = CreateSQL("Add", true);
                 SqlParameter[] parameters = CreateSqlParameter(dr, "Add", true);
@@ -146,7 +152,7 @@ namespace Sunrise.ERP.BaseForm.DAL
             if (SubDynamicData.Length > 0)
             {
                 strSql.Append(" LEFT JOIN ");
-                strSql.Append(TableName + "_Z de ON ma.ID=de.MainTableID ");
+                strSql.Append(SubTableName + " de ON ma.ID=de.MainTableID ");
             }
             if (strWhere.Trim() != "")
             {
@@ -174,7 +180,7 @@ namespace Sunrise.ERP.BaseForm.DAL
             if (SubDynamicData.Length > 0)
             {
                 strSql.Append(" LEFT JOIN ");
-                strSql.Append(TableName + "_Z de ON ma.ID=de.MainTableID ");
+                strSql.Append(SubTableName + " de ON ma.ID=de.MainTableID ");
             }
             if (strWhere.Trim() != "")
             {
@@ -196,7 +202,7 @@ namespace Sunrise.ERP.BaseForm.DAL
                 if (issub)
                 {
                     strSql.Append("INSERT INTO ");
-                    strSql.Append(TableName + "_Z");
+                    strSql.Append(SubTableName);
                     strSql.Append("(");
                     strSql.Append(CreateFileds("Add", false,issub));
                     strSql.Append(") VALUES (");

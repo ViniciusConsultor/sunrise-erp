@@ -139,7 +139,7 @@ namespace SunriseERP
             this.lblUserName.Location = new System.Drawing.Point(103, 47);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(52, 14);
-            this.lblUserName.TabIndex = 4;
+            this.lblUserName.TabIndex = 7;
             this.lblUserName.Text = "用户名：";
             // 
             // lblPassword
@@ -149,7 +149,7 @@ namespace SunriseERP
             this.lblPassword.Location = new System.Drawing.Point(103, 74);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(51, 14);
-            this.lblPassword.TabIndex = 5;
+            this.lblPassword.TabIndex = 8;
             this.lblPassword.Text = "密   码：";
             // 
             // btnSet
@@ -218,7 +218,7 @@ namespace SunriseERP
             this.lblLang.Location = new System.Drawing.Point(103, 101);
             this.lblLang.Name = "lblLang";
             this.lblLang.Size = new System.Drawing.Size(65, 14);
-            this.lblLang.TabIndex = 14;
+            this.lblLang.TabIndex = 9;
             this.lblLang.Text = "系统语言：";
             // 
             // frmLogin

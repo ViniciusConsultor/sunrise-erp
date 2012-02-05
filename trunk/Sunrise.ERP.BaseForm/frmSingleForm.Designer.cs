@@ -48,7 +48,7 @@ namespace Sunrise.ERP.BaseForm
             // 
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.panelControl2.Size = new System.Drawing.Size(753, 33);
+            this.panelControl2.Size = new System.Drawing.Size(944, 33);
             // 
             // btnInsert
             // 
@@ -67,6 +67,7 @@ namespace Sunrise.ERP.BaseForm
             // 
             // btnClose
             // 
+            this.btnClose.Location = new System.Drawing.Point(573, 4);
             this.btnClose.LookAndFeel.SkinName = "Blue";
             this.btnClose.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
@@ -110,8 +111,25 @@ namespace Sunrise.ERP.BaseForm
             // 
             // btnSettings
             // 
+            this.btnSettings.Location = new System.Drawing.Point(914, 5);
             this.btnSettings.LookAndFeel.SkinName = "Blue";
             this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            // 
+            // dataNav
+            // 
+            this.dataNav.Buttons.Append.Visible = false;
+            this.dataNav.Buttons.CancelEdit.Visible = false;
+            this.dataNav.Buttons.EndEdit.Visible = false;
+            this.dataNav.Buttons.NextPage.Visible = false;
+            this.dataNav.Buttons.PrevPage.Visible = false;
+            this.dataNav.Buttons.Remove.Visible = false;
+            this.dataNav.Location = new System.Drawing.Point(649, 4);
+            // 
+            // btnAction
+            // 
+            this.btnAction.Location = new System.Drawing.Point(801, 3);
+            this.btnAction.LookAndFeel.SkinName = "Blue";
+            this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // panelControl1
             // 
@@ -120,7 +138,7 @@ namespace Sunrise.ERP.BaseForm
             this.panelControl1.Controls.Add(this.pnlInfo);
             this.panelControl1.LookAndFeel.SkinName = "Blue";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.panelControl1.Size = new System.Drawing.Size(757, 498);
+            this.panelControl1.Size = new System.Drawing.Size(948, 498);
             this.panelControl1.Controls.SetChildIndex(this.txtDataFlag, 0);
             this.panelControl1.Controls.SetChildIndex(this.panelControl2, 0);
             this.panelControl1.Controls.SetChildIndex(this.pnlInfo, 0);
@@ -132,7 +150,7 @@ namespace Sunrise.ERP.BaseForm
             this.pnlInfo.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlInfo.Location = new System.Drawing.Point(2, 35);
             this.pnlInfo.Name = "pnlInfo";
-            this.pnlInfo.Size = new System.Drawing.Size(753, 201);
+            this.pnlInfo.Size = new System.Drawing.Size(944, 201);
             this.pnlInfo.TabIndex = 3;
             // 
             // splitterControl1
@@ -142,7 +160,7 @@ namespace Sunrise.ERP.BaseForm
             this.splitterControl1.MinExtra = 0;
             this.splitterControl1.MinSize = 0;
             this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(753, 6);
+            this.splitterControl1.Size = new System.Drawing.Size(944, 6);
             this.splitterControl1.TabIndex = 4;
             this.splitterControl1.TabStop = false;
             this.toolTipController1.SetToolTip(this.splitterControl1, "Ë«»÷ÕÛµþ´°¿Ú");
@@ -153,7 +171,7 @@ namespace Sunrise.ERP.BaseForm
             this.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlGrid.Location = new System.Drawing.Point(2, 242);
             this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new System.Drawing.Size(753, 254);
+            this.pnlGrid.Size = new System.Drawing.Size(944, 254);
             this.pnlGrid.TabIndex = 5;
             // 
             // dsMain
@@ -169,7 +187,7 @@ namespace Sunrise.ERP.BaseForm
             // frmSingleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.ClientSize = new System.Drawing.Size(757, 498);
+            this.ClientSize = new System.Drawing.Size(948, 498);
             this.KeyPreview = true;
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;

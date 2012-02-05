@@ -564,34 +564,38 @@ namespace Sunrise.ERP.DataAccess
         /// <returns>DataSet</returns>
         public static DataSet Query(string SQLString)
         {
-            DataSet ds = new DataSet();
-            try
+            using (DataSet ds = new DataSet())
             {
-                SqlDataAdapter command = new SqlDataAdapter(SQLString, Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection);
-                command.Fill(ds, "ds");
+                try
+                {
+                    SqlDataAdapter command = new SqlDataAdapter(SQLString, Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection);
+                    command.Fill(ds, "ds");
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return ds;
             }
-            catch (System.Data.SqlClient.SqlException ex)
-            {
-                SqlErrorCenter(ex);
-                throw new Exception(ex.Message);
-            }
-            return ds;
         }
         public static DataSet Query(string SQLString, int Times)
         {
-            DataSet ds = new DataSet();
-            try
+            using (DataSet ds = new DataSet())
             {
-                SqlDataAdapter command = new SqlDataAdapter(SQLString, Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection);
-                command.SelectCommand.CommandTimeout = Times;
-                command.Fill(ds, "ds");
+                try
+                {
+                    SqlDataAdapter command = new SqlDataAdapter(SQLString, Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection);
+                    command.SelectCommand.CommandTimeout = Times;
+                    command.Fill(ds, "ds");
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return ds;
             }
-            catch (System.Data.SqlClient.SqlException ex)
-            {
-                SqlErrorCenter(ex);
-                throw new Exception(ex.Message);
-            }
-            return ds;
         }
 
 

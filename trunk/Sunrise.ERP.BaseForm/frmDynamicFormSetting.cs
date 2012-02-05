@@ -250,18 +250,20 @@ namespace Sunrise.ERP.BaseForm
         private void CreateSubTable()
         {
             //先检测是否已经创建过自定义表
-            string TableName=((DataRowView)dsMain.Current).Row["sTableName"].ToString();
+            //自定义表命名规则为原表+FormID+_Z,e.g: salTest9001_Z
+            string TableName = ((DataRowView)dsMain.Current).Row["sTableName"].ToString();
+            int formID = (int)((DataRowView)dsMain.Current).Row["FormID"];
             //不是系统列，并且不保存数据的列
             DataRow[] drTmp = LDetailDataSet[LDetailDALName.IndexOf("sysDynamicFormDetailDAL")].Tables[0].Select("bSystemColumn=0 AND bSaveData=1");
             if (drTmp != null && drTmp.Length > 0)
             {
-                if (Base.IsHasSubTable(TableName))
-                    Base.CreateSubTableColumns(drTmp, TableName);
+                if (Base.IsHasSubTable(TableName, formID))
+                    Base.CreateSubTableColumns(drTmp, TableName, formID);
                 else
-                    Base.CreateSubTable(drTmp, TableName);
+                    Base.CreateSubTable(drTmp, TableName, formID);
             }
             else
-                Base.DeleteSubTable(TableName);
+                Base.DeleteSubTable(TableName, formID);
         }
 
         /// <summary>

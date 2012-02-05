@@ -25,7 +25,7 @@ namespace Sunrise.ERP.Security
         private string _strunder = "";
         private string _strselfandunder = "";
         private static string _suserid = "";
-        private static bool _isadmin;
+        private static bool _isadmin = true;
         private static DataSet _dsMenu;
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Sunrise.ERP.Security
         {
             get
             {
-                if (_isadmin == false)
+                if (_isadmin)
                 {
                     object obj = Sunrise.ERP.DataAccess.DbHelperSQL.GetSingle("SELECT 1 FROM sysUser WHERE iUserType=1 AND sUserID='" + CurrentUserID + "'");
                     if (obj != null && obj.ToString() == "1")
@@ -478,8 +478,8 @@ namespace Sunrise.ERP.Security
         public static string GetMenuAuthSQL()
         {
             string sResult = "";
-            //用户是admin的时候显示所有菜单
-            if (CurrentUserID == "admin")
+            //用户是admin或者是超级用户的时候显示所有菜单
+            if (CurrentUserID == "admin" || IsAdmin)
             {
                 sResult = "SELECT A.ID,A.iFormID,"
                         + (LangCenter.Instance.IsDefaultLanguage ? "A.sMenuName" : "A.sMenuEngName AS sMenuName")

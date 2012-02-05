@@ -247,6 +247,20 @@
             this.btnSettings.LookAndFeel.SkinName = "Blue";
             this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
+            // dataNav
+            // 
+            this.dataNav.Buttons.Append.Visible = false;
+            this.dataNav.Buttons.CancelEdit.Visible = false;
+            this.dataNav.Buttons.EndEdit.Visible = false;
+            this.dataNav.Buttons.NextPage.Visible = false;
+            this.dataNav.Buttons.PrevPage.Visible = false;
+            this.dataNav.Buttons.Remove.Visible = false;
+            // 
+            // btnAction
+            // 
+            this.btnAction.LookAndFeel.SkinName = "Blue";
+            this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
+            // 
             // panelControl1
             // 
             this.panelControl1.LookAndFeel.SkinName = "Blue";
@@ -416,7 +430,7 @@
             // txtsFieldName
             // 
             this.txtsFieldName.AutoHeight = false;
-            this.txtsFieldName.Mask.EditMask = "[a-zA-Z]+";
+            this.txtsFieldName.Mask.EditMask = "[a-zA-Z]+\\w+?";
             this.txtsFieldName.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txtsFieldName.Name = "txtsFieldName";
             // 

@@ -40,5 +40,13 @@ namespace Sunrise.ERP.Module.Test2
             DbHelperSQL.ExecuteSql(sSql, trans);
             return base.DoAfterSaveInTrans(trans);
         }
+
+        private void btnAction_Click(object sender, EventArgs e)
+        {
+            if (((MouseEventArgs)e).Button == MouseButtons.Left)
+            {
+                contextMenuStrip1.Show(btnAction, new Point(0, btnAction.Height));
+            }
+        }
     }
 }

@@ -286,6 +286,7 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public void ShowLeft()
         {
+            SetButtonVisiable(true);
             pnlDetail.Visible = false;
             sptUpDown.Visible = false;
             pnlInfo.Visible = false;
@@ -298,12 +299,66 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public void ShowRight()
         {
+            SetButtonVisiable(false);
             pnlInfo.Visible = true;
             sptUpDown.Visible = true;
             pnlDetail.Visible = true;
             pnlGrid.Visible = false;
             sptLeftRight.Visible = false;
             CanCloseWindow = false;
+        }
+
+        private void SetButtonVisiable(bool isMaster)
+        {
+            if (isMaster)
+            {
+                btnView.Visible = true;
+                btnView.Location = new Point(5, 4);
+                btnAdd.Visible = true;
+                btnAdd.Location = new Point(76, 4);
+                btnEdit.Visible = true;
+                btnEdit.Location = new Point(147, 4);
+                btnDelete.Visible = false;
+                btnCopy.Visible = true;
+                btnCopy.Location = new Point(218, 4);
+                btnCancel.Visible = false;
+                btnSave.Visible = false;
+                btnPrint.Visible = false;
+                btnAction.Visible = true;
+                btnAction.Location = new Point(289, 4);
+                btnClose.Visible = true;
+                btnClose.Location = new Point(372, 4);
+                dataNav.Visible = true;
+                dataNav.Location = new Point(443, 4);
+
+                btnSettings.Location = new Point(570, 4);
+            }
+            else
+            {
+                btnView.Visible = false;
+                btnAdd.Visible = true;
+                btnAdd.Location = new Point(5, 4);
+                btnEdit.Visible = true;
+                btnEdit.Location = new Point(76, 4);
+                btnDelete.Visible = true;
+                btnDelete.Location = new Point(147, 4);
+                btnCopy.Visible = true;
+                btnCopy.Location = new Point(218, 4);
+                btnCancel.Visible = true;
+                btnCancel.Location = new Point(289, 4);
+                btnSave.Visible = true;
+                btnSave.Location = new Point(360, 4);
+                btnPrint.Visible = true;
+                btnPrint.Location = new Point(431, 4);
+                btnAction.Visible = true;
+                btnAction.Location = new Point(502, 4);
+                btnClose.Visible = true;
+                btnClose.Location = new Point(585, 4);
+                dataNav.Visible = true;
+                dataNav.Location = new Point(656, 4);
+
+                btnSettings.Location = new Point(783, 4);
+            }
         }
 
         #endregion
