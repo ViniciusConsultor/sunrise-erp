@@ -512,6 +512,8 @@ namespace Sunrise.ERP.BaseForm
                     }
                 }
             }
+            if (SqlTrans != null)
+                SqlTrans.Dispose();
             SqlTrans = ConnectSetting.SysSqlConnection.BeginTransaction();
             try
             {

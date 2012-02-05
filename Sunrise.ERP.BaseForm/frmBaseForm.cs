@@ -57,8 +57,6 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public virtual void initBase()
         {
-            //DoView();
-            //initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.None);
             DoBaseView();
             //下面这句代码在发布的时候需要取消注释
             //LoadLangSetting();
@@ -86,6 +84,8 @@ namespace Sunrise.ERP.BaseForm
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
                         btnSettings.Enabled = true;
+                        dataNav.Enabled = true;
+                        btnAction.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Insert:
@@ -100,6 +100,8 @@ namespace Sunrise.ERP.BaseForm
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
                         btnSettings.Enabled = false;
+                        dataNav.Enabled = false;
+                        btnAction.Enabled = false;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Edit:
@@ -114,6 +116,8 @@ namespace Sunrise.ERP.BaseForm
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
                         btnSettings.Enabled = false;
+                        dataNav.Enabled = false;
+                        btnAction.Enabled = false;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Cancel:
@@ -128,6 +132,8 @@ namespace Sunrise.ERP.BaseForm
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
                         btnSettings.Enabled = true;
+                        dataNav.Enabled = true;
+                        btnAction.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Save:
@@ -142,6 +148,8 @@ namespace Sunrise.ERP.BaseForm
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
                         btnSettings.Enabled = true;
+                        dataNav.Enabled = true;
+                        btnAction.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Copy:
@@ -156,6 +164,8 @@ namespace Sunrise.ERP.BaseForm
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
                         btnSettings.Enabled = false;
+                        dataNav.Enabled = false;
+                        btnAction.Enabled = false;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Delete:
@@ -170,6 +180,8 @@ namespace Sunrise.ERP.BaseForm
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
                         btnSettings.Enabled = true;
+                        dataNav.Enabled = true;
+                        btnAction.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.None:
@@ -184,6 +196,8 @@ namespace Sunrise.ERP.BaseForm
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
                         btnSettings.Enabled = true;
+                        dataNav.Enabled = false;
+                        btnAction.Enabled = false;
                         break;
                     }
                 default:
@@ -198,6 +212,8 @@ namespace Sunrise.ERP.BaseForm
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
                         btnSettings.Enabled = true;
+                        dataNav.Enabled = true;
+                        btnAction.Enabled = true;
                         break;
                     }
             }
@@ -528,6 +544,7 @@ namespace Sunrise.ERP.BaseForm
             btnInsert.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnInsert.Name);
             btnRefresh.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnRefresh.Name);
             btnSettings.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnSettings.Name);
+            btnAction.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnAction.Name);
         }
     }
 }

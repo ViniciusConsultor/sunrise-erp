@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txtsTest = new DevExpress.XtraEditors.TextEdit();
             this.mtxtsRemark = new DevExpress.XtraEditors.TextEdit();
             this.lblsTest = new DevExpress.XtraEditors.LabelControl();
             this.lblsRemark = new DevExpress.XtraEditors.LabelControl();
             this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.爱爱爱ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.倒萨ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).BeginInit();
             this.pnlGrid.SuspendLayout();
@@ -48,6 +52,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mtxtsRemark.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlGrid
@@ -59,6 +64,7 @@
             // sptUpDown
             // 
             this.sptUpDown.Location = new System.Drawing.Point(2, 173);
+            this.sptUpDown.Size = new System.Drawing.Size(867, 6);
             // 
             // pnlInfo
             // 
@@ -72,6 +78,7 @@
             // 
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.panelControl2.Size = new System.Drawing.Size(867, 33);
             // 
             // btnInsert
             // 
@@ -136,10 +143,26 @@
             this.btnSettings.LookAndFeel.SkinName = "Blue";
             this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
+            // dataNav
+            // 
+            this.dataNav.Buttons.Append.Visible = false;
+            this.dataNav.Buttons.CancelEdit.Visible = false;
+            this.dataNav.Buttons.EndEdit.Visible = false;
+            this.dataNav.Buttons.NextPage.Visible = false;
+            this.dataNav.Buttons.PrevPage.Visible = false;
+            this.dataNav.Buttons.Remove.Visible = false;
+            // 
+            // btnAction
+            // 
+            this.btnAction.LookAndFeel.SkinName = "Blue";
+            this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
+            // 
             // panelControl1
             // 
             this.panelControl1.LookAndFeel.SkinName = "Blue";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.panelControl1.Size = new System.Drawing.Size(871, 498);
             // 
             // txtsTest
             // 
@@ -194,6 +217,26 @@
             this.gvMain.OptionsView.ShowFooter = true;
             this.gvMain.OptionsView.ShowGroupPanel = false;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.爱爱爱ToolStripMenuItem,
+            this.倒萨ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(113, 48);
+            // 
+            // 爱爱爱ToolStripMenuItem
+            // 
+            this.爱爱爱ToolStripMenuItem.Name = "爱爱爱ToolStripMenuItem";
+            this.爱爱爱ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.爱爱爱ToolStripMenuItem.Text = "爱爱爱";
+            // 
+            // 倒萨ToolStripMenuItem
+            // 
+            this.倒萨ToolStripMenuItem.Name = "倒萨ToolStripMenuItem";
+            this.倒萨ToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.倒萨ToolStripMenuItem.Text = "倒萨";
+            // 
             // frmTest3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -201,6 +244,7 @@
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmTest3";
+            this.Controls.SetChildIndex(this.panelControl1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).EndInit();
             this.pnlGrid.ResumeLayout(false);
@@ -216,6 +260,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mtxtsRemark.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -228,5 +273,8 @@
         private DevExpress.XtraEditors.LabelControl lblsTest;
         private Sunrise.ERP.Controls.SunriseGridControl gcMain;
         private DevExpress.XtraGrid.Views.Grid.GridView gvMain;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 爱爱爱ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 倒萨ToolStripMenuItem;
     }
 }

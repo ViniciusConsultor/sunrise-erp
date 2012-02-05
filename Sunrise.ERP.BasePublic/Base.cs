@@ -532,10 +532,11 @@ namespace Sunrise.ERP.BasePublic
         /// 检查一个表是否有自定义字段
         /// </summary>
         /// <param name="tablename">表名</param>
-        /// <returns></returns>
-        public static bool IsHasSubTable(string tablename)
+        /// <param name="formid">FormID</param>
+        /// <returns>存在返回True,不存在返回False</returns>
+        public static bool IsHasSubTable(string tablename,int formid)
         {
-            string sSql = "SELECT COUNT(1) FROM sysobjects WHERE xtype='U' AND name='" + tablename + "_Z" + "'";
+            string sSql = "SELECT COUNT(1) FROM sysobjects WHERE xtype='U' AND name='" + tablename + formid.ToString() + "_Z" + "'";
             return DbHelperSQL.Exists(sSql);
         }
 
@@ -544,7 +545,7 @@ namespace Sunrise.ERP.BasePublic
         /// </summary>
         /// <param name="tablename">表名</param>
         /// <param name="columnname">列名</param>
-        /// <returns></returns>
+        /// <returns>存在返回True,不存在返回False</returns>
         public static bool IsColumnExist(string tablename, string columnname)
         {
             string sSql = "SELECT COUNT(1) FROM syscolumns WHERE id=OBJECT_ID('" + tablename + "') AND name='" + columnname + "'";
@@ -579,12 +580,18 @@ namespace Sunrise.ERP.BasePublic
             return result;
         }
 
+        /// <summary>
+        /// 获取自定义表数据
+        /// </summary>
+        /// <param name="formid">FormID</param>
+        /// <param name="tablename">数据表名</param>
+        /// <returns></returns>
         public static DataTable GetDynamicTableData(int formid, string tablename)
         {
-            string sSql = "SELECT A.*,B.sFormType, B.iDefaultQueryCount, B.iControlSpace, B.iControlColumn, "
+            string sSql = "SELECT A.*,B.sFormType, B.iDefaultQueryCount, B.iControlSpace, B.iControlColumn,B.FormID, "
                                 + "B.bCreateLookUp, B.bSyncLookUp, B.sTableName, B.sQueryViewName "
                                 + "FROM sysDynamicFormDetail A LEFT JOIN "
-                                + "sysDynamicFormMaster B ON A.MainID=B.ID WHERE B.FormID=" + formid.ToString() + " AND sTableName='" + tablename + "'";
+                                + "sysDynamicFormMaster B ON A.MainID=B.ID WHERE B.FormID=" + formid.ToString() + " AND B.sTableName='" + tablename + "'";
             return DbHelperSQL.Query(sSql).Tables[0];
         }
 
@@ -610,13 +617,15 @@ namespace Sunrise.ERP.BasePublic
         /// </summary>
         /// <param name="drs">需要创建的数据列</param>
         /// <param name="tablename">数据表名称</param>
-        public static void CreateSubTable(DataRow[] drs, string tablename)
+        /// <param name="formid">FormID</param>
+        public static void CreateSubTable(DataRow[] drs, string tablename,int formid)
         {
             if (drs != null && drs.Length > 0)
             {
                 //不存在自定义表则直接创建自定义表
+                string subtablename = tablename + formid.ToString() + "_Z";
                 StringBuilder sCreateSQL = new StringBuilder();
-                sCreateSQL.Append("CREATE TABLE [dbo].[" + tablename + "_Z] (");
+                sCreateSQL.Append("CREATE TABLE [dbo].[" + subtablename + "] (");
                 sCreateSQL.AppendLine();
                 sCreateSQL.Append("[ID] [int]  IDENTITY (1, 1)  NOT NULL, ");
                 sCreateSQL.AppendLine();
@@ -668,7 +677,7 @@ namespace Sunrise.ERP.BasePublic
                     sCreateSQL.Append(" NULL, ");
                     sCreateSQL.AppendLine();
                 }
-                sCreateSQL.Append("CONSTRAINT [PK_" + tablename + "_Z] PRIMARY KEY CLUSTERED ([ID] ASC)");
+                sCreateSQL.Append("CONSTRAINT [PK_" + subtablename + "] PRIMARY KEY CLUSTERED ([ID] ASC)");
                 sCreateSQL.AppendLine();
                 sCreateSQL.Append("WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY] ) ON [PRIMARY]");
                 DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
@@ -676,14 +685,14 @@ namespace Sunrise.ERP.BasePublic
                 sCreateSQL.Append("SET ANSI_PADDING OFF");
                 DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
                 sCreateSQL.Remove(0, sCreateSQL.Length);
-                sCreateSQL.Append("ALTER TABLE [dbo].[" + tablename + "_Z] " + "WITH CHECK ADD  CONSTRAINT [FK_" + tablename + "_Z_" + tablename + "] FOREIGN KEY([MainTableID])");
+                sCreateSQL.Append("ALTER TABLE [dbo].[" + subtablename + "] " + "WITH CHECK ADD  CONSTRAINT [FK_" + subtablename + "_" + tablename + "] FOREIGN KEY([MainTableID])");
                 sCreateSQL.AppendLine();
                 sCreateSQL.Append("REFERENCES [dbo].[" + tablename + "] ([ID])");
                 sCreateSQL.AppendLine();
                 sCreateSQL.Append("ON UPDATE CASCADE ON DELETE CASCADE");
                 DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
                 sCreateSQL.Remove(0, sCreateSQL.Length);
-                sCreateSQL.Append("ALTER TABLE [dbo].[" + tablename + "_Z] CHECK CONSTRAINT [FK_" + tablename + "_Z_" + tablename + "]");;
+                sCreateSQL.Append("ALTER TABLE [dbo].[" + subtablename + "] CHECK CONSTRAINT [FK_" + subtablename + "_" + tablename + "]"); ;
                 DbHelperSQL.ExecuteSql(sCreateSQL.ToString());
             }
         }
@@ -693,11 +702,12 @@ namespace Sunrise.ERP.BasePublic
         /// </summary>
         /// <param name="drs">需要创建的数据列</param>
         /// <param name="tablename">数据表名称</param>
-        public static void CreateSubTableColumns(DataRow[] drs, string tablename)
+        /// <param name="formid">FormID</param>
+        public static void CreateSubTableColumns(DataRow[] drs, string tablename,int formid)
         {
             if (drs != null && drs.Length > 0)
             {
-                string sTableName = tablename + "_Z";
+                string sTableName = tablename + formid.ToString() + "_Z";
                 StringBuilder sCreateSQL = new StringBuilder();
                 List<string> listColumns = new List<string>();
                 List<string> tableColumns = GetTableColumns(sTableName, false);
@@ -806,11 +816,12 @@ namespace Sunrise.ERP.BasePublic
         /// 删除自定义表
         /// </summary>
         /// <param name="tablename">数据表名称</param>
-        public static void DeleteSubTable(string tablename)
+        /// <param name="formid">FormID</param>
+        public static void DeleteSubTable(string tablename,int formid)
         {
-            if (IsHasSubTable(tablename))
+            if (IsHasSubTable(tablename, formid))
             {
-                string sSql = "DROP TABLE [dbo].[" + tablename + "_Z]";
+                string sSql = "DROP TABLE [dbo].[" + tablename + formid.ToString() + "_Z]";
                 DbHelperSQL.ExecuteSql(sSql);
             }
         }

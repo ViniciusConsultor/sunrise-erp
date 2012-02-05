@@ -30,6 +30,7 @@ namespace Sunrise.ERP.BaseForm
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBaseForm));
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.dataNav = new DevExpress.XtraEditors.DataNavigator();
             this.btnSettings = new DevExpress.XtraEditors.SimpleButton();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.btnInsert = new DevExpress.XtraEditors.SimpleButton();
@@ -43,6 +44,7 @@ namespace Sunrise.ERP.BaseForm
             this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
             this.btnView = new DevExpress.XtraEditors.SimpleButton();
             this.txtDataFlag = new DevExpress.XtraEditors.TextEdit();
+            this.btnAction = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -56,10 +58,12 @@ namespace Sunrise.ERP.BaseForm
             this.panelControl1.Controls.Add(this.txtDataFlag);
             this.panelControl1.LookAndFeel.SkinName = "Blue";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.panelControl1.Size = new System.Drawing.Size(871, 498);
+            this.panelControl1.Size = new System.Drawing.Size(1055, 498);
             // 
             // panelControl2
             // 
+            this.panelControl2.Controls.Add(this.btnAction);
+            this.panelControl2.Controls.Add(this.dataNav);
             this.panelControl2.Controls.Add(this.btnSettings);
             this.panelControl2.Controls.Add(this.btnRefresh);
             this.panelControl2.Controls.Add(this.btnInsert);
@@ -77,13 +81,27 @@ namespace Sunrise.ERP.BaseForm
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(867, 33);
+            this.panelControl2.Size = new System.Drawing.Size(1051, 33);
             this.panelControl2.TabIndex = 1;
+            // 
+            // dataNav
+            // 
+            this.dataNav.Buttons.Append.Visible = false;
+            this.dataNav.Buttons.CancelEdit.Visible = false;
+            this.dataNav.Buttons.EndEdit.Visible = false;
+            this.dataNav.Buttons.NextPage.Visible = false;
+            this.dataNav.Buttons.PrevPage.Visible = false;
+            this.dataNav.Buttons.Remove.Visible = false;
+            this.dataNav.Location = new System.Drawing.Point(727, 4);
+            this.dataNav.Name = "dataNav";
+            this.dataNav.Size = new System.Drawing.Size(126, 24);
+            this.dataNav.TabIndex = 13;
+            this.dataNav.Visible = false;
             // 
             // btnSettings
             // 
             this.btnSettings.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.settings;
-            this.btnSettings.Location = new System.Drawing.Point(644, 4);
+            this.btnSettings.Location = new System.Drawing.Point(854, 4);
             this.btnSettings.LookAndFeel.SkinName = "Blue";
             this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnSettings.Name = "btnSettings";
@@ -95,7 +113,7 @@ namespace Sunrise.ERP.BaseForm
             // btnRefresh
             // 
             this.btnRefresh.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.refresh;
-            this.btnRefresh.Location = new System.Drawing.Point(769, 4);
+            this.btnRefresh.Location = new System.Drawing.Point(904, 4);
             this.btnRefresh.LookAndFeel.SkinName = "Blue";
             this.btnRefresh.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnRefresh.Name = "btnRefresh";
@@ -108,7 +126,7 @@ namespace Sunrise.ERP.BaseForm
             // btnInsert
             // 
             this.btnInsert.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.insert;
-            this.btnInsert.Location = new System.Drawing.Point(725, 3);
+            this.btnInsert.Location = new System.Drawing.Point(872, 4);
             this.btnInsert.LookAndFeel.SkinName = "Blue";
             this.btnInsert.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnInsert.Name = "btnInsert";
@@ -144,7 +162,7 @@ namespace Sunrise.ERP.BaseForm
             // btnClose
             // 
             this.btnClose.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.close;
-            this.btnClose.Location = new System.Drawing.Point(573, 4);
+            this.btnClose.Location = new System.Drawing.Point(656, 4);
             this.btnClose.LookAndFeel.SkinName = "Blue";
             this.btnClose.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnClose.Name = "btnClose";
@@ -222,7 +240,7 @@ namespace Sunrise.ERP.BaseForm
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(70, 24);
             this.btnView.TabIndex = 0;
-            this.btnView.Text = "²éÑ¯(&Q)";
+            this.btnView.Text = "¹ýÂË(&Q)";
             this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // txtDataFlag
@@ -233,10 +251,22 @@ namespace Sunrise.ERP.BaseForm
             this.txtDataFlag.TabIndex = 2;
             this.txtDataFlag.Visible = false;
             // 
+            // btnAction
+            // 
+            this.btnAction.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.refresh;
+            this.btnAction.Location = new System.Drawing.Point(573, 4);
+            this.btnAction.LookAndFeel.SkinName = "Blue";
+            this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnAction.Name = "btnAction";
+            this.btnAction.Size = new System.Drawing.Size(82, 24);
+            this.btnAction.TabIndex = 14;
+            this.btnAction.Text = "Action(&N)";
+            this.btnAction.Visible = false;
+            // 
             // frmBaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.ClientSize = new System.Drawing.Size(871, 498);
+            this.ClientSize = new System.Drawing.Size(1055, 498);
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmBaseForm";
@@ -267,5 +297,7 @@ namespace Sunrise.ERP.BaseForm
         protected DevExpress.XtraEditors.SimpleButton btnRefresh;
         protected DevExpress.XtraEditors.TextEdit txtDataFlag;
         protected DevExpress.XtraEditors.SimpleButton btnSettings;
+        protected DevExpress.XtraEditors.DataNavigator dataNav;
+        protected DevExpress.XtraEditors.SimpleButton btnAction;
     }
 }
