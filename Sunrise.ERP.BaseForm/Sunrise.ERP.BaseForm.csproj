@@ -89,6 +89,12 @@
     <Compile Include="frmDynamicFormSetting.Designer.cs">
       <DependentUpon>frmDynamicFormSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDynamicFormStyleSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDynamicFormStyleSetting.Designer.cs">
+      <DependentUpon>frmDynamicFormStyleSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDynamicMasterDetail.cs">
       <SubType>Form</SubType>
     </Compile>

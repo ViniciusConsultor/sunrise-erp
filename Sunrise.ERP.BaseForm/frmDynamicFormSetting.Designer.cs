@@ -92,6 +92,7 @@
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.btnFormStyle = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -166,9 +167,25 @@
             // 
             // panelControl2
             // 
+            this.panelControl2.Controls.Add(this.btnFormStyle);
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl2.Size = new System.Drawing.Size(820, 33);
+            this.panelControl2.Controls.SetChildIndex(this.btnFormStyle, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnAction, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnCopy, 0);
+            this.panelControl2.Controls.SetChildIndex(this.dataNav, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnDelete, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnView, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnAdd, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnEdit, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnSave, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnCancel, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnClose, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnPrint, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnInsert, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnRefresh, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnSettings, 0);
             // 
             // btnInsert
             // 
@@ -177,7 +194,7 @@
             // 
             // btnCopy
             // 
-            this.btnCopy.Location = new System.Drawing.Point(578, 5);
+            this.btnCopy.Location = new System.Drawing.Point(701, 4);
             this.btnCopy.LookAndFeel.SkinName = "Blue";
             this.btnCopy.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnCopy.Visible = false;
@@ -197,7 +214,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(392, 5);
+            this.btnDelete.Location = new System.Drawing.Point(544, 4);
             this.btnDelete.LookAndFeel.SkinName = "Blue";
             this.btnDelete.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnDelete.Visible = false;
@@ -255,9 +272,11 @@
             this.dataNav.Buttons.NextPage.Visible = false;
             this.dataNav.Buttons.PrevPage.Visible = false;
             this.dataNav.Buttons.Remove.Visible = false;
+            this.dataNav.Location = new System.Drawing.Point(684, 0);
             // 
             // btnAction
             // 
+            this.btnAction.Location = new System.Drawing.Point(494, 5);
             this.btnAction.LookAndFeel.SkinName = "Blue";
             this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
@@ -976,6 +995,15 @@
             this.emptySpaceItem3.Text = "emptySpaceItem3";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
+            // btnFormStyle
+            // 
+            this.btnFormStyle.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.refresh;
+            this.btnFormStyle.Location = new System.Drawing.Point(288, 4);
+            this.btnFormStyle.Name = "btnFormStyle";
+            this.btnFormStyle.Size = new System.Drawing.Size(75, 24);
+            this.btnFormStyle.TabIndex = 15;
+            this.btnFormStyle.Text = "界面设置";
+            // 
             // frmDynamicFormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1104,5 +1132,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox cbxsColumnType;
         private DevExpress.XtraGrid.Columns.GridColumn colbEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit txtsFieldName;
+        private DevExpress.XtraEditors.SimpleButton btnFormStyle;
     }
 }

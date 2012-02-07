@@ -98,6 +98,12 @@
     <Compile Include="frmsysEditUser.Designer.cs">
       <DependentUpon>frmsysEditUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmsysFormFieldSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmsysFormFieldSetting.Designer.cs">
+      <DependentUpon>frmsysFormFieldSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmsysLookupSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmsysEditUser.resx">
       <DependentUpon>frmsysEditUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmsysFormFieldSetting.resx">
+      <DependentUpon>frmsysFormFieldSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmsysLookupSetting.resx">
       <DependentUpon>frmsysLookupSetting.cs</DependentUpon>

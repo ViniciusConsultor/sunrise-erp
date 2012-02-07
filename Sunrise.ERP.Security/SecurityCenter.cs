@@ -504,6 +504,27 @@ namespace Sunrise.ERP.Security
         }
 
         /// <summary>
+        /// 获取菜单权限SQL
+        /// </summary>
+        /// <param name="userid">用户ID</param>
+        /// <returns></returns>
+        public static string GetMenuAuthSQL(string userid)
+        {
+            string sResult = "SELECT DISTINCT E.ID,E.iFormID,"
+                        + (LangCenter.Instance.IsDefaultLanguage ? "E.sMenuName" : "E.sMenuEngName AS sMenuName")
+                        + ",E.iParentID,E.sModuleName,E.sFormClassName,E.iSort,E.sQuickMenu "
+                        + "FROM sysRolesRights A "
+                        + "LEFT JOIN sysRoles B ON A.RoleID=B.ID "
+                        + "LEFT JOIN sysRolesUser C ON B.ID=C.RoleID "
+                        + "LEFT JOIN sysUser D ON C.UserID=D.ID "
+                        + "LEFT JOIN sysMenu E ON A.MenuID=E.ID "
+                        + "WHERE D.sUserID='" + userid + "' "
+                        + "ORDER BY E.iSort";
+            return sResult;
+        }
+
+
+        /// <summary>
         /// 获取所有菜单SQL
         /// </summary>
         /// <returns></returns>
