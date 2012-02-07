@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sysBillNoSetDAL.cs" />
+    <Compile Include="sysFormFieldSettingDAL.cs" />
     <Compile Include="sysLookupSettingDAL.cs" />
     <Compile Include="sysMenuDAL.cs" />
     <Compile Include="sysMenuParamDAL.cs" />
@@ -67,9 +68,6 @@
       <Project>{E30BB9FB-447C-4260-8ACB-0604DD729BFE}</Project>
       <Name>Sunrise.ERP.DataAccess</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SystemManage\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
