@@ -86,6 +86,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmDynamicFormSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDynamicFormSetting.Designer.cs">
+      <DependentUpon>frmDynamicFormSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmsysBillNoSet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmDynamicFormSetting.resx">
+      <DependentUpon>frmDynamicFormSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmsysBillNoSet.resx">
       <DependentUpon>frmsysBillNoSet.cs</DependentUpon>
     </EmbeddedResource>

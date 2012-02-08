@@ -15,14 +15,16 @@ using Sunrise.ERP.Lang;
 using DevExpress.XtraEditors.Controls;
 using Sunrise.ERP.BaseControl;
 
-namespace Sunrise.ERP.BaseForm
+namespace Sunrise.ERP.Module.SystemManage
 {
     public partial class frmDynamicFormSetting : Sunrise.ERP.BaseForm.frmMasterDetail
     {
-        public frmDynamicFormSetting(int formid)
-            : base(0, "Sunrise.ERP.BaseForm.DAL", "sysDynamicFormMasterDAL", " AND FormID=" + formid.ToString(), false)
+        public frmDynamicFormSetting(int formid, string formtext)
+            : base(formid, "Sunrise.ERP.BaseForm.DAL", "sysDynamicFormMasterDAL", false)
         {
             InitializeComponent();
+            Text = formtext;
+            txtsMenuName.DataBindings.Add("EditValue", dsMain, "sMenuName");
             txtFormID.DataBindings.Add("EditValue", dsMain, "FormID");
             txtiControlColumn.DataBindings.Add("EditValue", dsMain, "iControlColumn");
             txtiControlSpace.DataBindings.Add("EditValue", dsMain, "iControlSpace");
@@ -46,6 +48,7 @@ namespace Sunrise.ERP.BaseForm
         private void frmDynamicFormSetting_Load(object sender, EventArgs e)
         {
             LoadLangSetting();
+
             AddDetailData("sysDynamicFormDetailDAL", "MainID", "ID", "iSort");
             gcDetail.DataSource = LDetailDataSet[LDetailDALName.IndexOf("sysDynamicFormDetailDAL")];
             gcDetail.DataMember = "ds";
@@ -56,7 +59,8 @@ namespace Sunrise.ERP.BaseForm
         public override void MasterAllScroll(object sender, EventArgs e)
         {
             base.MasterAllScroll(sender, e);
-            gcDetail.DataSource = LDetailDataSet[LDetailDALName.IndexOf("sysDynamicFormDetailDAL")];
+            if (LDetailDataSet.Count > 0)
+                gcDetail.DataSource = LDetailDataSet[LDetailDALName.IndexOf("sysDynamicFormDetailDAL")];
         }
 
         public override void DataStateChange(object sender, EventArgs e)
