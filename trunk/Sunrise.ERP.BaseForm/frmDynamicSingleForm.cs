@@ -1310,10 +1310,10 @@ namespace Sunrise.ERP.BaseForm
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            frmDynamicFormSetting frm = new frmDynamicFormSetting(FormID);
-            frm.StartPosition = FormStartPosition.CenterScreen;
-            frm.WindowState = FormWindowState.Maximized;
-            frm.ShowDialog();
+            //frmDynamicFormSetting frm = new frmDynamicFormSetting(FormID);
+            //frm.StartPosition = FormStartPosition.CenterScreen;
+            //frm.WindowState = FormWindowState.Maximized;
+            //frm.ShowDialog();
         }
 
         /// <summary>

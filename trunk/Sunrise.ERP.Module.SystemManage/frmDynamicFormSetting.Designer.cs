@@ -1,4 +1,4 @@
-﻿namespace Sunrise.ERP.BaseForm
+﻿namespace Sunrise.ERP.Module.SystemManage
 {
     partial class frmDynamicFormSetting
     {
@@ -93,6 +93,10 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.btnFormStyle = new DevExpress.XtraEditors.SimpleButton();
+            this.coliFormID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colsMenuName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.txtsMenuName = new DevExpress.XtraEditors.TextEdit();
+            this.lblsMenuName = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -142,28 +146,36 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsMenuName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblsMenuName)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlDetail
             // 
             this.pnlDetail.Controls.Add(this.gcDetail);
             this.pnlDetail.Controls.Add(this.pnlDetailMenu);
-            this.pnlDetail.Location = new System.Drawing.Point(208, 198);
-            this.pnlDetail.Size = new System.Drawing.Size(614, 298);
+            this.pnlDetail.Location = new System.Drawing.Point(251, 218);
+            this.pnlDetail.Size = new System.Drawing.Size(571, 278);
+            // 
+            // splitterControl2
+            // 
+            this.splitterControl2.Location = new System.Drawing.Point(245, 35);
             // 
             // pnlInfo
             // 
             this.pnlInfo.Controls.Add(this.layoutControl1);
-            this.pnlInfo.Size = new System.Drawing.Size(614, 157);
+            this.pnlInfo.Location = new System.Drawing.Point(251, 35);
+            this.pnlInfo.Size = new System.Drawing.Size(571, 177);
             // 
             // pnlGrid
             // 
             this.pnlGrid.Controls.Add(this.gcMain);
+            this.pnlGrid.Size = new System.Drawing.Size(243, 461);
             // 
             // splitterControl1
             // 
-            this.splitterControl1.Location = new System.Drawing.Point(208, 192);
-            this.splitterControl1.Size = new System.Drawing.Size(614, 6);
+            this.splitterControl1.Location = new System.Drawing.Point(251, 212);
+            this.splitterControl1.Size = new System.Drawing.Size(571, 6);
             // 
             // panelControl2
             // 
@@ -293,7 +305,7 @@
             this.gcMain.Location = new System.Drawing.Point(2, 2);
             this.gcMain.MainView = this.gvMain;
             this.gcMain.Name = "gcMain";
-            this.gcMain.Size = new System.Drawing.Size(196, 457);
+            this.gcMain.Size = new System.Drawing.Size(239, 457);
             this.gcMain.TabIndex = 1;
             this.gcMain.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvMain});
@@ -301,16 +313,21 @@
             // gvMain
             // 
             this.gvMain.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.coliFormID,
+            this.colsMenuName,
             this.colsFormType,
             this.colsTableName,
             this.colsQueryViewName});
             this.gvMain.GridControl = this.gcMain;
+            this.gvMain.GroupCount = 1;
             this.gvMain.Name = "gvMain";
             this.gvMain.OptionsBehavior.Editable = false;
             this.gvMain.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gvMain.OptionsView.ColumnAutoWidth = false;
+            this.gvMain.OptionsView.ShowAutoFilterRow = true;
             this.gvMain.OptionsView.ShowFooter = true;
-            this.gvMain.OptionsView.ShowGroupPanel = false;
+            this.gvMain.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colsMenuName, DevExpress.Data.ColumnSortOrder.Ascending)});
             // 
             // colsFormType
             // 
@@ -318,7 +335,7 @@
             this.colsFormType.FieldName = "sFormTypeEngName";
             this.colsFormType.Name = "colsFormType";
             this.colsFormType.Visible = true;
-            this.colsFormType.VisibleIndex = 0;
+            this.colsFormType.VisibleIndex = 1;
             // 
             // colsTableName
             // 
@@ -326,8 +343,8 @@
             this.colsTableName.FieldName = "sTableName";
             this.colsTableName.Name = "colsTableName";
             this.colsTableName.Visible = true;
-            this.colsTableName.VisibleIndex = 1;
-            this.colsTableName.Width = 83;
+            this.colsTableName.VisibleIndex = 2;
+            this.colsTableName.Width = 88;
             // 
             // colsQueryViewName
             // 
@@ -335,7 +352,8 @@
             this.colsQueryViewName.FieldName = "sQueryViewName";
             this.colsQueryViewName.Name = "colsQueryViewName";
             this.colsQueryViewName.Visible = true;
-            this.colsQueryViewName.VisibleIndex = 2;
+            this.colsQueryViewName.VisibleIndex = 3;
+            this.colsQueryViewName.Width = 108;
             // 
             // pnlDetailMenu
             // 
@@ -346,12 +364,12 @@
             this.pnlDetailMenu.LookAndFeel.SkinName = "Blue";
             this.pnlDetailMenu.LookAndFeel.UseDefaultLookAndFeel = false;
             this.pnlDetailMenu.Name = "pnlDetailMenu";
-            this.pnlDetailMenu.Size = new System.Drawing.Size(610, 33);
+            this.pnlDetailMenu.Size = new System.Drawing.Size(567, 33);
             this.pnlDetailMenu.TabIndex = 5;
             // 
             // btnDetailDelete
             // 
-            this.btnDetailDelete.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.delete;
+            this.btnDetailDelete.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.delete;
             this.btnDetailDelete.Location = new System.Drawing.Point(76, 4);
             this.btnDetailDelete.LookAndFeel.SkinName = "Blue";
             this.btnDetailDelete.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -363,7 +381,7 @@
             // 
             // btnDetailAdd
             // 
-            this.btnDetailAdd.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.add;
+            this.btnDetailAdd.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.add;
             this.btnDetailAdd.Location = new System.Drawing.Point(5, 4);
             this.btnDetailAdd.LookAndFeel.SkinName = "Blue";
             this.btnDetailAdd.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -386,7 +404,7 @@
             this.mtxtsLookupAutoSetGrid,
             this.cbxsColumnType,
             this.txtsFieldName});
-            this.gcDetail.Size = new System.Drawing.Size(610, 261);
+            this.gcDetail.Size = new System.Drawing.Size(567, 241);
             this.gcDetail.TabIndex = 6;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDetail});
@@ -687,6 +705,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.txtsMenuName);
             this.layoutControl1.Controls.Add(this.chkbSyncLookUp);
             this.layoutControl1.Controls.Add(this.chkbCreateLookUp);
             this.layoutControl1.Controls.Add(this.txtsQueryViewName);
@@ -702,13 +721,13 @@
             this.layoutControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(610, 153);
+            this.layoutControl1.Size = new System.Drawing.Size(567, 173);
             this.layoutControl1.TabIndex = 3;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // chkbSyncLookUp
             // 
-            this.chkbSyncLookUp.Location = new System.Drawing.Point(372, 106);
+            this.chkbSyncLookUp.Location = new System.Drawing.Point(372, 131);
             this.chkbSyncLookUp.Name = "chkbSyncLookUp";
             this.chkbSyncLookUp.Properties.Caption = "是否修改同步Lookup";
             this.chkbSyncLookUp.Size = new System.Drawing.Size(138, 19);
@@ -717,7 +736,7 @@
             // 
             // chkbCreateLookUp
             // 
-            this.chkbCreateLookUp.Location = new System.Drawing.Point(235, 106);
+            this.chkbCreateLookUp.Location = new System.Drawing.Point(235, 131);
             this.chkbCreateLookUp.Name = "chkbCreateLookUp";
             this.chkbCreateLookUp.Properties.Caption = "是否创建Lookup";
             this.chkbCreateLookUp.Size = new System.Drawing.Size(133, 19);
@@ -726,7 +745,7 @@
             // 
             // txtsQueryViewName
             // 
-            this.txtsQueryViewName.Location = new System.Drawing.Point(85, 106);
+            this.txtsQueryViewName.Location = new System.Drawing.Point(85, 131);
             this.txtsQueryViewName.Name = "txtsQueryViewName";
             this.txtsQueryViewName.Size = new System.Drawing.Size(146, 21);
             this.txtsQueryViewName.StyleController = this.layoutControl1;
@@ -744,7 +763,7 @@
             this.lkpsFormType.GridColumnText = null;
             this.lkpsFormType.GridDisplayField = null;
             this.lkpsFormType.IsReadOnly = false;
-            this.lkpsFormType.Location = new System.Drawing.Point(311, 31);
+            this.lkpsFormType.Location = new System.Drawing.Point(311, 56);
             this.lkpsFormType.Name = "lkpsFormType";
             this.lkpsFormType.SearchFormFilter = "";
             this.lkpsFormType.SearchFormText = "";
@@ -756,7 +775,7 @@
             // 
             // txtiControlSpace
             // 
-            this.txtiControlSpace.Location = new System.Drawing.Point(85, 81);
+            this.txtiControlSpace.Location = new System.Drawing.Point(85, 106);
             this.txtiControlSpace.Name = "txtiControlSpace";
             this.txtiControlSpace.Size = new System.Drawing.Size(146, 21);
             this.txtiControlSpace.StyleController = this.layoutControl1;
@@ -764,7 +783,7 @@
             // 
             // txtiControlColumn
             // 
-            this.txtiControlColumn.Location = new System.Drawing.Point(311, 56);
+            this.txtiControlColumn.Location = new System.Drawing.Point(311, 81);
             this.txtiControlColumn.Name = "txtiControlColumn";
             this.txtiControlColumn.Size = new System.Drawing.Size(146, 21);
             this.txtiControlColumn.StyleController = this.layoutControl1;
@@ -772,7 +791,7 @@
             // 
             // txtiDefaultQueryCount
             // 
-            this.txtiDefaultQueryCount.Location = new System.Drawing.Point(85, 56);
+            this.txtiDefaultQueryCount.Location = new System.Drawing.Point(85, 81);
             this.txtiDefaultQueryCount.Name = "txtiDefaultQueryCount";
             this.txtiDefaultQueryCount.Size = new System.Drawing.Size(146, 21);
             this.txtiDefaultQueryCount.StyleController = this.layoutControl1;
@@ -780,7 +799,7 @@
             // 
             // txtFormID
             // 
-            this.txtFormID.Location = new System.Drawing.Point(85, 31);
+            this.txtFormID.Location = new System.Drawing.Point(85, 56);
             this.txtFormID.Name = "txtFormID";
             this.txtFormID.Properties.ReadOnly = true;
             this.txtFormID.Size = new System.Drawing.Size(146, 21);
@@ -790,7 +809,7 @@
             // 
             // txtsTableName
             // 
-            this.txtsTableName.Location = new System.Drawing.Point(311, 81);
+            this.txtsTableName.Location = new System.Drawing.Point(311, 106);
             this.txtsTableName.Name = "txtsTableName";
             this.txtsTableName.Properties.ReadOnly = true;
             this.txtsTableName.Size = new System.Drawing.Size(146, 21);
@@ -808,7 +827,7 @@
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(610, 153);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(567, 173);
             this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
@@ -821,7 +840,7 @@
             this.tabbedControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(1, 1, 1, 1);
             this.tabbedControlGroup1.SelectedTabPage = this.lblGroup;
             this.tabbedControlGroup1.SelectedTabPageIndex = 0;
-            this.tabbedControlGroup1.Size = new System.Drawing.Size(606, 149);
+            this.tabbedControlGroup1.Size = new System.Drawing.Size(563, 169);
             this.tabbedControlGroup1.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lblGroup});
             this.tabbedControlGroup1.Text = "tabbedControlGroup1";
@@ -841,17 +860,18 @@
             this.layoutControlItem7,
             this.layoutControlItem8,
             this.emptySpaceItem1,
-            this.emptySpaceItem3});
+            this.emptySpaceItem3,
+            this.lblsMenuName});
             this.lblGroup.Location = new System.Drawing.Point(0, 0);
             this.lblGroup.Name = "lblGroup";
-            this.lblGroup.Size = new System.Drawing.Size(596, 117);
+            this.lblGroup.Size = new System.Drawing.Size(553, 137);
             this.lblGroup.Text = "窗体配置";
             // 
             // lblFormID
             // 
             this.lblFormID.Control = this.txtFormID;
             this.lblFormID.CustomizationFormText = "layoutControlItem3";
-            this.lblFormID.Location = new System.Drawing.Point(0, 0);
+            this.lblFormID.Location = new System.Drawing.Point(0, 25);
             this.lblFormID.MaxSize = new System.Drawing.Size(226, 25);
             this.lblFormID.MinSize = new System.Drawing.Size(226, 25);
             this.lblFormID.Name = "lblFormID";
@@ -864,7 +884,7 @@
             // 
             this.lbliDefaultQueryCount.Control = this.txtiDefaultQueryCount;
             this.lbliDefaultQueryCount.CustomizationFormText = "控件间距";
-            this.lbliDefaultQueryCount.Location = new System.Drawing.Point(0, 25);
+            this.lbliDefaultQueryCount.Location = new System.Drawing.Point(0, 50);
             this.lbliDefaultQueryCount.MaxSize = new System.Drawing.Size(226, 25);
             this.lbliDefaultQueryCount.MinSize = new System.Drawing.Size(226, 25);
             this.lbliDefaultQueryCount.Name = "lbliDefaultQueryCount";
@@ -877,7 +897,7 @@
             // 
             this.lbliControlColumn.Control = this.txtiControlColumn;
             this.lbliControlColumn.CustomizationFormText = "每行控件数";
-            this.lbliControlColumn.Location = new System.Drawing.Point(226, 25);
+            this.lbliControlColumn.Location = new System.Drawing.Point(226, 50);
             this.lbliControlColumn.MaxSize = new System.Drawing.Size(226, 25);
             this.lbliControlColumn.MinSize = new System.Drawing.Size(226, 25);
             this.lbliControlColumn.Name = "lbliControlColumn";
@@ -890,7 +910,7 @@
             // 
             this.lbliControlSpace.Control = this.txtiControlSpace;
             this.lbliControlSpace.CustomizationFormText = "按钮显示名";
-            this.lbliControlSpace.Location = new System.Drawing.Point(0, 50);
+            this.lbliControlSpace.Location = new System.Drawing.Point(0, 75);
             this.lbliControlSpace.MaxSize = new System.Drawing.Size(226, 25);
             this.lbliControlSpace.MinSize = new System.Drawing.Size(226, 25);
             this.lbliControlSpace.Name = "lbliControlSpace";
@@ -904,7 +924,7 @@
             this.emptySpaceItem2.CustomizationFormText = "emptySpaceItem2";
             this.emptySpaceItem2.Location = new System.Drawing.Point(452, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(144, 75);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(101, 100);
             this.emptySpaceItem2.Text = "emptySpaceItem2";
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -912,7 +932,7 @@
             // 
             this.lblsFormType.Control = this.lkpsFormType;
             this.lblsFormType.CustomizationFormText = "layoutControlItem4";
-            this.lblsFormType.Location = new System.Drawing.Point(226, 0);
+            this.lblsFormType.Location = new System.Drawing.Point(226, 25);
             this.lblsFormType.MaxSize = new System.Drawing.Size(226, 25);
             this.lblsFormType.MinSize = new System.Drawing.Size(226, 25);
             this.lblsFormType.Name = "lblsFormType";
@@ -925,7 +945,7 @@
             // 
             this.lblsTableName.Control = this.txtsTableName;
             this.lblsTableName.CustomizationFormText = "layoutControlItem2";
-            this.lblsTableName.Location = new System.Drawing.Point(226, 50);
+            this.lblsTableName.Location = new System.Drawing.Point(226, 75);
             this.lblsTableName.MaxSize = new System.Drawing.Size(226, 25);
             this.lblsTableName.MinSize = new System.Drawing.Size(226, 25);
             this.lblsTableName.Name = "lblsTableName";
@@ -938,7 +958,7 @@
             // 
             this.lblsQueryViewName.Control = this.txtsQueryViewName;
             this.lblsQueryViewName.CustomizationFormText = "视图名称";
-            this.lblsQueryViewName.Location = new System.Drawing.Point(0, 75);
+            this.lblsQueryViewName.Location = new System.Drawing.Point(0, 100);
             this.lblsQueryViewName.MaxSize = new System.Drawing.Size(226, 25);
             this.lblsQueryViewName.MinSize = new System.Drawing.Size(226, 25);
             this.lblsQueryViewName.Name = "lblsQueryViewName";
@@ -951,7 +971,7 @@
             // 
             this.layoutControlItem7.Control = this.chkbCreateLookUp;
             this.layoutControlItem7.CustomizationFormText = "layoutControlItem7";
-            this.layoutControlItem7.Location = new System.Drawing.Point(226, 75);
+            this.layoutControlItem7.Location = new System.Drawing.Point(226, 100);
             this.layoutControlItem7.MaxSize = new System.Drawing.Size(137, 25);
             this.layoutControlItem7.MinSize = new System.Drawing.Size(137, 25);
             this.layoutControlItem7.Name = "layoutControlItem7";
@@ -966,7 +986,7 @@
             // 
             this.layoutControlItem8.Control = this.chkbSyncLookUp;
             this.layoutControlItem8.CustomizationFormText = "layoutControlItem8";
-            this.layoutControlItem8.Location = new System.Drawing.Point(363, 75);
+            this.layoutControlItem8.Location = new System.Drawing.Point(363, 100);
             this.layoutControlItem8.MaxSize = new System.Drawing.Size(142, 25);
             this.layoutControlItem8.MinSize = new System.Drawing.Size(142, 25);
             this.layoutControlItem8.Name = "layoutControlItem8";
@@ -980,29 +1000,66 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 100);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 125);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(596, 17);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(553, 12);
             this.emptySpaceItem1.Text = "emptySpaceItem1";
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // emptySpaceItem3
             // 
             this.emptySpaceItem3.CustomizationFormText = "emptySpaceItem3";
-            this.emptySpaceItem3.Location = new System.Drawing.Point(505, 75);
+            this.emptySpaceItem3.Location = new System.Drawing.Point(505, 100);
             this.emptySpaceItem3.Name = "emptySpaceItem3";
-            this.emptySpaceItem3.Size = new System.Drawing.Size(91, 25);
+            this.emptySpaceItem3.Size = new System.Drawing.Size(48, 25);
             this.emptySpaceItem3.Text = "emptySpaceItem3";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
             // btnFormStyle
             // 
-            this.btnFormStyle.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.refresh;
+            this.btnFormStyle.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.refresh;
             this.btnFormStyle.Location = new System.Drawing.Point(288, 4);
             this.btnFormStyle.Name = "btnFormStyle";
             this.btnFormStyle.Size = new System.Drawing.Size(75, 24);
             this.btnFormStyle.TabIndex = 15;
             this.btnFormStyle.Text = "界面设置";
+            // 
+            // coliFormID
+            // 
+            this.coliFormID.Caption = "FormID";
+            this.coliFormID.FieldName = "FormID";
+            this.coliFormID.Name = "coliFormID";
+            this.coliFormID.Visible = true;
+            this.coliFormID.VisibleIndex = 0;
+            // 
+            // colsMenuName
+            // 
+            this.colsMenuName.Caption = "模块名称";
+            this.colsMenuName.FieldName = "sMenuName";
+            this.colsMenuName.Name = "colsMenuName";
+            this.colsMenuName.Visible = true;
+            this.colsMenuName.VisibleIndex = 0;
+            this.colsMenuName.Width = 107;
+            // 
+            // txtsMenuName
+            // 
+            this.txtsMenuName.Location = new System.Drawing.Point(85, 31);
+            this.txtsMenuName.Name = "txtsMenuName";
+            this.txtsMenuName.Properties.ReadOnly = true;
+            this.txtsMenuName.Size = new System.Drawing.Size(372, 21);
+            this.txtsMenuName.StyleController = this.layoutControl1;
+            this.txtsMenuName.TabIndex = 19;
+            this.txtsMenuName.Tag = "99";
+            // 
+            // lblsMenuName
+            // 
+            this.lblsMenuName.Control = this.txtsMenuName;
+            this.lblsMenuName.CustomizationFormText = "模块名称";
+            this.lblsMenuName.Location = new System.Drawing.Point(0, 0);
+            this.lblsMenuName.Name = "lblsMenuName";
+            this.lblsMenuName.Size = new System.Drawing.Size(452, 25);
+            this.lblsMenuName.Text = "模块名称";
+            this.lblsMenuName.TextSize = new System.Drawing.Size(72, 14);
             // 
             // frmDynamicFormSetting
             // 
@@ -1062,6 +1119,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsMenuName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblsMenuName)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1133,5 +1192,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn colbEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit txtsFieldName;
         private DevExpress.XtraEditors.SimpleButton btnFormStyle;
+        private DevExpress.XtraGrid.Columns.GridColumn coliFormID;
+        private DevExpress.XtraGrid.Columns.GridColumn colsMenuName;
+        private DevExpress.XtraEditors.TextEdit txtsMenuName;
+        private DevExpress.XtraLayout.LayoutControlItem lblsMenuName;
     }
 }
