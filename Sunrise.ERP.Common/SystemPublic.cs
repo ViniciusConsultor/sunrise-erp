@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using Sunrise.ERP.Controls;
+using Sunrise.ERP.DataAccess;
 
 namespace Sunrise.ERP.Common
 {
@@ -264,7 +265,7 @@ namespace Sunrise.ERP.Common
                 string datetype = "";
                 string serialtype = "";
                 string sSQL = "SELECT * FROM sysBillNoSet WHERE iFormID=" + formid.ToString();
-                DataTable dtTemp = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSQL).Tables[0];
+                DataTable dtTemp = DbHelperSQL.Query(sSQL).Tables[0];
                 if (dtTemp != null && dtTemp.Rows.Count > 0)
                 {
                     tablename = dtTemp.Rows[0]["sTableName"].ToString();
@@ -282,6 +283,19 @@ namespace Sunrise.ERP.Common
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// 获取数据字典数据
+        /// </summary>
+        /// <param name="dictno">编号</param>
+        /// <returns></returns>
+        public static DataTable GetDictData(string dictno)
+        {
+            string sSql = "SELECT A.sDictDataNo, A.sDictDataCName, A.sDictDataEName "
+                        + "FROM vwbasDataDictDetail A "
+                        + "WHERE A.sDictCategoryNo='" + dictno + "'";
+            return DbHelperSQL.Query(sSql).Tables[0];
         }
 
         

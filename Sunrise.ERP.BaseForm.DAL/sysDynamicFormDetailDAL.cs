@@ -38,9 +38,9 @@ namespace Sunrise.ERP.BaseForm.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("INSERT INTO sysDynamicFormDetail(");
-            strSql.Append("MainID,iSort,sFieldName,sCaption,sEngCaption,sFieldType,iFieldLength,sControlType,sLookupNo,sLookupAutoSetControl,sLookupAutoSetGrid,sColumnType,bEdit,bSaveData,bQuery,bSystemColumn,bNotNull,bHistory,bShowInGrid,bShowInPanel,bIsSum,bIsCount,sLocation,sSize,sUserID)");
+            strSql.Append("MainID,iSort,sFieldName,sCaption,sEngCaption,sFieldType,iFieldLength,sControlType,sLookupNo,sLookupAutoSetControl,sLookupAutoSetGrid,sColumnType,bEdit,bSaveData,bQuery,bSystemColumn,bNotNull,bHistory,bShowInGrid,bShowInPanel,sLocation,sSize,sUserID,sFooterType)");
             strSql.Append(" VALUES (");
-            strSql.Append("@MainID,@iSort,@sFieldName,@sCaption,@sEngCaption,@sFieldType,@iFieldLength,@sControlType,@sLookupNo,@sLookupAutoSetControl,@sLookupAutoSetGrid,@sColumnType,@bEdit,@bSaveData,@bQuery,@bSystemColumn,@bNotNull,@bHistory,@bShowInGrid,@bShowInPanel,@bIsSum,@bIsCount,@sLocation,@sSize,@sUserID)");
+            strSql.Append("@MainID,@iSort,@sFieldName,@sCaption,@sEngCaption,@sFieldType,@iFieldLength,@sControlType,@sLookupNo,@sLookupAutoSetControl,@sLookupAutoSetGrid,@sColumnType,@bEdit,@bSaveData,@bQuery,@bSystemColumn,@bNotNull,@bHistory,@bShowInGrid,@bShowInPanel,@sLocation,@sSize,@sUserID,@sFooterType)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@MainID", SqlDbType.Int,4),
@@ -63,11 +63,10 @@ namespace Sunrise.ERP.BaseForm.DAL
 					new SqlParameter("@bHistory", SqlDbType.Bit,1),
 					new SqlParameter("@bShowInGrid", SqlDbType.Bit,1),
 					new SqlParameter("@bShowInPanel", SqlDbType.Bit,1),
-					new SqlParameter("@bIsSum", SqlDbType.Bit,1),
-					new SqlParameter("@bIsCount", SqlDbType.Bit,1),
 					new SqlParameter("@sLocation", SqlDbType.VarChar,50),
 					new SqlParameter("@sSize", SqlDbType.VarChar,50),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
+					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
+					new SqlParameter("@sFooterType", SqlDbType.VarChar,30)};
             parameters[0].Value = dr["MainID"];
             parameters[1].Value = dr["iSort"];
             parameters[2].Value = dr["sFieldName"];
@@ -88,11 +87,10 @@ namespace Sunrise.ERP.BaseForm.DAL
             parameters[17].Value = dr["bHistory"];
             parameters[18].Value = dr["bShowInGrid"];
             parameters[19].Value = dr["bShowInPanel"];
-            parameters[20].Value = dr["bIsSum"];
-            parameters[21].Value = dr["bIsCount"];
-            parameters[22].Value = dr["sLocation"];
-            parameters[23].Value = dr["sSize"];
-            parameters[24].Value = dr["sUserID"];
+            parameters[20].Value = dr["sLocation"];
+            parameters[21].Value = dr["sSize"];
+            parameters[22].Value = dr["sUserID"];
+            parameters[23].Value = dr["sFooterType"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -131,11 +129,10 @@ namespace Sunrise.ERP.BaseForm.DAL
             strSql.Append("bHistory=@bHistory,");
             strSql.Append("bShowInGrid=@bShowInGrid,");
             strSql.Append("bShowInPanel=@bShowInPanel,");
-            strSql.Append("bIsSum=@bIsSum,");
-            strSql.Append("bIsCount=@bIsCount,");
             strSql.Append("sLocation=@sLocation,");
             strSql.Append("sSize=@sSize,");
-            strSql.Append("sUserID=@sUserID");
+            strSql.Append("sUserID=@sUserID,");
+            strSql.Append("sFooterType=@sFooterType");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
@@ -159,11 +156,10 @@ namespace Sunrise.ERP.BaseForm.DAL
 					new SqlParameter("@bHistory", SqlDbType.Bit,1),
 					new SqlParameter("@bShowInGrid", SqlDbType.Bit,1),
 					new SqlParameter("@bShowInPanel", SqlDbType.Bit,1),
-					new SqlParameter("@bIsSum", SqlDbType.Bit,1),
-					new SqlParameter("@bIsCount", SqlDbType.Bit,1),
 					new SqlParameter("@sLocation", SqlDbType.VarChar,50),
 					new SqlParameter("@sSize", SqlDbType.VarChar,50),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
+					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
+					new SqlParameter("@sFooterType", SqlDbType.VarChar,30)};
             parameters[0].Value = dr["ID"];
             parameters[1].Value = dr["MainID"];
             parameters[2].Value = dr["iSort"];
@@ -185,11 +181,10 @@ namespace Sunrise.ERP.BaseForm.DAL
             parameters[18].Value = dr["bHistory"];
             parameters[19].Value = dr["bShowInGrid"];
             parameters[20].Value = dr["bShowInPanel"];
-            parameters[21].Value = dr["bIsSum"];
-            parameters[22].Value = dr["bIsCount"];
-            parameters[23].Value = dr["sLocation"];
-            parameters[24].Value = dr["sSize"];
-            parameters[25].Value = dr["sUserID"];
+            parameters[21].Value = dr["sLocation"];
+            parameters[22].Value = dr["sSize"];
+            parameters[23].Value = dr["sUserID"];
+            parameters[24].Value = dr["sFooterType"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }

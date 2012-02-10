@@ -37,7 +37,12 @@ namespace Sunrise.ERP.Security
         /// <summary>
         /// 单价
         /// </summary>
-        Price
+        Price,
+        /// <summary>
+        /// 属性
+        /// </summary>
+        Property
+        
     }
 
     /// <summary>
@@ -68,7 +73,15 @@ namespace Sunrise.ERP.Security
         /// <summary>
         /// 所有-5
         /// </summary>
-        All
+        All,
+        /// <summary>
+        /// 下属部门-6
+        /// </summary>
+        DeptUnderling,
+        /// <summary>
+        /// 部门及下属部门-7
+        /// </summary>
+        DepartmentAndUnderling
     }
 
     /// <summary>

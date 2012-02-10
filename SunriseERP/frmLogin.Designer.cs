@@ -72,7 +72,7 @@ namespace SunriseERP
             this.btnLogin.Location = new System.Drawing.Point(121, 135);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(68, 23);
-            this.btnLogin.TabIndex = 4;
+            this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "登录(&L)";
             this.btnLogin.ToolTip = "登录";
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -121,7 +121,7 @@ namespace SunriseERP
             this.txtUserID.Location = new System.Drawing.Point(179, 44);
             this.txtUserID.Name = "txtUserID";
             this.txtUserID.Size = new System.Drawing.Size(169, 21);
-            this.txtUserID.TabIndex = 1;
+            this.txtUserID.TabIndex = 0;
             // 
             // txtPassword
             // 
@@ -130,7 +130,7 @@ namespace SunriseERP
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Properties.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(169, 21);
-            this.txtPassword.TabIndex = 2;
+            this.txtPassword.TabIndex = 1;
             // 
             // lblUserName
             // 
@@ -139,7 +139,7 @@ namespace SunriseERP
             this.lblUserName.Location = new System.Drawing.Point(103, 47);
             this.lblUserName.Name = "lblUserName";
             this.lblUserName.Size = new System.Drawing.Size(52, 14);
-            this.lblUserName.TabIndex = 7;
+            this.lblUserName.TabIndex = 6;
             this.lblUserName.Text = "用户名：";
             // 
             // lblPassword
@@ -149,7 +149,7 @@ namespace SunriseERP
             this.lblPassword.Location = new System.Drawing.Point(103, 74);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(51, 14);
-            this.lblPassword.TabIndex = 8;
+            this.lblPassword.TabIndex = 7;
             this.lblPassword.Text = "密   码：";
             // 
             // btnSet
@@ -159,7 +159,7 @@ namespace SunriseERP
             this.btnSet.Location = new System.Drawing.Point(280, 135);
             this.btnSet.Name = "btnSet";
             this.btnSet.Size = new System.Drawing.Size(68, 23);
-            this.btnSet.TabIndex = 6;
+            this.btnSet.TabIndex = 5;
             this.btnSet.Text = "设置(&S)";
             this.btnSet.ToolTip = "设置数据库连接";
             this.btnSet.Click += new System.EventHandler(this.btnSet_Click);
@@ -172,7 +172,7 @@ namespace SunriseERP
             this.btnCancel.Location = new System.Drawing.Point(201, 135);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(68, 23);
-            this.btnCancel.TabIndex = 5;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "取消(&C)";
             this.btnCancel.ToolTip = "取消";
             // 
@@ -208,7 +208,7 @@ namespace SunriseERP
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("简体中文(默认)", "default", -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("English", "english", -1)});
             this.cbxLang.Size = new System.Drawing.Size(169, 21);
-            this.cbxLang.TabIndex = 3;
+            this.cbxLang.TabIndex = 2;
             this.cbxLang.SelectedIndexChanged += new System.EventHandler(this.cbxLang_SelectedIndexChanged);
             // 
             // lblLang
@@ -218,7 +218,7 @@ namespace SunriseERP
             this.lblLang.Location = new System.Drawing.Point(103, 101);
             this.lblLang.Name = "lblLang";
             this.lblLang.Size = new System.Drawing.Size(65, 14);
-            this.lblLang.TabIndex = 9;
+            this.lblLang.TabIndex = 8;
             this.lblLang.Text = "系统语言：";
             // 
             // frmLogin

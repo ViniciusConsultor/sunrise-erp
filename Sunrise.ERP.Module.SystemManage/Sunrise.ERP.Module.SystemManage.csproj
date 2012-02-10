@@ -122,11 +122,11 @@
     <Compile Include="frmsysMenuPara.Designer.cs">
       <DependentUpon>frmsysMenuPara.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmsysPlatformManage2.cs">
+    <Compile Include="frmsysPlatformManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmsysPlatformManage2.Designer.cs">
-      <DependentUpon>frmsysPlatformManage2.cs</DependentUpon>
+    <Compile Include="frmsysPlatformManage.Designer.cs">
+      <DependentUpon>frmsysPlatformManage.cs</DependentUpon>
     </Compile>
     <Compile Include="frmsysQueryReport.cs">
       <SubType>Form</SubType>
@@ -223,8 +223,8 @@
     <EmbeddedResource Include="frmsysMenuPara.resx">
       <DependentUpon>frmsysMenuPara.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmsysPlatformManage2.resx">
-      <DependentUpon>frmsysPlatformManage2.cs</DependentUpon>
+    <EmbeddedResource Include="frmsysPlatformManage.resx">
+      <DependentUpon>frmsysPlatformManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmsysQueryReport.resx">
       <DependentUpon>frmsysQueryReport.cs</DependentUpon>
