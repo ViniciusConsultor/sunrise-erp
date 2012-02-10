@@ -30,6 +30,8 @@
         {
             this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.coliFormID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colsMenuName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsFormType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsTableName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsQueryViewName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -63,11 +65,11 @@
             this.colbHistory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbShowInPanel = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbShowInGrid = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colbIsSum = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colbIsCount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colsFooterType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsLocation = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsSize = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.txtsMenuName = new DevExpress.XtraEditors.TextEdit();
             this.chkbSyncLookUp = new DevExpress.XtraEditors.CheckEdit();
             this.chkbCreateLookUp = new DevExpress.XtraEditors.CheckEdit();
             this.txtsQueryViewName = new DevExpress.XtraEditors.TextEdit();
@@ -92,11 +94,9 @@
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.btnFormStyle = new DevExpress.XtraEditors.SimpleButton();
-            this.coliFormID = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colsMenuName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.txtsMenuName = new DevExpress.XtraEditors.TextEdit();
             this.lblsMenuName = new DevExpress.XtraLayout.LayoutControlItem();
+            this.btnFormStyle = new DevExpress.XtraEditors.SimpleButton();
+            this.cbxsFooterType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -123,6 +123,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbxsColumnType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsMenuName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkbSyncLookUp.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkbCreateLookUp.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsQueryViewName.Properties)).BeginInit();
@@ -146,8 +147,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtsMenuName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblsMenuName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxsFooterType)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlDetail
@@ -326,8 +327,26 @@
             this.gvMain.OptionsView.ColumnAutoWidth = false;
             this.gvMain.OptionsView.ShowAutoFilterRow = true;
             this.gvMain.OptionsView.ShowFooter = true;
+            this.gvMain.OptionsView.ShowGroupPanel = false;
             this.gvMain.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colsMenuName, DevExpress.Data.ColumnSortOrder.Ascending)});
+            // 
+            // coliFormID
+            // 
+            this.coliFormID.Caption = "FormID";
+            this.coliFormID.FieldName = "FormID";
+            this.coliFormID.Name = "coliFormID";
+            this.coliFormID.Visible = true;
+            this.coliFormID.VisibleIndex = 0;
+            // 
+            // colsMenuName
+            // 
+            this.colsMenuName.Caption = "模块名称";
+            this.colsMenuName.FieldName = "sMenuName";
+            this.colsMenuName.Name = "colsMenuName";
+            this.colsMenuName.Visible = true;
+            this.colsMenuName.VisibleIndex = 0;
+            this.colsMenuName.Width = 107;
             // 
             // colsFormType
             // 
@@ -403,7 +422,8 @@
             this.mtxtsLookupAutoSetControl,
             this.mtxtsLookupAutoSetGrid,
             this.cbxsColumnType,
-            this.txtsFieldName});
+            this.txtsFieldName,
+            this.cbxsFooterType});
             this.gcDetail.Size = new System.Drawing.Size(567, 241);
             this.gcDetail.TabIndex = 6;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -431,8 +451,7 @@
             this.colbHistory,
             this.colbShowInPanel,
             this.colbShowInGrid,
-            this.colbIsSum,
-            this.colbIsCount,
+            this.colsFooterType,
             this.colsLocation,
             this.colsSize});
             this.gvDetail.GridControl = this.gcDetail;
@@ -667,23 +686,15 @@
             this.colbShowInGrid.VisibleIndex = 17;
             this.colbShowInGrid.Width = 97;
             // 
-            // colbIsSum
+            // colsFooterType
             // 
-            this.colbIsSum.Caption = "合计";
-            this.colbIsSum.FieldName = "bIsSum";
-            this.colbIsSum.Name = "colbIsSum";
-            this.colbIsSum.Visible = true;
-            this.colbIsSum.VisibleIndex = 18;
-            this.colbIsSum.Width = 57;
-            // 
-            // colbIsCount
-            // 
-            this.colbIsCount.Caption = "计数";
-            this.colbIsCount.FieldName = "bIsCount";
-            this.colbIsCount.Name = "colbIsCount";
-            this.colbIsCount.Visible = true;
-            this.colbIsCount.VisibleIndex = 19;
-            this.colbIsCount.Width = 62;
+            this.colsFooterType.Caption = "脚注显示";
+            this.colsFooterType.ColumnEdit = this.cbxsFooterType;
+            this.colsFooterType.FieldName = "sFooterType";
+            this.colsFooterType.Name = "colsFooterType";
+            this.colsFooterType.Visible = true;
+            this.colsFooterType.VisibleIndex = 18;
+            this.colsFooterType.Width = 89;
             // 
             // colsLocation
             // 
@@ -691,7 +702,7 @@
             this.colsLocation.FieldName = "sLocation";
             this.colsLocation.Name = "colsLocation";
             this.colsLocation.Visible = true;
-            this.colsLocation.VisibleIndex = 20;
+            this.colsLocation.VisibleIndex = 19;
             this.colsLocation.Width = 97;
             // 
             // colsSize
@@ -700,7 +711,7 @@
             this.colsSize.FieldName = "sSize";
             this.colsSize.Name = "colsSize";
             this.colsSize.Visible = true;
-            this.colsSize.VisibleIndex = 21;
+            this.colsSize.VisibleIndex = 20;
             this.colsSize.Width = 80;
             // 
             // layoutControl1
@@ -724,6 +735,16 @@
             this.layoutControl1.Size = new System.Drawing.Size(567, 173);
             this.layoutControl1.TabIndex = 3;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // txtsMenuName
+            // 
+            this.txtsMenuName.Location = new System.Drawing.Point(85, 31);
+            this.txtsMenuName.Name = "txtsMenuName";
+            this.txtsMenuName.Properties.ReadOnly = true;
+            this.txtsMenuName.Size = new System.Drawing.Size(372, 21);
+            this.txtsMenuName.StyleController = this.layoutControl1;
+            this.txtsMenuName.TabIndex = 19;
+            this.txtsMenuName.Tag = "99";
             // 
             // chkbSyncLookUp
             // 
@@ -1015,42 +1036,6 @@
             this.emptySpaceItem3.Text = "emptySpaceItem3";
             this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // btnFormStyle
-            // 
-            this.btnFormStyle.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.refresh;
-            this.btnFormStyle.Location = new System.Drawing.Point(288, 4);
-            this.btnFormStyle.Name = "btnFormStyle";
-            this.btnFormStyle.Size = new System.Drawing.Size(75, 24);
-            this.btnFormStyle.TabIndex = 15;
-            this.btnFormStyle.Text = "界面设置";
-            // 
-            // coliFormID
-            // 
-            this.coliFormID.Caption = "FormID";
-            this.coliFormID.FieldName = "FormID";
-            this.coliFormID.Name = "coliFormID";
-            this.coliFormID.Visible = true;
-            this.coliFormID.VisibleIndex = 0;
-            // 
-            // colsMenuName
-            // 
-            this.colsMenuName.Caption = "模块名称";
-            this.colsMenuName.FieldName = "sMenuName";
-            this.colsMenuName.Name = "colsMenuName";
-            this.colsMenuName.Visible = true;
-            this.colsMenuName.VisibleIndex = 0;
-            this.colsMenuName.Width = 107;
-            // 
-            // txtsMenuName
-            // 
-            this.txtsMenuName.Location = new System.Drawing.Point(85, 31);
-            this.txtsMenuName.Name = "txtsMenuName";
-            this.txtsMenuName.Properties.ReadOnly = true;
-            this.txtsMenuName.Size = new System.Drawing.Size(372, 21);
-            this.txtsMenuName.StyleController = this.layoutControl1;
-            this.txtsMenuName.TabIndex = 19;
-            this.txtsMenuName.Tag = "99";
-            // 
             // lblsMenuName
             // 
             this.lblsMenuName.Control = this.txtsMenuName;
@@ -1060,6 +1045,22 @@
             this.lblsMenuName.Size = new System.Drawing.Size(452, 25);
             this.lblsMenuName.Text = "模块名称";
             this.lblsMenuName.TextSize = new System.Drawing.Size(72, 14);
+            // 
+            // btnFormStyle
+            // 
+            this.btnFormStyle.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.refresh;
+            this.btnFormStyle.Location = new System.Drawing.Point(288, 4);
+            this.btnFormStyle.Name = "btnFormStyle";
+            this.btnFormStyle.Size = new System.Drawing.Size(75, 24);
+            this.btnFormStyle.TabIndex = 15;
+            this.btnFormStyle.Text = "界面设置";
+            // 
+            // cbxsFooterType
+            // 
+            this.cbxsFooterType.AutoHeight = false;
+            this.cbxsFooterType.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxsFooterType.Name = "cbxsFooterType";
             // 
             // frmDynamicFormSetting
             // 
@@ -1096,6 +1097,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbxsColumnType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtsMenuName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkbSyncLookUp.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkbCreateLookUp.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsQueryViewName.Properties)).EndInit();
@@ -1119,8 +1121,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtsMenuName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblsMenuName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxsFooterType)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1185,8 +1187,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit mtxtsLookupAutoSetControl;
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit mtxtsLookupAutoSetGrid;
         private DevExpress.XtraGrid.Columns.GridColumn colbShowInPanel;
-        private DevExpress.XtraGrid.Columns.GridColumn colbIsSum;
-        private DevExpress.XtraGrid.Columns.GridColumn colbIsCount;
+        private DevExpress.XtraGrid.Columns.GridColumn colsFooterType;
         private DevExpress.XtraGrid.Columns.GridColumn colsColumnType;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox cbxsColumnType;
         private DevExpress.XtraGrid.Columns.GridColumn colbEdit;
@@ -1196,5 +1197,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colsMenuName;
         private DevExpress.XtraEditors.TextEdit txtsMenuName;
         private DevExpress.XtraLayout.LayoutControlItem lblsMenuName;
+        private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox cbxsFooterType;
     }
 }

@@ -220,6 +220,7 @@
             this.gridColumn1.Caption = "用户名";
             this.gridColumn1.FieldName = "sUserID";
             this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
             this.gridColumn1.Visible = true;
             this.gridColumn1.VisibleIndex = 0;
             this.gridColumn1.Width = 84;
@@ -290,6 +291,7 @@
             this.gridColumn5.FieldName = "sFieldName";
             this.gridColumn5.Name = "gridColumn5";
             this.gridColumn5.OptionsColumn.AllowEdit = false;
+            this.gridColumn5.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
             this.gridColumn5.Visible = true;
             this.gridColumn5.VisibleIndex = 1;
             this.gridColumn5.Width = 109;
