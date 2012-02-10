@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
 
 using Sunrise.ERP.Security;
 using Sunrise.ERP.BaseControl;
@@ -14,10 +15,10 @@ using Sunrise.ERP.DataAccess;
 
 namespace Sunrise.ERP.Module.SystemManage
 {
-    public partial class frmsysPlatformManage2 : Sunrise.ERP.BaseForm.frmMasterDetail
+    public partial class frmsysPlatformManage : Sunrise.ERP.BaseForm.frmMasterDetail
     {
         int iSort = 0;
-        public frmsysPlatformManage2(int formid, string formtext)
+        public frmsysPlatformManage(int formid, string formtext)
             : base(formid, "Sunrise.ERP.SystemManage.DAL", "sysMenuDAL", " AND 1=1", "iSort", false)
         {
             InitializeComponent();
@@ -56,7 +57,7 @@ namespace Sunrise.ERP.Module.SystemManage
         }
         public override void initBase()
         {
-            AddNotNullFields(new string[] { "txtsMenuName", "txtMenuEngName", "txtModuleFile", "txtFormClassName", "txtFormID" });
+            AddNotNullFields(new string[] { "txtsMenuName", "txtMenuEngName", "txtFormID" });
             AddNotCopyFields(new string[] { "sUserID", "iFlag" });
             base.initBase();
         }
@@ -187,6 +188,18 @@ namespace Sunrise.ERP.Module.SystemManage
                 }
             }
             return true;
+        }
+
+        private void txtModuleFile_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            openFileDialog1.Filter = "系统模块(*.dll,*.exe)|*.dll;*.exe";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                //读取文件最后修改日期
+                FileInfo fi = new FileInfo(openFileDialog1.FileName);
+                txtModuleFile.Text = openFileDialog1.SafeFileName;
+                txtFileDate.Text = fi.LastWriteTime.ToString();
+            }
         }
 
     }

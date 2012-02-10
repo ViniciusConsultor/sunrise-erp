@@ -38,106 +38,120 @@ namespace Sunrise.ERP.BasePublic
             //用递归来遍历所有控件
             foreach (Control ctl in ctr.Controls)
             {
+                //当控件Tag设置为99时不受系统框架限制
                 if (ctl.Tag == null || ctl.Tag.ToString() != "99")
                 {
-                    //DateEdit
-                    if (ctl is DevExpress.XtraEditors.DateEdit)
-                    {
-                        ((DevExpress.XtraEditors.DateEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //CheckEdit
-                    else if (ctl is DevExpress.XtraEditors.CheckEdit)
-                    {
-                        ((DevExpress.XtraEditors.CheckEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //ComboBoxEdit
-                    else if (ctl is DevExpress.XtraEditors.ComboBoxEdit)
-                    {
-                        ((DevExpress.XtraEditors.ComboBoxEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //ButtonEdit
-                    else if (ctl is DevExpress.XtraEditors.ButtonEdit)
-                    {
-                        ((DevExpress.XtraEditors.ButtonEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //RadioGroup
-                    else if (ctl is DevExpress.XtraEditors.RadioGroup)
-                    {
-                        ((DevExpress.XtraEditors.RadioGroup)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //MemoEdit
-                    else if (ctl is DevExpress.XtraEditors.MemoEdit)
-                    {
-                        ((DevExpress.XtraEditors.MemoEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //MemoExEdit
-                    else if (ctl is DevExpress.XtraEditors.MemoExEdit)
-                    {
-                        ((DevExpress.XtraEditors.MemoExEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //LookUpEdit
-                    else if (ctl is DevExpress.XtraEditors.LookUpEdit)
-                    {
-                        ((DevExpress.XtraEditors.LookUpEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //SpinEdit
-                    else if (ctl is DevExpress.XtraEditors.SpinEdit)
-                    {
-                        ((DevExpress.XtraEditors.SpinEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //SpinEdit
-                    else if (ctl is DevExpress.XtraEditors.TimeEdit)
-                    {
-                        ((DevExpress.XtraEditors.TimeEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //CheckedComboBoxEdit
-                    else if (ctl is DevExpress.XtraEditors.CheckedComboBoxEdit)
-                    {
-                        ((DevExpress.XtraEditors.CheckedComboBoxEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //PictureEdit
-                    else if (ctl is DevExpress.XtraEditors.PictureEdit)
-                    {
-                        ((DevExpress.XtraEditors.PictureEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //ImageEdit
-                    else if (ctl is DevExpress.XtraEditors.ImageEdit)
-                    {
-                        ((DevExpress.XtraEditors.ImageEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-                    //DropDownButton
-                    else if (ctl is DevExpress.XtraEditors.DropDownButton)
-                    {
-                        ((DevExpress.XtraEditors.DropDownButton)ctl).Enabled = isreadonly;
-                    }
-                    //ImageListBoxControl
-                    else if (ctl is DevExpress.XtraEditors.ImageListBoxControl)
-                    {
-                        ((DevExpress.XtraEditors.ImageListBoxControl)ctl).Enabled = isreadonly;
-                    }
-                    else if (ctl is Sunrise.ERP.Controls.SunriseLookUp)
-                    {
-                        ((Sunrise.ERP.Controls.SunriseLookUp)ctl).IsReadOnly = !isreadonly;
-                    }
-                    //TextEdit
-                    else if (ctl is DevExpress.XtraEditors.TextEdit)
-                    {
-                        ((DevExpress.XtraEditors.TextEdit)ctl).Properties.ReadOnly = isreadonly;
-                    }
-
+                    SetControlsReadOnly(ctl, isreadonly);
                     if (ctl.HasChildren)
-                    {
                         SetAllControlsReadOnly(ctl, isreadonly);
-                    }
                 }
             }
         }
 
         /// <summary>
-        /// 设置容器内Grid控件的状态
+        /// 设置控件的状态
+        /// </summary>
+        /// <param name="ctl">控件名称</param>
+        /// <param name="isreadonly">是否只读</param>
+        public static void SetControlsReadOnly(Control ctl, bool isreadonly)
+        {
+            //DateEdit
+            if (ctl is DevExpress.XtraEditors.DateEdit)
+            {
+                ((DevExpress.XtraEditors.DateEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //CheckEdit
+            else if (ctl is DevExpress.XtraEditors.CheckEdit)
+            {
+                ((DevExpress.XtraEditors.CheckEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //ComboBoxEdit
+            else if (ctl is DevExpress.XtraEditors.ComboBoxEdit)
+            {
+                ((DevExpress.XtraEditors.ComboBoxEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //ButtonEdit
+            else if (ctl is DevExpress.XtraEditors.ButtonEdit)
+            {
+                ((DevExpress.XtraEditors.ButtonEdit)ctl).Properties.ReadOnly = isreadonly;
+                foreach (EditorButton btn in ((DevExpress.XtraEditors.ButtonEdit)ctl).Properties.Buttons)
+                {
+                    btn.Enabled = !isreadonly;
+                }
+            }
+            //RadioGroup
+            else if (ctl is DevExpress.XtraEditors.RadioGroup)
+            {
+                ((DevExpress.XtraEditors.RadioGroup)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //MemoEdit
+            else if (ctl is DevExpress.XtraEditors.MemoEdit)
+            {
+                ((DevExpress.XtraEditors.MemoEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //MemoExEdit
+            else if (ctl is DevExpress.XtraEditors.MemoExEdit)
+            {
+                ((DevExpress.XtraEditors.MemoExEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //LookUpEdit
+            else if (ctl is DevExpress.XtraEditors.LookUpEdit)
+            {
+                ((DevExpress.XtraEditors.LookUpEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //SpinEdit
+            else if (ctl is DevExpress.XtraEditors.SpinEdit)
+            {
+                ((DevExpress.XtraEditors.SpinEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //SpinEdit
+            else if (ctl is DevExpress.XtraEditors.TimeEdit)
+            {
+                ((DevExpress.XtraEditors.TimeEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //CheckedComboBoxEdit
+            else if (ctl is DevExpress.XtraEditors.CheckedComboBoxEdit)
+            {
+                ((DevExpress.XtraEditors.CheckedComboBoxEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //PictureEdit
+            else if (ctl is DevExpress.XtraEditors.PictureEdit)
+            {
+                ((DevExpress.XtraEditors.PictureEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //ImageEdit
+            else if (ctl is DevExpress.XtraEditors.ImageEdit)
+            {
+                ((DevExpress.XtraEditors.ImageEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+            //DropDownButton
+            else if (ctl is DevExpress.XtraEditors.DropDownButton)
+            {
+                ((DevExpress.XtraEditors.DropDownButton)ctl).Enabled = isreadonly;
+            }
+            //ImageListBoxControl
+            else if (ctl is DevExpress.XtraEditors.ImageListBoxControl)
+            {
+                ((DevExpress.XtraEditors.ImageListBoxControl)ctl).Enabled = isreadonly;
+            }
+            //SunriseLookUp
+            else if (ctl is Sunrise.ERP.Controls.SunriseLookUp)
+            {
+                ((Sunrise.ERP.Controls.SunriseLookUp)ctl).IsReadOnly = !isreadonly;
+            }
+            //TextEdit
+            else if (ctl is DevExpress.XtraEditors.TextEdit)
+            {
+                ((DevExpress.XtraEditors.TextEdit)ctl).Properties.ReadOnly = isreadonly;
+            }
+        }
+
+
+        /// <summary>
+        /// 设置容器内Grid,TreeList控件的状态
         /// </summary>
         /// <param name="ctr">容器控件</param>
-        /// <param name="isreadonly">是否可用</param>
+        /// <param name="isenable">是否可用</param>
         public static void SetControlsGridEnable(Control ctr, bool isenable)
         {
             //用递归来遍历所有控件
@@ -152,9 +166,9 @@ namespace Sunrise.ERP.BasePublic
                     }
                     else if (ctl is DevExpress.XtraTreeList.TreeList)
                     {
-                        //((DevExpress.XtraTreeList.TreeList)ctl).OptionsBehavior.Editable = isenable;
+                        ((DevExpress.XtraTreeList.TreeList)ctl).UseDisabledStatePainter = false;
                         ((DevExpress.XtraTreeList.TreeList)ctl).OptionsBehavior.DragNodes = isenable;
-                        //((DevExpress.XtraGrid.GridControl)ctl).En
+                        ((DevExpress.XtraTreeList.TreeList)ctl).Enabled = isenable;
                     }
                     if (ctl.HasChildren)
                     {
@@ -186,28 +200,28 @@ namespace Sunrise.ERP.BasePublic
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.TextEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.DateEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.ComboBoxEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.CheckEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
@@ -215,7 +229,7 @@ namespace Sunrise.ERP.BasePublic
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
                                 //((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
-                                ctl.ForeColor = System.Drawing.Color.Blue;
+                                ctl.ForeColor = System.Drawing.Color.Red;
                                 //这个很奇怪，如果不加这句颜色必须要当鼠标经过控件后颜色才会有
                                 ctl.Text = ctl.Text;
                             }
@@ -224,70 +238,70 @@ namespace Sunrise.ERP.BasePublic
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.CheckedComboBoxEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.MemoEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.MemoExEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.LookUpEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.SpinEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.TimeEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.RadioGroup && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.ImageEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         else if (ctl is DevExpress.XtraEditors.PictureEdit && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
-                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Blue;
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
                             }
                         }
                         if (ctl.HasChildren)
@@ -909,6 +923,20 @@ namespace Sunrise.ERP.BasePublic
                     Public.SystemInfo(LangCenter.Instance.GetSystemMessage("InitComboBoxFailed"), true);
             }
         }
+
+        /// <summary>
+        /// 获取用户窗体字段权限数据
+        /// </summary>
+        /// <param name="userid">用户编号</param>
+        /// <param name="formid">FormID</param>
+        /// <returns></returns>
+        public static DataTable GetFormFieldSetting(string userid, int formid)
+        {
+            string sSql = "SELECT UserID, FormID, sTableName, sFieldName, bVisiable, bEdit FROM sysFormFieldSetting WHERE UserID='"
+                                + userid + "' AND FormID=" + formid.ToString();
+            return DbHelperSQL.Query(sSql).Tables[0];
+        }
+
         #endregion
     }
 }

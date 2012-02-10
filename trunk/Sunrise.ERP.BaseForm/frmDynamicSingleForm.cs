@@ -740,6 +740,61 @@ namespace Sunrise.ERP.BaseForm
                 if (ctls != null && ctls.Length == 1)
                 {
                     ctls[0].DataBindings.Add("EditValue", dsMain, dr["sFieldName"].ToString());
+
+                    //数量或者价格权限检测
+                    if (dr["sColumnType"].ToString() == "002")
+                    {
+                        //检测是否有价格权限
+                        bool HasPrice = SC.CheckAuth(SecurityOperation.Price, FormID);
+                        //设置该字段控件及其对应Label标签也不显示
+                        Control[] lblctls = pnlInfo.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
+                        if (lblctls != null && lblctls.Length == 1)
+                            lblctls[0].Visible = HasPrice;
+                        ctls[0].Visible = HasPrice;
+                        
+                    }
+                    else if (dr["sColumnType"].ToString() == "003")
+                    {
+                        //检测是否有数量权限
+                        bool HasNum = SC.CheckAuth(SecurityOperation.Num, FormID);
+                        //设置该字段控件及其对应Label标签也不显示
+                        Control[] lblctls = pnlInfo.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
+                        if (lblctls != null && lblctls.Length == 1)
+                            lblctls[0].Visible = HasNum;
+                        ctls[0].Visible = HasNum;
+                    }
+
+                    //控制界面上显示字段是否显示和可编辑
+                    //超级用户或者在窗体字段设置没有进行过设置则显示全部
+                    if (!SecurityCenter.IsAdmin && FormFieldSetting.Rows.Count > 0)
+                    {
+                        //取只有是主表/单表的数据
+                        foreach (DataRow drField in FormFieldSetting.Select("sTableName='" + MasterTableName + "'"))
+                        {
+                            if (ctls[0].Visible && dr["sFieldName"].ToString() == drField["sFieldName"].ToString())
+                            {
+                                //先判断是否可见
+                                if (Convert.ToBoolean(drField["bVisiable"]))
+                                {
+                                    if (!Convert.ToBoolean(drField["bEdit"]))
+                                    {
+                                        ctls[0].Tag = "99";
+                                        Base.SetControlsReadOnly(ctls[0], true);
+                                    }
+                                }
+                                else
+                                {
+                                    //设置该字段控件及其对应Label标签也不显示
+                                    Control[] lblctls = pnlInfo.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
+                                    if (lblctls != null && lblctls.Length == 1)
+                                        lblctls[0].Visible = false;
+                                    ctls[0].Visible = false;
+                                }
+                            }
+                        }
+                    }
+
+
                     //初始化Lookup
                     if (ctls[0] is SunriseLookUp)
                     {
@@ -763,17 +818,17 @@ namespace Sunrise.ERP.BaseForm
                             Base.InitComboBox((ImageComboBoxEdit)ctls[0], dr["sLookupNo"].ToString());
                     }
                 }
-                //第一个控件的X坐标和最后一个控件的Y坐标,用于计算自定义字段的起始位置
-                if (bool.Parse(dr["bSystemColumn"].ToString()))
-                {
-                    if (ctls != null && ctls.Length == 1)
-                    {
-                        if (ctls[0].Location.X < ControlX)
-                            ControlX = ctls[0].Location.X;
-                        if (ctls[0].Location.Y > ControlY)
-                            ControlY = ctls[0].Location.Y;
-                    }
-                }
+                ////第一个控件的X坐标和最后一个控件的Y坐标,用于计算自定义字段的起始位置
+                //if (bool.Parse(dr["bSystemColumn"].ToString()))
+                //{
+                //    if (ctls != null && ctls.Length == 1)
+                //    {
+                //        if (ctls[0].Location.X < ControlX)
+                //            ControlX = ctls[0].Location.X;
+                //        if (ctls[0].Location.Y > ControlY)
+                //            ControlY = ctls[0].Location.Y;
+                //    }
+                //}
             }
         }
 
@@ -1168,6 +1223,23 @@ namespace Sunrise.ERP.BaseForm
             }
         }
 
+        private DataTable _dtFormFieldSeting;
+
+        /// <summary>
+        /// 获取当前用户窗体字段权限数据
+        /// </summary>
+        public DataTable FormFieldSetting
+        {
+            get
+            {
+                if (_dtFormFieldSeting == null)
+                {
+                    _dtFormFieldSeting = Base.GetFormFieldSetting(SecurityCenter.CurrentUserID, FormID);
+                }
+                return _dtFormFieldSeting;
+            }
+        }
+
         /// <summary>
         /// 系统权限处理类
         /// </summary>
@@ -1180,15 +1252,6 @@ namespace Sunrise.ERP.BaseForm
                 return _sc;
             }
         }
-
-        //protected SqlTransaction SqlTrans
-        //{
-        //    get
-        //    {
-        //        return ConnectSetting.SysSqlConnection.BeginTransaction();
-
-        //    }
-        //}
 
         private DynamicDALSetting _MasterDynamicDAL;
         /// <summary>
@@ -1509,31 +1572,79 @@ namespace Sunrise.ERP.BaseForm
             string sFilter = "bShowInGrid=1 AND sTableName='" + MasterTableName + "'";
             foreach (DataRow dr in DynamicMasterTableData.Select(sFilter))
             {
-                GridColumn cols = new GridColumn();
-                cols.Caption = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
-                cols.FieldName = dr["sFieldName"].ToString();
-                //Grid 列命名为cols+列名+序号
-                cols.Name = "cols" + dr["sFieldName"].ToString() + iIndex.ToString();
-                cols.Width = 120;
-                cols.Visible = true;
-                cols.VisibleIndex = iIndex;
-                cols.OptionsColumn.AllowEdit = Convert.ToBoolean(dr["bEdit"] == null ? 1 : dr["bEdit"]);
-                iIndex++;
-                //先计算有没有合计的，再计算计数
-                if (dr["bIsSum"].ToString() != "" && Convert.ToBoolean(dr["bIsSum"]))
+                GridColumn cols = null;
+                DataRow[] drFields=FormFieldSetting.Select("sTableName='" + MasterTableName + "'");
+                if (drFields.Length == 0)
                 {
-                    cols.SummaryItem.FieldName = dr["sFieldName"].ToString();
-                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
-                    gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, dr["sFieldName"].ToString(), cols);
+                    cols = CreateGridColumn(gv, dr, iIndex);
+                    iIndex++;
                 }
-                if (dr["bIsCount"].ToString() != "" && Convert.ToBoolean(dr["bIsCount"]))
+
+                //加载窗体字段设置，主表或者单表Grid列都不能够编辑，只有显示或者不显示
+                foreach (DataRow drField in drFields)
                 {
-                    cols.SummaryItem.FieldName = dr["sFieldName"].ToString();
-                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
-                    gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, dr["sFieldName"].ToString(), cols);
+                    if (dr["sFieldName"].ToString() == drField["sFieldName"].ToString())
+                    {
+                        if (Convert.ToBoolean(drField["bVisiable"]))
+                        {
+                            cols = CreateGridColumn(gv, dr, iIndex);
+                            iIndex++;
+                        }
+                    }
                 }
-                gv.Columns.Add(cols);
+                if (cols != null)
+                    gv.Columns.Add(cols);
             }
+        }
+
+        private GridColumn CreateGridColumn(GridView gv, DataRow dr,int index)
+        {
+            GridColumn col = new GridColumn();
+            col.Caption = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
+            col.FieldName = dr["sFieldName"].ToString();
+            //Grid 列命名为col+表名+字段名
+            col.Name = "col" + MasterTableName + dr["sFieldName"].ToString();
+            col.Width = 120;
+            if (dr["sColumnType"].ToString() == "002")
+            {
+                //检测是否有价格权限
+                bool HasPrice = SC.CheckAuth(SecurityOperation.Price, FormID);
+                if (!HasPrice) return null;
+            }
+            else if (dr["sColumnType"].ToString() == "003")
+            {
+                //检测是否有数量权限
+                bool HasNum = SC.CheckAuth(SecurityOperation.Num, FormID);
+                if (!HasNum) return null;
+            }
+            else
+                col.Visible = true;
+            col.VisibleIndex = index;
+            col.OptionsColumn.AllowEdit = Convert.ToBoolean(dr["bEdit"] == null ? 1 : dr["bEdit"]);
+            //Grid Footer显示
+            if (dr["sFooterType"].ToString() != "001")
+            {
+                //001	无
+                //002	求和
+                //003	计数
+                //004	平均值
+                //005	最大值
+                //006	最小值                   
+                col.SummaryItem.FieldName = dr["sFieldName"].ToString();
+                if (dr["sFooterType"].ToString() == "002")
+                    col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+                else if (dr["sFooterType"].ToString() == "003")
+                    col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
+                else if (dr["sFooterType"].ToString() == "004")
+                    col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Average;
+                else if (dr["sFooterType"].ToString() == "005")
+                    col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Max;
+                else if (dr["sFooterType"].ToString() == "006")
+                    col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Min;
+
+                gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, dr["sFieldName"].ToString(), col);
+            }
+            return col;
         }
 
         public virtual void CreateSearchFilter()

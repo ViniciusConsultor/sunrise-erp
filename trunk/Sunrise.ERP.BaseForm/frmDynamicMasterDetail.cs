@@ -457,96 +457,141 @@ namespace Sunrise.ERP.BaseForm
             DataRow[] drs = LDynamicDetailTableData[LDetailTableName.IndexOf(tablename)].Select(sFilter);
             foreach (DataRow dr in drs)
             {
-                GridColumn cols = new GridColumn();
-                string sControlType = dr["sControlType"].ToString();
-                switch (sControlType)
+                GridColumn cols = null;
+                DataRow[] drFields = FormFieldSetting.Select("sTableName='" + tablename + "'");
+                //如果没有设置过界面字段数据
+                if (drFields.Length == 0)
                 {
-                    //LookUp查询
-                    case "lkp":
+                    cols = CreateGridColumn(gv, dr, tablename, iIndex,true);
+                    iIndex++;
+                }
+
+                foreach (DataRow drField in drFields)
+                {
+                    if (dr["sFieldName"].ToString() == drField["sFieldName"].ToString())
+                    {
+                        if (Convert.ToBoolean(drField["bVisiable"]))
                         {
-                            if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
-                            {
-                                SunriseLookUp lkp = new SunriseLookUp();
-                                lkp.DataBindings.Add("EditValue", LDetailBindingSource[LDetailTableName.IndexOf(tablename)], dr["sFieldName"].ToString());
-                                Base.InitLookup(lkp, dr["sLookupNo"].ToString());
-                                if (!string.IsNullOrEmpty(dr["sLookupAutoSetControl"].ToString()))
-                                {
-                                    string[] sItem = Public.GetSplitString(dr["sLookupAutoSetControl"].ToString(), ",");
-                                    foreach (var s in sItem)
-                                    {
-                                        string[] ss = Public.GetSplitString(s, "=");
-                                        lkp.AutoSetValue(ss[0], ss[1]);
-                                    }
-                                }
-                                RepositoryItemButtonEdit btnRepositoryItem = new RepositoryItemButtonEdit();
-                                btnRepositoryItem.ButtonClick += lkp.LookUpSelfClick;
-                                btnRepositoryItem.TextEditStyle = TextEditStyles.DisableTextEditor;
-                                //加这句是让了焦点更新，Grid中才会显示新的数据值，其实在后台是已经存在了的，只是在Grid中没有显示出来
-                                //此处设置为查询完成后自动跳转到Grid中的下一列中
-                                lkp.LookUpAfterPost += new SunriseLookUp.SunriseLookUpEvent(lkp_LookUpAfterPost);
-                                cols.ColumnEdit = btnRepositoryItem;
-                                gv.GridControl.RepositoryItems.Add(btnRepositoryItem);
-                            }
-                            break;
+                            cols = CreateGridColumn(gv, dr, tablename, iIndex, Convert.ToBoolean(drField["bEdit"]));
+                            iIndex++;
                         }
-                    //下拉框
-                    case "cbx":
-                        {
-                            if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
-                            {
-                                RepositoryItemImageComboBox cbxRepositoryItem = new RepositoryItemImageComboBox();
-                                Base.InitRepositoryItemComboBox(cbxRepositoryItem, dr["sLookupNo"].ToString());
-                                cols.ColumnEdit = cbxRepositoryItem;
-                                gv.GridControl.RepositoryItems.Add(cbxRepositoryItem);
-                            }
-                            break;
-                        }
-                    //带按钮的文本框
-                    case "btxt":
-                        {
-                            RepositoryItemMemoExEdit btxtRepositoryItem = new RepositoryItemMemoExEdit();
-                            cols.ColumnEdit = btxtRepositoryItem;
-                            gv.GridControl.RepositoryItems.Add(btxtRepositoryItem);
-                            break;
-                        }
+                    }
                 }
-                cols.Caption = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
-                cols.FieldName = dr["sFieldName"].ToString();
-                //Grid 列命名为cols+列名+序号
-                cols.Name = "cols" + dr["sFieldName"].ToString() + iIndex.ToString();
-                cols.Width = 120;
-                if (dr["sColumnType"].ToString() == "002")
-                {
-                    //检测是否有价格权限
-                    bool HasPrice = SC.CheckAuth(SecurityOperation.Price, FormID);
-                    cols.Visible = HasPrice;
-                }
-                else if (dr["sColumnType"].ToString() == "003")
-                {
-                    //检测是否有数量权限
-                    bool HasNum = SC.CheckAuth(SecurityOperation.Num, FormID);
-                    cols.Visible = HasNum;
-                }
-                else
-                    cols.Visible = true;
-                cols.VisibleIndex = iIndex;
-                cols.OptionsColumn.AllowEdit = Convert.ToBoolean(dr["bEdit"] == null ? 1 : dr["bEdit"]);
-                iIndex++;
-                //先计算有没有合计的，再计算计数
-                if (dr["bIsSum"].ToString() != "" && Convert.ToBoolean(dr["bIsSum"]))
-                {
-                    cols.SummaryItem.FieldName = dr["sFieldName"].ToString();
-                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
-                    gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, dr["sFieldName"].ToString(), cols);
-                }
-                if (dr["bIsCount"].ToString() != "" && Convert.ToBoolean(dr["bIsCount"]))
-                {
-                    cols.SummaryItem.FieldName = dr["sFieldName"].ToString();
-                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
-                    gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, dr["sFieldName"].ToString(), cols);
-                }
-                gv.Columns.Add(cols);
+
+                if (cols != null)
+                    gv.Columns.Add(cols);
             }
+        }
+
+        private GridColumn CreateGridColumn(GridView gv, DataRow dr,string tablename, int index,bool isuseredit)
+        {
+            GridColumn cols = new GridColumn();
+            string sControlType = dr["sControlType"].ToString();
+            switch (sControlType)
+            {
+                //LookUp查询
+                case "lkp":
+                    {
+                        if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
+                        {
+                            SunriseLookUp lkp = new SunriseLookUp();
+                            lkp.DataBindings.Add("EditValue", LDetailBindingSource[LDetailTableName.IndexOf(tablename)], dr["sFieldName"].ToString());
+                            Base.InitLookup(lkp, dr["sLookupNo"].ToString());
+                            if (!string.IsNullOrEmpty(dr["sLookupAutoSetControl"].ToString()))
+                            {
+                                string[] sItem = Public.GetSplitString(dr["sLookupAutoSetControl"].ToString(), ",");
+                                foreach (var s in sItem)
+                                {
+                                    string[] ss = Public.GetSplitString(s, "=");
+                                    lkp.AutoSetValue(ss[0], ss[1]);
+                                }
+                            }
+                            RepositoryItemButtonEdit btnRepositoryItem = new RepositoryItemButtonEdit();
+                            btnRepositoryItem.ButtonClick += lkp.LookUpSelfClick;
+                            btnRepositoryItem.TextEditStyle = TextEditStyles.DisableTextEditor;
+                            //加这句是让了焦点更新，Grid中才会显示新的数据值，其实在后台是已经存在了的，只是在Grid中没有显示出来
+                            //此处设置为查询完成后自动跳转到Grid中的下一列中
+                            lkp.LookUpAfterPost += new SunriseLookUp.SunriseLookUpEvent(lkp_LookUpAfterPost);
+                            cols.ColumnEdit = btnRepositoryItem;
+                            gv.GridControl.RepositoryItems.Add(btnRepositoryItem);
+                        }
+                        break;
+                    }
+                //下拉框
+                case "cbx":
+                    {
+                        if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
+                        {
+                            RepositoryItemImageComboBox cbxRepositoryItem = new RepositoryItemImageComboBox();
+                            Base.InitRepositoryItemComboBox(cbxRepositoryItem, dr["sLookupNo"].ToString());
+                            cols.ColumnEdit = cbxRepositoryItem;
+                            gv.GridControl.RepositoryItems.Add(cbxRepositoryItem);
+                        }
+                        break;
+                    }
+                //带按钮的文本框
+                case "btxt":
+                    {
+                        RepositoryItemMemoExEdit btxtRepositoryItem = new RepositoryItemMemoExEdit();
+                        cols.ColumnEdit = btxtRepositoryItem;
+                        gv.GridControl.RepositoryItems.Add(btxtRepositoryItem);
+                        break;
+                    }
+            }
+            cols.Caption = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
+            cols.FieldName = dr["sFieldName"].ToString();
+            //Grid 列命名为col+表名+列名
+            cols.Name = "col" + tablename + dr["sFieldName"].ToString();
+            cols.Width = 120;
+            if (dr["sColumnType"].ToString() == "002")
+            {
+                //检测是否有价格权限
+                bool HasPrice = SC.CheckAuth(SecurityOperation.Price, FormID);
+                if (!HasPrice) return null;
+            }
+            else if (dr["sColumnType"].ToString() == "003")
+            {
+                //检测是否有数量权限
+                bool HasNum = SC.CheckAuth(SecurityOperation.Num, FormID);
+                if (!HasNum) return null;
+            }
+            else
+                cols.Visible = true;
+            cols.VisibleIndex = index;
+
+            //检测窗体字段设置中是否可编辑
+            //这里检测的时候是先以窗体设置中的权限优先，窗体上设置不可编辑，用户字段设置可编辑，以窗体上设置为准，不可编辑
+            cols.OptionsColumn.AllowEdit = Convert.ToBoolean(dr["bEdit"]);
+            //先通过数量和价格权限检测后再设置其用户字段权限
+            if (Convert.ToBoolean(dr["bEdit"]))
+            {
+                cols.OptionsColumn.AllowEdit = isuseredit;
+            }
+            
+            //Grid Footer显示
+            if (dr["sFooterType"].ToString() != "001")
+            {
+                //001	无
+                //002	求和
+                //003	计数
+                //004	平均值
+                //005	最大值
+                //006	最小值                   
+                cols.SummaryItem.FieldName = dr["sFieldName"].ToString();
+                if (dr["sFooterType"].ToString() == "002")
+                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+                else if (dr["sFooterType"].ToString() == "003")
+                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
+                else if (dr["sFooterType"].ToString() == "004")
+                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Average;
+                else if (dr["sFooterType"].ToString() == "005")
+                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Max;
+                else if (dr["sFooterType"].ToString() == "006")
+                    cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Min;
+
+                gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, dr["sFieldName"].ToString(), cols);
+            }
+            return cols;
         }
 
         //设置为查询完成后自动跳转到Grid中的下一列中

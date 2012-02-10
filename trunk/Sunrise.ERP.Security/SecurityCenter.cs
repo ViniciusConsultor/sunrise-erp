@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 
 using Sunrise.ERP.Lang;
+using Sunrise.ERP.DataAccess;
 
 namespace Sunrise.ERP.Security
 {
@@ -38,20 +39,16 @@ namespace Sunrise.ERP.Security
                 if (_dt == null && CurrentUserID != "")
                 {
                     string sDataSql = "SELECT DISTINCT A.MenuID, E.iFormID, A.iView, A.iAdd, A.iEdit, A.iDelete, "
-                            + "A.iPrint, A.iNum, A.iPrice "
+                            + "A.iPrint, A.iNum, A.iPrice,A.iProperty "
                             + "FROM sysRolesRights A "
                             + "LEFT JOIN sysRoles B ON A.RoleID=B.ID "
                             + "LEFT JOIN sysRolesUser C ON B.ID=C.RoleID "
                             + "LEFT JOIN sysUser D ON C.UserID=D.ID "
                             + "LEFT JOIN sysMenu E ON A.MenuID=E.ID "
                             + "WHERE D.sUserID='" + SecurityCenter.CurrentUserID + "'";
-                    _dt = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sDataSql).Tables[0];
-                    return _dt;
+                    _dt = DbHelperSQL.Query(sDataSql).Tables[0];
                 }
-                else
-                {
-                    return _dt;
-                }
+                return _dt;
             }
         }
 
@@ -151,13 +148,9 @@ namespace Sunrise.ERP.Security
                 {
                     object obj = Sunrise.ERP.DataAccess.DbHelperSQL.GetSingle("SELECT 1 FROM sysUser WHERE iUserType=1 AND sUserID='" + CurrentUserID + "'");
                     if (obj != null && obj.ToString() == "1")
-                    {
                         _isadmin = true;
-                    }
                     else
-                    {
                         _isadmin = false;
-                    }
                 }
                 return _isadmin;
             }
@@ -171,9 +164,7 @@ namespace Sunrise.ERP.Security
             get
             {
                 if (_dsMenu == null)
-                {
                     _dsMenu = Sunrise.ERP.DataAccess.DbHelperSQL.Query(GetMenuAuthSQL());
-                }
                 return _dsMenu;
             }
         }
@@ -201,6 +192,7 @@ namespace Sunrise.ERP.Security
                 htTemp.Add(SecurityOperation.Print, GetOperationValue(dr["iPrint"]));
                 htTemp.Add(SecurityOperation.Num, GetOperationValue(dr["iNum"]));
                 htTemp.Add(SecurityOperation.Price, GetOperationValue(dr["iPrice"]));
+                htTemp.Add(SecurityOperation.Property, GetOperationValue(dr["iProperty"]));
                 Result.Add(htTemp);
             }
             return Result;

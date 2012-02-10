@@ -1,6 +1,6 @@
 ﻿namespace Sunrise.ERP.Module.SystemManage
 {
-    partial class frmsysPlatformManage2
+    partial class frmsysPlatformManage
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmsysPlatformManage2));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmsysPlatformManage));
             this.tvMenu = new DevExpress.XtraTreeList.TreeList();
             this.treeListColumn1 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.treeListColumn3 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
@@ -68,6 +68,7 @@
             this.lkpsGoodID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.lkpFlag = new Sunrise.ERP.Controls.SunriseLookUp();
             this.btnSaveSort = new DevExpress.XtraEditors.SimpleButton();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -358,6 +359,7 @@
             this.txtModuleFile.Size = new System.Drawing.Size(469, 21);
             this.txtModuleFile.StyleController = this.layoutControl1;
             this.txtModuleFile.TabIndex = 12;
+            this.txtModuleFile.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.txtModuleFile_ButtonClick);
             // 
             // txtsMenuName
             // 
@@ -714,13 +716,13 @@
             this.btnSaveSort.Text = "保存顺序";
             this.btnSaveSort.Click += new System.EventHandler(this.btnSaveSort_Click);
             // 
-            // frmsysPlatformManage2
+            // frmsysPlatformManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.ClientSize = new System.Drawing.Size(941, 498);
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.Name = "frmsysPlatformManage2";
+            this.Name = "frmsysPlatformManage";
             this.Load += new System.EventHandler(this.frmsysPlatformManage2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).EndInit();
             this.pnlDetail.ResumeLayout(false);
@@ -810,5 +812,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private System.Windows.Forms.ImageList imageList1;
         private DevExpress.XtraEditors.SimpleButton btnSaveSort;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

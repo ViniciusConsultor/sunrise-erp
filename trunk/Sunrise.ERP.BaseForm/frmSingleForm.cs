@@ -139,16 +139,17 @@ namespace Sunrise.ERP.BaseForm
             //pWhere = sortfield != "" ? pwhere + " ORDER BY " + sortfield : pwhere;
             pWhere = pwhere;
             SortField = sortfield;
+            TopCount = 10000000;
             MasterDALName = dalname;
             RegisterMethod(dalpath,dalname, true);
             if (IsCheckAuth)
             {
-                dtMain = GetDataSet(100000, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere, SortField).Tables[0];
+                dtMain = GetDataSet(TopCount, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere, SortField).Tables[0];
                 //MasterSQL = SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere;
             }
             else
             {
-                dtMain = GetDataSet("1=1 " + pWhere).Tables[0];
+                dtMain = GetDataSet(TopCount, "1=1 " + pWhere, SortField).Tables[0];
                 //MasterSQL = "1=1 " + pWhere;
             }
             //dtMain = GetDataSet(100000, MasterSQL, SortField).Tables[0];
@@ -173,17 +174,18 @@ namespace Sunrise.ERP.BaseForm
             //pWhere = sortfield != "" ? pwhere + " ORDER BY " + sortfield : pwhere;
             pWhere = pwhere;
             SortField = sortfield;
+            TopCount = 1000000;
             IsCheckAuth = ischeckauth;
             MasterDALName = dalname;
             RegisterMethod(dalpath,dalname, true);
             if (IsCheckAuth)
             {
-                dtMain = GetDataSet(100000,SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere,SortField).Tables[0];
+                dtMain = GetDataSet(TopCount, SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere, SortField).Tables[0];
                 //MasterSQL = SC.GetAuthSQL(ShowType.FormShow, FormID) + pWhere;
             }
             else
             {
-                dtMain = GetDataSet("1=1 " + pWhere).Tables[0];
+                dtMain = GetDataSet(TopCount, "1=1 " + pWhere, SortField).Tables[0];
                 //MasterSQL = "1=1 " + pWhere;
             }
             //dtMain = GetDataSet(10000, MasterSQL, SortField).Tables[0];
