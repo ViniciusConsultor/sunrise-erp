@@ -11,9 +11,10 @@ using Sunrise.ERP.BasePublic;
 using Sunrise.ERP.Security;
 using Sunrise.ERP.DataAccess;
 using Sunrise.ERP.Lang;
+using Sunrise.ERP.BaseControl;
 
 using DevExpress.XtraEditors.Controls;
-using Sunrise.ERP.BaseControl;
+using DevExpress.XtraEditors.Repository;
 
 namespace Sunrise.ERP.Module.SystemManage
 {
@@ -38,11 +39,14 @@ namespace Sunrise.ERP.Module.SystemManage
             SystemPublic.InitLkpDataDict(lkpsFormType, "1018");
 
             //sFiledType
-            InitDetailComboBox("1009");
+            InitDetailComboBox("1009", cbxsFieldType);
             //sControlType
-            InitDetailComboBox("1017");
+            InitDetailComboBox("1017", cbxsControlType);
             //sColumnType
-            InitDetailComboBox("1019");
+            InitDetailComboBox("1019", cbxsColumnType);
+            //sFooterType
+            InitDetailComboBox("1020", cbxsFooterType);
+
         }
 
         private void frmDynamicFormSetting_Load(object sender, EventArgs e)
@@ -113,51 +117,27 @@ namespace Sunrise.ERP.Module.SystemManage
             gvDetail.GetFocusedDataRow()["bHistory"] = 0;
             gvDetail.GetFocusedDataRow()["bShowInGrid"] = 1;
             gvDetail.GetFocusedDataRow()["bShowInPanel"] = 1;
-            gvDetail.GetFocusedDataRow()["bIsSum"] = 0;
-            gvDetail.GetFocusedDataRow()["bIsCount"] = 0;
+            gvDetail.GetFocusedDataRow()["sFooterType"] = "001";
             gvDetail.GetFocusedDataRow()["bEdit"] = 1;
             //默认为数据字段，价格和数量用于控制权限是否显示此列
             gvDetail.GetFocusedDataRow()["sColumnType"] = "001";
         }
 
-        private void InitDetailComboBox(string dictNo)
+        /// <summary>
+        /// 初始化Grid中ComboBox数据
+        /// </summary>
+        /// <param name="dictNo"></param>
+        /// <param name="combobox"></param>
+        private void InitDetailComboBox(string dictNo, RepositoryItemComboBox combobox)
         {
-            string sSql = "SELECT A.sDictDataNo, A.sDictDataCName, A.sDictDataEName "
-                        + "FROM vwbasDataDictDetail A "
-                        + "WHERE A.sDictCategoryNo='" + dictNo + "'";
-            DataTable dtTmp = DbHelperSQL.Query(sSql).Tables[0];
-            if (dictNo == "1009") //数据类型
+            DataTable dtTmp = SystemPublic.GetDictData(dictNo);
+            combobox.Items.Clear();
+            foreach (DataRow dr in dtTmp.Rows)
             {
-                cbxsFieldType.Items.Clear();
-                foreach (DataRow dr in dtTmp.Rows)
-                {
-                    ImageComboBoxItem item = new ImageComboBoxItem();
-                    item.Description = LangCenter.Instance.IsDefaultLanguage ? dr["sDictDataCName"].ToString() : dr["sDictDataEName"].ToString();
-                    item.Value = dr["sDictDataNo"];
-                    cbxsFieldType.Items.Add(item);
-                }
-            }
-            else if (dictNo == "1017") //控件类型
-            {
-                cbxsControlType.Items.Clear();
-                foreach (DataRow dr in dtTmp.Rows)
-                {
-                    ImageComboBoxItem item = new ImageComboBoxItem();
-                    item.Description = LangCenter.Instance.IsDefaultLanguage ? dr["sDictDataCName"].ToString() : dr["sDictDataEName"].ToString();
-                    item.Value = dr["sDictDataNo"];
-                    cbxsControlType.Items.Add(item);
-                }
-            }
-            else if (dictNo == "1019") //字段属性
-            {
-                cbxsColumnType.Items.Clear();
-                foreach (DataRow dr in dtTmp.Rows)
-                {
-                    ImageComboBoxItem item = new ImageComboBoxItem();
-                    item.Description = LangCenter.Instance.IsDefaultLanguage ? dr["sDictDataCName"].ToString() : dr["sDictDataEName"].ToString();
-                    item.Value = dr["sDictDataNo"];
-                    cbxsColumnType.Items.Add(item);
-                }
+                ImageComboBoxItem item = new ImageComboBoxItem();
+                item.Description = LangCenter.Instance.IsDefaultLanguage ? dr["sDictDataCName"].ToString() : dr["sDictDataEName"].ToString();
+                item.Value = dr["sDictDataNo"];
+                combobox.Items.Add(item);
             }
         }
 
@@ -283,8 +263,7 @@ namespace Sunrise.ERP.Module.SystemManage
             colbSaveData.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbSaveData.Name);
             colbShowInGrid.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbShowInGrid.Name);
             colbShowInPanel.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbShowInPanel.Name);
-            colbIsSum.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbIsSum.Name);
-            colbIsCount.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbIsCount.Name);
+            colsFooterType.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsFooterType.Name);
             colbSystemColumn.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbSystemColumn.Name);
             coliFieldLength.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", coliFieldLength.Name);
             coliSort.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", coliSort.Name);

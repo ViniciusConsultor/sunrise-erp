@@ -101,7 +101,6 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.lkpsGoodID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.lkpFlag = new Sunrise.ERP.Controls.SunriseLookUp();
-            this.btnPreview = new DevExpress.XtraEditors.SimpleButton();
             this.tpUserDetail = new DevExpress.XtraTab.XtraTabPage();
             this.gcUserDetail = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvUserDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -126,6 +125,7 @@
             this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.repositoryItemComboBox3 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.btnPreview = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -228,6 +228,8 @@
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl2.Size = new System.Drawing.Size(774, 33);
+            this.panelControl2.Controls.SetChildIndex(this.dataNav, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnAction, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnPreview, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnPrint, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnSettings, 0);
@@ -310,6 +312,20 @@
             this.btnSettings.Location = new System.Drawing.Point(701, 4);
             this.btnSettings.LookAndFeel.SkinName = "Blue";
             this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            // 
+            // dataNav
+            // 
+            this.dataNav.Buttons.Append.Visible = false;
+            this.dataNav.Buttons.CancelEdit.Visible = false;
+            this.dataNav.Buttons.EndEdit.Visible = false;
+            this.dataNav.Buttons.NextPage.Visible = false;
+            this.dataNav.Buttons.PrevPage.Visible = false;
+            this.dataNav.Buttons.Remove.Visible = false;
+            // 
+            // btnAction
+            // 
+            this.btnAction.LookAndFeel.SkinName = "Blue";
+            this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // panelControl1
             // 
@@ -1093,20 +1109,11 @@
             this.lkpFlag.TabIndex = 12;
             this.lkpFlag.TextFont = new System.Drawing.Font("Tahoma", 9F);
             // 
-            // btnPreview
-            // 
-            this.btnPreview.Location = new System.Drawing.Point(573, 4);
-            this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(75, 24);
-            this.btnPreview.TabIndex = 11;
-            this.btnPreview.Text = "预览查询(&V)";
-            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
-            // 
             // tpUserDetail
             // 
             this.tpUserDetail.Controls.Add(this.gcUserDetail);
             this.tpUserDetail.Name = "tpUserDetail";
-            this.tpUserDetail.Size = new System.Drawing.Size(557, 147);
+            this.tpUserDetail.Size = new System.Drawing.Size(536, 119);
             this.tpUserDetail.Text = "用户配置";
             // 
             // gcUserDetail
@@ -1121,7 +1128,7 @@
             this.repositoryItemImageComboBox3,
             this.repositoryItemImageComboBox4,
             this.repositoryItemComboBox2});
-            this.gcUserDetail.Size = new System.Drawing.Size(557, 147);
+            this.gcUserDetail.Size = new System.Drawing.Size(536, 119);
             this.gcUserDetail.TabIndex = 5;
             this.gcUserDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvUserDetail,
@@ -1347,6 +1354,15 @@
             // 
             this.gridView3.GridControl = this.gcUserDetail;
             this.gridView3.Name = "gridView3";
+            // 
+            // btnPreview
+            // 
+            this.btnPreview.Location = new System.Drawing.Point(573, 4);
+            this.btnPreview.Name = "btnPreview";
+            this.btnPreview.Size = new System.Drawing.Size(75, 24);
+            this.btnPreview.TabIndex = 11;
+            this.btnPreview.Text = "预览查询(&V)";
+            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
             // 
             // frmsysQueryReportSet
             // 

@@ -11,6 +11,7 @@ using Sunrise.ERP.DataAccess;
 using Sunrise.ERP.Lang;
 using Sunrise.ERP.Security;
 using Sunrise.ERP.SystemManage.DAL;
+using Sunrise.ERP.BaseControl;
 
 namespace Sunrise.ERP.Module.SystemManage
 {
@@ -36,7 +37,7 @@ namespace Sunrise.ERP.Module.SystemManage
 
         private void initUserList()
         {
-            string sSql = "SELECT sUserID,sUserCName,sUserEName FROM sysUser WHERE bIsLock=0";
+            string sSql = "SELECT sUserID,sUserCName,sUserEName FROM sysUser WHERE bIsLock=0 AND iUserType=0";
             dtUser = DbHelperSQL.Query(sSql).Tables[0];
             gcUser.DataSource = dtUser;
         }
@@ -57,7 +58,7 @@ namespace Sunrise.ERP.Module.SystemManage
             string sSql = "SELECT B.FormID,B.sTableName,A.sFieldName "
                         + "FROM sysDynamicFormDetail A "
                         + "LEFT JOIN sysDynamicFormMaster B ON A.MainID=B.ID "
-                        + "WHERE B.FormID=" + formid.ToString() + " AND ISNULL(A.bShowInGrid,1)=1 AND ISNULL(A.bShowInPanel,1)=1 "
+                        + "WHERE B.FormID=" + formid.ToString() + " AND (ISNULL(A.bShowInGrid,1)=1 OR ISNULL(A.bShowInPanel,1)=1 )"
                         + "ORDER BY B.sFormType";
             DataTable dtTmp2 = DbHelperSQL.Query(sSql).Tables[0];
             //合并设置过的数据和窗体上的字段数据
@@ -71,8 +72,8 @@ namespace Sunrise.ERP.Module.SystemManage
                     for (int j = 0; j < dtTmp.Rows.Count; j++)
                     {
                         //同时满足字段和表名相等
-                        if (dtTmp2.Rows[i]["sFieldName"].ToString().ToLower() == dtTmp.Rows[i]["sFieldName"].ToString().ToLower() &&
-                            dtTmp2.Rows[i]["sTableName"].ToString().ToLower() == dtTmp.Rows[i]["sTableName"].ToString().ToLower())
+                        if (dtTmp2.Rows[i]["sFieldName"].ToString().ToLower() == dtTmp.Rows[j]["sFieldName"].ToString().ToLower() &&
+                            dtTmp2.Rows[i]["sTableName"].ToString().ToLower() == dtTmp.Rows[j]["sTableName"].ToString().ToLower())
                         {
                             DataRow dr = dtField.NewRow();
                             dr["UserID"] = dtTmp.Rows[j]["UserID"];
@@ -81,6 +82,7 @@ namespace Sunrise.ERP.Module.SystemManage
                             dr["sFieldName"] = dtTmp.Rows[j]["sFieldName"];
                             dr["bVisiable"] = dtTmp.Rows[j]["bVisiable"];
                             dr["bEdit"] = dtTmp.Rows[j]["bEdit"];
+                            dr["sUserID"] = SecurityCenter.CurrentUserID;
                             dtField.Rows.Add(dr);
                         }
                     }
@@ -97,6 +99,7 @@ namespace Sunrise.ERP.Module.SystemManage
                     dr["sFieldName"] = dtTmp2.Rows[i]["sFieldName"];
                     dr["bVisiable"] = 1;
                     dr["bEdit"] = 1;
+                    dr["sUserID"] = SecurityCenter.CurrentUserID;
                     dtField.Rows.Add(dr);
                 }
             }
@@ -141,14 +144,36 @@ namespace Sunrise.ERP.Module.SystemManage
                 gcField.DataSource = dtField;
             }
             else
-            {
                 gcField.DataSource = null;
-            }
         }
 
         public override void btnSave_Click(object sender, EventArgs e)
         {
+            //设置字段无数据则直接退出
+            if (gvField.RowCount <= 0)
+                return;
             //base.btnSave_Click(sender, e);
+            //先删除原来设置的数据，重新插入新的数据
+            SqlTransaction trans = ConnectSetting.SysSqlConnection.BeginTransaction();
+            string sSql = "DELETE FROM sysFormFieldSetting WHERE UserID='"
+                        + gvUser.GetFocusedDataRow()["sUserID"].ToString() + "' AND FormID="
+                        + tvMenu.FocusedNode.GetValue("iFormID").ToString();
+            try
+            {
+                DbHelperSQL.ExecuteSql(sSql, trans);
+                foreach (DataRow dr in dtField.Rows)
+                {
+                    objDAL.Add(dr, trans);
+                }
+                trans.Commit();
+                Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SaveSuccess"));
+
+            }
+            catch
+            {
+                trans.Rollback();
+                Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SaveSuccess"));
+            }
         }
     }
 }
