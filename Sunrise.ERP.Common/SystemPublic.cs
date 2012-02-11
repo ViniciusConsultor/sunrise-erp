@@ -62,7 +62,7 @@ namespace Sunrise.ERP.Common
         /// <param name="lkp">LookUp控件</param>
         public static void InitLkpDept(SunriseLookUp lkp)
         {
-            InitLookUpBase(lkp, "SELECT ID,sDeptNo, sDeptName, sDeptEName, sRemark FROM hrDepartment", "ID", "sDeptName", "sDeptNo,sDeptName,sDeptEName,sRemark",
+            InitLookUpBase(lkp, "SELECT ID,sDeptNo, sDeptName, sDeptEName, sRemark FROM hrDepartment WHERE bIsLock=0", "ID", "sDeptName", "sDeptNo,sDeptName,sDeptEName,sRemark",
                            "部门编号,中文名称,英文名称,备注", "部门信息");
         }
 
@@ -161,6 +161,17 @@ namespace Sunrise.ERP.Common
                                 + "FROM vwstkGoodStkInfoView ";
             InitLookUpBase(lkp, sSql, "sGoodID", "sGoodID", "sGoodID,sGoodCName,sGoodEName,sSpec,sUnitName", "商品编号,商品名称,英文名称,规格,单位", "商品信息");
         }
+
+        /// <summary>
+        /// 选择公司信息
+        /// </summary>
+        /// <param name="lkp"></param>
+        public static void InitLkpCompany(SunriseLookUp lkp)
+        {
+            InitLookUpBase(lkp, "SELECT ID,sCompanyID,sCompanySName,sCompanyCName,sCompanyEName FROM hrCompanyMaster ", "ID", "sCompanyCName", "sCompanyID,sCompanySName,sCompanyCName,sCompanyEName",
+                "公司编号,公司简称,公司中文名称,公司英文名称", "公司信息");
+        }
+
 
         #endregion
 

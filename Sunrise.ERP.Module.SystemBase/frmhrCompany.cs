@@ -50,12 +50,9 @@ namespace Sunrise.ERP.Module.SystemBase
         private void frmhrCompany_Load(object sender, EventArgs e)
         {
             AddDetailData("hrCompanyDetailDAL", "MainID", "ID");
-            AddDetailData("hrDepartmentDAL", "iCompanyID", "ID");
             AddDetailData("hrCompanyShopInfoDAL", "MainID", "ID");
             gcDetail.DataSource = LDetailDataSet[LDetailDALName.IndexOf("hrCompanyDetailDAL")];
             gcDetail.DataMember = "ds";
-            gcDept.DataSource = LDetailDataSet[LDetailDALName.IndexOf("hrDepartmentDAL")];
-            gcDept.DataMember = "ds";
             gcShopInfo.DataSource = LDetailDataSet[LDetailDALName.IndexOf("hrCompanyShopInfoDAL")];
             gcShopInfo.DataMember = "ds";
             lkpsCurrency.DataBindings.Add("EditValue", LDetailDataSet[LDetailDALName.IndexOf("hrCompanyDetailDAL")], "ds.sCurrency");
@@ -78,7 +75,6 @@ namespace Sunrise.ERP.Module.SystemBase
         {
             base.MasterAllScroll(sender, e);
             gcDetail.DataSource = LDetailDataSet[LDetailDALName.IndexOf("hrCompanyDetailDAL")];
-            gcDept.DataSource = LDetailDataSet[LDetailDALName.IndexOf("hrDepartmentDAL")];
             gcShopInfo.DataSource = LDetailDataSet[LDetailDALName.IndexOf("hrCompanyShopInfoDAL")];
             lkpsCurrency.DataBindings.Clear();
             lkpsCurrency.DataBindings.Add("EditValue", LDetailDataSet[LDetailDALName.IndexOf("hrCompanyDetailDAL")], "ds.sCurrency");
@@ -90,14 +86,12 @@ namespace Sunrise.ERP.Module.SystemBase
             if (FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsEdit || FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsInsert)
             {
                 gvDetail.OptionsBehavior.Editable = true;
-                gvDept.OptionsBehavior.Editable = true;
                 gvShopInfo.OptionsBehavior.Editable = true;
                 pnlDetailMenu.Enabled = true;
             }
             else
             {
                 gvDetail.OptionsBehavior.Editable = false;
-                gvDept.OptionsBehavior.Editable = false;
                 gvShopInfo.OptionsBehavior.Editable = false;
                 pnlDetailMenu.Enabled = false;
             }
@@ -110,15 +104,10 @@ namespace Sunrise.ERP.Module.SystemBase
             {
                 case 0:
                     {
-                        gvDept.AddNewRow();
-                        break;
-                    }
-                case 1:
-                    {
                         gvDetail.AddNewRow();
                         break;
                     }
-                case 2:
+                case 1:
                     {
                         gvShopInfo.AddNewRow();
                         break;
@@ -132,21 +121,13 @@ namespace Sunrise.ERP.Module.SystemBase
             {
                 case 0:
                     {
-                        if (gvDept.FocusedRowHandle >= 0)
-                        {
-                            gvDept.DeleteRow(gvDept.FocusedRowHandle);
-                        }
-                        break;
-                    }
-                case 1:
-                    {
                         if (gvDetail.FocusedRowHandle >= 0)
                         {
                             gvDetail.DeleteRow(gvDetail.FocusedRowHandle);
                         }
                         break;
                     }
-                case 2:
+                case 1:
                     {
                         if (gvShopInfo.FocusedRowHandle >= 0)
                         {
@@ -164,11 +145,6 @@ namespace Sunrise.ERP.Module.SystemBase
                 e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.Ignore;
                 ((DataRowView)dsMain.Current).Row["mlogo"] = null;
             }
-        }
-
-        private void gvDept_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
-        {
-            gvDept.GetFocusedDataRow()["sUserID"] = Sunrise.ERP.Security.SecurityCenter.CurrentUserID;
         }
 
         private void gvDetail_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)

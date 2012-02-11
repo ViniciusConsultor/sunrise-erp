@@ -106,6 +106,12 @@
     <Compile Include="frmbasDataDict.Designer.cs">
       <DependentUpon>frmbasDataDict.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmhrDepartment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmhrDepartment.Designer.cs">
+      <DependentUpon>frmhrDepartment.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmhrEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +136,10 @@
       <Project>{77AF6749-8A39-4EFD-9160-CDAC511D7233}</Project>
       <Name>Sunrise.ERP.BaseControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.BaseForm.DAL\Sunrise.ERP.BaseForm.DAL.csproj">
+      <Project>{67865932-18D5-40FB-BEEC-636FEA6C7C1B}</Project>
+      <Name>Sunrise.ERP.BaseForm.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sunrise.ERP.BaseForm\Sunrise.ERP.BaseForm.csproj">
       <Project>{AE1E345F-00DA-4EC0-9640-5F62A9118790}</Project>
       <Name>Sunrise.ERP.BaseForm</Name>
@@ -149,6 +159,10 @@
     <ProjectReference Include="..\Sunrise.ERP.DataAccess\Sunrise.ERP.DataAccess.csproj">
       <Project>{E30BB9FB-447C-4260-8ACB-0604DD729BFE}</Project>
       <Name>Sunrise.ERP.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.Lang\Sunrise.ERP.Lang.csproj">
+      <Project>{BE849923-172A-4FBD-9C75-BAB978254BBF}</Project>
+      <Name>Sunrise.ERP.Lang</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sunrise.ERP.Report\Sunrise.ERP.Report.csproj">
       <Project>{5049D72C-A87F-4874-9EA8-4D590055D202}</Project>
@@ -172,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmbasDataDict.resx">
       <DependentUpon>frmbasDataDict.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmhrDepartment.resx">
+      <DependentUpon>frmhrDepartment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmhrEmployee.resx">
       <DependentUpon>frmhrEmployee.cs</DependentUpon>

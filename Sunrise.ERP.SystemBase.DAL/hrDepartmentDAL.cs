@@ -45,23 +45,29 @@ namespace Sunrise.ERP.SystemBase.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("INSERT INTO hrDepartment(");
-            strSql.Append("iCompanyID,sDeptNo,sDeptName,sDeptEName,sRemark,sUserID)");
+            strSql.Append("iCompanyID,sDeptNo,sDeptName,sDeptEName,ParentID,sRemark,bIsLock,sUserID,iFlag)");
             strSql.Append(" VALUES (");
-            strSql.Append("@iCompanyID,@sDeptNo,@sDeptName,@sDeptEName,@sRemark,@sUserID)");
+            strSql.Append("@iCompanyID,@sDeptNo,@sDeptName,@sDeptEName,@ParentID,@sRemark,@bIsLock,@sUserID,@iFlag)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@iCompanyID", SqlDbType.Int,4),
 					new SqlParameter("@sDeptNo", SqlDbType.VarChar,30),
 					new SqlParameter("@sDeptName", SqlDbType.VarChar,50),
 					new SqlParameter("@sDeptEName", SqlDbType.VarChar,50),
+					new SqlParameter("@ParentID", SqlDbType.Int,4),
 					new SqlParameter("@sRemark", SqlDbType.VarChar,500),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
+					new SqlParameter("@bIsLock", SqlDbType.Bit,1),
+					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
+					new SqlParameter("@iFlag", SqlDbType.Int,4)};
             parameters[0].Value = dr["iCompanyID"];
             parameters[1].Value = dr["sDeptNo"];
             parameters[2].Value = dr["sDeptName"];
             parameters[3].Value = dr["sDeptEName"];
-            parameters[4].Value = dr["sRemark"];
-            parameters[5].Value = dr["sUserID"];
+            parameters[4].Value = dr["ParentID"];
+            parameters[5].Value = dr["sRemark"];
+            parameters[6].Value = dr["bIsLock"];
+            parameters[7].Value = dr["sUserID"];
+            parameters[8].Value = dr["iFlag"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -84,8 +90,11 @@ namespace Sunrise.ERP.SystemBase.DAL
             strSql.Append("sDeptNo=@sDeptNo,");
             strSql.Append("sDeptName=@sDeptName,");
             strSql.Append("sDeptEName=@sDeptEName,");
+            strSql.Append("ParentID=@ParentID,");
             strSql.Append("sRemark=@sRemark,");
-            strSql.Append("sUserID=@sUserID");
+            strSql.Append("bIsLock=@bIsLock,");
+            strSql.Append("sUserID=@sUserID,");
+            strSql.Append("iFlag=@iFlag");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
@@ -93,15 +102,21 @@ namespace Sunrise.ERP.SystemBase.DAL
 					new SqlParameter("@sDeptNo", SqlDbType.VarChar,30),
 					new SqlParameter("@sDeptName", SqlDbType.VarChar,50),
 					new SqlParameter("@sDeptEName", SqlDbType.VarChar,50),
+					new SqlParameter("@ParentID", SqlDbType.Int,4),
 					new SqlParameter("@sRemark", SqlDbType.VarChar,500),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
+					new SqlParameter("@bIsLock", SqlDbType.Bit,1),
+					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
+					new SqlParameter("@iFlag", SqlDbType.Int,4)};
             parameters[0].Value = dr["ID"];
             parameters[1].Value = dr["iCompanyID"];
             parameters[2].Value = dr["sDeptNo"];
             parameters[3].Value = dr["sDeptName"];
             parameters[4].Value = dr["sDeptEName"];
-            parameters[5].Value = dr["sRemark"];
-            parameters[6].Value = dr["sUserID"];
+            parameters[5].Value = dr["ParentID"];
+            parameters[6].Value = dr["sRemark"];
+            parameters[7].Value = dr["bIsLock"];
+            parameters[8].Value = dr["sUserID"];
+            parameters[9].Value = dr["iFlag"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }
@@ -129,7 +144,7 @@ namespace Sunrise.ERP.SystemBase.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * ");
-            strSql.Append(" FROM hrDepartment ");
+            strSql.Append(" FROM vwhrDepartment ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -148,7 +163,7 @@ namespace Sunrise.ERP.SystemBase.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM hrDepartment ");
+            strSql.Append(" * FROM vwhrDepartment ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
