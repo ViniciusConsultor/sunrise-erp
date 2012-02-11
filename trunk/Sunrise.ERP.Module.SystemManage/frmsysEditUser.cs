@@ -21,13 +21,13 @@ namespace Sunrise.ERP.Module.SystemManage
             txtsRemark.DataBindings.Add("EditValue", dsMain, "sRemark");
             txtsUserCName.DataBindings.Add("EditValue", dsMain, "sUserCName");
             txtsUserEName.DataBindings.Add("EditValue", dsMain, "sUserEName");
-            lkpParantID.DataBindings.Add("EditValue", dsMain, "ParentID");
+            lkpParentID.DataBindings.Add("EditValue", dsMain, "ParentID");
             lkpsUserID.DataBindings.Add("EditValue", dsMain, "sUserID");
             cbxUserType.DataBindings.Add("EditValue", dsMain, "iUserType");
             chkbIsLock.DataBindings.Add("EditValue", dsMain, "bIsLock");
             Sunrise.ERP.Common.SystemPublic.InitLookUpBase(lkpsUserID, "SELECT ID,sEmpNo,sEmpCName,sEmpEName,sDeptNo,sDeptName,sDeptEName FROM vwhrEmployee", "sEmpNo",
                                                        "sEmpNo", "sEmpNo,sEmpCName,sEmpEName,sDeptNo,sDeptName", "员工编号,员工名称,员工英文名,部门编号,部门名称", "员工信息");
-            Sunrise.ERP.Common.SystemPublic.InitLkpSystemUser(lkpParantID);
+            Sunrise.ERP.Common.SystemPublic.InitLkpSystemUser(lkpParentID);
         }
         public override bool DoAppend()
         {

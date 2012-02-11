@@ -86,14 +86,6 @@
             this.colsRemark = new DevExpress.XtraGrid.Columns.GridColumn();
             this.lkpsCurrency = new Sunrise.ERP.Controls.SunriseLookUp();
             this.tcDetail = new DevExpress.XtraTab.XtraTabControl();
-            this.tpDept = new DevExpress.XtraTab.XtraTabPage();
-            this.gcDept = new Sunrise.ERP.Controls.SunriseGridControl();
-            this.gvDept = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colsDeptNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colsDeptName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colsDeptEName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colsRemark1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.tpBankAccount = new DevExpress.XtraTab.XtraTabPage();
             this.tpShopInfo = new DevExpress.XtraTab.XtraTabPage();
             this.gcShopInfo = new Sunrise.ERP.Controls.SunriseGridControl();
@@ -163,10 +155,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.colbtnsCurrency)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tcDetail)).BeginInit();
             this.tcDetail.SuspendLayout();
-            this.tpDept.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gcDept)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDept)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
             this.tpBankAccount.SuspendLayout();
             this.tpShopInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcShopInfo)).BeginInit();
@@ -273,6 +261,20 @@
             this.btnSettings.LookAndFeel.SkinName = "Blue";
             this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
+            // dataNav
+            // 
+            this.dataNav.Buttons.Append.Visible = false;
+            this.dataNav.Buttons.CancelEdit.Visible = false;
+            this.dataNav.Buttons.EndEdit.Visible = false;
+            this.dataNav.Buttons.NextPage.Visible = false;
+            this.dataNav.Buttons.PrevPage.Visible = false;
+            this.dataNav.Buttons.Remove.Visible = false;
+            // 
+            // btnAction
+            // 
+            this.btnAction.LookAndFeel.SkinName = "Blue";
+            this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
+            // 
             // panelControl1
             // 
             this.panelControl1.LookAndFeel.SkinName = "Blue";
@@ -304,6 +306,7 @@
             this.gvMain.OptionsView.ColumnAutoWidth = false;
             this.gvMain.OptionsView.ShowAutoFilterRow = true;
             this.gvMain.OptionsView.ShowFooter = true;
+            this.gvMain.OptionsView.ShowGroupPanel = false;
             // 
             // colsCompanyID
             // 
@@ -793,7 +796,7 @@
             this.gcDetail.Name = "gcDetail";
             this.gcDetail.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.colbtnsCurrency});
-            this.gcDetail.Size = new System.Drawing.Size(536, 25);
+            this.gcDetail.Size = new System.Drawing.Size(632, 174);
             this.gcDetail.TabIndex = 4;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDetail});
@@ -810,6 +813,7 @@
             this.gvDetail.Name = "gvDetail";
             this.gvDetail.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gvDetail.OptionsView.ColumnAutoWidth = false;
+            this.gvDetail.OptionsView.ShowGroupPanel = false;
             this.gvDetail.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gvDetail_InitNewRow);
             // 
             // colsCurrencyCName
@@ -875,6 +879,7 @@
             this.lkpsCurrency.EditFormID = 0;
             this.lkpsCurrency.EditFormName = null;
             this.lkpsCurrency.EditValue = "";
+            this.lkpsCurrency.FormID = 0;
             this.lkpsCurrency.GridColumnText = null;
             this.lkpsCurrency.GridDisplayField = null;
             this.lkpsCurrency.Location = new System.Drawing.Point(113, 137);
@@ -891,103 +896,25 @@
             this.tcDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcDetail.Location = new System.Drawing.Point(2, 35);
             this.tcDetail.Name = "tcDetail";
-            this.tcDetail.SelectedTabPage = this.tpDept;
+            this.tcDetail.SelectedTabPage = this.tpBankAccount;
             this.tcDetail.Size = new System.Drawing.Size(639, 203);
             this.tcDetail.TabIndex = 6;
             this.tcDetail.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.tpDept,
             this.tpBankAccount,
             this.tpShopInfo});
-            // 
-            // tpDept
-            // 
-            this.tpDept.Controls.Add(this.gcDept);
-            this.tpDept.Name = "tpDept";
-            this.tpDept.Size = new System.Drawing.Size(632, 174);
-            this.tpDept.Text = "部门信息";
-            // 
-            // gcDept
-            // 
-            this.gcDept.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcDept.Location = new System.Drawing.Point(0, 0);
-            this.gcDept.MainView = this.gvDept;
-            this.gcDept.Name = "gcDept";
-            this.gcDept.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemButtonEdit1});
-            this.gcDept.Size = new System.Drawing.Size(632, 174);
-            this.gcDept.TabIndex = 5;
-            this.gcDept.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvDept});
-            // 
-            // gvDept
-            // 
-            this.gvDept.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colsDeptNo,
-            this.colsDeptName,
-            this.colsDeptEName,
-            this.colsRemark1});
-            this.gvDept.GridControl = this.gcDept;
-            this.gvDept.Name = "gvDept";
-            this.gvDept.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.gvDept.OptionsView.ColumnAutoWidth = false;
-            this.gvDept.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gvDept_InitNewRow);
-            // 
-            // colsDeptNo
-            // 
-            this.colsDeptNo.Caption = "部门编号";
-            this.colsDeptNo.FieldName = "sDeptNo";
-            this.colsDeptNo.Name = "colsDeptNo";
-            this.colsDeptNo.Visible = true;
-            this.colsDeptNo.VisibleIndex = 0;
-            this.colsDeptNo.Width = 80;
-            // 
-            // colsDeptName
-            // 
-            this.colsDeptName.Caption = "部门名称";
-            this.colsDeptName.FieldName = "sDeptName";
-            this.colsDeptName.Name = "colsDeptName";
-            this.colsDeptName.Visible = true;
-            this.colsDeptName.VisibleIndex = 1;
-            this.colsDeptName.Width = 129;
-            // 
-            // colsDeptEName
-            // 
-            this.colsDeptEName.Caption = "英文名称";
-            this.colsDeptEName.FieldName = "sDeptEName";
-            this.colsDeptEName.Name = "colsDeptEName";
-            this.colsDeptEName.Visible = true;
-            this.colsDeptEName.VisibleIndex = 2;
-            this.colsDeptEName.Width = 138;
-            // 
-            // colsRemark1
-            // 
-            this.colsRemark1.Caption = "备注";
-            this.colsRemark1.FieldName = "sRemark";
-            this.colsRemark1.Name = "colsRemark1";
-            this.colsRemark1.Visible = true;
-            this.colsRemark1.VisibleIndex = 3;
-            this.colsRemark1.Width = 198;
-            // 
-            // repositoryItemButtonEdit1
-            // 
-            this.repositoryItemButtonEdit1.AutoHeight = false;
-            this.repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
-            this.repositoryItemButtonEdit1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             // 
             // tpBankAccount
             // 
             this.tpBankAccount.Controls.Add(this.gcDetail);
             this.tpBankAccount.Name = "tpBankAccount";
-            this.tpBankAccount.Size = new System.Drawing.Size(536, 25);
+            this.tpBankAccount.Size = new System.Drawing.Size(632, 174);
             this.tpBankAccount.Text = "银行信息";
             // 
             // tpShopInfo
             // 
             this.tpShopInfo.Controls.Add(this.gcShopInfo);
             this.tpShopInfo.Name = "tpShopInfo";
-            this.tpShopInfo.Size = new System.Drawing.Size(536, 25);
+            this.tpShopInfo.Size = new System.Drawing.Size(632, 174);
             this.tpShopInfo.Text = "门店信息";
             // 
             // gcShopInfo
@@ -998,7 +925,7 @@
             this.gcShopInfo.Name = "gcShopInfo";
             this.gcShopInfo.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemButtonEdit2});
-            this.gcShopInfo.Size = new System.Drawing.Size(536, 25);
+            this.gcShopInfo.Size = new System.Drawing.Size(632, 174);
             this.gcShopInfo.TabIndex = 5;
             this.gcShopInfo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvShopInfo});
@@ -1014,6 +941,7 @@
             this.gvShopInfo.Name = "gvShopInfo";
             this.gvShopInfo.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gvShopInfo.OptionsView.ColumnAutoWidth = false;
+            this.gvShopInfo.OptionsView.ShowGroupPanel = false;
             this.gvShopInfo.InitNewRow += new DevExpress.XtraGrid.Views.Grid.InitNewRowEventHandler(this.gvShopInfo_InitNewRow);
             // 
             // colsShopID
@@ -1130,10 +1058,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.colbtnsCurrency)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tcDetail)).EndInit();
             this.tcDetail.ResumeLayout(false);
-            this.tpDept.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gcDept)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDept)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
             this.tpBankAccount.ResumeLayout(false);
             this.tpShopInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcShopInfo)).EndInit();
@@ -1204,14 +1128,6 @@
         private Sunrise.ERP.Controls.SunriseLookUp lkpsCurrency;
         private DevExpress.XtraTab.XtraTabControl tcDetail;
         private DevExpress.XtraTab.XtraTabPage tpBankAccount;
-        private DevExpress.XtraTab.XtraTabPage tpDept;
-        private Sunrise.ERP.Controls.SunriseGridControl gcDept;
-        private DevExpress.XtraGrid.Views.Grid.GridView gvDept;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
-        private DevExpress.XtraGrid.Columns.GridColumn colsDeptNo;
-        private DevExpress.XtraGrid.Columns.GridColumn colsDeptName;
-        private DevExpress.XtraGrid.Columns.GridColumn colsDeptEName;
-        private DevExpress.XtraGrid.Columns.GridColumn colsRemark1;
         private DevExpress.XtraTab.XtraTabPage tpShopInfo;
         private Sunrise.ERP.Controls.SunriseGridControl gcShopInfo;
         private DevExpress.XtraGrid.Views.Grid.GridView gvShopInfo;
