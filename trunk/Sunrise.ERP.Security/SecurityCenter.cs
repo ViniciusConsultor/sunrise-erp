@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 
 using Sunrise.ERP.Lang;
 using Sunrise.ERP.DataAccess;
+using Sunrise.ERP.BaseControl;
 
 namespace Sunrise.ERP.Security
 {
@@ -16,7 +17,9 @@ namespace Sunrise.ERP.Security
     /// </summary>
     public class SecurityCenter
     {
-
+        /// <summary>
+        /// 系统权限
+        /// </summary>
         public SecurityCenter() { }
 
         #region 属性
@@ -25,6 +28,8 @@ namespace Sunrise.ERP.Security
         private string _strdept = "";
         private string _strunder = "";
         private string _strselfandunder = "";
+        private string _strunderdept = "";
+        private string _strdeptandunderdept = "";
         private static string _suserid = "";
         private static bool _isadmin = true;
         private static DataSet _dsMenu;
@@ -36,16 +41,16 @@ namespace Sunrise.ERP.Security
         {
             get
             {
-                if (_dt == null && CurrentUserID != "")
+                if (_dt == null)
                 {
                     string sDataSql = "SELECT DISTINCT A.MenuID, E.iFormID, A.iView, A.iAdd, A.iEdit, A.iDelete, "
-                            + "A.iPrint, A.iNum, A.iPrice,A.iProperty "
+                            + "A.iPrint, A.iNum, A.iPrice,A.iProperty,A.iOutPut "
                             + "FROM sysRolesRights A "
                             + "LEFT JOIN sysRoles B ON A.RoleID=B.ID "
                             + "LEFT JOIN sysRolesUser C ON B.ID=C.RoleID "
                             + "LEFT JOIN sysUser D ON C.UserID=D.ID "
                             + "LEFT JOIN sysMenu E ON A.MenuID=E.ID "
-                            + "WHERE D.sUserID='" + SecurityCenter.CurrentUserID + "'";
+                            + "WHERE D.sUserID='" + CurrentUserID + "'";
                     _dt = DbHelperSQL.Query(sDataSql).Tables[0];
                 }
                 return _dt;
@@ -64,6 +69,32 @@ namespace Sunrise.ERP.Security
                     _strdept = GetUserStr("dept");
                 }
                 return _strdept;
+            }
+        }
+
+        /// <summary>
+        /// 获取用户部门下属部门所有用户字符串
+        /// </summary>
+        public string GetUserUnderDeptStr
+        {
+            get
+            {
+                if (_strunderdept == "")
+                    _strunderdept = GetUserStr("underdept");
+                return _strunderdept;
+            }
+        }
+
+        /// <summary>
+        /// 获取用户同部门及下属部门所有用户字符串
+        /// </summary>
+        public string GetUserDeptAndUnderDeptStr
+        {
+            get
+            {
+                if (_strdeptandunderdept == "")
+                    _strdeptandunderdept = GetUserStr("deptandunderdept");
+                return _strdeptandunderdept;
             }
         }
 
@@ -96,7 +127,6 @@ namespace Sunrise.ERP.Security
                 return _strselfandunder;
             }
         }
-
 
         /// <summary>
         /// 获取当前用户ID
@@ -146,7 +176,7 @@ namespace Sunrise.ERP.Security
             {
                 if (_isadmin)
                 {
-                    object obj = Sunrise.ERP.DataAccess.DbHelperSQL.GetSingle("SELECT 1 FROM sysUser WHERE iUserType=1 AND sUserID='" + CurrentUserID + "'");
+                    object obj = DbHelperSQL.GetSingle("SELECT 1 FROM sysUser WHERE iUserType=1 AND sUserID='" + CurrentUserID + "'");
                     if (obj != null && obj.ToString() == "1")
                         _isadmin = true;
                     else
@@ -164,7 +194,7 @@ namespace Sunrise.ERP.Security
             get
             {
                 if (_dsMenu == null)
-                    _dsMenu = Sunrise.ERP.DataAccess.DbHelperSQL.Query(GetMenuAuthSQL());
+                    _dsMenu = DbHelperSQL.Query(GetMenuAuthSQL());
                 return _dsMenu;
             }
         }
@@ -193,15 +223,16 @@ namespace Sunrise.ERP.Security
                 htTemp.Add(SecurityOperation.Num, GetOperationValue(dr["iNum"]));
                 htTemp.Add(SecurityOperation.Price, GetOperationValue(dr["iPrice"]));
                 htTemp.Add(SecurityOperation.Property, GetOperationValue(dr["iProperty"]));
+                htTemp.Add(SecurityOperation.OutPut, GetOperationValue(dr["iOutPut"]));
                 Result.Add(htTemp);
             }
             return Result;
         }
 
         /// <summary>
-        /// 根据用户获取相应的字符串（部门，下属，个人及下属）
+        /// 根据用户获取相应的字符串（部门,下属部门,部门及下属部门,下属,个人及下属）
         /// </summary>
-        /// <param name="type">部门-dept,下属-under,个人及下属-selfandunder</param>
+        /// <param name="type">部门-dept,下属部门-underdept,部门及下属部门-deptandunderdept,下属-under,个人及下属-selfandunder</param>
         /// <returns></returns>
         private string GetUserStr(string type)
         {
@@ -213,6 +244,32 @@ namespace Sunrise.ERP.Security
                 sSql = "SELECT A.sUserID FROM sysUser A "
                      + "WHERE A.DeptID IN "
                      + "(SELECT AA.DeptID FROM sysUser AA WHERE AA.sUserID='" + CurrentUserID + "')";
+            }
+            //下属部门
+            if (type == "underdept")
+            {
+                sSql = "SELECT A.sUserID FROM sysUser A "
+                     + "WHERE A.DeptID IN "
+                     + "(SELECT AA.ID "
+                     + "FROM hrDepartment AA "
+                     + "LEFT JOIN hrDepartment BB ON AA.ParentID=BB.ID "
+                     + "LEFT JOIN sysUser CC ON BB.ID=CC.DeptID "
+                     + "WHERE CC.sUserID='" + CurrentUserID + "')";
+            }
+            //部门及下属部门
+            if (type == "deptandunderdept")
+            {
+                sSql = "SELECT A.sUserID FROM sysUser A "
+                      + "WHERE A.DeptID IN "
+                      + "(SELECT AA.ID "
+                      + "FROM hrDepartment AA "
+                      + "LEFT JOIN hrDepartment BB ON AA.ParentID=BB.ID "
+                      + "LEFT JOIN sysUser CC ON BB.ID=CC.DeptID "
+                      + "WHERE CC.sUserID='" + CurrentUserID + "') "
+                      + "UNION "
+                      + "SELECT B.sUserID FROM sysUser B "
+                      + "WHERE B.DeptID IN "
+                      + "(SELECT CC.DeptID FROM sysUser CC WHERE CC.sUserID='" + CurrentUserID + "')";
             }
             //下属
             else if (type == "under")
@@ -229,7 +286,7 @@ namespace Sunrise.ERP.Security
                     + "FROM sysUser A "
                     + "LEFT JOIN sysUser B ON A.ParentID=B.ID "
                     + "WHERE B.sUserID='" + CurrentUserID + "' AND A.ID<>B.ParentID "
-                    + "UNION ALL "
+                    + "UNION "
                     + "SELECT C.sUserID FROM sysUser C WHERE C.sUserID='" + CurrentUserID + "'";
             }
             if (sSql != "")
@@ -293,6 +350,16 @@ namespace Sunrise.ERP.Security
                     {
                         return SecurityOperationValue.All;
                     }
+                //下属部门
+                case 6:
+                    {
+                        return SecurityOperationValue.DeptUnderling;
+                    }
+                //部门及下属部门
+                case 7:
+                    {
+                        return SecurityOperationValue.DepartmentAndUnderling;
+                    }
 
                 default:
                     {
@@ -305,7 +372,7 @@ namespace Sunrise.ERP.Security
         /// 获取窗体查询权限SQL
         /// </summary>
         /// <param name="st">数据显示类型</param>
-        /// <param name="formid"></param>
+        /// <param name="formid">FormID</param>
         /// <returns></returns>
         public string GetAuthSQL(ShowType st, int formid)
         {
@@ -324,9 +391,9 @@ namespace Sunrise.ERP.Security
             }
             else
             {
+                string sLastAuthSQL = "";
                 foreach (Hashtable ht in GetFormSecurity(formid))
                 {
-                    string sLastAuthSQL = "";
                     switch ((SecurityOperationValue)ht[SecurityOperation.View])
                     {
                         case SecurityOperationValue.None:
@@ -422,6 +489,48 @@ namespace Sunrise.ERP.Security
                                     break;
                                 }
                             }
+                        case SecurityOperationValue.DeptUnderling:
+                            {
+                                if (st == ShowType.FormShow)
+                                {
+                                    if (sLastAuthSQL != " (iFlag IN (0,1,2,3) AND sUserID IN('" + GetUserUnderDeptStr.Replace(",", "','") + "')) OR")
+                                    {
+                                        sResult += " (iFlag IN (0,1,2,3) AND sUserID IN('" + GetUserUnderDeptStr.Replace(",", "','") + "')) OR";
+                                        sLastAuthSQL = " (iFlag IN (0,1,2,3) AND sUserID IN('" + GetUserUnderDeptStr.Replace(",", "','") + "')) OR";
+                                    }
+                                    break;
+                                }
+                                else
+                                {
+                                    if (sLastAuthSQL != " (sUserID IN('" + GetUserUnderDeptStr.Replace(",", "','") + "')) OR")
+                                    {
+                                        sResult += " (sUserID IN('" + GetUserUnderDeptStr.Replace(",", "','") + "')) OR";
+                                        sLastAuthSQL = " (sUserID IN('" + GetUserUnderDeptStr.Replace(",", "','") + "')) OR";
+                                    }
+                                    break;
+                                }
+                            }
+                        case SecurityOperationValue.DepartmentAndUnderling:
+                            {
+                                if (st == ShowType.FormShow)
+                                {
+                                    if (sLastAuthSQL != " (iFlag IN (0,1,2,3) AND sUserID IN('" + GetUserDeptAndUnderDeptStr.Replace(",", "','") + "')) OR")
+                                    {
+                                        sResult += " (iFlag IN (0,1,2,3) AND sUserID IN('" + GetUserDeptAndUnderDeptStr.Replace(",", "','") + "')) OR";
+                                        sLastAuthSQL = " (iFlag IN (0,1,2,3) AND sUserID IN('" + GetUserDeptAndUnderDeptStr.Replace(",", "','") + "')) OR";
+                                    }
+                                    break;
+                                }
+                                else
+                                {
+                                    if (sLastAuthSQL != " (sUserID IN('" + GetUserDeptAndUnderDeptStr.Replace(",", "','") + "')) OR")
+                                    {
+                                        sResult += " (sUserID IN('" + GetUserDeptAndUnderDeptStr.Replace(",", "','") + "')) OR";
+                                        sLastAuthSQL = " (sUserID IN('" + GetUserDeptAndUnderDeptStr.Replace(",", "','") + "')) OR";
+                                    }
+                                    break;
+                                }
+                            }
                         case SecurityOperationValue.All:
                             {
                                 if (st == ShowType.FormShow)
@@ -480,16 +589,7 @@ namespace Sunrise.ERP.Security
             }
             else
             {
-                sResult = "SELECT DISTINCT E.ID,E.iFormID,"
-                        + (LangCenter.Instance.IsDefaultLanguage ? "E.sMenuName" : "E.sMenuEngName AS sMenuName")
-                        + ",E.iParentID,E.sModuleName,E.sFormClassName,E.iSort,E.sQuickMenu "
-                        + "FROM sysRolesRights A "
-                        + "LEFT JOIN sysRoles B ON A.RoleID=B.ID "
-                        + "LEFT JOIN sysRolesUser C ON B.ID=C.RoleID "
-                        + "LEFT JOIN sysUser D ON C.UserID=D.ID "
-                        + "LEFT JOIN sysMenu E ON A.MenuID=E.ID "
-                        + "WHERE D.sUserID='" + CurrentUserID + "' "
-                        + "ORDER BY E.iSort";
+                sResult = GetMenuAuthSQL(CurrentUserID);
 
             }
             return sResult;
@@ -532,7 +632,7 @@ namespace Sunrise.ERP.Security
         /// </summary>
         /// <param name="so">权限操作类型</param>
         /// <param name="formid">窗体ID</param>
-        /// <param name="lano">制单人</param>
+        /// <param name="suserid">制单人</param>
         /// <returns></returns>
         public bool CheckAuth(SecurityOperation so, int formid, string suserid)
         {
@@ -550,16 +650,6 @@ namespace Sunrise.ERP.Security
             {
                 foreach (Hashtable ht in GetFormSecurity(formid))
                 {
-                    ////增加权限，只要设置的不为None，其他的都具有
-                    //if (so == SecurityOperation.Add)
-                    //{
-                    //    if ((SecurityOperationValue)GetFormSecurity(formid)[so] != SecurityOperationValue.None)
-                    //    {
-                    //        bResult = true;
-                    //    }
-                    //}
-                    //else
-                    //{
                     switch ((SecurityOperationValue)ht[so])
                     {
                         case SecurityOperationValue.None:
@@ -603,6 +693,24 @@ namespace Sunrise.ERP.Security
                                 }
                                 break;
                             }
+                        case SecurityOperationValue.DeptUnderling:
+                            {
+                                bResult = GetUserUnderDeptStr.ToLower().Contains(suserid.ToLower());
+                                if (bResult)
+                                {
+                                    return bResult;
+                                }
+                                break;
+                            }
+                        case SecurityOperationValue.DepartmentAndUnderling:
+                            {
+                                bResult = GetUserDeptAndUnderDeptStr.ToLower().Contains(suserid.ToLower());
+                                if (bResult)
+                                {
+                                    return bResult;
+                                }
+                                break;
+                            }
                         case SecurityOperationValue.All:
                             {
                                 bResult = true;
@@ -625,7 +733,7 @@ namespace Sunrise.ERP.Security
 
         /// <summary>
         /// 判断权限
-        /// 用于判断增加,单价,数量权限
+        /// 用于判断增加,单价,数量,属性,导出权限
         /// </summary>
         /// <param name="so">权限操作类型</param>
         /// <param name="formid">窗体ID</param>
@@ -642,8 +750,10 @@ namespace Sunrise.ERP.Security
             {
                 foreach (Hashtable ht in GetFormSecurity(formid))
                 {
-                    //增加,单价,数量权限，只要设置的不为None，其他的都具有
-                    if (so == SecurityOperation.Add || so == SecurityOperation.Num || so == SecurityOperation.Price)
+                    //增加,单价,数量,属性,导出权限，只要设置的不为None，其他的都具有
+                    if (so == SecurityOperation.Add || so == SecurityOperation.Num
+                        || so == SecurityOperation.Price || so == SecurityOperation.Property
+                        || so == SecurityOperation.OutPut)
                     {
                         if ((SecurityOperationValue)ht[so] != SecurityOperationValue.None)
                         {
@@ -672,7 +782,7 @@ namespace Sunrise.ERP.Security
             {
                 string sSql = "SELECT sUserCName,sPassword,sDeptName FROM vwsysUser WHERE sUserID='" + suser + "'";
                 string spwd = "";
-                DataTable dtTemp = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0];
+                DataTable dtTemp = DbHelperSQL.Query(sSql).Tables[0];
                 if (dtTemp != null && dtTemp.Rows.Count > 0)
                 {
                     spwd = dtTemp.Rows[0]["sPassword"].ToString();
@@ -681,7 +791,7 @@ namespace Sunrise.ERP.Security
                 {
                     return 0;
                 }
-                if (spassword == Sunrise.ERP.BaseControl.SysEncrypt.DecryptStr(spwd))
+                if (spassword == SysEncrypt.DecryptStr(spwd))
                 {
                     iResult = 1;
                     if (dtTemp != null && dtTemp.Rows.Count > 0)

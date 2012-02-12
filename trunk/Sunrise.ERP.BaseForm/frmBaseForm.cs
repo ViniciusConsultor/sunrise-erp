@@ -83,9 +83,10 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = true;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
-                        btnSettings.Enabled = true;
+                        btnProperty.Enabled = true;
                         dataNav.Enabled = true;
                         btnAction.Enabled = true;
+                        btnProperty.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Insert:
@@ -99,9 +100,10 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = false;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
-                        btnSettings.Enabled = false;
+                        btnProperty.Enabled = false;
                         dataNav.Enabled = false;
                         btnAction.Enabled = false;
+                        btnProperty.Enabled = false;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Edit:
@@ -115,9 +117,10 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = false;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
-                        btnSettings.Enabled = false;
+                        btnProperty.Enabled = false;
                         dataNav.Enabled = false;
                         btnAction.Enabled = false;
+                        btnProperty.Enabled = false;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Cancel:
@@ -131,9 +134,10 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = true;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
-                        btnSettings.Enabled = true;
+                        btnProperty.Enabled = true;
                         dataNav.Enabled = true;
                         btnAction.Enabled = true;
+                        btnProperty.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Save:
@@ -147,9 +151,10 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = true;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
-                        btnSettings.Enabled = true;
+                        btnProperty.Enabled = true;
                         dataNav.Enabled = true;
                         btnAction.Enabled = true;
+                        btnProperty.Enabled = true;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Copy:
@@ -163,9 +168,10 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = false;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
-                        btnSettings.Enabled = false;
+                        btnProperty.Enabled = false;
                         dataNav.Enabled = false;
                         btnAction.Enabled = false;
+                        btnProperty.Enabled = false;
                         break;
                     }
                 case Sunrise.ERP.BasePublic.OperateFlag.Delete:
@@ -179,7 +185,7 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = true;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
-                        btnSettings.Enabled = true;
+                        btnProperty.Enabled = true;
                         dataNav.Enabled = true;
                         btnAction.Enabled = true;
                         break;
@@ -195,9 +201,10 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = false;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = false;
-                        btnSettings.Enabled = true;
+                        btnProperty.Enabled = true;
                         dataNav.Enabled = false;
                         btnAction.Enabled = false;
+                        btnProperty.Enabled = true;
                         break;
                     }
                 default:
@@ -211,9 +218,10 @@ namespace Sunrise.ERP.BaseForm
                         btnPrint.Enabled = true;
                         btnClose.Enabled = true;
                         btnCopy.Enabled = true;
-                        btnSettings.Enabled = true;
+                        btnProperty.Enabled = true;
                         dataNav.Enabled = true;
                         btnAction.Enabled = true;
+                        btnProperty.Enabled = true;
                         break;
                     }
             }
@@ -514,6 +522,11 @@ namespace Sunrise.ERP.BaseForm
             FormDataFlag = Sunrise.ERP.BasePublic.DataFlag.dsBrowse;
         }
 
+        public virtual void btnProperty_Click(object sender, EventArgs e)
+        {
+            FormDataFlag = Sunrise.ERP.BasePublic.DataFlag.dsBrowse;
+        }
+
         private bool _ShowSaveInfo = true;
         /// <summary>
         /// 是否显示保存提示信息
@@ -543,8 +556,9 @@ namespace Sunrise.ERP.BaseForm
             btnClose.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnClose.Name);
             btnInsert.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnInsert.Name);
             btnRefresh.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnRefresh.Name);
-            btnSettings.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnSettings.Name);
+            btnProperty.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnProperty.Name);
             btnAction.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnAction.Name);
         }
+
     }
 }

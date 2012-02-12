@@ -41,7 +41,11 @@ namespace Sunrise.ERP.Security
         /// <summary>
         /// 属性
         /// </summary>
-        Property
+        Property,
+        /// <summary>
+        /// 导出
+        /// </summary>
+        OutPut
         
     }
 

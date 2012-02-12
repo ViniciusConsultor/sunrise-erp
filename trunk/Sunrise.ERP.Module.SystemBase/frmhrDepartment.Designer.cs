@@ -172,8 +172,8 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.LookAndFeel.SkinName = "Blue";
-            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnProperty.LookAndFeel.SkinName = "Blue";
+            this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // dataNav
             // 

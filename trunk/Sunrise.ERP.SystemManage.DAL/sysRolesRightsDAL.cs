@@ -45,9 +45,9 @@ namespace Sunrise.ERP.SystemManage.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("INSERT INTO sysRolesRights(");
-            strSql.Append("RoleID,MenuID,iAdd,iView,iEdit,iDelete,iPrint,iNum,iPrice)");
+            strSql.Append("RoleID,MenuID,iAdd,iView,iEdit,iDelete,iPrint,iNum,iPrice,iProperty,iOutPut)");
             strSql.Append(" VALUES (");
-            strSql.Append("@RoleID,@MenuID,@iAdd,@iView,@iEdit,@iDelete,@iPrint,@iNum,@iPrice)");
+            strSql.Append("@RoleID,@MenuID,@iAdd,@iView,@iEdit,@iDelete,@iPrint,@iNum,@iPrice,@iProperty,@iOutPut)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@RoleID", SqlDbType.Int,4),
@@ -57,8 +57,10 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@iEdit", SqlDbType.Int,4),
 					new SqlParameter("@iDelete", SqlDbType.Int,4),
 					new SqlParameter("@iPrint", SqlDbType.Int,4),
-					new SqlParameter("@iNum", SqlDbType.Int,4),
-					new SqlParameter("@iPrice", SqlDbType.Int,4)};
+					new SqlParameter("@iNum", SqlDbType.Bit,1),
+					new SqlParameter("@iPrice", SqlDbType.Bit,1),
+					new SqlParameter("@iProperty", SqlDbType.Bit,1),
+					new SqlParameter("@iOutPut", SqlDbType.Bit,1)};
             parameters[0].Value = dr["RoleID"];
             parameters[1].Value = dr["MenuID"];
             parameters[2].Value = dr["iAdd"];
@@ -68,6 +70,8 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[6].Value = dr["iPrint"];
             parameters[7].Value = dr["iNum"];
             parameters[8].Value = dr["iPrice"];
+            parameters[9].Value = dr["iProperty"];
+            parameters[10].Value = dr["iOutPut"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -94,7 +98,9 @@ namespace Sunrise.ERP.SystemManage.DAL
             strSql.Append("iDelete=@iDelete,");
             strSql.Append("iPrint=@iPrint,");
             strSql.Append("iNum=@iNum,");
-            strSql.Append("iPrice=@iPrice");
+            strSql.Append("iPrice=@iPrice,");
+            strSql.Append("iProperty=@iProperty,");
+            strSql.Append("iOutPut=@iOutPut");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
@@ -105,8 +111,10 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@iEdit", SqlDbType.Int,4),
 					new SqlParameter("@iDelete", SqlDbType.Int,4),
 					new SqlParameter("@iPrint", SqlDbType.Int,4),
-					new SqlParameter("@iNum", SqlDbType.Int,4),
-					new SqlParameter("@iPrice", SqlDbType.Int,4)};
+					new SqlParameter("@iNum", SqlDbType.Bit,1),
+					new SqlParameter("@iPrice", SqlDbType.Bit,1),
+					new SqlParameter("@iProperty", SqlDbType.Bit,1),
+					new SqlParameter("@iOutPut", SqlDbType.Bit,1)};
             parameters[0].Value = dr["ID"];
             parameters[1].Value = dr["RoleID"];
             parameters[2].Value = dr["MenuID"];
@@ -117,6 +125,8 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[7].Value = dr["iPrint"];
             parameters[8].Value = dr["iNum"];
             parameters[9].Value = dr["iPrice"];
+            parameters[10].Value = dr["iProperty"];
+            parameters[11].Value = dr["iOutPut"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }

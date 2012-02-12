@@ -110,12 +110,12 @@
             // txtDataFlag
             // 
             // 
-            // btnSettings
+            // btnProperty
             // 
-            this.btnSettings.LookAndFeel.SkinName = "Blue";
-            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.btnSettings.Visible = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.btnProperty.LookAndFeel.SkinName = "Blue";
+            this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnProperty.Visible = true;
+            this.btnProperty.Click += new System.EventHandler(this.btnProperty_Click);
             // 
             // dataNav
             // 

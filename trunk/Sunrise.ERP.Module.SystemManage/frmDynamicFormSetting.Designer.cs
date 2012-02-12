@@ -198,7 +198,7 @@
             this.panelControl2.Controls.SetChildIndex(this.btnPrint, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnInsert, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnRefresh, 0);
-            this.panelControl2.Controls.SetChildIndex(this.btnSettings, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnProperty, 0);
             // 
             // btnInsert
             // 
@@ -274,8 +274,8 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.LookAndFeel.SkinName = "Blue";
-            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnProperty.LookAndFeel.SkinName = "Blue";
+            this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // dataNav
             // 

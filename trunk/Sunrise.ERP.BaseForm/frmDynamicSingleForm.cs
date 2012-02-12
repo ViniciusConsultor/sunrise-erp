@@ -1367,6 +1367,17 @@ namespace Sunrise.ERP.BaseForm
             }
             base.btnPrint_Click(sender, e);
         }
+
+        public override void btnProperty_Click(object sender, EventArgs e)
+        {
+            if (IsCheckAuth && !SC.CheckAuth(SecurityOperation.Property, FormID))
+            {
+                Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "NoPropertyAuth"));
+                return;
+            }
+            base.btnProperty_Click(sender, e);
+        }
+
         #endregion
 
         #region 窗体自定义设置

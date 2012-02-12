@@ -331,7 +331,7 @@ namespace Sunrise.ERP.BaseForm
                 dataNav.Visible = true;
                 dataNav.Location = new Point(443, 4);
 
-                btnSettings.Location = new Point(570, 4);
+                btnProperty.Location = new Point(570, 4);
             }
             else
             {
@@ -357,7 +357,7 @@ namespace Sunrise.ERP.BaseForm
                 dataNav.Visible = true;
                 dataNav.Location = new Point(656, 4);
 
-                btnSettings.Location = new Point(783, 4);
+                btnProperty.Location = new Point(783, 4);
             }
         }
 

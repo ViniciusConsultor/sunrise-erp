@@ -111,9 +111,9 @@ namespace Sunrise.ERP.BaseForm
             // 
             // btnSettings
             // 
-            this.btnSettings.Location = new System.Drawing.Point(914, 5);
-            this.btnSettings.LookAndFeel.SkinName = "Blue";
-            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnProperty.Location = new System.Drawing.Point(914, 5);
+            this.btnProperty.LookAndFeel.SkinName = "Blue";
+            this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // dataNav
             // 

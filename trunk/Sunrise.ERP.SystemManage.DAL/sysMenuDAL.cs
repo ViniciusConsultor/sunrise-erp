@@ -45,9 +45,9 @@ namespace Sunrise.ERP.SystemManage.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("INSERT INTO sysMenu(");
-            strSql.Append("iFormID,sMenuName,sMenuEngName,iParentID,sModuleName,sFormClassName,iSort,sUserID)");
+            strSql.Append("iFormID,sMenuName,sMenuEngName,iParentID,sModuleName,sFormClassName,iSort,dDLLGetTime,dDLLLastTime,sUserID,sQuickMenu,iFlag)");
             strSql.Append(" VALUES (");
-            strSql.Append("@iFormID,@sMenuName,@sMenuEngName,@iParentID,@sModuleName,@sFormClassName,@iSort,@sUserID)");
+            strSql.Append("@iFormID,@sMenuName,@sMenuEngName,@iParentID,@sModuleName,@sFormClassName,@iSort,@dDLLGetTime,@dDLLLastTime,@sUserID,@sQuickMenu,@iFlag)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@iFormID", SqlDbType.Int,4),
@@ -57,7 +57,11 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@sModuleName", SqlDbType.VarChar,100),
 					new SqlParameter("@sFormClassName", SqlDbType.VarChar,50),
 					new SqlParameter("@iSort", SqlDbType.Int,4),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
+					new SqlParameter("@dDLLGetTime", SqlDbType.DateTime),
+					new SqlParameter("@dDLLLastTime", SqlDbType.DateTime),
+					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
+					new SqlParameter("@sQuickMenu", SqlDbType.VarChar,50),
+					new SqlParameter("@iFlag", SqlDbType.Int,4)};
             parameters[0].Value = dr["iFormID"];
             parameters[1].Value = dr["sMenuName"];
             parameters[2].Value = dr["sMenuEngName"];
@@ -65,7 +69,11 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[4].Value = dr["sModuleName"];
             parameters[5].Value = dr["sFormClassName"];
             parameters[6].Value = dr["iSort"];
-            parameters[7].Value = dr["sUserID"];
+            parameters[7].Value = dr["dDLLGetTime"];
+            parameters[8].Value = dr["dDLLLastTime"];
+            parameters[9].Value = dr["sUserID"];
+            parameters[10].Value = dr["sQuickMenu"];
+            parameters[11].Value = dr["iFlag"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -91,7 +99,11 @@ namespace Sunrise.ERP.SystemManage.DAL
             strSql.Append("sModuleName=@sModuleName,");
             strSql.Append("sFormClassName=@sFormClassName,");
             strSql.Append("iSort=@iSort,");
-            strSql.Append("sUserID=@sUserID");
+            strSql.Append("dDLLGetTime=@dDLLGetTime,");
+            strSql.Append("dDLLLastTime=@dDLLLastTime,");
+            strSql.Append("sUserID=@sUserID,");
+            strSql.Append("sQuickMenu=@sQuickMenu,");
+            strSql.Append("iFlag=@iFlag");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
@@ -102,7 +114,11 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@sModuleName", SqlDbType.VarChar,100),
 					new SqlParameter("@sFormClassName", SqlDbType.VarChar,50),
 					new SqlParameter("@iSort", SqlDbType.Int,4),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
+					new SqlParameter("@dDLLGetTime", SqlDbType.DateTime),
+					new SqlParameter("@dDLLLastTime", SqlDbType.DateTime),
+					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
+					new SqlParameter("@sQuickMenu", SqlDbType.VarChar,50),
+					new SqlParameter("@iFlag", SqlDbType.Int,4)};
             parameters[0].Value = dr["ID"];
             parameters[1].Value = dr["iFormID"];
             parameters[2].Value = dr["sMenuName"];
@@ -111,7 +127,11 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[5].Value = dr["sModuleName"];
             parameters[6].Value = dr["sFormClassName"];
             parameters[7].Value = dr["iSort"];
-            parameters[8].Value = dr["sUserID"];
+            parameters[8].Value = dr["dDLLGetTime"];
+            parameters[9].Value = dr["dDLLLastTime"];
+            parameters[10].Value = dr["sUserID"];
+            parameters[11].Value = dr["sQuickMenu"];
+            parameters[12].Value = dr["iFlag"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }

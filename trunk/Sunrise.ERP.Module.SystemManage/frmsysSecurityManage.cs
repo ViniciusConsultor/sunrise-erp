@@ -147,6 +147,15 @@ namespace Sunrise.ERP.Module.SystemManage
                     drNew["MenuID"] = int.Parse(LMenuID[i]);
                     drNew["iParentID"] = int.Parse(LMenuParentID[i]);
                     drNew["sMenuName"] = LMenuName[i];
+                    drNew["iAdd"] = 1;
+                    drNew["iView"] = 1;
+                    drNew["iEdit"] = 1;
+                    drNew["iDelete"] = 1;
+                    drNew["iPrint"] = 1;
+                    drNew["iNum"] = 1;
+                    drNew["iPrice"] = 1;
+                    drNew["iProperty"] = 1;
+                    drNew["iOutPut"] = 1;
                     LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows.Add(drNew);
                 }
             }
@@ -349,6 +358,14 @@ namespace Sunrise.ERP.Module.SystemManage
                         {
                             BatchDetail("iPrice", ((MouseEventArgs)e).X, ((MouseEventArgs)e).Y);
                         }
+                        else if (Control.ModifierKeys == Keys.Control && tvHit.Column.FieldName == "iProperty")
+                        {
+                            BatchDetail("iProperty", ((MouseEventArgs)e).X, ((MouseEventArgs)e).Y);
+                        }
+                        else if (Control.ModifierKeys == Keys.Control && tvHit.Column.FieldName == "iOutPut")
+                        {
+                            BatchDetail("iOutPut", ((MouseEventArgs)e).X, ((MouseEventArgs)e).Y);
+                        }
 
                     }
                 }
@@ -356,7 +373,8 @@ namespace Sunrise.ERP.Module.SystemManage
         }
         private void BatchDetail(string columnname, int x, int y)
         {
-            if (columnname == "iAdd")
+            if (columnname == "iAdd" || columnname == "iPrice" || columnname == "iNum"
+                || columnname == "iProperty" || columnname == "iOutPut")
             {
                 sOperationColumn = columnname;
                 cmsOperationTrueOrFalse.Show(tvRoleRight, x, y);
@@ -402,6 +420,16 @@ namespace Sunrise.ERP.Module.SystemManage
                         SetAllValue(5);
                         break;
                     }
+                case "tsmDeptUnder":
+                    {
+                        SetAllValue(6);
+                        break;
+                    }
+                case "tsmDeptAndDeptUnder":
+                    {
+                        SetAllValue(7);
+                        break;
+                    }
             }
         }
 
@@ -411,156 +439,176 @@ namespace Sunrise.ERP.Module.SystemManage
         /// <param name="value">权限值</param>
         private void SetAllValue(int value)
         {
-            switch (sOperationColumn)
+            if (sOperationColumn != "")
             {
-                case "iView":
+                if (tvRoleRight.Selection.Count > 1)
+                {
+                    foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
                     {
-                        if (tvRoleRight.Selection.Count > 1)
-                        {
-                            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
-                            {
-                                item.SetValue("iView", value);
-                            }
-                        }
-                        else
-                        {
-                            foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
-                            {
-                                if (item.RowState != DataRowState.Deleted)
-                                {
-                                    item["iView"] = value;
-                                }
-                            }
-                        }
-                        break;
+                        item.SetValue(sOperationColumn, value);
                     }
-                case "iAdd":
+                }
+                else
+                {
+                    foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
                     {
-                        if (tvRoleRight.Selection.Count > 1)
+                        if (item.RowState != DataRowState.Deleted)
                         {
-                            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
-                            {
-                                item.SetValue("iAdd", value);
-                            }
+                            item[sOperationColumn] = value;
                         }
-                        else
-                        {
-                            foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
-                            {
-                                if (item.RowState != DataRowState.Deleted)
-                                {
-                                    item["iAdd"] = value;
-                                }
-                            }
-                        }
-                        break;
                     }
-                case "iEdit":
-                    {
-                        if (tvRoleRight.Selection.Count > 1)
-                        {
-                            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
-                            {
-                                item.SetValue("iEdit", value);
-                            }
-                        }
-                        else
-                        {
-                            foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
-                            {
-                                if (item.RowState != DataRowState.Deleted)
-                                {
-                                    item["iEdit"] = value;
-                                }
-                            }
-                        }
-                        break;
-                    }
-                case "iDelete":
-                    {
-                        if (tvRoleRight.Selection.Count > 1)
-                        {
-                            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
-                            {
-                                item.SetValue("iDelete", value);
-                            }
-                        }
-                        else
-                        {
-                            foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
-                            {
-                                if (item.RowState != DataRowState.Deleted)
-                                {
-                                    item["iDelete"] = value;
-                                }
-                            }
-                        }
-                        break;
-                    }
-                case "iPrint":
-                    {
-                        if (tvRoleRight.Selection.Count > 1)
-                        {
-                            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
-                            {
-                                item.SetValue("iPrint", value);
-                            }
-                        }
-                        else
-                        {
-                            foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
-                            {
-                                if (item.RowState != DataRowState.Deleted)
-                                {
-                                    item["iPrint"] = value;
-                                }
-                            }
-                        }
-                        break;
-                    }
-                case "iNum":
-                    {
-                        if (tvRoleRight.Selection.Count > 1)
-                        {
-                            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
-                            {
-                                item.SetValue("iNum", value);
-                            }
-                        }
-                        else
-                        {
-                            foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
-                            {
-                                if (item.RowState != DataRowState.Deleted)
-                                {
-                                    item["iNum"] = value;
-                                }
-                            }
-                        }
-                        break;
-                    }
-                case "iPrice":
-                    {
-                        if (tvRoleRight.Selection.Count > 1)
-                        {
-                            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
-                            {
-                                item.SetValue("iPrice", value);
-                            }
-                        }
-                        else
-                        {
-                            foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
-                            {
-                                if (item.RowState != DataRowState.Deleted)
-                                {
-                                    item["iPrice"] = value;
-                                }
-                            }
-                        }
-                        break;
-                    }
+                }
             }
+            //switch (sOperationColumn)
+            //{
+            //    case "iView":
+            //        {
+            //            if (tvRoleRight.Selection.Count > 1)
+            //            {
+            //                foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
+            //                {
+            //                    item.SetValue("iView", value);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
+            //                {
+            //                    if (item.RowState != DataRowState.Deleted)
+            //                    {
+            //                        item["iView"] = value;
+            //                    }
+            //                }
+            //            }
+            //            break;
+            //        }
+            //    case "iAdd":
+            //        {
+            //            if (tvRoleRight.Selection.Count > 1)
+            //            {
+            //                foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
+            //                {
+            //                    item.SetValue("iAdd", value);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
+            //                {
+            //                    if (item.RowState != DataRowState.Deleted)
+            //                    {
+            //                        item["iAdd"] = value;
+            //                    }
+            //                }
+            //            }
+            //            break;
+            //        }
+            //    case "iEdit":
+            //        {
+            //            if (tvRoleRight.Selection.Count > 1)
+            //            {
+            //                foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
+            //                {
+            //                    item.SetValue("iEdit", value);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
+            //                {
+            //                    if (item.RowState != DataRowState.Deleted)
+            //                    {
+            //                        item["iEdit"] = value;
+            //                    }
+            //                }
+            //            }
+            //            break;
+            //        }
+            //    case "iDelete":
+            //        {
+            //            if (tvRoleRight.Selection.Count > 1)
+            //            {
+            //                foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
+            //                {
+            //                    item.SetValue("iDelete", value);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
+            //                {
+            //                    if (item.RowState != DataRowState.Deleted)
+            //                    {
+            //                        item["iDelete"] = value;
+            //                    }
+            //                }
+            //            }
+            //            break;
+            //        }
+            //    case "iPrint":
+            //        {
+            //            if (tvRoleRight.Selection.Count > 1)
+            //            {
+            //                foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
+            //                {
+            //                    item.SetValue("iPrint", value);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
+            //                {
+            //                    if (item.RowState != DataRowState.Deleted)
+            //                    {
+            //                        item["iPrint"] = value;
+            //                    }
+            //                }
+            //            }
+            //            break;
+            //        }
+            //    case "iNum":
+            //        {
+            //            if (tvRoleRight.Selection.Count > 1)
+            //            {
+            //                foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
+            //                {
+            //                    item.SetValue("iNum", value);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
+            //                {
+            //                    if (item.RowState != DataRowState.Deleted)
+            //                    {
+            //                        item["iNum"] = value;
+            //                    }
+            //                }
+            //            }
+            //            break;
+            //        }
+            //    case "iPrice":
+            //        {
+            //            if (tvRoleRight.Selection.Count > 1)
+            //            {
+            //                foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
+            //                {
+            //                    item.SetValue("iPrice", value);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                foreach (DataRow item in LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows)
+            //                {
+            //                    if (item.RowState != DataRowState.Deleted)
+            //                    {
+            //                        item["iPrice"] = value;
+            //                    }
+            //                }
+            //            }
+            //            break;
+            //        }
+            //}
         }
 
         private void tsmTrue_Click(object sender, EventArgs e)
