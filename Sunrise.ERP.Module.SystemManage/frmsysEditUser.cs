@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Sunrise.ERP.Common;
 
 namespace Sunrise.ERP.Module.SystemManage
 {
@@ -17,17 +18,19 @@ namespace Sunrise.ERP.Module.SystemManage
             InitializeComponent();
             if (!string.IsNullOrEmpty(formtext))
                 Text = formtext;
+            txtsUserID.DataBindings.Add("EditValue", dsMain, "sUserID");
             txtsPassword.DataBindings.Add("EditValue", dsMain, "sPassword");
             txtsRemark.DataBindings.Add("EditValue", dsMain, "sRemark");
             txtsUserCName.DataBindings.Add("EditValue", dsMain, "sUserCName");
             txtsUserEName.DataBindings.Add("EditValue", dsMain, "sUserEName");
             lkpParentID.DataBindings.Add("EditValue", dsMain, "ParentID");
-            lkpsUserID.DataBindings.Add("EditValue", dsMain, "sUserID");
+            lkpDeptID.DataBindings.Add("EditValue", dsMain, "DeptID");
             cbxUserType.DataBindings.Add("EditValue", dsMain, "iUserType");
             chkbIsLock.DataBindings.Add("EditValue", dsMain, "bIsLock");
-            Sunrise.ERP.Common.SystemPublic.InitLookUpBase(lkpsUserID, "SELECT ID,sEmpNo,sEmpCName,sEmpEName,sDeptNo,sDeptName,sDeptEName FROM vwhrEmployee", "sEmpNo",
-                                                       "sEmpNo", "sEmpNo,sEmpCName,sEmpEName,sDeptNo,sDeptName", "员工编号,员工名称,员工英文名,部门编号,部门名称", "员工信息");
-            Sunrise.ERP.Common.SystemPublic.InitLkpSystemUser(lkpParentID);
+
+            SystemPublic.InitLkpSystemUser(lkpParentID);
+            SystemPublic.InitLkpDept(lkpDeptID);
+            lkpDeptID.AutoSetValue("sDeptName", "sDeptName");
         }
         public override bool DoAppend()
         {
@@ -42,36 +45,11 @@ namespace Sunrise.ERP.Module.SystemManage
         }
         public override void initBase()
         {
-            AddNotNullFields(new string[] { "lkpsUserID", "txtsUserCName", "txtsPassword" });
+            AddNotNullFields(new string[] { "txtsUserID", "txtsUserCName", "txtsPassword", "lkpDeptID" });
+            AddNotCopyFields(new string[] { "sUserID", "sUserCName", "sUserEName", "sPassword" });
             base.initBase();
         }
 
-        private void frmsysEditUser_Load(object sender, EventArgs e)
-        {
-            lkpsUserID.LookUpAfterPost += new Sunrise.ERP.Controls.SunriseLookUp.SunriseLookUpEvent(lkpsUserID_LookUpAfterPost);
-        }
-
-        bool lkpsUserID_LookUpAfterPost(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-        {
-            dsMain.EndEdit();
-            ((DataRowView)dsMain.Current).Row["EmpID"] = lkpsUserID.ReturnData.Rows[0]["ID"];
-            ((DataRowView)dsMain.Current).Row["sUserCName"]=lkpsUserID.ReturnData.Rows[0]["sEmpCName"].ToString();
-            ((DataRowView)dsMain.Current).Row["sUserEName"] = lkpsUserID.ReturnData.Rows[0]["sEmpEName"].ToString();            
-            return txtsUserEName.Focus();
-        }
-
-        private void gvMain_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
-        {
-            //if (e.Column.FieldName == "bIsLock")
-            //{
-            //    if (e.CellValue != null && (bool)e.CellValue)
-            //    {
-            //        e.Appearance.BackColor = System.Drawing.Color.Gray;
-            //        //gvMain.Appearance.Row.BackColor = System.Drawing.Color.Gray;
-
-            //    }
-            //}
-        }
         public override bool DoBeforeSave()
         {
             if (isPasswordChanged)

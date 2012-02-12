@@ -45,9 +45,9 @@ namespace Sunrise.ERP.SystemManage.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("INSERT INTO sysUser(");
-            strSql.Append("sUserID,sUserCName,sUserEName,sPassword,ParentID,EmpID,iUserType,bIsLock,sRemark,iFlag)");
+            strSql.Append("sUserID,sUserCName,sUserEName,sPassword,ParentID,EmpID,DeptID,iUserType,bIsLock,sRemark,iFlag)");
             strSql.Append(" VALUES (");
-            strSql.Append("@sUserID,@sUserCName,@sUserEName,@sPassword,@ParentID,@EmpID,@iUserType,@bIsLock,@sRemark,@iFlag)");
+            strSql.Append("@sUserID,@sUserCName,@sUserEName,@sPassword,@ParentID,@EmpID,@DeptID,@iUserType,@bIsLock,@sRemark,@iFlag)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
@@ -56,6 +56,7 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@sPassword", SqlDbType.VarChar,100),
 					new SqlParameter("@ParentID", SqlDbType.Int,4),
 					new SqlParameter("@EmpID", SqlDbType.Int,4),
+					new SqlParameter("@DeptID", SqlDbType.Int,4),
 					new SqlParameter("@iUserType", SqlDbType.Int,4),
 					new SqlParameter("@bIsLock", SqlDbType.Bit,1),
 					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
@@ -66,10 +67,11 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[3].Value = dr["sPassword"];
             parameters[4].Value = dr["ParentID"];
             parameters[5].Value = dr["EmpID"];
-            parameters[6].Value = dr["iUserType"];
-            parameters[7].Value = dr["bIsLock"];
-            parameters[8].Value = dr["sRemark"];
-            parameters[9].Value = dr["iFlag"];
+            parameters[6].Value = dr["DeptID"];
+            parameters[7].Value = dr["iUserType"];
+            parameters[8].Value = dr["bIsLock"];
+            parameters[9].Value = dr["sRemark"];
+            parameters[10].Value = dr["iFlag"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -94,6 +96,7 @@ namespace Sunrise.ERP.SystemManage.DAL
             strSql.Append("sPassword=@sPassword,");
             strSql.Append("ParentID=@ParentID,");
             strSql.Append("EmpID=@EmpID,");
+            strSql.Append("DeptID=@DeptID,");
             strSql.Append("iUserType=@iUserType,");
             strSql.Append("bIsLock=@bIsLock,");
             strSql.Append("sRemark=@sRemark,");
@@ -107,6 +110,7 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@sPassword", SqlDbType.VarChar,100),
 					new SqlParameter("@ParentID", SqlDbType.Int,4),
 					new SqlParameter("@EmpID", SqlDbType.Int,4),
+					new SqlParameter("@DeptID", SqlDbType.Int,4),
 					new SqlParameter("@iUserType", SqlDbType.Int,4),
 					new SqlParameter("@bIsLock", SqlDbType.Bit,1),
 					new SqlParameter("@sRemark", SqlDbType.VarChar,200),
@@ -118,10 +122,11 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[4].Value = dr["sPassword"];
             parameters[5].Value = dr["ParentID"];
             parameters[6].Value = dr["EmpID"];
-            parameters[7].Value = dr["iUserType"];
-            parameters[8].Value = dr["bIsLock"];
-            parameters[9].Value = dr["sRemark"];
-            parameters[10].Value = dr["iFlag"];
+            parameters[7].Value = dr["DeptID"];
+            parameters[8].Value = dr["iUserType"];
+            parameters[9].Value = dr["bIsLock"];
+            parameters[10].Value = dr["sRemark"];
+            parameters[11].Value = dr["iFlag"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }

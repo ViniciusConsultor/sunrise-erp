@@ -69,6 +69,8 @@
             this.lkpFlag = new Sunrise.ERP.Controls.SunriseLookUp();
             this.btnSaveSort = new DevExpress.XtraEditors.SimpleButton();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.txtsQuickMenu = new DevExpress.XtraEditors.TextEdit();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -112,6 +114,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxFieldName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsQuickMenu.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlDetail
@@ -159,7 +163,7 @@
             this.panelControl2.Controls.SetChildIndex(this.btnCopy, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnInsert, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnRefresh, 0);
-            this.panelControl2.Controls.SetChildIndex(this.btnSettings, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnProperty, 0);
             this.panelControl2.Controls.SetChildIndex(this.dataNav, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnAction, 0);
             // 
@@ -235,8 +239,8 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.LookAndFeel.SkinName = "Blue";
-            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnProperty.LookAndFeel.SkinName = "Blue";
+            this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // dataNav
             // 
@@ -316,6 +320,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.txtsQuickMenu);
             this.layoutControl1.Controls.Add(this.txtFileDate);
             this.layoutControl1.Controls.Add(this.txtFormClassName);
             this.layoutControl1.Controls.Add(this.txtModuleFile);
@@ -398,7 +403,8 @@
             this.layoutControlItem1,
             this.layoutControlItem7,
             this.layoutControlItem4,
-            this.emptySpaceItem1});
+            this.emptySpaceItem1,
+            this.layoutControlItem2});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(582, 198);
@@ -422,9 +428,9 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.CustomizationFormText = "emptySpaceItem2";
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 125);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 150);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(537, 53);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(537, 28);
             this.emptySpaceItem2.Text = "emptySpaceItem2";
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -716,6 +722,24 @@
             this.btnSaveSort.Text = "保存顺序";
             this.btnSaveSort.Click += new System.EventHandler(this.btnSaveSort_Click);
             // 
+            // txtsQuickMenu
+            // 
+            this.txtsQuickMenu.Location = new System.Drawing.Point(76, 137);
+            this.txtsQuickMenu.Name = "txtsQuickMenu";
+            this.txtsQuickMenu.Size = new System.Drawing.Size(469, 21);
+            this.txtsQuickMenu.StyleController = this.layoutControl1;
+            this.txtsQuickMenu.TabIndex = 16;
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.txtsQuickMenu;
+            this.layoutControlItem2.CustomizationFormText = "菜单助记符";
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 125);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(537, 25);
+            this.layoutControlItem2.Text = "菜单助记符";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(60, 14);
+            // 
             // frmsysPlatformManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -768,6 +792,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxFieldName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsQuickMenu.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -813,5 +839,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private DevExpress.XtraEditors.SimpleButton btnSaveSort;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private DevExpress.XtraEditors.TextEdit txtsQuickMenu;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
     }
 }

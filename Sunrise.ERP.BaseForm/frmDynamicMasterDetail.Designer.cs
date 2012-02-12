@@ -61,6 +61,7 @@
             // 
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.panelControl2.Size = new System.Drawing.Size(867, 33);
             // 
             // btnInsert
             // 
@@ -120,10 +121,25 @@
             // txtDataFlag
             // 
             // 
-            // btnSettings
+            // btnProperty
             // 
-            this.btnSettings.LookAndFeel.SkinName = "Blue";
-            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnProperty.LookAndFeel.SkinName = "Blue";
+            this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnProperty.Text = "属性(&T)";
+            // 
+            // dataNav
+            // 
+            this.dataNav.Buttons.Append.Visible = false;
+            this.dataNav.Buttons.CancelEdit.Visible = false;
+            this.dataNav.Buttons.EndEdit.Visible = false;
+            this.dataNav.Buttons.NextPage.Visible = false;
+            this.dataNav.Buttons.PrevPage.Visible = false;
+            this.dataNav.Buttons.Remove.Visible = false;
+            // 
+            // btnAction
+            // 
+            this.btnAction.LookAndFeel.SkinName = "Blue";
+            this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // panelControl1
             // 
@@ -131,6 +147,7 @@
             this.panelControl1.Controls.Add(this.sptLeftRight);
             this.panelControl1.LookAndFeel.SkinName = "Blue";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.panelControl1.Size = new System.Drawing.Size(871, 498);
             this.panelControl1.Controls.SetChildIndex(this.txtDataFlag, 0);
             this.panelControl1.Controls.SetChildIndex(this.panelControl2, 0);
             this.panelControl1.Controls.SetChildIndex(this.pnlGrid, 0);

@@ -65,6 +65,8 @@
             this.trcoliPrint = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.trcoliPrice = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.trcoliNum = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.trcoliProperty = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+            this.trcoliOutPut = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.lkpUser = new Sunrise.ERP.Controls.SunriseLookUp();
             this.splitterControl3 = new DevExpress.XtraEditors.SplitterControl();
@@ -82,6 +84,8 @@
             this.tsmUnderling = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSelfAndUnderling = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmDepartment = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmDeptUnder = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmDeptAndDeptUnder = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAll = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsOperationTrueOrFalse = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmTrue = new System.Windows.Forms.ToolStripMenuItem();
@@ -165,7 +169,9 @@
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl2.Size = new System.Drawing.Size(857, 33);
-            this.panelControl2.Controls.SetChildIndex(this.btnSettings, 0);
+            this.panelControl2.Controls.SetChildIndex(this.dataNav, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnAction, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnProperty, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnView, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnAdd, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnEdit, 0);
@@ -239,8 +245,22 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.LookAndFeel.SkinName = "Blue";
-            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnProperty.LookAndFeel.SkinName = "Blue";
+            this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
+            // 
+            // dataNav
+            // 
+            this.dataNav.Buttons.Append.Visible = false;
+            this.dataNav.Buttons.CancelEdit.Visible = false;
+            this.dataNav.Buttons.EndEdit.Visible = false;
+            this.dataNav.Buttons.NextPage.Visible = false;
+            this.dataNav.Buttons.PrevPage.Visible = false;
+            this.dataNav.Buttons.Remove.Visible = false;
+            // 
+            // btnAction
+            // 
+            this.btnAction.LookAndFeel.SkinName = "Blue";
+            this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // panelControl1
             // 
@@ -523,13 +543,16 @@
             this.trcoliDelete,
             this.trcoliPrint,
             this.trcoliPrice,
-            this.trcoliNum});
+            this.trcoliNum,
+            this.trcoliProperty,
+            this.trcoliOutPut});
             this.tvRoleRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvRoleRight.KeyFieldName = "";
             this.tvRoleRight.Location = new System.Drawing.Point(2, 23);
             this.tvRoleRight.LookAndFeel.SkinName = "Blue";
             this.tvRoleRight.LookAndFeel.UseDefaultLookAndFeel = false;
             this.tvRoleRight.Name = "tvRoleRight";
+            this.tvRoleRight.OptionsBehavior.PopulateServiceColumns = true;
             this.tvRoleRight.OptionsMenu.EnableColumnMenu = false;
             this.tvRoleRight.OptionsMenu.EnableFooterMenu = false;
             this.tvRoleRight.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -585,6 +608,8 @@
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("下属", 2, -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("个人及下属", 3, -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("部门", 4, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("下属部门", 6, -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("部门及下属部门", 7, -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("所有", 5, -1)});
             this.cbxAuth.Name = "cbxAuth";
             // 
@@ -640,7 +665,7 @@
             // trcoliPrice
             // 
             this.trcoliPrice.Caption = "价格权限";
-            this.trcoliPrice.ColumnEdit = this.cbxAuth;
+            this.trcoliPrice.ColumnEdit = this.chkiAdd;
             this.trcoliPrice.FieldName = "iPrice";
             this.trcoliPrice.Name = "trcoliPrice";
             this.trcoliPrice.OptionsColumn.AllowSort = false;
@@ -651,13 +676,33 @@
             // trcoliNum
             // 
             this.trcoliNum.Caption = "数量权限";
-            this.trcoliNum.ColumnEdit = this.cbxAuth;
+            this.trcoliNum.ColumnEdit = this.chkiAdd;
             this.trcoliNum.FieldName = "iNum";
             this.trcoliNum.Name = "trcoliNum";
             this.trcoliNum.OptionsColumn.AllowSort = false;
             this.trcoliNum.Visible = true;
             this.trcoliNum.VisibleIndex = 7;
             this.trcoliNum.Width = 80;
+            // 
+            // trcoliProperty
+            // 
+            this.trcoliProperty.Caption = "属性权限";
+            this.trcoliProperty.ColumnEdit = this.chkiAdd;
+            this.trcoliProperty.FieldName = "iProperty";
+            this.trcoliProperty.Name = "trcoliProperty";
+            this.trcoliProperty.OptionsColumn.AllowSort = false;
+            this.trcoliProperty.Visible = true;
+            this.trcoliProperty.VisibleIndex = 8;
+            // 
+            // trcoliOutPut
+            // 
+            this.trcoliOutPut.Caption = "导出权限";
+            this.trcoliOutPut.ColumnEdit = this.chkiAdd;
+            this.trcoliOutPut.FieldName = "iOutPut";
+            this.trcoliOutPut.Name = "trcoliOutPut";
+            this.trcoliOutPut.OptionsColumn.AllowSort = false;
+            this.trcoliOutPut.Visible = true;
+            this.trcoliOutPut.VisibleIndex = 9;
             // 
             // imageList1
             // 
@@ -676,6 +721,7 @@
             this.lkpUser.EditFormID = 0;
             this.lkpUser.EditFormName = null;
             this.lkpUser.EditValue = "";
+            this.lkpUser.FormID = 0;
             this.lkpUser.GridColumnText = null;
             this.lkpUser.GridDisplayField = null;
             this.lkpUser.Location = new System.Drawing.Point(153, -51);
@@ -801,49 +847,65 @@
             this.tsmUnderling,
             this.tsmSelfAndUnderling,
             this.tsmDepartment,
+            this.tsmDeptUnder,
+            this.tsmDeptAndDeptUnder,
             this.tsmAll});
             this.cmsOperation.Name = "cmsOperation";
-            this.cmsOperation.Size = new System.Drawing.Size(137, 136);
+            this.cmsOperation.Size = new System.Drawing.Size(161, 180);
             // 
             // tsmNone
             // 
             this.tsmNone.Name = "tsmNone";
-            this.tsmNone.Size = new System.Drawing.Size(136, 22);
+            this.tsmNone.Size = new System.Drawing.Size(160, 22);
             this.tsmNone.Text = "禁用";
             this.tsmNone.Click += new System.EventHandler(this.tsmNone_Click);
             // 
             // tsmSelf
             // 
             this.tsmSelf.Name = "tsmSelf";
-            this.tsmSelf.Size = new System.Drawing.Size(136, 22);
+            this.tsmSelf.Size = new System.Drawing.Size(160, 22);
             this.tsmSelf.Text = "个人";
             this.tsmSelf.Click += new System.EventHandler(this.tsmNone_Click);
             // 
             // tsmUnderling
             // 
             this.tsmUnderling.Name = "tsmUnderling";
-            this.tsmUnderling.Size = new System.Drawing.Size(136, 22);
+            this.tsmUnderling.Size = new System.Drawing.Size(160, 22);
             this.tsmUnderling.Text = "下属";
             this.tsmUnderling.Click += new System.EventHandler(this.tsmNone_Click);
             // 
             // tsmSelfAndUnderling
             // 
             this.tsmSelfAndUnderling.Name = "tsmSelfAndUnderling";
-            this.tsmSelfAndUnderling.Size = new System.Drawing.Size(136, 22);
+            this.tsmSelfAndUnderling.Size = new System.Drawing.Size(160, 22);
             this.tsmSelfAndUnderling.Text = "个人及下属";
             this.tsmSelfAndUnderling.Click += new System.EventHandler(this.tsmNone_Click);
             // 
             // tsmDepartment
             // 
             this.tsmDepartment.Name = "tsmDepartment";
-            this.tsmDepartment.Size = new System.Drawing.Size(136, 22);
+            this.tsmDepartment.Size = new System.Drawing.Size(160, 22);
             this.tsmDepartment.Text = "部门";
             this.tsmDepartment.Click += new System.EventHandler(this.tsmNone_Click);
+            // 
+            // tsmDeptUnder
+            // 
+            this.tsmDeptUnder.Name = "tsmDeptUnder";
+            this.tsmDeptUnder.Size = new System.Drawing.Size(160, 22);
+            this.tsmDeptUnder.Text = "部门下属";
+            this.tsmDeptUnder.Click += new System.EventHandler(this.tsmNone_Click);
+            // 
+            // tsmDeptAndDeptUnder
+            // 
+            this.tsmDeptAndDeptUnder.Name = "tsmDeptAndDeptUnder";
+            this.tsmDeptAndDeptUnder.Size = new System.Drawing.Size(160, 22);
+            this.tsmDeptAndDeptUnder.Text = "部门及下属部门";
+            this.tsmDeptAndDeptUnder.Click += new System.EventHandler(this.tsmNone_Click);
             // 
             // tsmAll
             // 
             this.tsmAll.Name = "tsmAll";
-            this.tsmAll.Size = new System.Drawing.Size(136, 22);
+            this.tsmAll.Size = new System.Drawing.Size(160, 22);
             this.tsmAll.Text = "所有";
             this.tsmAll.Click += new System.EventHandler(this.tsmNone_Click);
             // 
@@ -1019,5 +1081,9 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox cbxAuth;
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.SimpleButton btnEditUser;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn trcoliProperty;
+        private DevExpress.XtraTreeList.Columns.TreeListColumn trcoliOutPut;
+        private System.Windows.Forms.ToolStripMenuItem tsmDeptUnder;
+        private System.Windows.Forms.ToolStripMenuItem tsmDeptAndDeptUnder;
     }
 }

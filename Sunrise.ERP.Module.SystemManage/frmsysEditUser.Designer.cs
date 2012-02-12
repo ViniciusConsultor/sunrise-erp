@@ -29,32 +29,36 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.txtsUserID = new DevExpress.XtraEditors.TextEdit();
             this.chkbIsLock = new DevExpress.XtraEditors.CheckEdit();
             this.cbxUserType = new DevExpress.XtraEditors.ImageComboBoxEdit();
             this.lkpParentID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.txtsUserEName = new DevExpress.XtraEditors.TextEdit();
             this.txtsUserCName = new DevExpress.XtraEditors.TextEdit();
             this.txtsPassword = new DevExpress.XtraEditors.TextEdit();
-            this.lkpsUserID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.txtsRemark = new DevExpress.XtraEditors.MemoEdit();
+            this.lkpDeptID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.tabbedControlGroup1 = new DevExpress.XtraLayout.TabbedControlGroup();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsUserID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsUserCName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsUserEName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsParentName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colsDeptName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsUserTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbIsLock = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsRemark = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -70,6 +74,7 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsUserID.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkbIsLock.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxUserType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsUserEName.Properties)).BeginInit();
@@ -80,14 +85,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
             this.SuspendLayout();
@@ -95,15 +102,17 @@
             // pnlInfo
             // 
             this.pnlInfo.Controls.Add(this.layoutControl1);
-            this.pnlInfo.Size = new System.Drawing.Size(753, 201);
+            this.pnlInfo.Size = new System.Drawing.Size(753, 225);
             // 
             // pnlGrid
             // 
             this.pnlGrid.Controls.Add(this.gcMain);
-            this.pnlGrid.Size = new System.Drawing.Size(753, 254);
+            this.pnlGrid.Location = new System.Drawing.Point(2, 266);
+            this.pnlGrid.Size = new System.Drawing.Size(753, 230);
             // 
             // splitterControl1
             // 
+            this.splitterControl1.Location = new System.Drawing.Point(2, 260);
             this.splitterControl1.Size = new System.Drawing.Size(753, 6);
             // 
             // panelControl2
@@ -119,6 +128,7 @@
             // 
             // btnCopy
             // 
+            this.btnCopy.Location = new System.Drawing.Point(219, 4);
             this.btnCopy.LookAndFeel.SkinName = "Blue";
             this.btnCopy.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
@@ -131,39 +141,46 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(502, 4);
+            this.btnClose.Location = new System.Drawing.Point(432, 4);
             this.btnClose.LookAndFeel.SkinName = "Blue";
             this.btnClose.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // btnDelete
             // 
+            this.btnDelete.Location = new System.Drawing.Point(148, 4);
             this.btnDelete.LookAndFeel.SkinName = "Blue";
             this.btnDelete.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // btnCancel
             // 
+            this.btnCancel.Location = new System.Drawing.Point(290, 4);
             this.btnCancel.LookAndFeel.SkinName = "Blue";
             this.btnCancel.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // btnSave
             // 
+            this.btnSave.Location = new System.Drawing.Point(361, 4);
             this.btnSave.LookAndFeel.SkinName = "Blue";
             this.btnSave.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // btnEdit
             // 
+            this.btnEdit.Location = new System.Drawing.Point(77, 4);
             this.btnEdit.LookAndFeel.SkinName = "Blue";
             this.btnEdit.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // btnAdd
             // 
+            this.btnAdd.Location = new System.Drawing.Point(6, 4);
             this.btnAdd.LookAndFeel.SkinName = "Blue";
             this.btnAdd.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // btnView
             // 
+            this.btnView.Location = new System.Drawing.Point(597, 4);
             this.btnView.LookAndFeel.SkinName = "Blue";
             this.btnView.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnView.Visible = false;
             // 
             // btnRefresh
             // 
@@ -175,8 +192,8 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.LookAndFeel.SkinName = "Blue";
-            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnProperty.LookAndFeel.SkinName = "Blue";
+            this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // dataNav
             // 
@@ -200,43 +217,52 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.txtsUserID);
             this.layoutControl1.Controls.Add(this.chkbIsLock);
             this.layoutControl1.Controls.Add(this.cbxUserType);
             this.layoutControl1.Controls.Add(this.lkpParentID);
             this.layoutControl1.Controls.Add(this.txtsUserEName);
             this.layoutControl1.Controls.Add(this.txtsUserCName);
             this.layoutControl1.Controls.Add(this.txtsPassword);
-            this.layoutControl1.Controls.Add(this.lkpsUserID);
             this.layoutControl1.Controls.Add(this.txtsRemark);
+            this.layoutControl1.Controls.Add(this.lkpDeptID);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(2, 2);
             this.layoutControl1.LookAndFeel.SkinName = "Blue";
             this.layoutControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(749, 197);
+            this.layoutControl1.Size = new System.Drawing.Size(749, 221);
             this.layoutControl1.TabIndex = 1;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // txtsUserID
+            // 
+            this.txtsUserID.Location = new System.Drawing.Point(72, 30);
+            this.txtsUserID.Name = "txtsUserID";
+            this.txtsUserID.Size = new System.Drawing.Size(294, 21);
+            this.txtsUserID.StyleController = this.layoutControl1;
+            this.txtsUserID.TabIndex = 15;
+            // 
             // chkbIsLock
             // 
-            this.chkbIsLock.Location = new System.Drawing.Point(8, 105);
+            this.chkbIsLock.Location = new System.Drawing.Point(370, 105);
             this.chkbIsLock.Name = "chkbIsLock";
             this.chkbIsLock.Properties.Caption = "是否锁定";
-            this.chkbIsLock.Size = new System.Drawing.Size(713, 19);
+            this.chkbIsLock.Size = new System.Drawing.Size(358, 19);
             this.chkbIsLock.StyleController = this.layoutControl1;
             this.chkbIsLock.TabIndex = 14;
             // 
             // cbxUserType
             // 
-            this.cbxUserType.Location = new System.Drawing.Point(434, 80);
+            this.cbxUserType.Location = new System.Drawing.Point(72, 105);
             this.cbxUserType.Name = "cbxUserType";
             this.cbxUserType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cbxUserType.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("一般用户", 0, -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("超级用户", 1, -1)});
-            this.cbxUserType.Size = new System.Drawing.Size(287, 21);
+            this.cbxUserType.Size = new System.Drawing.Size(294, 21);
             this.cbxUserType.StyleController = this.layoutControl1;
             this.cbxUserType.TabIndex = 13;
             // 
@@ -264,7 +290,7 @@
             // 
             this.txtsUserEName.Location = new System.Drawing.Point(434, 55);
             this.txtsUserEName.Name = "txtsUserEName";
-            this.txtsUserEName.Size = new System.Drawing.Size(287, 21);
+            this.txtsUserEName.Size = new System.Drawing.Size(294, 21);
             this.txtsUserEName.StyleController = this.layoutControl1;
             this.txtsUserEName.TabIndex = 11;
             // 
@@ -281,39 +307,39 @@
             this.txtsPassword.Location = new System.Drawing.Point(434, 30);
             this.txtsPassword.Name = "txtsPassword";
             this.txtsPassword.Properties.PasswordChar = '*';
-            this.txtsPassword.Size = new System.Drawing.Size(287, 21);
+            this.txtsPassword.Size = new System.Drawing.Size(294, 21);
             this.txtsPassword.StyleController = this.layoutControl1;
             this.txtsPassword.TabIndex = 9;
             this.txtsPassword.TextChanged += new System.EventHandler(this.txtsPassword_TextChanged);
             // 
-            // lkpsUserID
-            // 
-            this.lkpsUserID.DataField = null;
-            this.lkpsUserID.DisplayField = null;
-            this.lkpsUserID.EditFormFilter = null;
-            this.lkpsUserID.EditFormID = 0;
-            this.lkpsUserID.EditFormName = null;
-            this.lkpsUserID.EditValue = "";
-            this.lkpsUserID.FormID = 0;
-            this.lkpsUserID.GridColumnText = null;
-            this.lkpsUserID.GridDisplayField = null;
-            this.lkpsUserID.Location = new System.Drawing.Point(72, 30);
-            this.lkpsUserID.Name = "lkpsUserID";
-            this.lkpsUserID.SearchFormFilter = "";
-            this.lkpsUserID.SearchFormText = "";
-            this.lkpsUserID.Size = new System.Drawing.Size(294, 21);
-            this.lkpsUserID.SQL = null;
-            this.lkpsUserID.TabIndex = 8;
-            this.lkpsUserID.TextFont = new System.Drawing.Font("Tahoma", 9F);
-            // 
             // txtsRemark
             // 
-            this.txtsRemark.Location = new System.Drawing.Point(72, 128);
+            this.txtsRemark.Location = new System.Drawing.Point(72, 130);
             this.txtsRemark.Name = "txtsRemark";
             this.txtsRemark.Size = new System.Drawing.Size(649, 58);
             this.txtsRemark.StyleController = this.layoutControl1;
             this.txtsRemark.TabIndex = 7;
             this.txtsRemark.Tag = "NoTab";
+            // 
+            // lkpDeptID
+            // 
+            this.lkpDeptID.DataField = null;
+            this.lkpDeptID.DisplayField = null;
+            this.lkpDeptID.EditFormFilter = null;
+            this.lkpDeptID.EditFormID = 0;
+            this.lkpDeptID.EditFormName = null;
+            this.lkpDeptID.EditValue = "";
+            this.lkpDeptID.FormID = 0;
+            this.lkpDeptID.GridColumnText = null;
+            this.lkpDeptID.GridDisplayField = null;
+            this.lkpDeptID.Location = new System.Drawing.Point(434, 80);
+            this.lkpDeptID.Name = "lkpDeptID";
+            this.lkpDeptID.SearchFormFilter = "";
+            this.lkpDeptID.SearchFormText = "";
+            this.lkpDeptID.Size = new System.Drawing.Size(294, 21);
+            this.lkpDeptID.SQL = null;
+            this.lkpDeptID.TabIndex = 8;
+            this.lkpDeptID.TextFont = new System.Drawing.Font("Tahoma", 9F);
             // 
             // layoutControlGroup1
             // 
@@ -325,7 +351,7 @@
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-            this.layoutControlGroup1.Size = new System.Drawing.Size(749, 197);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(749, 221);
             this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
@@ -338,7 +364,7 @@
             this.tabbedControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
             this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup2;
             this.tabbedControlGroup1.SelectedTabPageIndex = 0;
-            this.tabbedControlGroup1.Size = new System.Drawing.Size(745, 193);
+            this.tabbedControlGroup1.Size = new System.Drawing.Size(745, 217);
             this.tabbedControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.tabbedControlGroup1.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup2});
@@ -349,17 +375,19 @@
             this.layoutControlGroup2.CustomizationFormText = "角色信息";
             this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
-            this.layoutControlItem2,
             this.layoutControlItem3,
             this.layoutControlItem4,
             this.layoutControlItem5,
             this.layoutControlItem6,
-            this.layoutControlItem7,
             this.layoutControlItem8,
-            this.emptySpaceItem1});
+            this.emptySpaceItem1,
+            this.layoutControlItem7,
+            this.layoutControlItem2,
+            this.layoutControlItem9,
+            this.emptySpaceItem2});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(734, 160);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(734, 184);
             this.layoutControlGroup2.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup2.Text = "用户信息";
             // 
@@ -367,27 +395,14 @@
             // 
             this.layoutControlItem1.Control = this.txtsRemark;
             this.layoutControlItem1.CustomizationFormText = "备注";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 98);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 100);
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(717, 62);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(717, 62);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(717, 62);
+            this.layoutControlItem1.Size = new System.Drawing.Size(724, 62);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "备注";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(60, 14);
-            // 
-            // layoutControlItem2
-            // 
-            this.layoutControlItem2.Control = this.lkpsUserID;
-            this.layoutControlItem2.CustomizationFormText = "登录用户名";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem2.MaxSize = new System.Drawing.Size(362, 25);
-            this.layoutControlItem2.MinSize = new System.Drawing.Size(362, 25);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(362, 25);
-            this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem2.Text = "登录用户名";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(60, 14);
             // 
             // layoutControlItem3
             // 
@@ -395,7 +410,7 @@
             this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
             this.layoutControlItem3.Location = new System.Drawing.Point(362, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(355, 25);
+            this.layoutControlItem3.Size = new System.Drawing.Size(362, 25);
             this.layoutControlItem3.Text = "登录密码";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(60, 14);
             // 
@@ -417,10 +432,10 @@
             this.layoutControlItem5.Control = this.txtsUserEName;
             this.layoutControlItem5.CustomizationFormText = "用户英文名";
             this.layoutControlItem5.Location = new System.Drawing.Point(362, 25);
-            this.layoutControlItem5.MaxSize = new System.Drawing.Size(355, 25);
-            this.layoutControlItem5.MinSize = new System.Drawing.Size(355, 25);
+            this.layoutControlItem5.MaxSize = new System.Drawing.Size(362, 25);
+            this.layoutControlItem5.MinSize = new System.Drawing.Size(362, 25);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(355, 25);
+            this.layoutControlItem5.Size = new System.Drawing.Size(362, 25);
             this.layoutControlItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem5.Text = "用户英文名";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(60, 14);
@@ -438,26 +453,13 @@
             this.layoutControlItem6.Text = "所属上级";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(60, 14);
             // 
-            // layoutControlItem7
-            // 
-            this.layoutControlItem7.Control = this.cbxUserType;
-            this.layoutControlItem7.CustomizationFormText = "用户类型";
-            this.layoutControlItem7.Location = new System.Drawing.Point(362, 50);
-            this.layoutControlItem7.MaxSize = new System.Drawing.Size(355, 25);
-            this.layoutControlItem7.MinSize = new System.Drawing.Size(355, 25);
-            this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(355, 25);
-            this.layoutControlItem7.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem7.Text = "用户类型";
-            this.layoutControlItem7.TextSize = new System.Drawing.Size(60, 14);
-            // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.chkbIsLock;
             this.layoutControlItem8.CustomizationFormText = "layoutControlItem8";
-            this.layoutControlItem8.Location = new System.Drawing.Point(0, 75);
+            this.layoutControlItem8.Location = new System.Drawing.Point(362, 75);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(717, 23);
+            this.layoutControlItem8.Size = new System.Drawing.Size(362, 25);
             this.layoutControlItem8.Text = "layoutControlItem8";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextToControlDistance = 0;
@@ -466,11 +468,59 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem1.Location = new System.Drawing.Point(717, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(724, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(17, 160);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 162);
             this.emptySpaceItem1.Text = "emptySpaceItem1";
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem7
+            // 
+            this.layoutControlItem7.Control = this.cbxUserType;
+            this.layoutControlItem7.CustomizationFormText = "用户类型";
+            this.layoutControlItem7.Location = new System.Drawing.Point(0, 75);
+            this.layoutControlItem7.MaxSize = new System.Drawing.Size(362, 25);
+            this.layoutControlItem7.MinSize = new System.Drawing.Size(362, 25);
+            this.layoutControlItem7.Name = "layoutControlItem7";
+            this.layoutControlItem7.Size = new System.Drawing.Size(362, 25);
+            this.layoutControlItem7.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem7.Text = "用户类型";
+            this.layoutControlItem7.TextSize = new System.Drawing.Size(60, 14);
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.lkpDeptID;
+            this.layoutControlItem2.CustomizationFormText = "登录用户名";
+            this.layoutControlItem2.Location = new System.Drawing.Point(362, 50);
+            this.layoutControlItem2.MaxSize = new System.Drawing.Size(362, 25);
+            this.layoutControlItem2.MinSize = new System.Drawing.Size(362, 25);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(362, 25);
+            this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem2.Text = "所属部门";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(60, 14);
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.txtsUserID;
+            this.layoutControlItem9.CustomizationFormText = "登录用户名";
+            this.layoutControlItem9.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem9.MaxSize = new System.Drawing.Size(362, 25);
+            this.layoutControlItem9.MinSize = new System.Drawing.Size(362, 25);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(362, 25);
+            this.layoutControlItem9.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem9.Text = "登录用户名";
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(60, 14);
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.CustomizationFormText = "emptySpaceItem2";
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 162);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(734, 22);
+            this.emptySpaceItem2.Text = "emptySpaceItem2";
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // gcMain
             // 
@@ -479,7 +529,7 @@
             this.gcMain.Location = new System.Drawing.Point(2, 2);
             this.gcMain.MainView = this.gvMain;
             this.gcMain.Name = "gcMain";
-            this.gcMain.Size = new System.Drawing.Size(749, 250);
+            this.gcMain.Size = new System.Drawing.Size(749, 226);
             this.gcMain.TabIndex = 1;
             this.gcMain.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvMain});
@@ -491,6 +541,7 @@
             this.colsUserCName,
             this.colsUserEName,
             this.colsParentName,
+            this.colsDeptName,
             this.colsUserTypeName,
             this.colbIsLock,
             this.colsRemark});
@@ -502,7 +553,6 @@
             this.gvMain.OptionsView.ShowAutoFilterRow = true;
             this.gvMain.OptionsView.ShowFooter = true;
             this.gvMain.OptionsView.ShowGroupPanel = false;
-            this.gvMain.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gvMain_CustomDrawCell);
             // 
             // colsUserID
             // 
@@ -511,7 +561,7 @@
             this.colsUserID.Name = "colsUserID";
             this.colsUserID.Visible = true;
             this.colsUserID.VisibleIndex = 0;
-            this.colsUserID.Width = 89;
+            this.colsUserID.Width = 99;
             // 
             // colsUserCName
             // 
@@ -520,6 +570,7 @@
             this.colsUserCName.Name = "colsUserCName";
             this.colsUserCName.Visible = true;
             this.colsUserCName.VisibleIndex = 1;
+            this.colsUserCName.Width = 90;
             // 
             // colsUserEName
             // 
@@ -537,6 +588,16 @@
             this.colsParentName.Name = "colsParentName";
             this.colsParentName.Visible = true;
             this.colsParentName.VisibleIndex = 3;
+            this.colsParentName.Width = 100;
+            // 
+            // colsDeptName
+            // 
+            this.colsDeptName.Caption = "所属部门";
+            this.colsDeptName.FieldName = "sDeptName";
+            this.colsDeptName.Name = "colsDeptName";
+            this.colsDeptName.Visible = true;
+            this.colsDeptName.VisibleIndex = 4;
+            this.colsDeptName.Width = 107;
             // 
             // colsUserTypeName
             // 
@@ -544,7 +605,7 @@
             this.colsUserTypeName.FieldName = "sUserTypeName";
             this.colsUserTypeName.Name = "colsUserTypeName";
             this.colsUserTypeName.Visible = true;
-            this.colsUserTypeName.VisibleIndex = 4;
+            this.colsUserTypeName.VisibleIndex = 5;
             this.colsUserTypeName.Width = 100;
             // 
             // colbIsLock
@@ -553,7 +614,7 @@
             this.colbIsLock.FieldName = "bIsLock";
             this.colbIsLock.Name = "colbIsLock";
             this.colbIsLock.Visible = true;
-            this.colbIsLock.VisibleIndex = 5;
+            this.colbIsLock.VisibleIndex = 6;
             // 
             // colsRemark
             // 
@@ -561,7 +622,7 @@
             this.colsRemark.FieldName = "sRemark";
             this.colsRemark.Name = "colsRemark";
             this.colsRemark.Visible = true;
-            this.colsRemark.VisibleIndex = 6;
+            this.colsRemark.VisibleIndex = 7;
             this.colsRemark.Width = 126;
             // 
             // frmsysEditUser
@@ -572,7 +633,6 @@
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmsysEditUser";
             this.Text = "编辑系统用户";
-            this.Load += new System.EventHandler(this.frmsysEditUser_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).EndInit();
             this.pnlInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).EndInit();
@@ -585,6 +645,7 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtsUserID.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkbIsLock.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxUserType.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtsUserEName.Properties)).EndInit();
@@ -595,14 +656,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).EndInit();
             this.ResumeLayout(false);
@@ -613,7 +676,7 @@
 
         private DevExpress.XtraLayout.LayoutControl layoutControl1;
         private DevExpress.XtraEditors.TextEdit txtsPassword;
-        private Sunrise.ERP.Controls.SunriseLookUp lkpsUserID;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpDeptID;
         private DevExpress.XtraEditors.MemoEdit txtsRemark;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.TabbedControlGroup tabbedControlGroup1;
@@ -641,5 +704,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn colbIsLock;
         private DevExpress.XtraGrid.Columns.GridColumn colsRemark;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private DevExpress.XtraEditors.TextEdit txtsUserID;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private DevExpress.XtraGrid.Columns.GridColumn colsDeptName;
     }
 }

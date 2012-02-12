@@ -30,6 +30,7 @@ namespace Sunrise.ERP.Module.SystemManage
             txtFormClassName.DataBindings.Add("EditValue", dsMain, "sFormClassName");
             txtFileDate.DataBindings.Add("EditValue", dsMain, "dDLLLastTime");
             txtFormID.DataBindings.Add("EditValue", dsMain, "iFormID");
+            txtsQuickMenu.DataBindings.Add("EditValue", dsMain, "sQuickMenu");
         }
 
         private void frmsysPlatformManage2_Load(object sender, EventArgs e)

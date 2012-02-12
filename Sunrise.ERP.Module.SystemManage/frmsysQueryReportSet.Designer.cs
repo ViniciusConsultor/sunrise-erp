@@ -232,7 +232,7 @@
             this.panelControl2.Controls.SetChildIndex(this.btnAction, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnPreview, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnPrint, 0);
-            this.panelControl2.Controls.SetChildIndex(this.btnSettings, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnProperty, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnDelete, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnCopy, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnClose, 0);
@@ -309,9 +309,9 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.Location = new System.Drawing.Point(701, 4);
-            this.btnSettings.LookAndFeel.SkinName = "Blue";
-            this.btnSettings.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnProperty.Location = new System.Drawing.Point(701, 4);
+            this.btnProperty.LookAndFeel.SkinName = "Blue";
+            this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // dataNav
             // 
