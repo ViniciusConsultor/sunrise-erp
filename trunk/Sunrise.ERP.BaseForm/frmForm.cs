@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using Sunrise.ERP.BasePublic;
+using Sunrise.ERP.Security;
+using Sunrise.ERP.Lang;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -113,6 +115,28 @@ namespace Sunrise.ERP.BaseForm
             {
                 _formtext = value;
             }
+        }
+
+        private void frmForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                //添加系统日志
+                if (FormID != 0)
+                    SysPublic.AddIPLog(FormID, SecurityCenter.CurrentUserID, LangCenter.Instance.GetSystemMessage("LoginModule"));
+            }
+            catch { }
+        }
+
+        private void frmForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                //添加系统日志
+                if (FormID != 0)
+                    SysPublic.AddIPLog(FormID, SecurityCenter.CurrentUserID, LangCenter.Instance.GetSystemMessage("LogoutModule"));
+            }
+            catch { }
         }
 
     }

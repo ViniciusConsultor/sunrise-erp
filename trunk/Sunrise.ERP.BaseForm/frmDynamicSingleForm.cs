@@ -18,8 +18,10 @@ using Sunrise.ERP.DataAccess;
 using Sunrise.ERP.Controls;
 
 using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraEditors.Controls;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -1611,6 +1613,22 @@ namespace Sunrise.ERP.BaseForm
         private GridColumn CreateGridColumn(GridView gv, DataRow dr,int index)
         {
             GridColumn col = new GridColumn();
+            string sControlType = dr["sControlType"].ToString();
+            switch (sControlType)
+            {
+                //下拉框
+                case "cbx":
+                    {
+                        if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
+                        {
+                            RepositoryItemImageComboBox cbxRepositoryItem = new RepositoryItemImageComboBox();
+                            Base.InitRepositoryItemComboBox(cbxRepositoryItem, dr["sLookupNo"].ToString());
+                            col.ColumnEdit = cbxRepositoryItem;
+                            gv.GridControl.RepositoryItems.Add(cbxRepositoryItem);
+                        }
+                        break;
+                    }
+            }
             col.Caption = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
             col.FieldName = dr["sFieldName"].ToString();
             //Grid 列命名为col+表名+字段名

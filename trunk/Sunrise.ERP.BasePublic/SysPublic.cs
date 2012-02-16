@@ -4,8 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data;
+using System.Data.SqlClient;
 
 using Sunrise.ERP.Lang;
+using Sunrise.ERP.BaseControl;
+using Sunrise.ERP.SysBase;
+using Sunrise.ERP.DataAccess;
 
 namespace Sunrise.ERP.BasePublic
 {
@@ -127,5 +131,58 @@ namespace Sunrise.ERP.BasePublic
             dt.Rows.Add(dr);
             return dt;
         }
+
+        /// <summary>
+        /// 添加系统日志记录
+        /// </summary>
+        /// <param name="formid">窗体ID</param>
+        /// <param name="userid">用户ID</param>
+        /// <param name="action">动作</param>
+        /// <returns></returns>
+        public static void AddIPLog(int formid, string userid, string action)
+        {
+            SqlTransaction trans = ConnectSetting.SysSqlConnection.BeginTransaction();
+            try
+            {
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("INSERT INTO sysIPLog(");
+                strSql.Append("sUserID,sLoginIP,sLoginMachine,dActionDate,sAction,iFormID)");
+                strSql.Append(" VALUES (");
+                strSql.Append("@sUserID,@sLoginIP,@sLoginMachine,@dActionDate,@sAction,@iFormID)");
+                SqlParameter[] parameters = {
+					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
+					new SqlParameter("@sLoginIP", SqlDbType.VarChar,15),
+					new SqlParameter("@sLoginMachine", SqlDbType.VarChar,50),
+					new SqlParameter("@dActionDate", SqlDbType.DateTime),
+					new SqlParameter("@sAction", SqlDbType.VarChar,100),
+                    new SqlParameter("@iFormID", SqlDbType.Int)};
+                parameters[0].Value = userid;
+                parameters[1].Value = HardwareInfo.GetIPAddress();
+                parameters[2].Value = "(" + Environment.UserName + ")" + Environment.UserDomainName;
+                parameters[3].Value = DateTime.Now;
+                parameters[4].Value = action;
+                parameters[5].Value = formid;
+
+                DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
+                trans.Commit();
+            }
+            catch
+            {
+                trans.Rollback();
+            }
+        }
+
+        /// <summary>
+        /// 添加单据新增Log
+        /// </summary>
+        /// <param name="formid">窗体ID</param>
+        /// <param name="userid">用户ID</param>
+        /// <param name="billno">单据号</param>
+        public static void AddBillLog(int formid, string userid, string billno)
+        {
+            AddIPLog(formid, userid, string.Format(LangCenter.Instance.GetSystemMessage("AddNewBill"), billno));
+        }
+
+       
     }
 }

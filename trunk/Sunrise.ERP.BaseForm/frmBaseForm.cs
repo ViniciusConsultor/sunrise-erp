@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using Sunrise.ERP.Lang;
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.Security;
+using Sunrise.ERP.BasePublic;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -559,6 +560,5 @@ namespace Sunrise.ERP.BaseForm
             btnProperty.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnProperty.Name);
             btnAction.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnAction.Name);
         }
-
     }
 }

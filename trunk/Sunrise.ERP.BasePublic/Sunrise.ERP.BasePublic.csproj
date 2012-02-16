@@ -98,6 +98,10 @@
       <Project>{77AF6749-8A39-4EFD-9160-CDAC511D7233}</Project>
       <Name>Sunrise.ERP.BaseControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.BaseForm.DAL\Sunrise.ERP.BaseForm.DAL.csproj">
+      <Project>{67865932-18D5-40FB-BEEC-636FEA6C7C1B}</Project>
+      <Name>Sunrise.ERP.BaseForm.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sunrise.ERP.Common\Sunrise.ERP.Common.csproj">
       <Project>{34787DE0-6E5B-49AF-928E-20C341CCC941}</Project>
       <Name>Sunrise.ERP.Common</Name>
@@ -113,6 +117,10 @@
     <ProjectReference Include="..\Sunrise.ERP.Lang\Sunrise.ERP.Lang.csproj">
       <Project>{BE849923-172A-4FBD-9C75-BAB978254BBF}</Project>
       <Name>Sunrise.ERP.Lang</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.SysBase\Sunrise.ERP.SysBase.csproj">
+      <Project>{8E6D8B75-94E3-48A6-8BD2-9E860AA5A808}</Project>
+      <Name>Sunrise.ERP.SysBase</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

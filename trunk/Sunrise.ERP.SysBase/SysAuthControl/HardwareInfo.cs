@@ -11,10 +11,22 @@ namespace Sunrise.ERP.SysBase
     /// </summary>
     public class HardwareInfo
     {
-        //取机器名 
+        /// <summary>
+        /// 计算机名
+        /// </summary>
+        /// <returns></returns> 
         public static string GetHostName()
         {
             return System.Net.Dns.GetHostName();
+        }
+
+        /// <summary>
+        /// 计算机IP地址
+        /// </summary>
+        /// <returns></returns>
+        public static string GetIPAddress()
+        {
+            return System.Net.Dns.GetHostEntry(GetHostName()).AddressList[1].ToString();
         }
 
 

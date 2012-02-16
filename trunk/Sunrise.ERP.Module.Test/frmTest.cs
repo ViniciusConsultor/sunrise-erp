@@ -5,6 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Sunrise.ERP.BasePublic;
+using Sunrise.ERP.Security;
+using Sunrise.ERP.Lang;
 
 namespace Sunrise.ERP.Module.Test
 {
@@ -22,9 +25,15 @@ namespace Sunrise.ERP.Module.Test
 
         }
 
-        public override bool DoSave()
+        public override bool DoAfterSave()
         {
-            return base.DoSave();
+            base.DoAfterSave();
+            try
+            {
+                SysPublic.AddIPLog(FormID, SecurityCenter.CurrentUserID, string.Format(LangCenter.Instance.GetSystemMessage("AddNewBill"), ""));
+            }
+            catch { }
+            return true;
         }
     }
 }
