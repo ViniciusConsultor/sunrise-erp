@@ -955,7 +955,6 @@ namespace SunriseERP
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
-            this.MdiChildActivate += new System.EventHandler(this.frmMain_MdiChildActivate);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmMain_KeyPress);
             this.Controls.SetChildIndex(this.barDockControlTop, 0);
             this.Controls.SetChildIndex(this.barDockControlBottom, 0);

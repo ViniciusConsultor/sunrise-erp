@@ -48,12 +48,14 @@ namespace Sunrise.ERP.BaseForm
             this.ClientSize = new System.Drawing.Size(757, 498);
             this.Controls.Add(this.panelControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.ImeMode = System.Windows.Forms.ImeMode.OnHalf;
+            this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmForm";
             this.ShowInTaskbar = false;
             this.Text = "frmForm";
+            this.Load += new System.EventHandler(this.frmForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.ResumeLayout(false);
 

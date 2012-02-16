@@ -20,6 +20,7 @@ using Sunrise.ERP.Lang;
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.DataAccess;
 using Sunrise.ERP.Security;
+using Sunrise.ERP.BasePublic;
 
 namespace SunriseERP
 {
@@ -35,6 +36,8 @@ namespace SunriseERP
             barManager1.GetController().LookAndFeel.SkinName = "Blue";
 
             pnlWait.Location = new Point(pnlMenu.Width + 200, this.Height / 2);
+
+            
 
         }
         private void frmMain_Load(object sender, EventArgs e)
@@ -69,6 +72,9 @@ namespace SunriseERP
                 barUserName.Caption = string.Format(LangCenter.Instance.GetSystemMessage("SysUserName") , Sunrise.ERP.Security.SecurityCenter.CurrentUserName);
                 barDeptName.Caption = string.Format(LangCenter.Instance.GetSystemMessage("SysDept"), Sunrise.ERP.Security.SecurityCenter.CurrentDeptName);
                 barSoftVer.Caption = string.Format(LangCenter.Instance.GetSystemMessage("SysVersion"), Assembly.GetExecutingAssembly().GetName().Version.ToString());
+
+                //添加系统日志
+                SysPublic.AddIPLog(0, SecurityCenter.CurrentUserID, LangCenter.Instance.GetSystemMessage("LoginSystem"));
                 #endregion
 
                 /* 2012-01-07 
@@ -298,8 +304,14 @@ namespace SunriseERP
             {
                 if (Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SysExit"), 4) == DialogResult.Yes)
                 {
+                    //记录未关闭的窗体退出事件
+                    foreach (Form frm in MdiChildren)
+                    {
+                        frm.Close();
+                    }
                     if (e.CloseReason == CloseReason.MdiFormClosing)
                     {
+                       
                         base.OnFormClosing(e);
                         //释放所有UI线程
                         Application.Exit();
@@ -350,7 +362,8 @@ namespace SunriseERP
             {
                 ConnectSetting.SaveAppConfig("BackImg", openFileDialog1.FileName, false);
             }
-
+            //添加系统日志
+            SysPublic.AddIPLog(0, SecurityCenter.CurrentUserID, LangCenter.Instance.GetSystemMessage("LogoutSystem"));
         }
 
         private void barClearPicBack_ItemClick(object sender, ItemClickEventArgs e)
@@ -467,16 +480,7 @@ namespace SunriseERP
             frm.ShowDialog();
         }
 
-        //private void InitQuickMenuData(DataSet ds)
-        //{
-        //    string sSql = "SELECT iFormID, sMenuName, sMenuEngName, sModuleName, sFormClassName, sQuickMenu FROM sysMenu WHERE iParentID <> 0 AND " + sFilter;
-        //    DataTable dtQuickMenu = DbHelperSQL.Query(sSql).Tables[0];
-        //    if (dtQuickMenu != null && dtQuickMenu.Rows.Count > 0)
-        //    {
-        //        //gcQuickMenu.Visible = true;
-        //        lkpQuickMenu.DataSource = dtQuickMenu;
-        //    }
-        //}
+
 
         private void barQuickEditor_ItemPress(object sender, ItemClickEventArgs e)
         {
@@ -503,11 +507,6 @@ namespace SunriseERP
                     Public.SystemInfo(toolQuickMenu.EditValue.ToString());
                 }
             }
-        }
-
-        private void frmMain_MdiChildActivate(object sender, EventArgs e)
-        {
-
         }
     }
 }

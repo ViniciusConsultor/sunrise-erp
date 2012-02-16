@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Sunrise.ERP.Common;
 using Sunrise.ERP.BasePublic;
 using Sunrise.ERP.Lang;
+using Sunrise.ERP.Security;
 
 namespace Sunrise.ERP.Module.SystemManage
 {
@@ -102,6 +103,17 @@ namespace Sunrise.ERP.Module.SystemManage
         private void frmsysLookupSetting_Load(object sender, EventArgs e)
         {
             LoadLangSetting();
+        }
+
+        public override bool DoAfterSave()
+        {
+            base.DoAfterSave();
+            try
+            {
+                SysPublic.AddBillLog(FormID, SecurityCenter.CurrentUserID, txtsLookupNo.Text);
+            }
+            catch { }
+            return true;
         }
 
 

@@ -53,6 +53,17 @@
     <Compile Include="SysAuthControl\HardwareInfo.cs" />
     <Compile Include="SysAuthControl\SysAuthBase.cs" />
     <Compile Include="SysAuthControl\SysFileIO.cs" />
+    <Compile Include="sysIPLogDAL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sunrise.ERP.BaseControl\Sunrise.ERP.BaseControl.csproj">
+      <Project>{77AF6749-8A39-4EFD-9160-CDAC511D7233}</Project>
+      <Name>Sunrise.ERP.BaseControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.DataAccess\Sunrise.ERP.DataAccess.csproj">
+      <Project>{E30BB9FB-447C-4260-8ACB-0604DD729BFE}</Project>
+      <Name>Sunrise.ERP.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
