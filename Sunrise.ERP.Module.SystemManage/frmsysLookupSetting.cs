@@ -104,7 +104,11 @@ namespace Sunrise.ERP.Module.SystemManage
         {
             LoadLangSetting();
         }
-
+        public override bool DoBeforeSave()
+        {
+            SystemPublic.GetBillNo(FormID, (DataRowView)dsMain.Current);
+            return base.DoBeforeSave();
+        }
         public override bool DoAfterSave()
         {
             base.DoAfterSave();

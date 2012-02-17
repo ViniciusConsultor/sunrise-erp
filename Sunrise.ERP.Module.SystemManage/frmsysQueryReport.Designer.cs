@@ -124,7 +124,7 @@
             // btnClose
             // 
             this.btnClose.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.close;
-            this.btnClose.Location = new System.Drawing.Point(431, 5);
+            this.btnClose.Location = new System.Drawing.Point(289, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(70, 24);
             this.btnClose.TabIndex = 3;
@@ -313,22 +313,22 @@
             // btnEdit
             // 
             this.btnEdit.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.edit;
-            this.btnEdit.Location = new System.Drawing.Point(360, 5);
+            this.btnEdit.Location = new System.Drawing.Point(596, 5);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(70, 24);
             this.btnEdit.TabIndex = 7;
             this.btnEdit.Text = "修改(&E)";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.btnEdit.Visible = false;
             // 
             // btnAdd
             // 
             this.btnAdd.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.add;
-            this.btnAdd.Location = new System.Drawing.Point(289, 5);
+            this.btnAdd.Location = new System.Drawing.Point(525, 5);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(70, 24);
             this.btnAdd.TabIndex = 6;
             this.btnAdd.Text = "新增(&A)";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Visible = false;
             // 
             // frmsysQueryReport
             // 
