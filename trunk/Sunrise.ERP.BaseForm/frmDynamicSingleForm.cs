@@ -480,7 +480,12 @@ namespace Sunrise.ERP.BaseForm
             //控制不需要复制的字段
             for (int i = 0; i < drTemp.ItemArray.Length; i++)
             {
-                if (!NotCopyFields.Contains(drTemp.Table.Columns[i].ColumnName))
+                //默认的ID,sUserID,iFlag,dInputDate字段不复制
+                if (!NotCopyFields.Contains(drTemp.Table.Columns[i].ColumnName) &&
+                    drTemp.Table.Columns[i].ColumnName != "ID" &&
+                    drTemp.Table.Columns[i].ColumnName != "sUserID" &&
+                    drTemp.Table.Columns[i].ColumnName != "iFlag" &&
+                    drTemp.Table.Columns[i].ColumnName != "dInputDate")
                 {
                     ((DataRowView)dsMain.Current).Row[i] = drTemp[i];
                 }
@@ -520,11 +525,13 @@ namespace Sunrise.ERP.BaseForm
             try
             {
                 result = DoBeforceSaveInTrans(SqlTrans);
-                //SqlTrans.Save("BeforceSave");
             }
             catch
             {
                 SqlTrans.Rollback();
+                //回收Trans
+                if (SqlTrans != null)
+                    SqlTrans.Dispose();
                 return false;
             }
             return result;
@@ -546,6 +553,9 @@ namespace Sunrise.ERP.BaseForm
                 }
                 catch
                 {
+                    //回收Trans
+                    if (SqlTrans != null)
+                        SqlTrans.Dispose();
                     return false;
                 }
             }
@@ -558,6 +568,9 @@ namespace Sunrise.ERP.BaseForm
                 }
                 catch
                 {
+                    //回收Trans
+                    if (SqlTrans != null)
+                        SqlTrans.Dispose();
                     return false;
                 }
             }
@@ -574,6 +587,9 @@ namespace Sunrise.ERP.BaseForm
             catch
             {
                 SqlTrans.Rollback();
+                //回收Trans
+                if (SqlTrans != null)
+                    SqlTrans.Dispose();
                 return false;
             }
             if (TopCount != 499 & SortField != "dInputDate DESC")

@@ -200,6 +200,7 @@ namespace Sunrise.ERP.Module.SystemManage
                 FileInfo fi = new FileInfo(openFileDialog1.FileName);
                 txtModuleFile.Text = openFileDialog1.SafeFileName;
                 txtFileDate.Text = fi.LastWriteTime.ToString();
+                dsMain.EndEdit();
             }
         }
 

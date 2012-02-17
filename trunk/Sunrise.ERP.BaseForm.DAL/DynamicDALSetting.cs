@@ -60,6 +60,42 @@ namespace Sunrise.ERP.BaseForm.DAL
             get { return dynamicdatatable.Select("bSystemColumn=0 AND bSaveData=1"); }
         }
 
+        private string insertsql = "";
+        /// <summary>
+        /// Insert SQL
+        /// </summary>
+        public string InsertSQL
+        {
+            get 
+            {
+                if (insertsql == "")
+                    insertsql = CreateSQL("Add", false);
+                return insertsql; 
+            }
+        }
+
+        private string updatesql = "";
+        /// <summary>
+        /// Update SQL
+        /// </summary>
+        public string UpdateSQL
+        {
+            get 
+            {
+                if (updatesql == "")
+                    updatesql = CreateSQL("Update", false);
+                return updatesql; 
+            }
+        }
+
+        private string selectsql = "";
+        /// <summary>
+        /// Select SQL
+        /// </summary>
+        public string SelectSQL
+        {
+            get { return selectsql; }
+        }
         #endregion
 
         #region 公共数据库操作方法
@@ -158,6 +194,7 @@ namespace Sunrise.ERP.BaseForm.DAL
             {
                 strSql.Append(" WHERE " + strWhere);
             }
+            selectsql = strSql.ToString();
             return DbHelperSQL.Query(strSql.ToString());
         }
 
@@ -187,6 +224,7 @@ namespace Sunrise.ERP.BaseForm.DAL
                 strSql.Append(" WHERE " + strWhere);
             }
             strSql.Append(" ORDER BY  " + filedOrder);
+            selectsql = strSql.ToString();
             return DbHelperSQL.Query(strSql.ToString());
         }
 

@@ -45,9 +45,9 @@ namespace Sunrise.ERP.SystemManage.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("INSERT INTO sysQueryReportDetail(");
-            strSql.Append("MainID,iSort,sColumnFieldName,sColumnCaption,sColumnType,bIsQuery,bIsShow,bChartField,bChartValue,sSearchType,sDefaultValue,sReturnValue,bIsGroup,bIsCount,bIsSum,bIsStat,sUserID)");
+            strSql.Append("MainID,iSort,sColumnFieldName,sColumnCaption,sColumnType,bIsQuery,bIsShow,bChartField,bChartValue,sSearchType,sDefaultValue,sReturnValue,bIsGroup,sFooterType,bIsStat,iFormID,sUserID)");
             strSql.Append(" VALUES (");
-            strSql.Append("@MainID,@iSort,@sColumnFieldName,@sColumnCaption,@sColumnType,@bIsQuery,@bIsShow,@bChartField,@bChartValue,@sSearchType,@sDefaultValue,@sReturnValue,@bIsGroup,@bIsCount,@bIsSum,@bIsStat,@sUserID)");
+            strSql.Append("@MainID,@iSort,@sColumnFieldName,@sColumnCaption,@sColumnType,@bIsQuery,@bIsShow,@bChartField,@bChartValue,@sSearchType,@sDefaultValue,@sReturnValue,@bIsGroup,@sFooterType,@bIsStat,@iFormID,@sUserID)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@MainID", SqlDbType.Int,4),
@@ -63,9 +63,9 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@sDefaultValue", SqlDbType.VarChar,1000),
 					new SqlParameter("@sReturnValue", SqlDbType.VarChar,1000),
 					new SqlParameter("@bIsGroup", SqlDbType.Bit,1),
-					new SqlParameter("@bIsCount", SqlDbType.Bit,1),
-					new SqlParameter("@bIsSum", SqlDbType.Bit,1),
+					new SqlParameter("@sFooterType", SqlDbType.VarChar,30),
 					new SqlParameter("@bIsStat", SqlDbType.Bit,1),
+					new SqlParameter("@iFormID", SqlDbType.Int,4),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
             parameters[0].Value = dr["MainID"];
             parameters[1].Value = dr["iSort"];
@@ -80,9 +80,9 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[10].Value = dr["sDefaultValue"];
             parameters[11].Value = dr["sReturnValue"];
             parameters[12].Value = dr["bIsGroup"];
-            parameters[13].Value = dr["bIsCount"];
-            parameters[14].Value = dr["bIsSum"];
-            parameters[15].Value = dr["bIsStat"];
+            parameters[13].Value = dr["sFooterType"];
+            parameters[14].Value = dr["bIsStat"];
+            parameters[15].Value = dr["iFormID"];
             parameters[16].Value = dr["sUserID"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
@@ -115,9 +115,9 @@ namespace Sunrise.ERP.SystemManage.DAL
             strSql.Append("sDefaultValue=@sDefaultValue,");
             strSql.Append("sReturnValue=@sReturnValue,");
             strSql.Append("bIsGroup=@bIsGroup,");
-            strSql.Append("bIsCount=@bIsCount,");
-            strSql.Append("bIsSum=@bIsSum,");
+            strSql.Append("sFooterType=@sFooterType,");
             strSql.Append("bIsStat=@bIsStat,");
+            strSql.Append("iFormID=@iFormID,");
             strSql.Append("sUserID=@sUserID");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
@@ -135,9 +135,9 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@sDefaultValue", SqlDbType.VarChar,1000),
 					new SqlParameter("@sReturnValue", SqlDbType.VarChar,1000),
 					new SqlParameter("@bIsGroup", SqlDbType.Bit,1),
-					new SqlParameter("@bIsCount", SqlDbType.Bit,1),
-					new SqlParameter("@bIsSum", SqlDbType.Bit,1),
+					new SqlParameter("@sFooterType", SqlDbType.VarChar,30),
 					new SqlParameter("@bIsStat", SqlDbType.Bit,1),
+					new SqlParameter("@iFormID", SqlDbType.Int,4),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
             parameters[0].Value = dr["ID"];
             parameters[1].Value = dr["MainID"];
@@ -153,9 +153,9 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[11].Value = dr["sDefaultValue"];
             parameters[12].Value = dr["sReturnValue"];
             parameters[13].Value = dr["bIsGroup"];
-            parameters[14].Value = dr["bIsCount"];
-            parameters[15].Value = dr["bIsSum"];
-            parameters[16].Value = dr["bIsStat"];
+            parameters[14].Value = dr["sFooterType"];
+            parameters[15].Value = dr["bIsStat"];
+            parameters[16].Value = dr["iFormID"];
             parameters[17].Value = dr["sUserID"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
@@ -184,7 +184,7 @@ namespace Sunrise.ERP.SystemManage.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * ");
-            strSql.Append(" FROM sysQueryReportDetail ");
+            strSql.Append(" FROM vwsysQueryReportDetail ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);
@@ -203,7 +203,7 @@ namespace Sunrise.ERP.SystemManage.DAL
             {
                 strSql.Append(" TOP " + Top.ToString());
             }
-            strSql.Append(" * FROM sysQueryReportDetail ");
+            strSql.Append(" * FROM vwsysQueryReportDetail ");
             if (strWhere.Trim() != "")
             {
                 strSql.Append(" WHERE " + strWhere);

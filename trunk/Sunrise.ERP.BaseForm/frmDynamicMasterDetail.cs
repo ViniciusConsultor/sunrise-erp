@@ -396,6 +396,9 @@ namespace Sunrise.ERP.BaseForm
             }
             catch
             {
+                //回收Trans
+                if (SqlTrans != null)
+                    SqlTrans.Dispose();
                 return false;
             }
         }

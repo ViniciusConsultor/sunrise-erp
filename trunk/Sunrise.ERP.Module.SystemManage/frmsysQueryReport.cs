@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Linq;
 using DevExpress.XtraCharts;
 using Sunrise.ERP.BaseControl;
+using Sunrise.ERP.Report;
 
 namespace Sunrise.ERP.Module.SystemManage
 {
@@ -44,6 +45,12 @@ namespace Sunrise.ERP.Module.SystemManage
         /// 是否自动运行查询
         /// </summary>
         bool IsAutoRun = false;
+
+        /// <summary>
+        /// 打印报表
+        /// </summary>
+        InitReport report;
+
         public frmsysQueryReport(int formid, string formtext)
             : base(formid, formtext)
         {
@@ -73,6 +80,7 @@ namespace Sunrise.ERP.Module.SystemManage
                 InitGridData("1=2");
             }
 
+            report = new InitReport(ReportNo);
         }
 
 
@@ -337,8 +345,6 @@ namespace Sunrise.ERP.Module.SystemManage
                         btnSet.Enabled = Convert.ToBoolean(dtMain.Rows[0]["bIsShowExecBtn"]);
                         btnSet.Text = dtMain.Rows[0]["sExecBtnText"].ToString() == "" ? "执行(&R)" : dtMain.Rows[0]["sExecBtnText"].ToString();
                         btnPrint.Enabled = Convert.ToBoolean(dtMain.Rows[0]["bIsShowPrintBtn"]);
-                        btnAdd.Enabled = Convert.ToBoolean(dtMain.Rows[0]["bOptionData"]);
-                        btnEdit.Enabled = Convert.ToBoolean(dtMain.Rows[0]["bOptionData"]);
 
                         //this.Text = this.Text == "" ? dtMain.Rows[0]["sReportName"].ToString() : this.Text;
                         IsChart = Convert.ToBoolean(dtMain.Rows[0]["bIsChart"].ToString());
@@ -415,21 +421,28 @@ namespace Sunrise.ERP.Module.SystemManage
                         col.ColumnEdit = colItem;
                         gcSearch.RepositoryItems.Add(colItem);
                     }
-                    //先计算有没有合计的，再计算计数
-                    if (dr["bIsSum"].ToString() != "" && Convert.ToBoolean(dr["bIsSum"]))
+                    //Grid Footer显示
+                    if (dr["sFooterType"].ToString() != "001")
                     {
+                        //001	无
+                        //002	求和
+                        //003	计数
+                        //004	平均值
+                        //005	最大值
+                        //006	最小值                   
                         col.SummaryItem.FieldName = dr["sColumnFieldName"].ToString();
-                        col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
-                        //显示分组脚注后也要合计
+                        if (dr["sFooterType"].ToString() == "002")
+                            col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+                        else if (dr["sFooterType"].ToString() == "003")
+                            col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
+                        else if (dr["sFooterType"].ToString() == "004")
+                            col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Average;
+                        else if (dr["sFooterType"].ToString() == "005")
+                            col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Max;
+                        else if (dr["sFooterType"].ToString() == "006")
+                            col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Min;
+
                         gvSearch.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, dr["sColumnFieldName"].ToString(), col);
-
-
-                    }
-                    if (dr["bIsCount"].ToString() != "" && Convert.ToBoolean(dr["bIsCount"]))
-                    {
-                        col.SummaryItem.FieldName = dr["sColumnFieldName"].ToString();
-                        col.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
-                        gvSearch.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, dr["sColumnFieldName"].ToString(), col);
                     }
                     gvSearch.Columns.Add(col);
                     i++;
@@ -581,9 +594,8 @@ namespace Sunrise.ERP.Module.SystemManage
             {
                 if (dtSearch.Rows.Count > 0)
                 {
-                    //DECO.Report.frmSelectReport frm = new DECO.Report.frmSelectReport("QueryReport" + ReportNo, UserID, "100");
-                    //frm.AddReportData(dtSearch, "查询信息");
-                    //frm.ShowDialog();
+                    report.AddReportData(dtSearch, "查询数据");
+                    report.ReportMenu.Show(btnPrint, new Point(0, btnPrint.Height));
                 }
                 else
                 {
@@ -878,6 +890,7 @@ namespace Sunrise.ERP.Module.SystemManage
 
 
         #region 属性设置
+        private string reportno = "";
         /// <summary>
         /// 查询报表编号
         /// </summary>
@@ -885,7 +898,13 @@ namespace Sunrise.ERP.Module.SystemManage
         {
             get
             {
-                return Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["ReportNo"].ToString();
+                if (reportno == "")
+                    reportno = Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["ReportNo"].ToString();
+                return reportno;
+            }
+            set
+            {
+                reportno = value;
             }
         }
         #endregion
@@ -898,18 +917,5 @@ namespace Sunrise.ERP.Module.SystemManage
                 ShowChart();
             }
         }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            ((Form)this.Parent.Parent).MdiChildren[0].BringToFront();
-            ((BaseForm.frmDynamicSingleForm)((Form)this.Parent.Parent).MdiChildren[0]).LoadFormData(2);
-        }
-
-
     }
 }

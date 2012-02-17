@@ -70,8 +70,6 @@
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.pnlDetailMenu = new DevExpress.XtraEditors.PanelControl();
-            this.btnDetailCopy = new DevExpress.XtraEditors.SimpleButton();
-            this.btnDetailCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnDetailDelete = new DevExpress.XtraEditors.SimpleButton();
             this.btnDetailAdd = new DevExpress.XtraEditors.SimpleButton();
             this.tcDetail = new DevExpress.XtraTab.XtraTabControl();
@@ -92,15 +90,19 @@
             this.colbIsShow = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbIsGroup = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbIsStat = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colbIsCount = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colbIsSum = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colsFooterType = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.cbxsFooterType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.colbChartField = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbChartValue = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.coliFormID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btniFormID = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.colsMenuName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbtnsGoodID = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.lkpsGoodID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.lkpFlag = new Sunrise.ERP.Controls.SunriseLookUp();
+            this.lkpiFormID = new Sunrise.ERP.Controls.SunriseLookUp();
             this.tpUserDetail = new DevExpress.XtraTab.XtraTabPage();
             this.gcUserDetail = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvUserDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -182,6 +184,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbxFieldName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxsFooterType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btniFormID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.colbtnsGoodID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -307,7 +311,7 @@
             // txtDataFlag
             // 
             // 
-            // btnSettings
+            // btnProperty
             // 
             this.btnProperty.Location = new System.Drawing.Point(701, 4);
             this.btnProperty.LookAndFeel.SkinName = "Blue";
@@ -747,8 +751,6 @@
             // 
             // pnlDetailMenu
             // 
-            this.pnlDetailMenu.Controls.Add(this.btnDetailCopy);
-            this.pnlDetailMenu.Controls.Add(this.btnDetailCancel);
             this.pnlDetailMenu.Controls.Add(this.btnDetailDelete);
             this.pnlDetailMenu.Controls.Add(this.btnDetailAdd);
             this.pnlDetailMenu.Dock = System.Windows.Forms.DockStyle.Top;
@@ -758,28 +760,6 @@
             this.pnlDetailMenu.Name = "pnlDetailMenu";
             this.pnlDetailMenu.Size = new System.Drawing.Size(564, 33);
             this.pnlDetailMenu.TabIndex = 4;
-            // 
-            // btnDetailCopy
-            // 
-            this.btnDetailCopy.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.copy;
-            this.btnDetailCopy.Location = new System.Drawing.Point(80, 4);
-            this.btnDetailCopy.LookAndFeel.SkinName = "Blue";
-            this.btnDetailCopy.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.btnDetailCopy.Name = "btnDetailCopy";
-            this.btnDetailCopy.Size = new System.Drawing.Size(24, 24);
-            this.btnDetailCopy.TabIndex = 3;
-            this.btnDetailCopy.ToolTip = "复制";
-            // 
-            // btnDetailCancel
-            // 
-            this.btnDetailCancel.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.cancel;
-            this.btnDetailCancel.Location = new System.Drawing.Point(55, 4);
-            this.btnDetailCancel.LookAndFeel.SkinName = "Blue";
-            this.btnDetailCancel.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.btnDetailCancel.Name = "btnDetailCancel";
-            this.btnDetailCancel.Size = new System.Drawing.Size(24, 24);
-            this.btnDetailCancel.TabIndex = 2;
-            this.btnDetailCancel.ToolTip = "取消";
             // 
             // btnDetailDelete
             // 
@@ -822,6 +802,7 @@
             this.tpDetail.Controls.Add(this.gcDetail);
             this.tpDetail.Controls.Add(this.lkpsGoodID);
             this.tpDetail.Controls.Add(this.lkpFlag);
+            this.tpDetail.Controls.Add(this.lkpiFormID);
             this.tpDetail.Name = "tpDetail";
             this.tpDetail.Size = new System.Drawing.Size(557, 147);
             this.tpDetail.Text = "系统配置";
@@ -837,7 +818,9 @@
             this.repositoryItemComboBox1,
             this.repositoryItemImageComboBox1,
             this.repositoryItemImageComboBox2,
-            this.cbxFieldName});
+            this.cbxFieldName,
+            this.cbxsFooterType,
+            this.btniFormID});
             this.gcDetail.Size = new System.Drawing.Size(557, 147);
             this.gcDetail.TabIndex = 4;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -858,10 +841,11 @@
             this.colbIsShow,
             this.colbIsGroup,
             this.colbIsStat,
-            this.colbIsCount,
-            this.colbIsSum,
+            this.colsFooterType,
             this.colbChartField,
-            this.colbChartValue});
+            this.colbChartValue,
+            this.coliFormID,
+            this.colsMenuName});
             this.gvDetail.GridControl = this.gcDetail;
             this.gvDetail.Name = "gvDetail";
             this.gvDetail.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -1011,23 +995,22 @@
             this.colbIsStat.VisibleIndex = 10;
             this.colbIsStat.Width = 45;
             // 
-            // colbIsCount
+            // colsFooterType
             // 
-            this.colbIsCount.Caption = "计数";
-            this.colbIsCount.FieldName = "bIsCount";
-            this.colbIsCount.Name = "colbIsCount";
-            this.colbIsCount.Visible = true;
-            this.colbIsCount.VisibleIndex = 11;
-            this.colbIsCount.Width = 45;
+            this.colsFooterType.Caption = "脚注";
+            this.colsFooterType.ColumnEdit = this.cbxsFooterType;
+            this.colsFooterType.FieldName = "sFooterType";
+            this.colsFooterType.Name = "colsFooterType";
+            this.colsFooterType.Visible = true;
+            this.colsFooterType.VisibleIndex = 11;
+            this.colsFooterType.Width = 45;
             // 
-            // colbIsSum
+            // cbxsFooterType
             // 
-            this.colbIsSum.Caption = "合计";
-            this.colbIsSum.FieldName = "bIsSum";
-            this.colbIsSum.Name = "colbIsSum";
-            this.colbIsSum.Visible = true;
-            this.colbIsSum.VisibleIndex = 12;
-            this.colbIsSum.Width = 45;
+            this.cbxsFooterType.AutoHeight = false;
+            this.cbxsFooterType.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxsFooterType.Name = "cbxsFooterType";
             // 
             // colbChartField
             // 
@@ -1035,7 +1018,7 @@
             this.colbChartField.FieldName = "bChartField";
             this.colbChartField.Name = "colbChartField";
             this.colbChartField.Visible = true;
-            this.colbChartField.VisibleIndex = 13;
+            this.colbChartField.VisibleIndex = 12;
             this.colbChartField.Width = 71;
             // 
             // colbChartValue
@@ -1044,8 +1027,36 @@
             this.colbChartValue.FieldName = "bChartValue";
             this.colbChartValue.Name = "colbChartValue";
             this.colbChartValue.Visible = true;
-            this.colbChartValue.VisibleIndex = 14;
+            this.colbChartValue.VisibleIndex = 13;
             this.colbChartValue.Width = 59;
+            // 
+            // coliFormID
+            // 
+            this.coliFormID.Caption = "关联模块";
+            this.coliFormID.ColumnEdit = this.btniFormID;
+            this.coliFormID.FieldName = "iFormID";
+            this.coliFormID.Name = "coliFormID";
+            this.coliFormID.Visible = true;
+            this.coliFormID.VisibleIndex = 14;
+            this.coliFormID.Width = 82;
+            // 
+            // btniFormID
+            // 
+            this.btniFormID.AutoHeight = false;
+            this.btniFormID.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.btniFormID.Name = "btniFormID";
+            this.btniFormID.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            // 
+            // colsMenuName
+            // 
+            this.colsMenuName.Caption = "模块名称";
+            this.colsMenuName.FieldName = "sMenuName";
+            this.colsMenuName.Name = "colsMenuName";
+            this.colsMenuName.OptionsColumn.AllowEdit = false;
+            this.colsMenuName.Visible = true;
+            this.colsMenuName.VisibleIndex = 15;
+            this.colsMenuName.Width = 129;
             // 
             // colbtnsGoodID
             // 
@@ -1109,10 +1120,32 @@
             this.lkpFlag.TabIndex = 12;
             this.lkpFlag.TextFont = new System.Drawing.Font("Tahoma", 9F);
             // 
+            // lkpiFormID
+            // 
+            this.lkpiFormID.AutoSize = true;
+            this.lkpiFormID.DataField = null;
+            this.lkpiFormID.DisplayField = null;
+            this.lkpiFormID.EditFormFilter = null;
+            this.lkpiFormID.EditFormID = 0;
+            this.lkpiFormID.EditFormName = null;
+            this.lkpiFormID.EditValue = "";
+            this.lkpiFormID.FormID = 0;
+            this.lkpiFormID.GridColumnText = null;
+            this.lkpiFormID.GridDisplayField = null;
+            this.lkpiFormID.Location = new System.Drawing.Point(79, 70);
+            this.lkpiFormID.Name = "lkpiFormID";
+            this.lkpiFormID.SearchFormFilter = "";
+            this.lkpiFormID.SearchFormText = "";
+            this.lkpiFormID.Size = new System.Drawing.Size(132, 23);
+            this.lkpiFormID.SQL = null;
+            this.lkpiFormID.TabIndex = 13;
+            this.lkpiFormID.TextFont = new System.Drawing.Font("Tahoma", 9F);
+            // 
             // tpUserDetail
             // 
             this.tpUserDetail.Controls.Add(this.gcUserDetail);
             this.tpUserDetail.Name = "tpUserDetail";
+            this.tpUserDetail.PageVisible = false;
             this.tpUserDetail.Size = new System.Drawing.Size(536, 119);
             this.tpUserDetail.Text = "用户配置";
             // 
@@ -1430,6 +1463,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbxFieldName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxsFooterType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btniFormID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.colbtnsGoodID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
@@ -1484,8 +1519,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
         protected DevExpress.XtraEditors.PanelControl pnlDetailMenu;
-        protected DevExpress.XtraEditors.SimpleButton btnDetailCopy;
-        protected DevExpress.XtraEditors.SimpleButton btnDetailCancel;
         protected DevExpress.XtraEditors.SimpleButton btnDetailDelete;
         protected DevExpress.XtraEditors.SimpleButton btnDetailAdd;
         private DevExpress.XtraTab.XtraTabControl tcDetail;
@@ -1510,8 +1543,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colbIsShow;
         private DevExpress.XtraGrid.Columns.GridColumn colbIsGroup;
         private DevExpress.XtraGrid.Columns.GridColumn colbIsStat;
-        private DevExpress.XtraGrid.Columns.GridColumn colbIsCount;
-        private DevExpress.XtraGrid.Columns.GridColumn colbIsSum;
+        private DevExpress.XtraGrid.Columns.GridColumn colsFooterType;
         private DevExpress.XtraGrid.Columns.GridColumn colbChartField;
         private DevExpress.XtraGrid.Columns.GridColumn colbChartValue;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox cbxFieldName;
@@ -1540,5 +1572,10 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox3;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
+        private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox cbxsFooterType;
+        private DevExpress.XtraGrid.Columns.GridColumn coliFormID;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit btniFormID;
+        private DevExpress.XtraGrid.Columns.GridColumn colsMenuName;
+        private Sunrise.ERP.Controls.SunriseLookUp lkpiFormID;
     }
 }

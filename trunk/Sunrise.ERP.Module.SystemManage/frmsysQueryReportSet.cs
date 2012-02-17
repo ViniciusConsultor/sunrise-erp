@@ -6,6 +6,12 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors.Repository;
+
+using Sunrise.ERP.Common;
+using Sunrise.ERP.Lang;
+
 namespace Sunrise.ERP.Module.SystemManage
 {
     public partial class frmsysQueryReportSet : Sunrise.ERP.BaseForm.frmMasterDetail
@@ -31,6 +37,13 @@ namespace Sunrise.ERP.Module.SystemManage
             chkbIsChart.DataBindings.Add("EditValue", dsMain, "bIsChart");
             chkbIsShowExecBtn.DataBindings.Add("EditValue", dsMain, "bIsShowExecBtn");
             chkbIsShowPrintBtn.DataBindings.Add("EditValue", dsMain, "bIsShowPrintBtn");
+
+            //sFooterType
+            InitDetailComboBox("1020", cbxsFooterType);
+
+            SystemPublic.InitLkpFormID(lkpiFormID);
+            lkpiFormID.AutoSetValue(ref gvDetail, "sMenuName", "sMenuName");
+            
         }
 
         private void frmsysQueryReportSet_Load(object sender, EventArgs e)
@@ -38,6 +51,11 @@ namespace Sunrise.ERP.Module.SystemManage
             AddDetailData("sysQueryReportDetailDAL", "MainID", "ID", "iSort");
             gcDetail.DataSource = LDetailDataSet[LDetailDALName.IndexOf("sysQueryReportDetailDAL")];
             gcDetail.DataMember = "ds";
+
+            lkpiFormID.DataBindings.Add("EditValue", LDetailDataSet[LDetailDALName.IndexOf("sysQueryReportDetailDAL")], "ds.iFormID");
+
+            btniFormID.ButtonClick += lkpiFormID.LookUpSelfClick;
+
             DataStateChange(sender, e);
         }
         public override void DataStateChange(object sender, EventArgs e)
@@ -65,12 +83,15 @@ namespace Sunrise.ERP.Module.SystemManage
             base.MasterAllScroll(sender, e);
             AutoSetFieldNameToComboBox(((DataRowView)(dsMain.Current))["sReportSQL"].ToString());
             gcDetail.DataSource = LDetailDataSet[LDetailDALName.IndexOf("sysQueryReportDetailDAL")];
+
+            lkpiFormID.DataBindings.Clear();
+            lkpiFormID.DataBindings.Add("EditValue", LDetailDataSet[LDetailDALName.IndexOf("sysQueryReportDetailDAL")], "ds.iFormID");
         }
         public override bool DoAppend()
         {
             base.DoAppend();
             //新增默认值
-            Sunrise.ERP.Common.SystemPublic.GetBillNo(FormID, (DataRowView)dsMain.Current);
+            SystemPublic.GetBillNo(FormID, (DataRowView)dsMain.Current);
             ((DataRowView)dsMain.Current).Row["iControlSpace"] = 10;
             ((DataRowView)dsMain.Current).Row["iControlColumn"] = 3;
             ((DataRowView)dsMain.Current).Row["bIsShowPrintBtn"] = false;
@@ -118,8 +139,7 @@ namespace Sunrise.ERP.Module.SystemManage
             gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["bChartField"] = 0;
             gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["bChartValue"] = 0;
             gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["bIsGroup"] = 0;
-            gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["bIsCount"] = 0;
-            gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["bIsSum"] = 0;
+            gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["sFooterType"] = "001";
             gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["bIsStat"] = 0;
 
         }
@@ -165,10 +185,26 @@ namespace Sunrise.ERP.Module.SystemManage
             {
                 if (dsMain.Current != null)
                 {
-
+                    frmsysQueryReport frmReport = new frmsysQueryReport(0, txtsReportName.Text);
+                    frmReport.ReportNo = txtsReportNo.Text;
+                    frmReport.StartPosition = FormStartPosition.CenterScreen;
+                    frmReport.ShowDialog();
                 }
             }
             //frmsysQueryReport frm=
+        }
+
+        private void InitDetailComboBox(string dictNo, RepositoryItemComboBox combobox)
+        {
+            DataTable dtTmp = SystemPublic.GetDictData(dictNo);
+            combobox.Items.Clear();
+            foreach (DataRow dr in dtTmp.Rows)
+            {
+                ImageComboBoxItem item = new ImageComboBoxItem();
+                item.Description = LangCenter.Instance.IsDefaultLanguage ? dr["sDictDataCName"].ToString() : dr["sDictDataEName"].ToString();
+                item.Value = dr["sDictDataNo"];
+                combobox.Items.Add(item);
+            }
         }
 
     }
