@@ -103,7 +103,7 @@ namespace Sunrise.ERP.Lang
             }
             return msg;
         }
-        
+
         /// <summary>
         /// 返回系统提示信息
         /// </summary>

@@ -104,7 +104,7 @@ namespace Sunrise.ERP.BasePublic
             {
                 ((DevExpress.XtraEditors.SpinEdit)ctl).Properties.ReadOnly = isreadonly;
             }
-            //SpinEdit
+            //TimeEdit
             else if (ctl is DevExpress.XtraEditors.TimeEdit)
             {
                 ((DevExpress.XtraEditors.TimeEdit)ctl).Properties.ReadOnly = isreadonly;

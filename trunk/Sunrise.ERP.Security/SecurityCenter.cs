@@ -174,15 +174,19 @@ namespace Sunrise.ERP.Security
         {
             get
             {
-                if (_isadmin)
+                try
                 {
-                    object obj = DbHelperSQL.GetSingle("SELECT 1 FROM sysUser WHERE iUserType=1 AND sUserID='" + CurrentUserID + "'");
-                    if (obj != null && obj.ToString() == "1")
-                        _isadmin = true;
-                    else
-                        _isadmin = false;
+                    if (_isadmin)
+                    {
+                        object obj = DbHelperSQL.GetSingle("SELECT 1 FROM sysUser WHERE iUserType=1 AND sUserID='" + CurrentUserID + "'");
+                        if (obj != null && obj.ToString() == "1")
+                            _isadmin = true;
+                        else
+                            _isadmin = false;
+                    }
+                    return _isadmin;
                 }
-                return _isadmin;
+                catch { return false; }
             }
         }
 

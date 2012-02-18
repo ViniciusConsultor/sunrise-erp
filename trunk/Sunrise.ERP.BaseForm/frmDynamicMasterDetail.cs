@@ -289,7 +289,7 @@ namespace Sunrise.ERP.BaseForm
             SetButtonVisiable(true);
             pnlDetail.Visible = false;
             sptUpDown.Visible = false;
-            pnlInfo.Visible = false;
+            pnlMain.Visible = false;
             pnlGrid.Visible = true;
             pnlGrid.Dock = DockStyle.Fill;
             CanCloseWindow = true;
@@ -300,7 +300,7 @@ namespace Sunrise.ERP.BaseForm
         public void ShowRight()
         {
             SetButtonVisiable(false);
-            pnlInfo.Visible = true;
+            pnlMain.Visible = true;
             sptUpDown.Visible = true;
             pnlDetail.Visible = true;
             pnlGrid.Visible = false;

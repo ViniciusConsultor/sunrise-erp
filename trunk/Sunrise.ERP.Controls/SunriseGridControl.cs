@@ -21,10 +21,10 @@ namespace Sunrise.ERP.Controls
         public SunriseGridControl()
         {
             InitializeComponent();
-            this.Load += new EventHandler(BWSGridControl_Load);
+            this.Load += new EventHandler(GridControl_Load);
         }
 
-        void BWSGridControl_Load(object sender, EventArgs e)
+        void GridControl_Load(object sender, EventArgs e)
         {
             ((DevExpress.XtraGrid.Views.Grid.GridView)this.MainView).ShowGridMenu += new DevExpress.XtraGrid.Views.Grid.GridMenuEventHandler(BWSGridControl_ShowGridMenu);
             //设置GridView分组脚注显示模式
