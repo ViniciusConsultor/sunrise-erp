@@ -22,6 +22,8 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraLayout;
+using DevExpress.XtraLayout.Utils;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -312,13 +314,13 @@ namespace Sunrise.ERP.BaseForm
             if (dsMain.Current != null)
             {
                 base.DoView();
-                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                 IsDataChange = false;
             }
             else
             {
                 initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.None);
-                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                 IsDataChange = false;
             }
         }
@@ -331,13 +333,13 @@ namespace Sunrise.ERP.BaseForm
             if (dsMain.Current != null)
             {
                 base.DoBaseView();
-                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                 IsDataChange = false;
             }
             else
             {
                 initButtonsState(OperateFlag.None);
-                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                 IsDataChange = false;
             }
         }
@@ -347,7 +349,7 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public override bool DoAppend()
         {
-            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, false);
+            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, false);
             dsMain.AddNew();
             dsMain.EndEdit();
             ((DataRowView)dsMain.Current).Row["iFlag"] = 0;
@@ -396,7 +398,7 @@ namespace Sunrise.ERP.BaseForm
                             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
                         }
                         dsMain.CancelEdit();
-                        Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                        Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                         IsDataChange = false;
                         return base.DoBeforeCancel();
                     }
@@ -434,14 +436,14 @@ namespace Sunrise.ERP.BaseForm
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
                     }
                     dsMain.CancelEdit();
-                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                     IsDataChange = false;
                     return base.DoBeforeCancel();
                 }
             }
             else
             {
-                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                 IsDataChange = false;
                 return base.DoBeforeCancel();
             }
@@ -466,7 +468,7 @@ namespace Sunrise.ERP.BaseForm
         public override void DoEdit()
         {
             base.DoEdit();
-            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, false);
+            Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, false);
             IsDataChange = false;
         }
         /// <summary>
@@ -548,7 +550,7 @@ namespace Sunrise.ERP.BaseForm
             {
                 try
                 {
-                    Add(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, SqlTrans);                  
+                    Add(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, SqlTrans);
                     return base.DoSave();
                 }
                 catch
@@ -563,7 +565,7 @@ namespace Sunrise.ERP.BaseForm
             {
                 try
                 {
-                    Update(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, SqlTrans);                   
+                    Update(MasterDynamicDAL, ((DataRowView)dsMain.Current).Row, SqlTrans);
                     return base.DoSave();
                 }
                 catch
@@ -610,7 +612,7 @@ namespace Sunrise.ERP.BaseForm
                 dsMain.DataSource = dtMain;
                 dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
             }
-            Base.SetAllControlsReadOnly(this.pnlInfo, true);
+            Base.SetAllControlsReadOnly(this.pnlMain, true);
             IsDataChange = false;
             return base.DoAfterSave();
         }
@@ -681,7 +683,7 @@ namespace Sunrise.ERP.BaseForm
             {
                 if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "DataNotSavedForClose"), 4) == DialogResult.Yes)
                 {
-                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                    Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                     IsDataChange = false;
                     base.OnFormClosing(e);
                 }
@@ -692,7 +694,7 @@ namespace Sunrise.ERP.BaseForm
             }
             else
             {
-                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                 IsDataChange = false;
                 base.OnFormClosing(e);
             }
@@ -710,25 +712,28 @@ namespace Sunrise.ERP.BaseForm
         {
             base.initBase();
             //设置非空字段颜色
-            Sunrise.ERP.BasePublic.Base.SetNotNullFiledsColor(this.pnlInfo, NotNullFields);
+            Sunrise.ERP.BasePublic.Base.SetNotNullFiledsColor(this.pnlMain, NotNullFields);
             IsDataChange = false;
-            //下面这句代码在发布的时候需要取消注释
-            //toolTipController1.SetToolTip(splitterControl1, LangCenter.Instance.GetFormLangInfo("BaseForm", "DbClickToExpand"));
+            try
+            {
+                toolTipController1.SetToolTip(sptUpDown, LangCenter.Instance.GetFormLangInfo("BaseForm", "DbClickToClose"));
+            }
+            catch { }
 
         }
 
-        private int pnlInfoHeight = 300;
-        private void splitterControl1_DoubleClick(object sender, EventArgs e)
+        private int pnlMainHeight = 300;
+        private void sptUpDown_DoubleClick(object sender, EventArgs e)
         {
-            if (pnlInfo.Height != 0)
+            if (pnlMain.Height != 0)
             {
-                pnlInfoHeight = pnlInfo.Height;
-                pnlInfo.Height = 0;
+                pnlMainHeight = pnlMain.Height;
+                pnlMain.Height = 0;
                 toolTipController1.SetToolTip(sptUpDown, LangCenter.Instance.GetFormLangInfo("BaseForm", "DbClickToExpand"));
             }
             else
             {
-                pnlInfo.Height = pnlInfoHeight;
+                pnlMain.Height = pnlMainHeight;
                 toolTipController1.SetToolTip(sptUpDown, LangCenter.Instance.GetFormLangInfo("BaseForm", "DbClickToClose"));
             }
         }
@@ -742,7 +747,7 @@ namespace Sunrise.ERP.BaseForm
             foreach (DataRow dr in DynamicMasterTableData.Select("sControlType<>'lbl'"))
             {
                 string ControlKey = "lbl" + dr["sFieldName"].ToString();
-                ctls = pnlInfo.Controls.Find(ControlKey, true);
+                ctls = pnlMain.Controls.Find(ControlKey, true);
                 //设置字段Label显示
                 if (ctls != null && ctls.Length == 1)
                 {
@@ -753,10 +758,19 @@ namespace Sunrise.ERP.BaseForm
                 }
 
                 ControlKey = dr["sControlType"].ToString() + dr["sFieldName"].ToString();
-                ctls = pnlInfo.Controls.Find(ControlKey, true);
+                ctls = pnlMain.Controls.Find(ControlKey, true);
                 //DataBinding
                 if (ctls != null && ctls.Length == 1)
                 {
+                    //如果界面布局用Layout，设置Layout标签及非空字段颜色
+                    if (ctls[0].Parent is LayoutControl)
+                    {
+                        ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).Text = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
+                        //设置非空字段颜色
+                        if (bool.Parse(dr["bNotNull"].ToString().ToLower()))
+                            ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).AppearanceItemCaption.ForeColor = Color.FromName(Base.GetSystemParamter("001"));
+                    }
+
                     ctls[0].DataBindings.Add("EditValue", dsMain, dr["sFieldName"].ToString());
 
                     //数量或者价格权限检测
@@ -765,21 +779,29 @@ namespace Sunrise.ERP.BaseForm
                         //检测是否有价格权限
                         bool HasPrice = SC.CheckAuth(SecurityOperation.Price, FormID);
                         //设置该字段控件及其对应Label标签也不显示
-                        Control[] lblctls = pnlInfo.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
+                        Control[] lblctls = pnlMain.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
                         if (lblctls != null && lblctls.Length == 1)
                             lblctls[0].Visible = HasPrice;
                         ctls[0].Visible = HasPrice;
-                        
+
+                        //如果界面布局用Layout，控制其显示与否
+                        if (ctls[0].Parent is LayoutControl && !HasPrice)
+                            ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).Visibility = LayoutVisibility.Never;
+
                     }
                     else if (dr["sColumnType"].ToString() == "003")
                     {
                         //检测是否有数量权限
                         bool HasNum = SC.CheckAuth(SecurityOperation.Num, FormID);
                         //设置该字段控件及其对应Label标签也不显示
-                        Control[] lblctls = pnlInfo.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
+                        Control[] lblctls = pnlMain.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
                         if (lblctls != null && lblctls.Length == 1)
                             lblctls[0].Visible = HasNum;
                         ctls[0].Visible = HasNum;
+
+                        //如果界面布局用Layout，控制其显示与否
+                        if (ctls[0].Parent is LayoutControl && !HasNum)
+                            ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).Visibility = LayoutVisibility.Never;
                     }
 
                     //控制界面上显示字段是否显示和可编辑
@@ -789,7 +811,7 @@ namespace Sunrise.ERP.BaseForm
                         //取只有是主表/单表的数据
                         foreach (DataRow drField in FormFieldSetting.Select("sTableName='" + MasterTableName + "'"))
                         {
-                            if (ctls[0].Visible && dr["sFieldName"].ToString() == drField["sFieldName"].ToString())
+                            if (dr["sFieldName"].ToString() == drField["sFieldName"].ToString())
                             {
                                 //先判断是否可见
                                 if (Convert.ToBoolean(drField["bVisiable"]))
@@ -803,10 +825,14 @@ namespace Sunrise.ERP.BaseForm
                                 else
                                 {
                                     //设置该字段控件及其对应Label标签也不显示
-                                    Control[] lblctls = pnlInfo.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
+                                    Control[] lblctls = pnlMain.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
                                     if (lblctls != null && lblctls.Length == 1)
                                         lblctls[0].Visible = false;
                                     ctls[0].Visible = false;
+
+                                    //如果界面布局用Layout，控制其显示与否
+                                    if (ctls[0].Parent is LayoutControl)
+                                        ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).Visibility = LayoutVisibility.Never;
                                 }
                             }
                         }
@@ -876,12 +902,6 @@ namespace Sunrise.ERP.BaseForm
                 base.OnKeyDown(e);
             }
 
-        }
-
-        private void frmDynamicSingleForm_Load(object sender, EventArgs e)
-        {
-            //下面这句代码在发布的时候需要取消注释
-            //btnSettings.Visible = SecurityCenter.IsAdmin;
         }
 
         #endregion
@@ -1054,13 +1074,13 @@ namespace Sunrise.ERP.BaseForm
             if (dsMain.Current != null)
             {
                 base.DoView();
-                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                 IsDataChange = false;
             }
             else
             {
                 initButtonsState(Sunrise.ERP.BasePublic.OperateFlag.None);
-                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
+                Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlMain, true);
                 IsDataChange = false;
             }
         }
@@ -1303,7 +1323,7 @@ namespace Sunrise.ERP.BaseForm
 
         private int _ControlX = 10;
         /// <summary>
-        /// 第一个控件的Location X
+        /// 第一个自定义控件的Location X
         /// </summary>
         public int ControlX
         {
@@ -1311,9 +1331,9 @@ namespace Sunrise.ERP.BaseForm
             set { _ControlX = value; }
         }
 
-        private int _ControlY = 0;
+        private int _ControlY = 4;
         /// <summary>
-        /// 最后一个控件的Location Y
+        /// 第一个自定义控件的Location Y
         /// </summary>
         public int ControlY
         {
@@ -1421,22 +1441,24 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public void CreateDynamicControl()
         {
-            Control[] ctls;
-            foreach (DataRow dr in DynamicMasterTableData.Select("bSystemColumn=1"))
-            {
-                string ControlKey = dr["sControlType"].ToString() + dr["sFieldName"].ToString();
-                ctls = pnlInfo.Controls.Find(ControlKey, true);
-                //第一个控件的X坐标和最后一个控件的Y坐标,用于计算自定义字段的起始位置
-                if (ctls != null && ctls.Length == 1)
-                {
-                    if (ctls[0].Location.X < ControlX)
-                        ControlX = ctls[0].Location.X;
-                    if (ctls[0].Location.Y > ControlY)
-                        ControlY = ctls[0].Location.Y + ctls[0].Height;
-                }
-            }
+            //Control[] ctls;
+            //foreach (DataRow dr in DynamicMasterTableData.Select("bSystemColumn=1"))
+            //{
+            //    string ControlKey = dr["sControlType"].ToString() + dr["sFieldName"].ToString();
+            //    ctls = pnlInfo.Controls.Find(ControlKey, true);
+            //    //第一个控件的X坐标和最后一个控件的Y坐标,用于计算自定义字段的起始位置
+            //    if (ctls != null && ctls.Length == 1)
+            //    {
+            //        if (ctls[0].Location.X < ControlX)
+            //            ControlX = ctls[0].Location.X;
+            //        if (ctls[0].Location.Y > ControlY)
+            //            ControlY = ctls[0].Location.Y + ctls[0].Height;
+            //    }
+            //}
             if (DynamicMasterTableData.Select("bSystemColumn=0").Length > 0)
             {
+                pnlDynamic.Visible = true;
+
                 //每行控件数
                 int iControlColumn = Convert.ToInt32(DynamicMasterTableData.Rows[0]["iControlColumn"]);
                 //控件间距
@@ -1479,16 +1501,16 @@ namespace Sunrise.ERP.BaseForm
                             }
                             else
                                 lblControl.Visible = false;
-                            pnlInfo.Controls.Add(lblControl);
+                            pnlDynamic.Controls.Add(lblControl);
                             switch (sControlType)
                             {
                                 case "txt":
                                     {
                                         TextEdit txt = new TextEdit();
                                         txt.Size = new Size(120, 21);
-                                        txt.Name = "txt" + dr[iControl]["sFieldName"].ToString() ;
+                                        txt.Name = "txt" + dr[iControl]["sFieldName"].ToString();
                                         txt.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
-                                        pnlInfo.Controls.Add(txt);
+                                        pnlDynamic.Controls.Add(txt);
                                         break;
                                     }
                                 case "mtxt":
@@ -1497,7 +1519,7 @@ namespace Sunrise.ERP.BaseForm
                                         mtxt.Size = new Size(120, 21);
                                         mtxt.Name = "mtxt" + dr[iControl]["sFieldName"].ToString();
                                         mtxt.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
-                                        pnlInfo.Controls.Add(mtxt);
+                                        pnlDynamic.Controls.Add(mtxt);
                                         break;
                                     }
                                 case "btxt":
@@ -1506,7 +1528,7 @@ namespace Sunrise.ERP.BaseForm
                                         btxt.Size = new Size(120, 21);
                                         btxt.Name = "btxt" + dr[iControl]["sFieldName"].ToString();
                                         btxt.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
-                                        pnlInfo.Controls.Add(btxt);
+                                        pnlDynamic.Controls.Add(btxt);
                                         break;
                                     }
                                 case "cbx":
@@ -1515,7 +1537,7 @@ namespace Sunrise.ERP.BaseForm
                                         cbx.Size = new Size(120, 21);
                                         cbx.Name = "cbx" + dr[iControl]["sFieldName"].ToString();
                                         cbx.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
-                                        pnlInfo.Controls.Add(cbx);
+                                        pnlDynamic.Controls.Add(cbx);
                                         break;
                                     }
                                 case "chk":
@@ -1526,7 +1548,7 @@ namespace Sunrise.ERP.BaseForm
                                         chk.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
                                         chk.CheckState = CheckState.Unchecked;
                                         chk.Text = LangCenter.Instance.IsDefaultLanguage ? dr[iControl]["sCaption"].ToString() : dr[iControl]["sEngCaption"].ToString();
-                                        pnlInfo.Controls.Add(chk);
+                                        pnlDynamic.Controls.Add(chk);
                                         break;
                                     }
                                 case "det":
@@ -1536,7 +1558,7 @@ namespace Sunrise.ERP.BaseForm
                                         det.Name = "det" + dr[iControl]["sFieldName"].ToString();
                                         det.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
                                         det.EditValue = null;
-                                        pnlInfo.Controls.Add(det);
+                                        pnlDynamic.Controls.Add(det);
                                         break;
                                     }
                                 case "img":
@@ -1545,7 +1567,7 @@ namespace Sunrise.ERP.BaseForm
                                         img.Size = new Size(120, 21);
                                         img.Name = "img" + dr[iControl]["sFieldName"].ToString();
                                         img.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
-                                        pnlInfo.Controls.Add(img);
+                                        pnlDynamic.Controls.Add(img);
                                         break;
                                     }
                                 case "lbl":
@@ -1555,7 +1577,7 @@ namespace Sunrise.ERP.BaseForm
                                         lbl.Name = "lbl" + dr[iControl]["sFieldName"].ToString() + iControl.ToString();
                                         lbl.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
                                         lbl.Text = LangCenter.Instance.IsDefaultLanguage ? dr[iControl]["sCaption"].ToString() : dr[iControl]["sEngCaption"].ToString();
-                                        pnlInfo.Controls.Add(lbl);
+                                        pnlDynamic.Controls.Add(lbl);
                                         break;
                                     }
                                 case "lkp":
@@ -1564,8 +1586,7 @@ namespace Sunrise.ERP.BaseForm
                                         lkp.Size = new Size(120, 21);
                                         lkp.Name = "lkp" + dr[iControl]["sFieldName"].ToString();
                                         lkp.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
-                                        //初始化ComboBox数据
-                                        pnlInfo.Controls.Add(lkp);
+                                        pnlDynamic.Controls.Add(lkp);
                                         break;
                                     }
                                 case "rad":
@@ -1574,7 +1595,7 @@ namespace Sunrise.ERP.BaseForm
                                         rad.Size = new Size(120, 21);
                                         rad.Name = "rad" + dr[iControl]["sFieldName"].ToString();
                                         rad.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
-                                        pnlInfo.Controls.Add(rad);
+                                        pnlDynamic.Controls.Add(rad);
                                         break;
                                     }
                             }
@@ -1585,7 +1606,7 @@ namespace Sunrise.ERP.BaseForm
                         }
                     }
                 }
-                pnlInfo.Height = pnlInfo.Height + iRows * 31;
+                pnlDynamic.Height = ControlY + iRows * 31;
             }
             //初始化数据绑定
             InitDataBindings();
@@ -1602,7 +1623,7 @@ namespace Sunrise.ERP.BaseForm
             foreach (DataRow dr in DynamicMasterTableData.Select(sFilter))
             {
                 GridColumn cols = null;
-                DataRow[] drFields=FormFieldSetting.Select("sTableName='" + MasterTableName + "'");
+                DataRow[] drFields = FormFieldSetting.Select("sTableName='" + MasterTableName + "'");
                 if (drFields.Length == 0)
                 {
                     cols = CreateGridColumn(gv, dr, iIndex);
@@ -1626,7 +1647,7 @@ namespace Sunrise.ERP.BaseForm
             }
         }
 
-        private GridColumn CreateGridColumn(GridView gv, DataRow dr,int index)
+        private GridColumn CreateGridColumn(GridView gv, DataRow dr, int index)
         {
             GridColumn col = new GridColumn();
             string sControlType = dr["sControlType"].ToString();
@@ -1728,7 +1749,7 @@ namespace Sunrise.ERP.BaseForm
                                                         dr["sFieldName"].ToString(), FiledType.D);
                                 break;
                             }
-                    }                    
+                    }
                 }
                 if (frmSearch.ShowDialog() == DialogResult.OK)
                 {

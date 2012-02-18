@@ -48,6 +48,9 @@
             this.pnlGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
             this.pnlInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlMain)).BeginInit();
+            this.pnlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlDynamic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).BeginInit();
@@ -68,31 +71,39 @@
             // 
             // sptLeftRight
             // 
-            this.sptLeftRight.Location = new System.Drawing.Point(249, 35);
+            this.sptLeftRight.Location = new System.Drawing.Point(327, 35);
             // 
             // pnlDetail
             // 
             this.pnlDetail.Controls.Add(this.gcDetail);
             this.pnlDetail.Controls.Add(this.pnlDetailMenu);
-            this.pnlDetail.Location = new System.Drawing.Point(255, 259);
-            this.pnlDetail.Size = new System.Drawing.Size(614, 237);
+            this.pnlDetail.Location = new System.Drawing.Point(333, 270);
+            this.pnlDetail.Size = new System.Drawing.Size(536, 226);
             // 
             // pnlGrid
             // 
             this.pnlGrid.Controls.Add(this.gcMain);
-            this.pnlGrid.Size = new System.Drawing.Size(247, 461);
+            this.pnlGrid.Size = new System.Drawing.Size(325, 461);
             // 
             // sptUpDown
             // 
-            this.sptUpDown.Location = new System.Drawing.Point(255, 253);
-            this.sptUpDown.Size = new System.Drawing.Size(614, 6);
+            this.sptUpDown.Location = new System.Drawing.Point(333, 264);
+            this.sptUpDown.Size = new System.Drawing.Size(536, 6);
             // 
             // pnlInfo
             // 
             this.pnlInfo.Controls.Add(this.txtsMasterTest);
             this.pnlInfo.Controls.Add(this.lblsMasterTest);
-            this.pnlInfo.Location = new System.Drawing.Point(255, 35);
-            this.pnlInfo.Size = new System.Drawing.Size(614, 218);
+            this.pnlInfo.Size = new System.Drawing.Size(532, 193);
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.Location = new System.Drawing.Point(333, 35);
+            this.pnlMain.Size = new System.Drawing.Size(536, 229);
+            // 
+            // pnlDynamic
+            // 
+            this.pnlDynamic.Size = new System.Drawing.Size(532, 32);
             // 
             // panelControl2
             // 
@@ -157,10 +168,24 @@
             // txtDataFlag
             // 
             // 
-            // btnSettings
+            // btnProperty
             // 
             this.btnProperty.LookAndFeel.SkinName = "Blue";
             this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
+            // 
+            // dataNav
+            // 
+            this.dataNav.Buttons.Append.Visible = false;
+            this.dataNav.Buttons.CancelEdit.Visible = false;
+            this.dataNav.Buttons.EndEdit.Visible = false;
+            this.dataNav.Buttons.NextPage.Visible = false;
+            this.dataNav.Buttons.PrevPage.Visible = false;
+            this.dataNav.Buttons.Remove.Visible = false;
+            // 
+            // btnAction
+            // 
+            this.btnAction.LookAndFeel.SkinName = "Blue";
+            this.btnAction.LookAndFeel.UseDefaultLookAndFeel = false;
             // 
             // panelControl1
             // 
@@ -174,7 +199,7 @@
             this.gcMain.Location = new System.Drawing.Point(2, 2);
             this.gcMain.MainView = this.gvMain;
             this.gcMain.Name = "gcMain";
-            this.gcMain.Size = new System.Drawing.Size(243, 457);
+            this.gcMain.Size = new System.Drawing.Size(321, 457);
             this.gcMain.TabIndex = 5;
             this.gcMain.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvMain});
@@ -199,7 +224,7 @@
             this.pnlDetailMenu.LookAndFeel.SkinName = "Blue";
             this.pnlDetailMenu.LookAndFeel.UseDefaultLookAndFeel = false;
             this.pnlDetailMenu.Name = "pnlDetailMenu";
-            this.pnlDetailMenu.Size = new System.Drawing.Size(610, 33);
+            this.pnlDetailMenu.Size = new System.Drawing.Size(532, 33);
             this.pnlDetailMenu.TabIndex = 6;
             // 
             // btnDetailDelete
@@ -237,7 +262,7 @@
             this.cbxsControlType,
             this.mtxtsLookupAutoSetControl,
             this.mtxtsLookupAutoSetGrid});
-            this.gcDetail.Size = new System.Drawing.Size(610, 200);
+            this.gcDetail.Size = new System.Drawing.Size(532, 189);
             this.gcDetail.TabIndex = 7;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDetail});
@@ -290,7 +315,7 @@
             // 
             // txtsMasterTest
             // 
-            this.txtsMasterTest.Location = new System.Drawing.Point(78, 27);
+            this.txtsMasterTest.Location = new System.Drawing.Point(121, 27);
             this.txtsMasterTest.Name = "txtsMasterTest";
             this.txtsMasterTest.Size = new System.Drawing.Size(100, 21);
             this.txtsMasterTest.TabIndex = 1;
@@ -311,6 +336,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).EndInit();
             this.pnlInfo.ResumeLayout(false);
             this.pnlInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlMain)).EndInit();
+            this.pnlMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlDynamic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).EndInit();

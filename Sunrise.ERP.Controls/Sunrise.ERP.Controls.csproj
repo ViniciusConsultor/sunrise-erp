@@ -85,6 +85,12 @@
     <Compile Include="SunriseGridControl.Designer.cs">
       <DependentUpon>SunriseGridControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SunriseLayoutControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SunriseLayoutControl.Designer.cs">
+      <DependentUpon>SunriseLayoutControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="SunriseLookUp.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -145,6 +151,10 @@
     <ProjectReference Include="..\Sunrise.ERP.Lang\Sunrise.ERP.Lang.csproj">
       <Project>{BE849923-172A-4FBD-9C75-BAB978254BBF}</Project>
       <Name>Sunrise.ERP.Lang</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.Security\Sunrise.ERP.Security.csproj">
+      <Project>{3C5E617E-BC81-49C7-AC43-93DFFEBF74F3}</Project>
+      <Name>Sunrise.ERP.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

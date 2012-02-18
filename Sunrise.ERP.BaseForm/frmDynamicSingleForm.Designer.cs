@@ -34,6 +34,8 @@
             this.sptUpDown = new DevExpress.XtraEditors.SplitterControl();
             this.pnlGrid = new DevExpress.XtraEditors.PanelControl();
             this.pnlInfo = new DevExpress.XtraEditors.PanelControl();
+            this.pnlMain = new DevExpress.XtraEditors.PanelControl();
+            this.pnlDynamic = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).BeginInit();
@@ -42,6 +44,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlMain)).BeginInit();
+            this.pnlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlDynamic)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl2
@@ -138,13 +143,13 @@
             // 
             this.panelControl1.Controls.Add(this.pnlGrid);
             this.panelControl1.Controls.Add(this.sptUpDown);
-            this.panelControl1.Controls.Add(this.pnlInfo);
+            this.panelControl1.Controls.Add(this.pnlMain);
             this.panelControl1.LookAndFeel.SkinName = "Blue";
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl1.Size = new System.Drawing.Size(967, 498);
             this.panelControl1.Controls.SetChildIndex(this.txtDataFlag, 0);
             this.panelControl1.Controls.SetChildIndex(this.panelControl2, 0);
-            this.panelControl1.Controls.SetChildIndex(this.pnlInfo, 0);
+            this.panelControl1.Controls.SetChildIndex(this.pnlMain, 0);
             this.panelControl1.Controls.SetChildIndex(this.sptUpDown, 0);
             this.panelControl1.Controls.SetChildIndex(this.pnlGrid, 0);
             // 
@@ -161,30 +166,49 @@
             // sptUpDown
             // 
             this.sptUpDown.Dock = System.Windows.Forms.DockStyle.Top;
-            this.sptUpDown.Location = new System.Drawing.Point(2, 237);
+            this.sptUpDown.Location = new System.Drawing.Point(2, 240);
             this.sptUpDown.MinExtra = 0;
             this.sptUpDown.MinSize = 0;
             this.sptUpDown.Name = "sptUpDown";
             this.sptUpDown.Size = new System.Drawing.Size(963, 6);
             this.sptUpDown.TabIndex = 7;
             this.sptUpDown.TabStop = false;
-            this.sptUpDown.DoubleClick += new System.EventHandler(this.splitterControl1_DoubleClick);
+            this.sptUpDown.DoubleClick += new System.EventHandler(this.sptUpDown_DoubleClick);
             // 
             // pnlGrid
             // 
             this.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlGrid.Location = new System.Drawing.Point(2, 243);
+            this.pnlGrid.Location = new System.Drawing.Point(2, 246);
             this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new System.Drawing.Size(963, 253);
+            this.pnlGrid.Size = new System.Drawing.Size(963, 250);
             this.pnlGrid.TabIndex = 8;
             // 
             // pnlInfo
             // 
-            this.pnlInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlInfo.Location = new System.Drawing.Point(2, 35);
+            this.pnlInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlInfo.Location = new System.Drawing.Point(2, 2);
             this.pnlInfo.Name = "pnlInfo";
-            this.pnlInfo.Size = new System.Drawing.Size(963, 202);
+            this.pnlInfo.Size = new System.Drawing.Size(959, 191);
             this.pnlInfo.TabIndex = 6;
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.Controls.Add(this.pnlInfo);
+            this.pnlMain.Controls.Add(this.pnlDynamic);
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlMain.Location = new System.Drawing.Point(2, 35);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(963, 205);
+            this.pnlMain.TabIndex = 9;
+            // 
+            // pnlDynamic
+            // 
+            this.pnlDynamic.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlDynamic.Location = new System.Drawing.Point(2, 193);
+            this.pnlDynamic.Name = "pnlDynamic";
+            this.pnlDynamic.Size = new System.Drawing.Size(959, 10);
+            this.pnlDynamic.TabIndex = 7;
+            this.pnlDynamic.Visible = false;
             // 
             // frmDynamicSingleForm
             // 
@@ -193,7 +217,6 @@
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmDynamicSingleForm";
-            this.Load += new System.EventHandler(this.frmDynamicSingleForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).EndInit();
@@ -202,6 +225,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlMain)).EndInit();
+            this.pnlMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlDynamic)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -213,5 +239,7 @@
         protected DevExpress.XtraEditors.PanelControl pnlGrid;
         protected DevExpress.XtraEditors.SplitterControl sptUpDown;
         protected DevExpress.XtraEditors.PanelControl pnlInfo;
+        protected DevExpress.XtraEditors.PanelControl pnlMain;
+        protected DevExpress.XtraEditors.PanelControl pnlDynamic;
     }
 }

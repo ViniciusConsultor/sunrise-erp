@@ -30,6 +30,8 @@ namespace Sunrise.ERP.Module.Test
             AddDetailData("salTestDetail", "MainID", "ID");
             CreateDetailGridColumn(gvDetail, "salTestDetail");
             gcDetail.DataSource = LDetailBindingSource[LDetailTableName.IndexOf("salTestDetail")];
+
+            
             DataStateChange(sender, e);
         }
 
@@ -63,6 +65,8 @@ namespace Sunrise.ERP.Module.Test
         {
             if (gvDetail.FocusedRowHandle >= 0)
                 gvDetail.DeleteRow(gvDetail.FocusedRowHandle);
+
+            //Input(gvDetail,"QR002","a=b;dsa=sa;"
         }
 
         private void gvDetail_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
@@ -80,6 +84,7 @@ namespace Sunrise.ERP.Module.Test
         {
             string sSql = "update salTest2 set sTest='Masteraabbcc1' where id=1";
             DbHelperSQL.ExecuteSql(sSql, trans);
+
             return base.DoBeforceSaveInTrans(trans);
         }
 
@@ -88,7 +93,11 @@ namespace Sunrise.ERP.Module.Test
             string sSql = "update salTest2 set sTest='Masteraabbcc13' where id=13";
             //throw new Exception();
             DbHelperSQL.ExecuteSql(sSql, trans);
+
+
             return base.DoAfterSaveInTrans(trans);
+
+            
         }
     }
 }

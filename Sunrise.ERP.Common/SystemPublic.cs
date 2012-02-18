@@ -305,7 +305,7 @@ namespace Sunrise.ERP.Common
         {
             string sSql = "SELECT A.sDictDataNo, A.sDictDataCName, A.sDictDataEName "
                         + "FROM vwbasDataDictDetail A "
-                        + "WHERE A.sDictCategoryNo='" + dictno + "'";
+                        + "WHERE A.bIsStop=0 AND A.sDictCategoryNo='" + dictno + "'";
             return DbHelperSQL.Query(sSql).Tables[0];
         }
 

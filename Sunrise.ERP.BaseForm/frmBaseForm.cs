@@ -59,8 +59,7 @@ namespace Sunrise.ERP.BaseForm
         public virtual void initBase()
         {
             DoBaseView();
-            //下面这句代码在发布的时候需要取消注释
-            //LoadLangSetting();
+            LoadLangSetting();
         }
 
         #region 基本按钮状态控制
@@ -546,19 +545,23 @@ namespace Sunrise.ERP.BaseForm
 
         private void LoadLangSetting()
         {
-            btnView.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnView.Name);
-            btnAdd.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnAdd.Name);
-            btnEdit.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnEdit.Name);
-            btnCancel.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnCancel.Name);
-            btnDelete.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnDelete.Name);
-            btnSave.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnSave.Name);
-            btnPrint.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnPrint.Name);
-            btnCopy.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnCopy.Name);
-            btnClose.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnClose.Name);
-            btnInsert.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnInsert.Name);
-            btnRefresh.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnRefresh.Name);
-            btnProperty.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnProperty.Name);
-            btnAction.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnAction.Name);
+            try
+            {
+                btnView.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnView.Name);
+                btnAdd.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnAdd.Name);
+                btnEdit.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnEdit.Name);
+                btnCancel.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnCancel.Name);
+                btnDelete.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnDelete.Name);
+                btnSave.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnSave.Name);
+                btnPrint.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnPrint.Name);
+                btnCopy.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnCopy.Name);
+                btnClose.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnClose.Name);
+                btnInsert.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnInsert.Name);
+                btnRefresh.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnRefresh.Name);
+                btnProperty.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnProperty.Name);
+                btnAction.Text = LangCenter.Instance.GetFormLangInfo("BaseForm", btnAction.Name);
+            }
+            catch { }
         }
     }
 }

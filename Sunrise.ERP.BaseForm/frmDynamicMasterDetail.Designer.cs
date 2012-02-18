@@ -33,6 +33,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlMain)).BeginInit();
+            this.pnlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlDynamic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).BeginInit();
@@ -49,13 +52,22 @@
             // 
             // sptUpDown
             // 
-            this.sptUpDown.Location = new System.Drawing.Point(315, 253);
+            this.sptUpDown.Location = new System.Drawing.Point(315, 264);
             this.sptUpDown.Size = new System.Drawing.Size(554, 6);
             // 
             // pnlInfo
             // 
-            this.pnlInfo.Location = new System.Drawing.Point(315, 35);
-            this.pnlInfo.Size = new System.Drawing.Size(554, 218);
+            this.pnlInfo.Size = new System.Drawing.Size(550, 215);
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.Location = new System.Drawing.Point(315, 35);
+            this.pnlMain.Size = new System.Drawing.Size(554, 229);
+            // 
+            // pnlDynamic
+            // 
+            this.pnlDynamic.Location = new System.Drawing.Point(2, 217);
+            this.pnlDynamic.Size = new System.Drawing.Size(550, 10);
             // 
             // panelControl2
             // 
@@ -125,7 +137,6 @@
             // 
             this.btnProperty.LookAndFeel.SkinName = "Blue";
             this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.btnProperty.Text = "属性(&T)";
             // 
             // dataNav
             // 
@@ -152,7 +163,7 @@
             this.panelControl1.Controls.SetChildIndex(this.panelControl2, 0);
             this.panelControl1.Controls.SetChildIndex(this.pnlGrid, 0);
             this.panelControl1.Controls.SetChildIndex(this.sptLeftRight, 0);
-            this.panelControl1.Controls.SetChildIndex(this.pnlInfo, 0);
+            this.panelControl1.Controls.SetChildIndex(this.pnlMain, 0);
             this.panelControl1.Controls.SetChildIndex(this.sptUpDown, 0);
             this.panelControl1.Controls.SetChildIndex(this.pnlDetail, 0);
             // 
@@ -167,9 +178,9 @@
             // pnlDetail
             // 
             this.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDetail.Location = new System.Drawing.Point(315, 259);
+            this.pnlDetail.Location = new System.Drawing.Point(315, 270);
             this.pnlDetail.Name = "pnlDetail";
-            this.pnlDetail.Size = new System.Drawing.Size(554, 237);
+            this.pnlDetail.Size = new System.Drawing.Size(554, 226);
             this.pnlDetail.TabIndex = 10;
             // 
             // frmDynamicMasterDetail
@@ -182,6 +193,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlMain)).EndInit();
+            this.pnlMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlDynamic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtDataFlag.Properties)).EndInit();
