@@ -8,7 +8,6 @@ using System.Windows.Forms;
 
 using Sunrise.ERP.BasePublic;
 using Sunrise.ERP.BaseControl;
-using Sunrise.ERP.Common;
 
 using DevExpress.XtraEditors.Controls;
 using Sunrise.ERP.Lang;
@@ -346,7 +345,13 @@ namespace Sunrise.ERP.BaseForm
             if (LookupSetting.Contains("|"))
             {
                 string[] s = Public.GetSplitString(LookupSetting, "|");
-                SystemPublic.InitLookUpBase(lkpSearchValue, s[0], s[1], s[2], s[3], s[4], s[5]);
+                lkpSearchValue.SQL = s[0];
+                lkpSearchValue.DataField = s[1];
+                lkpSearchValue.DisplayField = s[2];
+                lkpSearchValue.GridDisplayField = s[3];
+                lkpSearchValue.GridColumnText = s[4];
+                lkpSearchValue.SearchFormText = s[5];
+
             }
             else if (!string.IsNullOrEmpty(LookupSetting) && LookupSetting != "NULL")
                 Base.InitLookup(lkpSearchValue, LookupSetting);

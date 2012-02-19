@@ -69,6 +69,7 @@ namespace Sunrise.ERP.Module.SystemManage
             {
                 for (int i = 0; i < dtTmp2.Rows.Count; i++)
                 {
+                    bool isInField = false;
                     for (int j = 0; j < dtTmp.Rows.Count; j++)
                     {
                         //同时满足字段和表名相等
@@ -84,7 +85,21 @@ namespace Sunrise.ERP.Module.SystemManage
                             dr["bEdit"] = dtTmp.Rows[j]["bEdit"];
                             dr["sUserID"] = SecurityCenter.CurrentUserID;
                             dtField.Rows.Add(dr);
+                            isInField = true;
+                            break;
                         }
+                    }
+                    if (!isInField)
+                    {
+                        DataRow dr = dtField.NewRow();
+                        dr["UserID"] = suserid;
+                        dr["FormID"] = formid;
+                        dr["sTableName"] = dtTmp2.Rows[i]["sTableName"];
+                        dr["sFieldName"] = dtTmp2.Rows[i]["sFieldName"];
+                        dr["bVisiable"] = 1;
+                        dr["bEdit"] = 1;
+                        dr["sUserID"] = SecurityCenter.CurrentUserID;
+                        dtField.Rows.Add(dr);
                     }
                 }
             }

@@ -258,7 +258,7 @@ namespace Sunrise.ERP.BaseForm
         {
             if (BillID > 0)
             {
-                if (Public.SystemInfo("是否删除该数据？", 1) == DialogResult.OK)
+                if (Public.SystemInfo("是否删除该数据？", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     SqlTransaction trans = Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.BeginTransaction();
                     try

@@ -412,7 +412,7 @@ namespace Sunrise.ERP.BaseForm
                 RegisterMethod(MasterDALPath, MasterDALName, true);
                 if (IsDataChange)
                 {
-                    if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm","DataNotSavedForCancel"), 4) == DialogResult.Yes)
+                    if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm","DataNotSavedForCancel"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         if (TopCount != 499 & SortField != "dInputDate DESC")
                         {
@@ -663,7 +663,7 @@ namespace Sunrise.ERP.BaseForm
         {
             if (BillID > 0)
             {
-                if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm","DeleteData"), 1) == DialogResult.OK)
+                if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm","DeleteData"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     SqlTransaction trans = Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.BeginTransaction();
                     try
@@ -701,7 +701,7 @@ namespace Sunrise.ERP.BaseForm
         {
             if (IsDataChange)
             {
-                if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "DataNotSavedForClose"), 4) == DialogResult.Yes)
+                if (Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "DataNotSavedForClose"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     Sunrise.ERP.BasePublic.Base.SetAllControlsReadOnly(this.pnlInfo, true);
                     IsDataChange = false;

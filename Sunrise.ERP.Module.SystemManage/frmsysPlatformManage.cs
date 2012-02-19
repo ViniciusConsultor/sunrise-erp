@@ -162,7 +162,7 @@ namespace Sunrise.ERP.Module.SystemManage
         {
             if (BillID > 0)
             {
-                if (Public.SystemInfo("是否删除该节点？删除该节点时，其子节点也一同删除！", 1) == DialogResult.OK)
+                if (Public.SystemInfo("是否删除该节点？删除该节点时，其子节点也一同删除！", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     tvMenu.Nodes.Remove(tvMenu.FocusedNode);
                     SqlTransaction trans = ConnectSetting.SysSqlConnection.BeginTransaction();

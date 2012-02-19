@@ -66,6 +66,7 @@
             this.colbShowInPanel = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbShowInGrid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsFooterType = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.cbxsFooterType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.colsLocation = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsSize = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
@@ -96,7 +97,6 @@
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lblsMenuName = new DevExpress.XtraLayout.LayoutControlItem();
             this.btnFormStyle = new DevExpress.XtraEditors.SimpleButton();
-            this.cbxsFooterType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -121,6 +121,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxsColumnType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxsFooterType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtsMenuName.Properties)).BeginInit();
@@ -148,7 +149,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblsMenuName)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxsFooterType)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlDetail
@@ -272,7 +272,7 @@
             // txtDataFlag
             // 
             // 
-            // btnSettings
+            // btnProperty
             // 
             this.btnProperty.LookAndFeel.SkinName = "Blue";
             this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -696,6 +696,13 @@
             this.colsFooterType.VisibleIndex = 18;
             this.colsFooterType.Width = 89;
             // 
+            // cbxsFooterType
+            // 
+            this.cbxsFooterType.AutoHeight = false;
+            this.cbxsFooterType.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxsFooterType.Name = "cbxsFooterType";
+            // 
             // colsLocation
             // 
             this.colsLocation.Caption = "布局位置";
@@ -754,6 +761,7 @@
             this.chkbSyncLookUp.Size = new System.Drawing.Size(138, 19);
             this.chkbSyncLookUp.StyleController = this.layoutControl1;
             this.chkbSyncLookUp.TabIndex = 18;
+            this.chkbSyncLookUp.Visible = false;
             // 
             // chkbCreateLookUp
             // 
@@ -763,6 +771,7 @@
             this.chkbCreateLookUp.Size = new System.Drawing.Size(133, 19);
             this.chkbCreateLookUp.StyleController = this.layoutControl1;
             this.chkbCreateLookUp.TabIndex = 17;
+            this.chkbCreateLookUp.Visible = false;
             // 
             // txtsQueryViewName
             // 
@@ -1055,13 +1064,6 @@
             this.btnFormStyle.TabIndex = 15;
             this.btnFormStyle.Text = "界面设置";
             // 
-            // cbxsFooterType
-            // 
-            this.cbxsFooterType.AutoHeight = false;
-            this.cbxsFooterType.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbxsFooterType.Name = "cbxsFooterType";
-            // 
             // frmDynamicFormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1095,6 +1097,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mtxtsLookupAutoSetGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxsColumnType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxsFooterType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtsMenuName.Properties)).EndInit();
@@ -1122,7 +1125,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblsMenuName)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbxsFooterType)).EndInit();
             this.ResumeLayout(false);
 
         }
