@@ -38,7 +38,7 @@ namespace Sunrise.ERP.BaseControl
         /// <param name="msg">信息内容</param>
         /// <param name="button">按钮模式,0-OK,1-OKCancel,2-AbortRetryIgnore,3-YesNoCancel,4-YesNo,5-RetryCancel</param>
         /// <returns>DialogResult</returns>
-        public static DialogResult SystemInfo(string msg, int button)
+        public static DialogResult SystemInfo(string msg, MessageBoxButtons button)
         {
             if (button == 0)
             {
@@ -47,35 +47,35 @@ namespace Sunrise.ERP.BaseControl
                 ul.UseDefaultLookAndFeel = false;
                 return XtraMessageBox.Show(ul, msg, LangCenter.Instance.GetSystemMessage("SystemInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (button == 1)
+            else if (button == MessageBoxButtons.OKCancel)
             {
                 DevExpress.LookAndFeel.UserLookAndFeel ul = new DevExpress.LookAndFeel.UserLookAndFeel(null);
                 ul.SkinName = "Blue";
                 ul.UseDefaultLookAndFeel = false;
                 return XtraMessageBox.Show(ul, msg, LangCenter.Instance.GetSystemMessage("SystemInfo"), MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             }
-            else if (button == 2)
+            else if (button == MessageBoxButtons.AbortRetryIgnore)
             {
                 DevExpress.LookAndFeel.UserLookAndFeel ul = new DevExpress.LookAndFeel.UserLookAndFeel(null);
                 ul.SkinName = "Blue";
                 ul.UseDefaultLookAndFeel = false;
                 return XtraMessageBox.Show(ul, msg, LangCenter.Instance.GetSystemMessage("SystemInfo"), MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Question);
             }
-            else if (button == 3)
+            else if (button == MessageBoxButtons.YesNoCancel)
             {
                 DevExpress.LookAndFeel.UserLookAndFeel ul = new DevExpress.LookAndFeel.UserLookAndFeel(null);
                 ul.SkinName = "Blue";
                 ul.UseDefaultLookAndFeel = false;
                 return XtraMessageBox.Show(ul, msg, LangCenter.Instance.GetSystemMessage("SystemInfo"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             }
-            else if (button == 4)
+            else if (button == MessageBoxButtons.YesNo)
             {
                 DevExpress.LookAndFeel.UserLookAndFeel ul = new DevExpress.LookAndFeel.UserLookAndFeel(null);
                 ul.SkinName = "Blue";
                 ul.UseDefaultLookAndFeel = false;
                 return XtraMessageBox.Show(ul, msg, LangCenter.Instance.GetSystemMessage("SystemInfo"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
-            else if (button == 5)
+            else if (button == MessageBoxButtons.RetryCancel)
             {
                 DevExpress.LookAndFeel.UserLookAndFeel ul = new DevExpress.LookAndFeel.UserLookAndFeel(null);
                 ul.SkinName = "Blue";
@@ -120,7 +120,7 @@ namespace Sunrise.ERP.BaseControl
         /// <param name="caption">提示标题</param>
         /// <param name="button">按钮模式</param>
         /// <returns>DialogResult</returns>
-        public static DialogResult SystemInfo(string msg, string caption, int button)
+        public static DialogResult SystemInfo(string msg, string caption, MessageBoxButtons button)
         {
             if (button == 0)
             {
@@ -129,35 +129,35 @@ namespace Sunrise.ERP.BaseControl
                 ul.UseDefaultLookAndFeel = false;
                 return XtraMessageBox.Show(ul,msg, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (button == 1)
+            else if (button == MessageBoxButtons.OKCancel)
             {
                 DevExpress.LookAndFeel.UserLookAndFeel ul = new DevExpress.LookAndFeel.UserLookAndFeel(null);
                 ul.SkinName = "Blue";
                 ul.UseDefaultLookAndFeel = false;
                 return XtraMessageBox.Show(ul,msg, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             }
-            else if (button == 2)
+            else if (button == MessageBoxButtons.AbortRetryIgnore)
             {
                 DevExpress.LookAndFeel.UserLookAndFeel ul = new DevExpress.LookAndFeel.UserLookAndFeel(null);
                 ul.SkinName = "Blue";
                 ul.UseDefaultLookAndFeel = false;
                 return XtraMessageBox.Show(ul,msg, caption, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Question);
             }
-            else if (button == 3)
+            else if (button == MessageBoxButtons.YesNoCancel)
             {
                 DevExpress.LookAndFeel.UserLookAndFeel ul = new DevExpress.LookAndFeel.UserLookAndFeel(null);
                 ul.SkinName = "Blue";
                 ul.UseDefaultLookAndFeel = false;
                 return XtraMessageBox.Show(ul,msg, caption, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             }
-            else if (button == 4)
+            else if (button == MessageBoxButtons.YesNo)
             {
                 DevExpress.LookAndFeel.UserLookAndFeel ul = new DevExpress.LookAndFeel.UserLookAndFeel(null);
                 ul.SkinName = "Blue";
                 ul.UseDefaultLookAndFeel = false;
                 return XtraMessageBox.Show(ul,msg, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
-            else if (button == 5)
+            else if (button == MessageBoxButtons.RetryCancel)
             {
                 DevExpress.LookAndFeel.UserLookAndFeel ul = new DevExpress.LookAndFeel.UserLookAndFeel(null);
                 ul.SkinName = "Blue";

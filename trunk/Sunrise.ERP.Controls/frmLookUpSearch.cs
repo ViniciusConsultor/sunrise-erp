@@ -127,7 +127,8 @@ namespace Sunrise.ERP.Controls
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
+            //清除
+            DialogResult = DialogResult.No;
         }
 
         private void btnView_Click(object sender, EventArgs e)
@@ -169,6 +170,8 @@ namespace Sunrise.ERP.Controls
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            //先进行权限检测
+
             string DLLName = Application.StartupPath + @"\Modules\" + sEditFormName.Replace(Sunrise.ERP.BaseControl.Public.GetLastSubString(sEditFormName, "."), "dll");
             string EXEName = Application.StartupPath + @"\Modules\" + sEditFormName.Replace(Sunrise.ERP.BaseControl.Public.GetLastSubString(sEditFormName, "."), "exe");
             string FileName = "";
@@ -192,6 +195,8 @@ namespace Sunrise.ERP.Controls
                 formobj.StartPosition = FormStartPosition.CenterScreen;
                 formobj.WindowState = FormWindowState.Normal;
                 formobj.ShowDialog();
+                //修改后刷新数据
+                btnView_Click(sender, e);
             }
             catch (Exception ex)
             {

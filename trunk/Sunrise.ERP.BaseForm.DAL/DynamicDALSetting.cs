@@ -307,6 +307,10 @@ namespace Sunrise.ERP.BaseForm.DAL
                         }
                         strSql.Append("sUserID");
                     }
+                    else
+                    {
+                        throw new Exception("自定义窗体设置中设置窗体类型错误！");
+                    }
                 }
                 if (issub && SubDynamicData.Length > 0)
                 {
@@ -332,6 +336,11 @@ namespace Sunrise.ERP.BaseForm.DAL
                 {
                     strSql.Append("sUserID=@sUserID ");
                 }
+                else
+                {
+                    throw new Exception("自定义窗体设置中设置窗体类型错误！");
+                }
+
                 //strSql.Remove(strSql.Length - 1, 1);
                 strSql.Append(" WHERE ID=@ID ");
             }

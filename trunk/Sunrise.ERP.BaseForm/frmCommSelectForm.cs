@@ -6,13 +6,12 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
-using DevExpress.XtraCharts;
-using Sunrise.ERP.BaseControl;
-using Sunrise.ERP.Report;
 
-namespace Sunrise.ERP.Module.SystemManage
+using Sunrise.ERP.BaseControl;
+
+namespace Sunrise.ERP.BaseForm
 {
-    public partial class frmsysQueryReport : Sunrise.ERP.BaseForm.frmForm
+    public partial class frmCommSelectForm : Sunrise.ERP.BaseForm.frmForm
     {
         DataTable dtMain = new DataTable();
         DataTable dtDetail = new DataTable();
@@ -29,62 +28,35 @@ namespace Sunrise.ERP.Module.SystemManage
         /// 排序字段
         /// </summary>
         string sSortFields = "";
-        /// <summary>
-        /// 设置SQL
-        /// </summary>
-        string sExecSQL = "";
-        /// <summary>
-        /// 是否存在分组
-        /// </summary>
-        bool IsGroup = false;
-        /// <summary>
-        /// 是否显示图表
-        /// </summary>
-        bool IsChart = false;
-        /// <summary>
-        /// 是否自动运行查询
-        /// </summary>
-        bool IsAutoRun = false;
 
-        /// <summary>
-        /// 打印报表
-        /// </summary>
-        InitReport report;
-
-        public frmsysQueryReport(int formid, string formtext)
-            : base(formid, formtext)
+        public frmCommSelectForm(string reportno)
         {
             InitializeComponent();
-            if (formtext != "")
-            {
-                this.Text = formtext;
-            }
+            ReportNo = reportno;
         }
 
-        private void frmsysQueryReport_Load(object sender, EventArgs e)
+        #region 属性设置
+        private string reportno = "";
+        /// <summary>
+        /// 查询报表编号
+        /// </summary>
+        public string ReportNo
         {
-            InitBaseData();
-            CreatSearchControl();
-            CreateGridColumn();
-            //控制是否自动执行查询
-            if (IsAutoRun)
-            {
-                InitGridData("1=1 " + GetSearchFilterSQL());
-                if (tbDetail.SelectedTabPageIndex == 1)
-                {
-                    ShowChart();
-                }
-            }
-            else
-            {
-                InitGridData("1=2");
-            }
-
-            report = new InitReport(ReportNo);
+            get { return reportno; }
+            set { reportno = value; }
         }
 
+        private DataTable dtResult;
+        /// <summary>
+        /// 返回的数据结果
+        /// </summary>
+        public DataTable ResultData
+        {
+            get { return dtResult; }
+            set { dtResult = value; }
+        }
+        #endregion
 
-        #region 私有方法
         /// <summary>
         /// 创建查询条件控件
         /// </summary>
@@ -281,30 +253,11 @@ namespace Sunrise.ERP.Module.SystemManage
 
                             }
                         }
-                        
-                    }
-                    //分组条件控件设置
-                    grbGroup.Visible = IsGroup;
-                    //grbGroup.Location = new Point(10, iRows * 31 + toolStrip1.Height);
-                    grbGroup.Location = new Point(10, iRows * 31 + 30);
-                    grbGroup.Controls.Clear();
-                    for (int i = 0; i < dtDetail.Select("bIsGroup=1").Length; i++)
-                    {
-                        DevExpress.XtraEditors.CheckEdit chk = new DevExpress.XtraEditors.CheckEdit();
-                        chk.Size = new Size(80, 21);
-                        chk.Location = new Point(5 + (80 + 5) * i, 25);
-                        chk.Name = "chkGrp" + dtDetail.Select("bIsGroup=1")[i]["sColumnFieldName"].ToString() + i.ToString();
-                        chk.Text = dtDetail.Select("bIsGroup=1")[i]["sColumnCaption"].ToString();
-                        chk.Tag = dtDetail.Select("bIsGroup=1")[i]["sColumnFieldName"].ToString();
-                        chk.Checked = true;
-                        grbGroup.Controls.Add(chk);
-                    }
-                    grbGroup.Height = 45;
-                    grbGroup.Width = dtDetail.Select("bIsGroup=1").Length * 85 + 10;
 
+                    }
 
                     //设置查询条件面板高度
-                    grbFilter.Height = iRows * 31 + 55 + (IsGroup == true ? grbGroup.Height : 0);
+                    grbFilter.Height = iRows * 31 + 55;
                 }
             }
             catch (Exception ex)
@@ -312,7 +265,6 @@ namespace Sunrise.ERP.Module.SystemManage
                 Public.SystemInfo("创建查询条件控件错误！" + ex.Message, true);
             }
         }
-
 
         /// <summary>
         /// 通过ReportNo初始化基础数据
@@ -337,38 +289,20 @@ namespace Sunrise.ERP.Module.SystemManage
                         {
                             sMainSQL = sMainSQL.Replace("<GetDate>", DateTime.Now.ToShortDateString());
                         }
-                        sExecSQL = dtMain.Rows[0]["sExecSQL"].ToString();
                         sDealFields = dtMain.Rows[0]["sDealFields"].ToString();
                         sSortFields = dtMain.Rows[0]["sSortFields"].ToString();
-                        //控制界面布局显示
-                        //控制按钮是否可用
-                        btnSet.Enabled = Convert.ToBoolean(dtMain.Rows[0]["bIsShowExecBtn"]);
-                        btnSet.Text = dtMain.Rows[0]["sExecBtnText"].ToString() == "" ? "执行(&R)" : dtMain.Rows[0]["sExecBtnText"].ToString();
-                        btnPrint.Enabled = Convert.ToBoolean(dtMain.Rows[0]["bIsShowPrintBtn"]);
 
-                        //this.Text = this.Text == "" ? dtMain.Rows[0]["sReportName"].ToString() : this.Text;
-                        IsChart = Convert.ToBoolean(dtMain.Rows[0]["bIsChart"].ToString());
-                        IsAutoRun = Convert.ToBoolean(dtMain.Rows[0]["bIsAutoRun"].ToString());
-                        if (!IsChart)
-                        {
-                            tbDetail.TabPages.Remove(tpChart);
-                        }
 
 
                         sSql = "SELECT * FROM sysQueryReportDetail WHERE MainID=" + dtMain.Rows[0]["ID"].ToString() + " ORDER BY iSort";
                         dtDetail = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0];
-                        //检测是否含有分组情况
-                        if (dtDetail != null)
-                        {
-                            IsGroup = dtDetail.Select("bIsGroup").Length > 0;
-                        }
                     }
                 }
             }
             catch (Exception ex)
             {
                 Public.SystemInfo("初始化数据错误！" + ex.Message, true);
-                
+
             }
         }
 
@@ -383,26 +317,7 @@ namespace Sunrise.ERP.Module.SystemManage
                 gvSearch.Columns.Clear();
                 int i = 0;
                 List<DataRow> LDataRows = dtDetail.Select("bIsShow=1").ToList();
-                if (IsGroup)
-                {
-                    string sDisGroupField = "";
-                    foreach (var item in GetGroupFields().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        sDisGroupField += "'" + item + "',";
-                    }
-                    if (sDisGroupField != "")
-                    {
-                        sDisGroupField = "(" + sDisGroupField.Substring(0, sDisGroupField.Length - 1) + ")";
-                        //将统计字段也加入Grid列中
-                        LDataRows = dtDetail.Select("bIsShow=1 AND bIsGroup=1 AND sColumnFieldName IN " + sDisGroupField).Union(dtDetail.Select("bIsStat=1")).ToList();
-                    }
-                    else
-                    {
-                        Public.SystemInfo("必须至少选择一列分组字段!");
-                        return;
-                    }
 
-                }
                 foreach (DataRow dr in LDataRows)
                 {
                     DevExpress.XtraGrid.Columns.GridColumn col = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -447,43 +362,6 @@ namespace Sunrise.ERP.Module.SystemManage
                     gvSearch.Columns.Add(col);
                     i++;
                 }
-
-                //添加图表值字段到ComboBox中
-                if (IsChart)
-                {
-                    //数据值
-                    cbxValueType.Properties.Items.Clear();
-                    DataTable dtTemp = dtDetail.Clone();
-                    foreach (DataRow item in dtDetail.Select("bChartValue"))
-                    {
-                        //DataRow dr = dtTemp.NewRow();
-                        //dr["sColumnFieldName"] = item["sColumnFieldName"];
-                        //dr["sColumnCaption"] = item["sColumnCaption"];
-                        //dtTemp.Rows.Add(dr);
-                        cbxValueType.Properties.Items.Add(new DevExpress.XtraEditors.Controls.ImageComboBoxItem(item["sColumnCaption"].ToString(), item["sColumnFieldName"]));
-                    }
-                    cbxValueType.SelectedIndex = 0;
-                    //cbxValueType.DataSource = dtTemp;
-                    //cbxValueType.ValueMember = "sColumnFieldName";
-                    //cbxValueType.DisplayMember = "sColumnCaption";
-
-
-                    //比较值
-                    cbxField.Properties.Items.Clear();
-                    DataTable dtField = dtDetail.Clone();
-                    foreach (DataRow item in dtDetail.Select("bChartField"))
-                    {
-                        //DataRow dr = dtField.NewRow();
-                        //dr["sColumnFieldName"] = item["sColumnFieldName"];
-                        //dr["sColumnCaption"] = item["sColumnCaption"];
-                        //dtField.Rows.Add(dr);
-                        cbxField.Properties.Items.Add(new DevExpress.XtraEditors.Controls.ImageComboBoxItem(item["sColumnCaption"].ToString(), item["sColumnFieldName"]));
-                    }
-                    cbxField.SelectedIndex = 0;
-                    //cbxField.DataSource = dtField;
-                    //cbxField.ValueMember = "sColumnFieldName";
-                    //cbxField.DisplayMember = "sColumnCaption";
-                }
             }
             catch (Exception ex)
             {
@@ -501,26 +379,7 @@ namespace Sunrise.ERP.Module.SystemManage
         {
             try
             {
-                string sSql = "";
-                if (IsGroup)
-                {
-                    string sGroup = GetGroupFields();
-                    if (sGroup.Length > 0)
-                    {
-                        sSql = "SELECT " + sGroup + sDealFields + " FROM (" + sMainSQL + ") A WHERE " + pwhere + " GROUP BY " + sGroup.Substring(0, sGroup.Length - 1) + (sSortFields == "" ? "" : (" ORDER BY " + sSortFields));
-                    }
-                    else
-                    {
-                        Public.SystemInfo("必须至少选择一列分组字段!");
-                        return;
-                    }
-
-
-                }
-                else
-                {
-                    sSql = "SELECT " + sDealFields + " FROM (" + sMainSQL + ") A WHERE " + pwhere + (sSortFields == "" ? "" : (" ORDER BY " + sSortFields));
-                }
+                string sSql = "SELECT " + sDealFields + " FROM (" + sMainSQL + ") A WHERE " + pwhere + (sSortFields == "" ? "" : (" ORDER BY " + sSortFields));
                 dtSearch = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0];
                 gcSearch.DataSource = dtSearch;
             }
@@ -529,136 +388,6 @@ namespace Sunrise.ERP.Module.SystemManage
                 Public.SystemInfo("创建查询Grid数据错误！" + ex.Message, true);
             }
         }
-
-
-        private void btnView_Click(object sender, EventArgs e)
-        {
-            if (IsGroup)
-            {
-                if (GetGroupFields() == "")
-                {
-                    Public.SystemInfo("如果存在分组统计查询，则必须至少选择一列分组字段！");
-                    return;
-                }
-                CreateGridColumn();
-            }
-            InitGridData("1=1 " + GetSearchFilterSQL());
-            if (tbDetail.SelectedTabPageIndex == 1)
-            {
-                ShowChart();
-            }
-        }
-
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                foreach (Control item in grbFilter.Controls)
-                {
-                    if (item is TextBox)
-                    {
-                        item.Text = "";
-                    }
-                    else if (item is DevExpress.XtraEditors.DateEdit)
-                    {
-                        ((DevExpress.XtraEditors.DateEdit)item).EditValue = null;
-                        //item.Text = "";
-                    }
-                    else if (item is DevExpress.XtraEditors.TextEdit)
-                    {
-                        item.Text = "";
-                    }
-                    else if (item is DevExpress.XtraEditors.ComboBoxEdit)
-                    {
-                        ((DevExpress.XtraEditors.ComboBoxEdit)item).SelectedIndex = -1;
-                    }
-                    else if (item is DevExpress.XtraEditors.CheckEdit)
-                    {
-                        ((DevExpress.XtraEditors.CheckEdit)item).Checked = false;
-                    }
-
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Public.SystemInfo("清除过滤条件错误！" + ex.Message, true);
-            }
-        }
-
-
-        private void btnPrint_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dtSearch.Rows.Count > 0)
-                {
-                    report.AddReportData(dtSearch, "查询数据");
-                    report.ReportMenu.Show(btnPrint, new Point(0, btnPrint.Height));
-                }
-                else
-                {
-                    Public.SystemInfo("请先查询出数据后再打印！");
-                }
-            }
-            catch (Exception ex)
-            {
-                Public.SystemInfo("打印错误，请关闭窗口重试！" + ex.Message, true);
-            }
-        }
-
-
-        private void btnSet_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dtSearch.Rows.Count > 0)
-                {
-                    if (gvSearch.FocusedRowHandle >= 0 && sExecSQL != "")
-                    {
-                        if (Public.SystemInfo("确认执行？",MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        {
-                            //解析执行SQL
-                            foreach (DataColumn item in dtSearch.Columns)
-                            {
-                                if (sExecSQL.ToLower().Contains("<userid>"))
-                                {
-                                    sExecSQL = sExecSQL.Replace("<UserID>", Sunrise.ERP.Security.SecurityCenter.CurrentUserID);
-                                }
-                                if (sExecSQL.ToLower().Contains("<getdate>"))
-                                {
-                                    sExecSQL = sExecSQL.Replace("<GetDate>", DateTime.Now.ToShortDateString());
-                                }
-                                string sReplaceField = "<" + item.ColumnName + ">";
-                                if (sExecSQL.Contains(sReplaceField))
-                                {
-                                    sExecSQL = sExecSQL.Replace(sReplaceField, gvSearch.GetDataRow(gvSearch.FocusedRowHandle)[item.ColumnName].ToString());
-                                }
-                            }
-                            Sunrise.ERP.DataAccess.DbHelperSQL.ExecuteSql(sExecSQL);
-                            Public.SystemInfo("执行成功，请重新查询数据！");
-                            sExecSQL = dtMain.Rows[0]["sExecSQL"].ToString();
-                        }
-                    }
-                }
-                else
-                {
-                    Public.SystemInfo("请先查询出数据后再执行！");
-                }
-            }
-            catch (Exception ex)
-            {
-                Public.SystemInfo("执行错误，请关闭窗口重试！" + ex.Message,true);
-            }
-        }
-
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
 
         /// <summary>
         /// 生成过滤条件
@@ -719,203 +448,49 @@ namespace Sunrise.ERP.Module.SystemManage
             }
         }
 
-
-        /// <summary>
-        /// 界面上选择分组字段
-        /// </summary>
-        /// <returns></returns>
-        private string GetGroupFields()
-        {
-            string sResult = "";
-            try
-            {
-                //返回界面上选择分组字段
-                foreach (Control item in grbGroup.Controls)
-                {
-                    if (item is DevExpress.XtraEditors.CheckEdit)
-                    {
-                        if (((DevExpress.XtraEditors.CheckEdit)item).Checked)
-                        {
-                            sResult += item.Tag.ToString() + ",";
-                        }
-                    }
-                }
-                return sResult;
-            }
-            catch (Exception)
-            {
-                //异常则返回所有分组字段
-                if (dtDetail != null)
-                {
-                    foreach (DataRow item in dtDetail.Select("bIsShow=1 AND bIsGroup=1"))
-                    {
-                        sResult += item["sColumnFieldName"].ToString() + ",";
-                    }
-                }
-                return sResult;
-            }
-        }
-
-        /// <summary>
-        /// 显示图表
-        /// </summary>
-        private void ShowChart()
+        private void btnClear_Click(object sender, EventArgs e)
         {
             try
             {
-                switch (cbxChartType.EditValue.ToString())
+                foreach (Control item in grbFilter.Controls)
                 {
-                    case "柱图":
-                        {
-                            ShowBar();
-                            break;
-                        }
-                    case "饼图":
-                        {
-                            ShowPie();
-                            break;
-                        }
-                    case "线图":
-                        {
-                            ShowLine();
-                            break;
-                        }
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-
-        /// <summary>
-        /// 显示柱图
-        /// </summary>
-        private void ShowBar()
-        {
-            if (cbxValueType.Text != null && cbxValueType.Text != "")
-            {
-                if (dtSearch != null && dtSearch.Rows.Count > 0)
-                {
-                    chtMain.DataSource = dtSearch;
-                    chtMain.Series.Clear();
-                    //chtMain.Titles.Clear();
-                    //ChartTitle title = new ChartTitle();
-                    //title.Text = dtMain.Rows[0]["ReportName"].ToString();
-                    //chtMain.Titles.Add(title);
-                    foreach (DataRow item in dtDetail.Select("bChartValue AND sColumnFieldName='" + cbxValueType.EditValue.ToString()+"'"))
+                    if (item is TextBox)
                     {
-                        Series series = new Series(item["sColumnCaption"].ToString(), ViewType.Bar);
-                        series.ArgumentDataMember = cbxField.EditValue.ToString();
-                        series.ValueDataMembers[0] = item["sColumnFieldName"].ToString();
-                        chtMain.Series.Add(series);
+                        item.Text = "";
                     }
-                }
-
-
-
-            }
-        }
-
-
-        /// <summary>
-        /// 显示饼图
-        /// </summary>
-        private void ShowPie()
-        {
-            if (cbxValueType.Text != null && cbxValueType.Text != "")
-            {
-                if (dtSearch != null && dtSearch.Rows.Count > 0)
-                {
-                    chtMain.DataSource = dtSearch;
-                    chtMain.Series.Clear();
-                    //chtMain.Titles.Clear();
-                    //ChartTitle title = new ChartTitle();
-                    //title.Text = dtMain.Rows[0]["ReportName"].ToString();
-                    //chtMain.Titles.Add(title);
-                    foreach (DataRow item in dtDetail.Select("bChartValue AND sColumnFieldName='" + cbxValueType.EditValue.ToString() + "'"))
+                    else if (item is DevExpress.XtraEditors.DateEdit)
                     {
-                        Series series = new Series(item["sColumnCaption"].ToString(), ViewType.Pie);
-                        ((PiePointOptions)series.PointOptions).PointView = PointView.ArgumentAndValues;
-                        ((PiePointOptions)series.PointOptions).PercentOptions.ValueAsPercent = false;
-                        series.ArgumentDataMember = cbxField.EditValue.ToString();
-                        series.ValueDataMembers[0] = item["sColumnFieldName"].ToString();
-                        chtMain.Series.Add(series);
+                        ((DevExpress.XtraEditors.DateEdit)item).EditValue = null;
+                        //item.Text = "";
                     }
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// 显示线图
-        /// </summary>
-        private void ShowLine()
-        {
-            if (cbxValueType.Text != null && cbxValueType.Text != "")
-            {
-                if (dtSearch != null && dtSearch.Rows.Count > 0)
-                {
-                    chtMain.DataSource = dtSearch;
-                    chtMain.Series.Clear();
-
-
-                    //chtMain.Titles.Clear();
-                    //ChartTitle title = new ChartTitle();
-                    //title.Text = dtMain.Rows[0]["ReportName"].ToString();
-                    //chtMain.Titles.Add(title);
-                    foreach (DataRow item in dtDetail.Select("bChartValue AND sColumnFieldName='" + cbxValueType.EditValue.ToString() + "'"))
+                    else if (item is DevExpress.XtraEditors.TextEdit)
                     {
-                        Series series = new Series(item["sColumnCaption"].ToString(), ViewType.Line);
-                        series.ArgumentDataMember = cbxField.EditValue.ToString();
-                        series.ValueDataMembers[0] = item["sColumnFieldName"].ToString();
-                        chtMain.Series.Add(series);
+                        item.Text = "";
                     }
+                    else if (item is DevExpress.XtraEditors.ComboBoxEdit)
+                    {
+                        ((DevExpress.XtraEditors.ComboBoxEdit)item).SelectedIndex = -1;
+                    }
+                    else if (item is DevExpress.XtraEditors.CheckEdit)
+                    {
+                        ((DevExpress.XtraEditors.CheckEdit)item).Checked = false;
+                    }
+
+
                 }
             }
-        }
-
-
-        private void cbxChartType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tbDetail.SelectedTabPageIndex == 1)
+            catch (Exception ex)
             {
-                ShowChart();
+                Public.SystemInfo("清除过滤条件错误！" + ex.Message, true);
             }
         }
 
-
-        #endregion
-
-
-        #region 属性设置
-        private string reportno = "";
-        /// <summary>
-        /// 查询报表编号
-        /// </summary>
-        public string ReportNo
+        private void frmCommSelectForm_Load(object sender, EventArgs e)
         {
-            get
-            {
-                if (reportno == "")
-                    reportno = Sunrise.ERP.BasePublic.Base.GetFormParaList(FormID)["ReportNo"].ToString();
-                return reportno;
-            }
-            set
-            {
-                reportno = value;
-            }
-        }
-        #endregion
-
-
-        private void tbDetail_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
-        {
-            if (tbDetail.SelectedTabPageIndex == 1)
-            {
-                ShowChart();
-            }
+            InitBaseData();
+            CreatSearchControl();
+            CreateGridColumn();
+            InitGridData("1=1 " + GetSearchFilterSQL());
         }
     }
 }

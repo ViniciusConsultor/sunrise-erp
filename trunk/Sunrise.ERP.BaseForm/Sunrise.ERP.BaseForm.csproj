@@ -83,6 +83,12 @@
     <Compile Include="frmBaseForm.Designer.cs">
       <DependentUpon>frmBaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCommSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCommSelectForm.Designer.cs">
+      <DependentUpon>frmCommSelectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDynamicMasterDetail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +135,9 @@
   <ItemGroup>
     <EmbeddedResource Include="frmBaseForm.resx">
       <DependentUpon>frmBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCommSelectForm.resx">
+      <DependentUpon>frmCommSelectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDynamicMasterDetail.resx">
       <DependentUpon>frmDynamicMasterDetail.cs</DependentUpon>
@@ -199,10 +208,6 @@
     <ProjectReference Include="..\Sunrise.ERP.BasePublic\Sunrise.ERP.BasePublic.csproj">
       <Project>{0BBC3613-97DC-44A6-88A2-6EF7C7C9A910}</Project>
       <Name>Sunrise.ERP.BasePublic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sunrise.ERP.Common\Sunrise.ERP.Common.csproj">
-      <Project>{34787DE0-6E5B-49AF-928E-20C341CCC941}</Project>
-      <Name>Sunrise.ERP.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sunrise.ERP.Controls\Sunrise.ERP.Controls.csproj">
       <Project>{B063E5F9-4E6C-4CCE-90D9-97094DBEFD3C}</Project>

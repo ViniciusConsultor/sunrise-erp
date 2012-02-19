@@ -56,6 +56,10 @@
       <Project>{E30BB9FB-447C-4260-8ACB-0604DD729BFE}</Project>
       <Name>Sunrise.ERP.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sunrise.ERP.Lang\Sunrise.ERP.Lang.csproj">
+      <Project>{BE849923-172A-4FBD-9C75-BAB978254BBF}</Project>
+      <Name>Sunrise.ERP.Lang</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -91,7 +91,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(70, 24);
             this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "取消(&C)";
+            this.btnCancel.Text = "清除(&C)";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSelect
@@ -108,14 +108,14 @@
             // 
             // btnView
             // 
-            this.btnView.Image = global::Sunrise.ERP.Controls.Properties.Resources.view;
+            this.btnView.Image = global::Sunrise.ERP.Controls.Properties.Resources.refresh;
             this.btnView.Location = new System.Drawing.Point(5, 5);
             this.btnView.LookAndFeel.SkinName = "Blue";
             this.btnView.LookAndFeel.UseDefaultLookAndFeel = false;
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(70, 24);
             this.btnView.TabIndex = 0;
-            this.btnView.Text = "查询(&Q)";
+            this.btnView.Text = "刷新(&R)";
             this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // gcSearch

@@ -336,9 +336,11 @@ namespace Sunrise.ERP.Controls
                     sql = SQL;
                 }
                 frmLookUpSearch frm = new frmLookUpSearch(sql, GridColumnText, GridDisplayField, SearchFormText, IsMultiSelect, IsSearchFormEdit, EditFormName, EditFormFilter, EditFormID);
+                DialogResult result;
                 if (IsMultiSelect)
                 {
-                    if (frm.ShowDialog() == DialogResult.OK)
+                    result = frm.ShowDialog();
+                    if (result == DialogResult.OK)
                     {
                         if (frm.ReturnData != null)
                         {
@@ -359,7 +361,8 @@ namespace Sunrise.ERP.Controls
                 }
                 else
                 {
-                    if (frm.ShowDialog() == DialogResult.OK)
+                    result = frm.ShowDialog();
+                    if (result == DialogResult.OK)
                     {
                         if (frm.ReturnData != null)
                         {
@@ -374,27 +377,6 @@ namespace Sunrise.ERP.Controls
                                     ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
                                     ((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
                                 }
-                                //for (int i = 0; i < LAutoSetControl.ToArray().Length; i++)
-                                //{
-                                //    LAutoSetControl[i].Focus();
-                                //    LAutoSetControl[i].Text = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
-                                //}
-                                //for (int i = 0; i < LAutoSetFields.ToArray().Length; i++)
-                                //{
-                                //    gvTemp.Focus();
-                                //    if (this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
-                                //    {
-                                //        //先要设置控件绑定的值,在设置自动赋值的字段
-                                //        ((System.Data.DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
-                                //        ((System.Data.DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = _dt.Rows[0][LAutoSetValueFields[i]];
-                                //        //((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
-                                //    }
-                                //    else
-                                //    {
-                                //        ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
-                                //        ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = _dt.Rows[0][LAutoSetValueFields[i]];
-                                //    }
-                                //}
                                 if (LookUpAfterPost != null)
                                 {
                                     if (!LookUpAfterPost(sender, e))
@@ -403,6 +385,17 @@ namespace Sunrise.ERP.Controls
                                     }
                                 }
                             }
+                        }
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        txtDisplayText.Focus();
+                        EditValue = string.Empty;
+                        if (this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                        {
+                            //清空数据
+                            ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[this.DataBindings[0].BindingMemberInfo.BindingField] = DBNull.Value;
+                            ((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
                         }
                     }
                 }

@@ -183,7 +183,7 @@ namespace Sunrise.ERP.Report
         {
             if (dsReport.Current != null)
             {
-                if (Sunrise.ERP.BaseControl.Public.SystemInfo("是否删除该报表？", 4) == DialogResult.Yes)
+                if (Sunrise.ERP.BaseControl.Public.SystemInfo("是否删除该报表？", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     SqlTransaction trans = Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.BeginTransaction();
                     try
@@ -281,7 +281,7 @@ namespace Sunrise.ERP.Report
         {
             if (dsReport.Current != null)
             {
-                if (Sunrise.ERP.BaseControl.Public.SystemInfo("是否设置为默认报表？", 4) == DialogResult.Yes)
+                if (Sunrise.ERP.BaseControl.Public.SystemInfo("是否设置为默认报表？", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     SqlTransaction trans = Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.BeginTransaction();
                     try

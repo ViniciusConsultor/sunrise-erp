@@ -302,7 +302,7 @@ namespace SunriseERP
             }
             else
             {
-                if (Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SysExit"), 4) == DialogResult.Yes)
+                if (Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SysExit"), MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     //记录未关闭的窗体退出事件
                     foreach (Form frm in MdiChildren)
