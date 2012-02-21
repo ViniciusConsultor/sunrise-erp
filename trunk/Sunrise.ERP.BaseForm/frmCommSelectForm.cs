@@ -55,6 +55,16 @@ namespace Sunrise.ERP.BaseForm
             get { return dtResult; }
             set { dtResult = value; }
         }
+
+        private string authsql = "";
+        /// <summary>
+        /// 权限SQL
+        /// </summary>
+        public string AuthSQL
+        {
+            get { return authsql; }
+            set { authsql = value; }
+        }
         #endregion
 
         /// <summary>
@@ -315,8 +325,26 @@ namespace Sunrise.ERP.BaseForm
             try
             {
                 gvSearch.Columns.Clear();
-                int i = 0;
+                int i = 1;
                 List<DataRow> LDataRows = dtDetail.Select("bIsShow=1").ToList();
+
+                //创建选择列
+                DevExpress.XtraGrid.Columns.GridColumn col0 = new DevExpress.XtraGrid.Columns.GridColumn();
+                col0.FieldName = "bCheck";
+                col0.Caption = "选择";
+                col0.Name = "colbCheck0";
+                col0.Width = 50;
+                col0.Visible = true;
+                DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit colItemCheck = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+                colItemCheck.AutoHeight = false;
+                colItemCheck.Name = "repositoryItembCheck0";
+                colItemCheck.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
+                colItemCheck.ValueChecked =1;
+                colItemCheck.ValueUnchecked = 0;
+                col0.ColumnEdit = colItemCheck;
+                
+                gcSearch.RepositoryItems.Add(colItemCheck);
+                gvSearch.Columns.Add(col0);
 
                 foreach (DataRow dr in LDataRows)
                 {
@@ -397,7 +425,7 @@ namespace Sunrise.ERP.BaseForm
         {
             try
             {
-                string sResult = "";
+                string sResult = " ";
                 foreach (Control item in grbFilter.Controls)
                 {
                     if (item is TextBox && item.Text != "")
@@ -444,7 +472,7 @@ namespace Sunrise.ERP.BaseForm
             catch (Exception ex)
             {
                 Public.SystemInfo("生成过滤条件错误！" + ex.Message, true);
-                return "1=2";
+                return " 1=2 ";
             }
         }
 
@@ -490,7 +518,23 @@ namespace Sunrise.ERP.BaseForm
             InitBaseData();
             CreatSearchControl();
             CreateGridColumn();
-            InitGridData("1=1 " + GetSearchFilterSQL());
+            btnView_Click(sender, e);
+        }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            InitGridData(" 1=1 " + AuthSQL + GetSearchFilterSQL());
+        }
+
+        private void chkAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (dtSearch != null && dtSearch.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtSearch.Rows)
+                {
+                    dr["bCheck"] = chkAll.Checked ? 1 : 0;
+                }
+            }
         }
     }
 }

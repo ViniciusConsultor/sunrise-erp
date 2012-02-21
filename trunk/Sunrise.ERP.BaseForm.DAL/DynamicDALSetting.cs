@@ -434,6 +434,12 @@ namespace Sunrise.ERP.BaseForm.DAL
                             parameters[count].Value = optiondata[dr["sFieldName"].ToString()];
                             break;
                         }
+                    //default 将抛出系统异常，提示某个字段字段类型设置错误
+                    default:
+                        {
+                            throw new Exception("字段：" + dr["sFieldName"].ToString() + " 类型设置错误！请检查自定义字段设置！");
+                        }
+
                 }
                 count++;
             }

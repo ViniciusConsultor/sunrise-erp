@@ -292,6 +292,7 @@ namespace Sunrise.ERP.BaseForm
             pnlMain.Visible = false;
             pnlGrid.Visible = true;
             pnlGrid.Dock = DockStyle.Fill;
+            sptLeftRight.Visible = false;
             CanCloseWindow = true;
         }
         /// <summary>

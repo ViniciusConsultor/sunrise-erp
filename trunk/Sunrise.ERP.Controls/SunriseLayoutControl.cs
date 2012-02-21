@@ -22,6 +22,9 @@ namespace Sunrise.ERP.Controls
         {
             InitializeComponent();
             this.AllowCustomizationMenu = SecurityCenter.IsAdmin;
+            //设置Skin为Blue
+            this.LookAndFeel.SkinName = "Blue";
+            this.LookAndFeel.UseDefaultLookAndFeel = false;
         }
     }
 }

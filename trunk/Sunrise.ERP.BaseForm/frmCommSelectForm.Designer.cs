@@ -78,6 +78,7 @@
             this.btnView.Size = new System.Drawing.Size(70, 24);
             this.btnView.TabIndex = 1;
             this.btnView.Text = "过滤(&V)";
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // btnClear
             // 
@@ -146,6 +147,7 @@
             this.chkAll.Properties.Caption = "全选";
             this.chkAll.Size = new System.Drawing.Size(53, 19);
             this.chkAll.TabIndex = 4;
+            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
             // 
             // btnCancel
             // 

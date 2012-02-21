@@ -282,18 +282,17 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public override void DoView()
         {
-            CreateSearchFilter();
-            if (MasterFilerSQL != "")
+            if (MasterFilterSQL != "")
             {
                 if (TopCount != 499 && SortField != "dInputDate DESC")
                 {
                     if (IsCheckAuth)
                     {
-                        dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(ShowType.FormQuery, FormID) + pWhere + MasterFilerSQL, SortField).Tables[0];
+                        dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(ShowType.FormQuery, FormID) + pWhere + MasterFilterSQL, SortField).Tables[0];
                     }
                     else
                     {
-                        dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere + MasterFilerSQL, SortField).Tables[0];
+                        dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere + MasterFilterSQL, SortField).Tables[0];
                     }
                     dsMain.DataSource = dtMain;
                     dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -302,11 +301,11 @@ namespace Sunrise.ERP.BaseForm
                 {
                     if (IsCheckAuth)
                     {
-                        dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(ShowType.FormQuery, FormID) + pWhere + MasterFilerSQL).Tables[0];
+                        dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(ShowType.FormQuery, FormID) + pWhere + MasterFilterSQL).Tables[0];
                     }
                     else
                     {
-                        dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere + MasterFilerSQL).Tables[0];
+                        dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere + MasterFilterSQL).Tables[0];
                     }
                     dsMain.DataSource = dtMain;
                     dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -375,11 +374,11 @@ namespace Sunrise.ERP.BaseForm
                         {
                             if (IsCheckAuth)
                             {
-                                dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilerSQL, SortField).Tables[0];
+                                dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(MasterFilterSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilterSQL, SortField).Tables[0];
                             }
                             else
                             {
-                                dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere + MasterFilerSQL, SortField).Tables[0];
+                                dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere + MasterFilterSQL, SortField).Tables[0];
                             }
                             dsMain.DataSource = dtMain;
                             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -389,11 +388,11 @@ namespace Sunrise.ERP.BaseForm
                         {
                             if (IsCheckAuth)
                             {
-                                dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilerSQL).Tables[0];
+                                dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(MasterFilterSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilterSQL).Tables[0];
                             }
                             else
                             {
-                                dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere + MasterFilerSQL).Tables[0];
+                                dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere + MasterFilterSQL).Tables[0];
                             }
                             dsMain.DataSource = dtMain;
                             dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -414,11 +413,11 @@ namespace Sunrise.ERP.BaseForm
                     {
                         if (IsCheckAuth)
                         {
-                            dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilerSQL, SortField).Tables[0];
+                            dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(MasterFilterSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilterSQL, SortField).Tables[0];
                         }
                         else
                         {
-                            dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere + MasterFilerSQL, SortField).Tables[0];
+                            dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere + MasterFilterSQL, SortField).Tables[0];
                         }
                         dsMain.DataSource = dtMain;
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -427,11 +426,11 @@ namespace Sunrise.ERP.BaseForm
                     {
                         if (IsCheckAuth)
                         {
-                            dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(MasterFilerSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilerSQL).Tables[0];
+                            dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(MasterFilterSQL == "" ? ShowType.FormShow : ShowType.FormQuery, FormID) + pWhere + MasterFilterSQL).Tables[0];
                         }
                         else
                         {
-                            dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere + MasterFilerSQL).Tables[0];
+                            dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere + MasterFilterSQL).Tables[0];
                         }
                         dsMain.DataSource = dtMain;
                         dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -1034,18 +1033,18 @@ namespace Sunrise.ERP.BaseForm
         public void LoadFormData(string filters)
         {
             //添加空格用于SQL拼接
-            MasterFilerSQL = filters;
-            if (MasterFilerSQL != "")
+            MasterFilterSQL = filters;
+            if (MasterFilterSQL != "")
             {
                 if (TopCount != 499 && SortField != "dInputDate DESC")
                 {
                     if (IsCheckAuth)
                     {
-                        dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(ShowType.FormQuery, FormID) + pWhere + " " + MasterFilerSQL, SortField).Tables[0];
+                        dtMain = GetDataSet(MasterDynamicDAL, TopCount, SC.GetAuthSQL(ShowType.FormQuery, FormID) + pWhere + " " + MasterFilterSQL, SortField).Tables[0];
                     }
                     else
                     {
-                        dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere + " " + MasterFilerSQL, SortField).Tables[0];
+                        dtMain = GetDataSet(MasterDynamicDAL, TopCount, "1=1 " + pWhere + " " + MasterFilterSQL, SortField).Tables[0];
                     }
                     dsMain.DataSource = dtMain;
                     dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -1054,11 +1053,11 @@ namespace Sunrise.ERP.BaseForm
                 {
                     if (IsCheckAuth)
                     {
-                        dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(ShowType.FormQuery, FormID) + pWhere + " " + MasterFilerSQL).Tables[0];
+                        dtMain = GetDataSet(MasterDynamicDAL, SC.GetAuthSQL(ShowType.FormQuery, FormID) + pWhere + " " + MasterFilterSQL).Tables[0];
                     }
                     else
                     {
-                        dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere + " " + MasterFilerSQL).Tables[0];
+                        dtMain = GetDataSet(MasterDynamicDAL, "1=1 " + pWhere + " " + MasterFilterSQL).Tables[0];
                     }
                     dsMain.DataSource = dtMain;
                     dtMain.ColumnChanged += new DataColumnChangeEventHandler(dtMain_ColumnChanged);
@@ -1242,7 +1241,7 @@ namespace Sunrise.ERP.BaseForm
         /// <summary>
         /// 窗体主表数据查询过滤SQL
         /// </summary>
-        protected string MasterFilerSQL
+        protected string MasterFilterSQL
         {
             get
             {
@@ -1356,6 +1355,9 @@ namespace Sunrise.ERP.BaseForm
                 Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "NoQueryAuth"));
                 return;
             }
+            //创建查询窗口
+            CreateSearchFilter();
+
             base.btnView_Click(sender, e);
         }
 
@@ -1750,7 +1752,7 @@ namespace Sunrise.ERP.BaseForm
                 }
                 if (frmSearch.ShowDialog() == DialogResult.OK)
                 {
-                    MasterFilerSQL = " AND " + frmSearch.SearchSQL;
+                    MasterFilterSQL = " AND " + frmSearch.SearchSQL;
                 }
             }
         }
