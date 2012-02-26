@@ -167,7 +167,7 @@ namespace Sunrise.ERP.BasePublic
                     else if (ctl is DevExpress.XtraTreeList.TreeList)
                     {
                         ((DevExpress.XtraTreeList.TreeList)ctl).UseDisabledStatePainter = false;
-                        ((DevExpress.XtraTreeList.TreeList)ctl).OptionsBehavior.DragNodes = isenable;
+                        //((DevExpress.XtraTreeList.TreeList)ctl).OptionsBehavior.DragNodes = isenable;
                         ((DevExpress.XtraTreeList.TreeList)ctl).Enabled = isenable;
                     }
                     if (ctl.HasChildren)

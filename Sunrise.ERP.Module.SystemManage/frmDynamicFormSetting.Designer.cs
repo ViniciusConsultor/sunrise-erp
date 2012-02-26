@@ -97,6 +97,7 @@
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lblsMenuName = new DevExpress.XtraLayout.LayoutControlItem();
             this.btnFormStyle = new DevExpress.XtraEditors.SimpleButton();
+            this.colbCopy = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -445,6 +446,7 @@
             this.colbSystemColumn,
             this.colsColumnType,
             this.colbEdit,
+            this.colbCopy,
             this.colbQuery,
             this.colbSaveData,
             this.colbNotNull,
@@ -458,6 +460,7 @@
             this.gvDetail.Name = "gvDetail";
             this.gvDetail.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gvDetail.OptionsView.ColumnAutoWidth = false;
+            this.gvDetail.OptionsView.ShowAutoFilterRow = true;
             this.gvDetail.OptionsView.ShowFooter = true;
             this.gvDetail.OptionsView.ShowGroupPanel = false;
             this.gvDetail.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvDetail_FocusedRowChanged);
@@ -629,7 +632,7 @@
             this.colbEdit.FieldName = "bEdit";
             this.colbEdit.Name = "colbEdit";
             this.colbEdit.Visible = true;
-            this.colbEdit.VisibleIndex = 12;
+            this.colbEdit.VisibleIndex = 13;
             this.colbEdit.Width = 63;
             // 
             // colbQuery
@@ -647,7 +650,7 @@
             this.colbSaveData.FieldName = "bSaveData";
             this.colbSaveData.Name = "colbSaveData";
             this.colbSaveData.Visible = true;
-            this.colbSaveData.VisibleIndex = 13;
+            this.colbSaveData.VisibleIndex = 12;
             this.colbSaveData.Width = 72;
             // 
             // colbNotNull
@@ -656,7 +659,7 @@
             this.colbNotNull.FieldName = "bNotNull";
             this.colbNotNull.Name = "colbNotNull";
             this.colbNotNull.Visible = true;
-            this.colbNotNull.VisibleIndex = 14;
+            this.colbNotNull.VisibleIndex = 15;
             this.colbNotNull.Width = 61;
             // 
             // colbHistory
@@ -665,7 +668,7 @@
             this.colbHistory.FieldName = "bHistory";
             this.colbHistory.Name = "colbHistory";
             this.colbHistory.Visible = true;
-            this.colbHistory.VisibleIndex = 15;
+            this.colbHistory.VisibleIndex = 16;
             this.colbHistory.Width = 68;
             // 
             // colbShowInPanel
@@ -674,7 +677,7 @@
             this.colbShowInPanel.FieldName = "bShowInPanel";
             this.colbShowInPanel.Name = "colbShowInPanel";
             this.colbShowInPanel.Visible = true;
-            this.colbShowInPanel.VisibleIndex = 16;
+            this.colbShowInPanel.VisibleIndex = 17;
             this.colbShowInPanel.Width = 100;
             // 
             // colbShowInGrid
@@ -683,7 +686,7 @@
             this.colbShowInGrid.FieldName = "bShowInGrid";
             this.colbShowInGrid.Name = "colbShowInGrid";
             this.colbShowInGrid.Visible = true;
-            this.colbShowInGrid.VisibleIndex = 17;
+            this.colbShowInGrid.VisibleIndex = 18;
             this.colbShowInGrid.Width = 97;
             // 
             // colsFooterType
@@ -693,7 +696,7 @@
             this.colsFooterType.FieldName = "sFooterType";
             this.colsFooterType.Name = "colsFooterType";
             this.colsFooterType.Visible = true;
-            this.colsFooterType.VisibleIndex = 18;
+            this.colsFooterType.VisibleIndex = 19;
             this.colsFooterType.Width = 89;
             // 
             // cbxsFooterType
@@ -709,7 +712,7 @@
             this.colsLocation.FieldName = "sLocation";
             this.colsLocation.Name = "colsLocation";
             this.colsLocation.Visible = true;
-            this.colsLocation.VisibleIndex = 19;
+            this.colsLocation.VisibleIndex = 20;
             this.colsLocation.Width = 97;
             // 
             // colsSize
@@ -718,7 +721,7 @@
             this.colsSize.FieldName = "sSize";
             this.colsSize.Name = "colsSize";
             this.colsSize.Visible = true;
-            this.colsSize.VisibleIndex = 20;
+            this.colsSize.VisibleIndex = 21;
             this.colsSize.Width = 80;
             // 
             // layoutControl1
@@ -1011,6 +1014,7 @@
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextToControlDistance = 0;
             this.layoutControlItem7.TextVisible = false;
+            this.layoutControlItem7.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             // 
             // layoutControlItem8
             // 
@@ -1026,6 +1030,7 @@
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextToControlDistance = 0;
             this.layoutControlItem8.TextVisible = false;
+            this.layoutControlItem8.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             // 
             // emptySpaceItem1
             // 
@@ -1063,6 +1068,15 @@
             this.btnFormStyle.Size = new System.Drawing.Size(75, 24);
             this.btnFormStyle.TabIndex = 15;
             this.btnFormStyle.Text = "界面设置";
+            // 
+            // colbCopy
+            // 
+            this.colbCopy.Caption = "可复制";
+            this.colbCopy.FieldName = "bCopy";
+            this.colbCopy.Name = "colbCopy";
+            this.colbCopy.Visible = true;
+            this.colbCopy.VisibleIndex = 14;
+            this.colbCopy.Width = 57;
             // 
             // frmDynamicFormSetting
             // 
@@ -1200,5 +1214,6 @@
         private DevExpress.XtraEditors.TextEdit txtsMenuName;
         private DevExpress.XtraLayout.LayoutControlItem lblsMenuName;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox cbxsFooterType;
+        private DevExpress.XtraGrid.Columns.GridColumn colbCopy;
     }
 }

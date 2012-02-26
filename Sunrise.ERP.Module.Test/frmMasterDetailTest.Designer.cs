@@ -41,6 +41,7 @@
             this.mtxtsLookupAutoSetGrid = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             this.lblsMasterTest = new DevExpress.XtraEditors.LabelControl();
             this.txtsMasterTest = new DevExpress.XtraEditors.TextEdit();
+            this.btnImportData = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dsMain)).BeginInit();
@@ -103,6 +104,7 @@
             // 
             // pnlDynamic
             // 
+            this.pnlDynamic.Location = new System.Drawing.Point(2, 195);
             this.pnlDynamic.Size = new System.Drawing.Size(532, 32);
             // 
             // panelControl2
@@ -217,6 +219,7 @@
             // 
             // pnlDetailMenu
             // 
+            this.pnlDetailMenu.Controls.Add(this.btnImportData);
             this.pnlDetailMenu.Controls.Add(this.btnDetailDelete);
             this.pnlDetailMenu.Controls.Add(this.btnDetailAdd);
             this.pnlDetailMenu.Dock = System.Windows.Forms.DockStyle.Top;
@@ -320,6 +323,17 @@
             this.txtsMasterTest.Size = new System.Drawing.Size(100, 21);
             this.txtsMasterTest.TabIndex = 1;
             // 
+            // btnImportData
+            // 
+            this.btnImportData.Location = new System.Drawing.Point(147, 4);
+            this.btnImportData.LookAndFeel.SkinName = "Blue";
+            this.btnImportData.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnImportData.Name = "btnImportData";
+            this.btnImportData.Size = new System.Drawing.Size(70, 24);
+            this.btnImportData.TabIndex = 2;
+            this.btnImportData.Text = "导入数据";
+            this.btnImportData.Click += new System.EventHandler(this.btnImportData_Click);
+            // 
             // frmMasterDetailTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -374,5 +388,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit mtxtsLookupAutoSetGrid;
         private DevExpress.XtraEditors.TextEdit txtsMasterTest;
         private DevExpress.XtraEditors.LabelControl lblsMasterTest;
+        protected DevExpress.XtraEditors.SimpleButton btnImportData;
     }
 }

@@ -106,7 +106,9 @@ namespace Sunrise.ERP.Module.SystemManage
         }
         public override bool DoBeforeSave()
         {
-            SystemPublic.GetBillNo(FormID, (DataRowView)dsMain.Current);
+            //只有在新增保存的时候检查数据库中是否已经有创建的编号
+            if (FormDataFlag == DataFlag.dsInsert)
+                SystemPublic.GetBillNo(FormID, (DataRowView)dsMain.Current);
             return base.DoBeforeSave();
         }
         public override bool DoAfterSave()

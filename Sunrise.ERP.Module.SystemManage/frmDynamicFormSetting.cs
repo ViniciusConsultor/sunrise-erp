@@ -20,6 +20,8 @@ namespace Sunrise.ERP.Module.SystemManage
 {
     public partial class frmDynamicFormSetting : Sunrise.ERP.BaseForm.frmMasterDetail
     {
+        bool FieldAllowEdit = false;
+
         public frmDynamicFormSetting(int formid, string formtext)
             : base(formid, "Sunrise.ERP.BaseForm.DAL", "sysDynamicFormMasterDAL", false)
         {
@@ -47,6 +49,12 @@ namespace Sunrise.ERP.Module.SystemManage
             //sFooterType
             InitDetailComboBox("1020", cbxsFooterType);
 
+            try
+            {
+                //加载窗体参数控制字段名称，字段类型，控件类型是否允许编辑
+                FieldAllowEdit = bool.Parse(Base.GetFormParaList(FormID)["FieldAllowEdit"].ToString());
+            }
+            catch { }
         }
 
         private void frmDynamicFormSetting_Load(object sender, EventArgs e)
@@ -143,18 +151,22 @@ namespace Sunrise.ERP.Module.SystemManage
 
         private void gvDetail_FocusedColumnChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedColumnChangedEventArgs e)
         {
-            //设置sFieldName,sFieldType,sControlType,字段不可编辑
-            if (e.FocusedColumn.FieldName == "sFieldName" ||
-                e.FocusedColumn.FieldName == "sFieldType" ||
-                e.FocusedColumn.FieldName == "sControlType")
+            if (!FieldAllowEdit)
             {
-                if ((!string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sFieldName").ToString()) ||
-                    !string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sFieldType").ToString()) ||
-                    !string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sControlType").ToString())) &&
-                    !string.IsNullOrEmpty(gvDetail.GetFocusedDataRow()["ID"].ToString()))
-                    e.FocusedColumn.OptionsColumn.AllowEdit = false;
-                else
-                    e.FocusedColumn.OptionsColumn.AllowEdit = true;
+                //设置sFieldName,sFieldType,sControlType,字段不可编辑
+                if (e.FocusedColumn.FieldName == "sFieldName" ||
+                    e.FocusedColumn.FieldName == "sFieldType" ||
+                    e.FocusedColumn.FieldName == "sControlType")
+                {
+                    if (gvDetail.GetFocusedDataRow() != null && 
+                        (!string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sFieldName").ToString()) ||
+                        !string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sFieldType").ToString()) ||
+                        !string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sControlType").ToString())) &&
+                        !string.IsNullOrEmpty(gvDetail.GetFocusedDataRow()["ID"].ToString()))
+                        e.FocusedColumn.OptionsColumn.AllowEdit = false;
+                    else
+                        e.FocusedColumn.OptionsColumn.AllowEdit = true;
+                }
             }
         }
 
@@ -162,27 +174,32 @@ namespace Sunrise.ERP.Module.SystemManage
         {
             if (e.FocusedRowHandle >= 0)
             {
-                //设置sFieldName字段不可编辑
-                if (gvDetail.GetFocusedRowCellValue("sFieldName") != null && 
-                    !string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sFieldName").ToString()) &&
-                    !string.IsNullOrEmpty(gvDetail.GetFocusedDataRow()["ID"].ToString()))
-                    gvDetail.Columns["sFieldName"].OptionsColumn.AllowEdit = false;
-                else
-                    gvDetail.Columns["sFieldName"].OptionsColumn.AllowEdit = true;
-                //设置sFieldType字段不可编辑
-                if (gvDetail.GetFocusedRowCellValue("sFieldType") != null &&
-                    !string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sFieldType").ToString()) &&
-                    !string.IsNullOrEmpty(gvDetail.GetFocusedDataRow()["ID"].ToString()))
-                    gvDetail.Columns["sFieldType"].OptionsColumn.AllowEdit = false;
-                else
-                    gvDetail.Columns["sFieldType"].OptionsColumn.AllowEdit = true;
-                //设置sControlType字段不可编辑
-                if (gvDetail.GetFocusedRowCellValue("sControlType") != null &&
-                    !string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sControlType").ToString()) &&
-                    !string.IsNullOrEmpty(gvDetail.GetFocusedDataRow()["ID"].ToString()))
-                    gvDetail.Columns["sControlType"].OptionsColumn.AllowEdit = false;
-                else
-                    gvDetail.Columns["sControlType"].OptionsColumn.AllowEdit = true;
+                if (!FieldAllowEdit)
+                {
+                    //设置sFieldName字段不可编辑
+                    if (gvDetail.GetFocusedRowCellValue("sFieldName") != null &&
+                        !string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sFieldName").ToString()) &&
+                        !string.IsNullOrEmpty(gvDetail.GetFocusedDataRow()["ID"].ToString()))
+                        gvDetail.Columns["sFieldName"].OptionsColumn.AllowEdit = false;
+                    else
+                        gvDetail.Columns["sFieldName"].OptionsColumn.AllowEdit = true;
+
+                    //设置sFieldType字段不可编辑
+                    if (gvDetail.GetFocusedRowCellValue("sFieldType") != null &&
+                        !string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sFieldType").ToString()) &&
+                        !string.IsNullOrEmpty(gvDetail.GetFocusedDataRow()["ID"].ToString()))
+                        gvDetail.Columns["sFieldType"].OptionsColumn.AllowEdit = false;
+                    else
+                        gvDetail.Columns["sFieldType"].OptionsColumn.AllowEdit = true;
+
+                    //设置sControlType字段不可编辑
+                    if (gvDetail.GetFocusedRowCellValue("sControlType") != null &&
+                        !string.IsNullOrEmpty(gvDetail.GetFocusedRowCellValue("sControlType").ToString()) &&
+                        !string.IsNullOrEmpty(gvDetail.GetFocusedDataRow()["ID"].ToString()))
+                        gvDetail.Columns["sControlType"].OptionsColumn.AllowEdit = false;
+                    else
+                        gvDetail.Columns["sControlType"].OptionsColumn.AllowEdit = true;
+                }
             }
         }
 
@@ -292,6 +309,7 @@ namespace Sunrise.ERP.Module.SystemManage
             chkbSyncLookUp.Text = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", chkbSyncLookUp.Name);
             colbEdit.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbEdit.Name);
             colsColumnType.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsColumnType.Name);
+            colbCopy.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbCopy.Name);
         }
 
     }

@@ -748,6 +748,10 @@ namespace Sunrise.ERP.BaseForm
             Control[] ctls;
             foreach (DataRow dr in DynamicMasterTableData.Select("sControlType<>'lbl'"))
             {
+                //添加不可复制的字段
+                if (!Convert.ToBoolean(dr["bCopy"]))
+                    AddNotCopyFields(dr["sFieldName"].ToString());
+
                 string ControlKey = "lbl" + dr["sFieldName"].ToString();
                 ctls = pnlMain.Controls.Find(ControlKey, true);
                 //设置字段Label显示
@@ -1436,7 +1440,6 @@ namespace Sunrise.ERP.BaseForm
         /// </summary>
         public void CreateDynamicControl()
         {
-
             if (DynamicMasterTableData.Select("bSystemColumn=0").Length > 0)
             {
                 pnlDynamic.Visible = true;

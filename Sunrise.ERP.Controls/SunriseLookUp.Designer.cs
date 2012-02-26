@@ -63,11 +63,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.Controls.Add(this.txtValueText);
             this.Controls.Add(this.txtDisplayText);
             this.Name = "SunriseLookUp";
-            this.Size = new System.Drawing.Size(132, 24);
+            this.Size = new System.Drawing.Size(132, 21);
             this.Load += new System.EventHandler(this.SunriseLookUp_Load);
             this.SizeChanged += new System.EventHandler(this.SunriseLookUp_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.txtDisplayText.Properties)).EndInit();

@@ -395,10 +395,7 @@ namespace Sunrise.ERP.BaseForm
         {
             foreach (string s in notCopyFields)
             {
-                if (s.Length > 0)
-                {
-                    NotCopyFields.Add(s);
-                }
+                if (s.Length > 0) AddNotCopyFields(s);
             }
         }
 
