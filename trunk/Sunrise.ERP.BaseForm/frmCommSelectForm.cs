@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Linq;
 
 using Sunrise.ERP.BaseControl;
+using Sunrise.ERP.DataAccess;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -16,6 +17,7 @@ namespace Sunrise.ERP.BaseForm
         DataTable dtMain = new DataTable();
         DataTable dtDetail = new DataTable();
         DataTable dtSearch = new DataTable();
+        private bool AutoSelect = false;
         /// <summary>
         /// 主查询SQL
         /// </summary>
@@ -28,11 +30,30 @@ namespace Sunrise.ERP.BaseForm
         /// 排序字段
         /// </summary>
         string sSortFields = "";
+        /// <summary>
+        /// 是否自动运行查询
+        /// </summary>
+        bool IsAutoRun = false;
 
         public frmCommSelectForm(string reportno)
         {
             InitializeComponent();
             ReportNo = reportno;
+        }
+
+        public frmCommSelectForm(string reportno, string pwhere)
+        {
+            InitializeComponent();
+            ReportNo = reportno;
+            AuthSQL = pwhere;
+        }
+
+        public frmCommSelectForm(string reportno, string pwhere,bool autoselect)
+        {
+            InitializeComponent();
+            ReportNo = reportno;
+            AuthSQL = pwhere;
+            AutoSelect = autoselect;
         }
 
         #region 属性设置
@@ -46,11 +67,11 @@ namespace Sunrise.ERP.BaseForm
             set { reportno = value; }
         }
 
-        private DataTable dtResult;
+        private DataRow[] dtResult;
         /// <summary>
         /// 返回的数据结果
         /// </summary>
-        public DataTable ResultData
+        public DataRow[] ResultData
         {
             get { return dtResult; }
             set { dtResult = value; }
@@ -259,8 +280,6 @@ namespace Sunrise.ERP.BaseForm
                                 {
                                     break;
                                 }
-
-
                             }
                         }
 
@@ -286,7 +305,7 @@ namespace Sunrise.ERP.BaseForm
                 if (ReportNo != "")
                 {
                     string sSql = "SELECT * FROM sysQueryReportMaster WHERE sReportNo='" + ReportNo + "'";
-                    dtMain = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0];
+                    dtMain = DbHelperSQL.Query(sSql).Tables[0];
                     if (dtMain.Rows.Count > 0)
                     {
                         sMainSQL = dtMain.Rows[0]["sReportSQL"].ToString();
@@ -301,11 +320,10 @@ namespace Sunrise.ERP.BaseForm
                         }
                         sDealFields = dtMain.Rows[0]["sDealFields"].ToString();
                         sSortFields = dtMain.Rows[0]["sSortFields"].ToString();
-
-
-
+                        IsAutoRun = Convert.ToBoolean(dtMain.Rows[0]["bIsAutoRun"].ToString());
+                        this.Text = dtMain.Rows[0]["sReportName"].ToString();
                         sSql = "SELECT * FROM sysQueryReportDetail WHERE MainID=" + dtMain.Rows[0]["ID"].ToString() + " ORDER BY iSort";
-                        dtDetail = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0];
+                        dtDetail = DbHelperSQL.Query(sSql).Tables[0];
                     }
                 }
             }
@@ -335,12 +353,12 @@ namespace Sunrise.ERP.BaseForm
                 col0.Name = "colbCheck0";
                 col0.Width = 50;
                 col0.Visible = true;
+                col0.VisibleIndex = 0;
+                col0.OptionsColumn.AllowEdit = true;
                 DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit colItemCheck = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
                 colItemCheck.AutoHeight = false;
                 colItemCheck.Name = "repositoryItembCheck0";
                 colItemCheck.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
-                colItemCheck.ValueChecked =1;
-                colItemCheck.ValueUnchecked = 0;
                 col0.ColumnEdit = colItemCheck;
                 
                 gcSearch.RepositoryItems.Add(colItemCheck);
@@ -355,6 +373,7 @@ namespace Sunrise.ERP.BaseForm
                     col.Width = 100;
                     col.Visible = true;
                     col.VisibleIndex = i;
+                    col.OptionsColumn.AllowEdit = false;
                     if (dr["sColumnType"].ToString() == "K")
                     {
                         DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit colItem = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
@@ -408,7 +427,17 @@ namespace Sunrise.ERP.BaseForm
             try
             {
                 string sSql = "SELECT " + sDealFields + " FROM (" + sMainSQL + ") A WHERE " + pwhere + (sSortFields == "" ? "" : (" ORDER BY " + sSortFields));
-                dtSearch = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0];
+                dtSearch = DbHelperSQL.Query(sSql).Tables[0];
+
+                //是否自动全部选择
+                if (AutoSelect)
+                {
+                    foreach (DataRow dr in dtSearch.Rows)
+                    {
+                        dr["bCheck"] = 1;
+                    }
+                }
+                chkAll.Checked = AutoSelect;
                 gcSearch.DataSource = dtSearch;
             }
             catch (Exception ex)
@@ -518,7 +547,11 @@ namespace Sunrise.ERP.BaseForm
             InitBaseData();
             CreatSearchControl();
             CreateGridColumn();
-            btnView_Click(sender, e);
+            //控制是否自动执行查询
+            if (IsAutoRun)
+                InitGridData(" 1=1 " + AuthSQL + GetSearchFilterSQL());
+            else
+                InitGridData("1=2");
         }
 
         private void btnView_Click(object sender, EventArgs e)
@@ -536,5 +569,144 @@ namespace Sunrise.ERP.BaseForm
                 }
             }
         }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            bool isSelectedData=false;
+            if (dtSearch != null && dtSearch.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtSearch.Rows)
+                {
+                    if (Convert.ToBoolean(dr["bCheck"]))
+                    {
+                        isSelectedData = true;
+                        break;
+                    }
+                }
+                if (!isSelectedData)
+                {
+                    Public.SystemInfo("没有选择数据，请选择数据！");
+                    return;
+                }
+            }
+            else
+            {
+                Public.SystemInfo("没有查询出数据，请先查询数据后再选择数据！");
+                return;
+            }
+            
+            ResultData = dtSearch.Select("bCheck=1");
+            DialogResult = DialogResult.OK;
+
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
+    }
+
+    /// <summary>
+    /// 通用选择查询
+    /// </summary>
+    public class CommonSelect
+    {
+        public CommonSelect()
+        {
+        }
+
+        public static CommonSelect Instance
+        {
+            get { return Nested.instance; }
+        }
+
+        class Nested
+        {
+            static Nested() { }
+            internal static readonly CommonSelect instance = new CommonSelect();
+        }
+
+        /// <summary>
+        /// 选择导入数据
+        /// </summary>
+        /// <param name="dsDetail">导入目标数据源</param>
+        /// <param name="reportno">查询编号</param>
+        /// <param name="fields">导入的字段，e.g: a=b,c=d 其中a和c为目标数据源中的字段，b和d为选择数据源中的字段，多个用英文逗号“,”进行分割</param>
+        /// <param name="where">选择数据源的过滤条件</param>
+        /// <param name="isautoselect">是否默认选中所有数据</param>
+        public void SelectData(BindingSource dsDetail, string reportno, string fields, string where,bool isautoselect)
+        {
+            //数据选择窗体
+            frmCommSelectForm frm = new frmCommSelectForm(reportno, where, isautoselect);
+            frm.StartPosition = FormStartPosition.CenterParent;
+            frm.WindowState = FormWindowState.Normal;
+            frm.ReportNo = reportno;
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                //解析需要设置值的字段
+                string[] fieldstring = Public.GetSplitString(fields, ",");
+                List<string> ValueFields = new List<string>();
+                List<string> DataFields = new List<string>();
+                foreach (string s in fieldstring)
+                {
+                    string[] ss = Public.GetSplitString(s, "=");
+                    DataFields.Add(ss[0]);
+                    ValueFields.Add(ss[1]);
+                }
+
+                //插入数据
+                foreach (DataRow dr in frm.ResultData)
+                {
+                    dsDetail.AddNew();                    
+                    for (int i = 0; i < DataFields.Count; i++)
+                    {
+                        ((DataRowView)dsDetail.Current).Row[DataFields[i]] = dr[ValueFields[i]];
+                    }
+                    dsDetail.EndEdit();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 选择导入数据
+        /// </summary>
+        /// <param name="dtDetail">导入目标数据源</param>
+        /// <param name="reportno">查询编号</param>
+        /// <param name="fields">导入的字段，e.g: a=b,c=d 其中a和c为目标数据源中的字段，b和d为选择数据源中的字段，多个用英文逗号“,”进行分割</param>
+        /// <param name="where">选择数据源的过滤条件</param>
+        /// <param name="isautoselect">是否默认选中所有数据</param>
+        public void SelectData(DataTable dtDetail, string reportno, string fields, string where, bool isautoselect)
+        {
+            //数据选择窗体
+            frmCommSelectForm frm = new frmCommSelectForm(reportno, where, isautoselect);
+            frm.ReportNo = reportno;
+            frm.StartPosition = FormStartPosition.CenterParent;
+            frm.WindowState = FormWindowState.Normal;
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                //解析需要设置值的字段
+                string[] fieldstring = Public.GetSplitString(fields, ",");
+                List<string> ValueFields = new List<string>();
+                List<string> DataFields = new List<string>();
+                foreach (string s in fieldstring)
+                {
+                    string[] ss = Public.GetSplitString(fields, "=");
+                    DataFields.Add(ss[0]);
+                    ValueFields.Add(ss[1]);
+                }
+
+                //插入数据
+                foreach (DataRow dr in frm.ResultData)
+                {
+                    DataRow drTmp = dtDetail.NewRow();
+                    for (int i = 0; i < DataFields.Count; i++)
+                    {
+                        drTmp[DataFields[i]] = dr[ValueFields[i]];
+                    }
+                    dtDetail.Rows.Add(drTmp);
+                }
+            }
+        }
     }
 }
+

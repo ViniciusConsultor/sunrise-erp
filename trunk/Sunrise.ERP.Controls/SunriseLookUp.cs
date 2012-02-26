@@ -529,7 +529,7 @@ namespace Sunrise.ERP.Controls
 
         private void SunriseLookUp_SizeChanged(object sender, EventArgs e)
         {
-            //this.Height = txtDisplayText.Height;
+            this.Height = txtDisplayText.Height;
         }
 
         public delegate bool SunriseLookUpEvent(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e);

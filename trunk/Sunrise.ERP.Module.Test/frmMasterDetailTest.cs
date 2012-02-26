@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Sunrise.ERP.BasePublic;
 using Sunrise.ERP.Security;
 using Sunrise.ERP.DataAccess;
+using Sunrise.ERP.BaseForm;
 
 namespace Sunrise.ERP.Module.Test
 {
@@ -72,6 +73,7 @@ namespace Sunrise.ERP.Module.Test
         private void gvDetail_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
             gvDetail.GetFocusedDataRow()["sUserID"] = SecurityCenter.CurrentUserID;
+            gvDetail.GetFocusedDataRow()["iSort"] = gvDetail.RowCount;
         }
 
         private void gvMain_DoubleClick(object sender, EventArgs e)
@@ -98,6 +100,13 @@ namespace Sunrise.ERP.Module.Test
             return base.DoAfterSaveInTrans(trans);
 
             
+        }
+
+        private void btnImportData_Click(object sender, EventArgs e)
+        {
+            CommonSelect.Instance.SelectData(LDetailBindingSource[LDetailTableName.IndexOf("salTestDetail")], 
+                "QR003", 
+                "sIPAddress=sLoginIP,sAction=sAction,sDetail=sAction", "", true);
         }
     }
 }

@@ -58,7 +58,7 @@
             this.panelControl1.Controls.Add(this.grbFilter);
             this.panelControl1.Controls.Add(this.panelControl3);
             this.panelControl1.Controls.Add(this.panelControl2);
-            this.panelControl1.Size = new System.Drawing.Size(864, 498);
+            this.panelControl1.Size = new System.Drawing.Size(686, 447);
             // 
             // panelControl3
             // 
@@ -67,7 +67,7 @@
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl3.Location = new System.Drawing.Point(2, 2);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(860, 33);
+            this.panelControl3.Size = new System.Drawing.Size(682, 33);
             this.panelControl3.TabIndex = 4;
             // 
             // btnView
@@ -95,7 +95,7 @@
             this.grbFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.grbFilter.Location = new System.Drawing.Point(2, 35);
             this.grbFilter.Name = "grbFilter";
-            this.grbFilter.Size = new System.Drawing.Size(860, 113);
+            this.grbFilter.Size = new System.Drawing.Size(682, 113);
             this.grbFilter.TabIndex = 5;
             this.grbFilter.Text = "查询条件";
             // 
@@ -104,7 +104,7 @@
             this.splitterControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitterControl1.Location = new System.Drawing.Point(2, 148);
             this.splitterControl1.Name = "splitterControl1";
-            this.splitterControl1.Size = new System.Drawing.Size(860, 6);
+            this.splitterControl1.Size = new System.Drawing.Size(682, 6);
             this.splitterControl1.TabIndex = 6;
             this.splitterControl1.TabStop = false;
             // 
@@ -114,7 +114,7 @@
             this.gcSearch.Location = new System.Drawing.Point(2, 154);
             this.gcSearch.MainView = this.gvSearch;
             this.gcSearch.Name = "gcSearch";
-            this.gcSearch.Size = new System.Drawing.Size(860, 309);
+            this.gcSearch.Size = new System.Drawing.Size(682, 258);
             this.gcSearch.TabIndex = 5;
             this.gcSearch.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvSearch});
@@ -123,7 +123,6 @@
             // 
             this.gvSearch.GridControl = this.gcSearch;
             this.gvSearch.Name = "gvSearch";
-            this.gvSearch.OptionsBehavior.Editable = false;
             this.gvSearch.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gvSearch.OptionsView.ColumnAutoWidth = false;
             this.gvSearch.OptionsView.ShowFooter = true;
@@ -135,9 +134,9 @@
             this.panelControl2.Controls.Add(this.btnCancel);
             this.panelControl2.Controls.Add(this.btnOk);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl2.Location = new System.Drawing.Point(2, 463);
+            this.panelControl2.Location = new System.Drawing.Point(2, 412);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(860, 33);
+            this.panelControl2.Size = new System.Drawing.Size(682, 33);
             this.panelControl2.TabIndex = 7;
             // 
             // chkAll
@@ -152,27 +151,32 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.cancel;
-            this.btnCancel.Location = new System.Drawing.Point(780, 5);
+            this.btnCancel.Location = new System.Drawing.Point(602, 5);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(70, 24);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "取消(&C)";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOk.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.yes;
-            this.btnOk.Location = new System.Drawing.Point(704, 5);
+            this.btnOk.Location = new System.Drawing.Point(526, 5);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(70, 24);
             this.btnOk.TabIndex = 1;
             this.btnOk.Text = "确定(&O)";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // frmCommSelectForm
             // 
+            this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-            this.ClientSize = new System.Drawing.Size(864, 498);
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(686, 447);
             this.LookAndFeel.SkinName = "Blue";
             this.LookAndFeel.UseDefaultLookAndFeel = false;
             this.Name = "frmCommSelectForm";
