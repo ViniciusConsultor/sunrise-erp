@@ -35,6 +35,8 @@
             this.treeListColumn3 = new DevExpress.XtraTreeList.Columns.TreeListColumn();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.radRoot = new DevExpress.XtraEditors.RadioGroup();
+            this.txtsQuickMenu = new DevExpress.XtraEditors.TextEdit();
             this.txtFileDate = new DevExpress.XtraEditors.TextEdit();
             this.txtFormClassName = new DevExpress.XtraEditors.TextEdit();
             this.txtModuleFile = new DevExpress.XtraEditors.ButtonEdit();
@@ -50,6 +52,8 @@
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.pnlDetailMenu = new DevExpress.XtraEditors.PanelControl();
             this.btnDetailDelete = new DevExpress.XtraEditors.SimpleButton();
             this.btnDetailAdd = new DevExpress.XtraEditors.SimpleButton();
@@ -69,8 +73,6 @@
             this.lkpFlag = new Sunrise.ERP.Controls.SunriseLookUp();
             this.btnSaveSort = new DevExpress.XtraEditors.SimpleButton();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.txtsQuickMenu = new DevExpress.XtraEditors.TextEdit();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -86,6 +88,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tvMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radRoot.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsQuickMenu.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFileDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFormClassName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtModuleFile.Properties)).BeginInit();
@@ -101,6 +105,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetailMenu)).BeginInit();
             this.pnlDetailMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tcDetail)).BeginInit();
@@ -114,16 +120,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxFieldName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtsQuickMenu.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlDetail
             // 
             this.pnlDetail.Controls.Add(this.tcDetail);
             this.pnlDetail.Controls.Add(this.pnlDetailMenu);
-            this.pnlDetail.Location = new System.Drawing.Point(353, 243);
-            this.pnlDetail.Size = new System.Drawing.Size(586, 253);
+            this.pnlDetail.Location = new System.Drawing.Point(353, 257);
+            this.pnlDetail.Size = new System.Drawing.Size(586, 239);
             // 
             // splitterControl2
             // 
@@ -133,7 +137,7 @@
             // 
             this.pnlInfo.Controls.Add(this.layoutControl1);
             this.pnlInfo.Location = new System.Drawing.Point(353, 35);
-            this.pnlInfo.Size = new System.Drawing.Size(586, 202);
+            this.pnlInfo.Size = new System.Drawing.Size(586, 216);
             // 
             // pnlGrid
             // 
@@ -142,7 +146,7 @@
             // 
             // splitterControl1
             // 
-            this.splitterControl1.Location = new System.Drawing.Point(353, 237);
+            this.splitterControl1.Location = new System.Drawing.Point(353, 251);
             this.splitterControl1.Size = new System.Drawing.Size(586, 6);
             // 
             // panelControl2
@@ -237,7 +241,7 @@
             // txtDataFlag
             // 
             // 
-            // btnSettings
+            // btnProperty
             // 
             this.btnProperty.LookAndFeel.SkinName = "Blue";
             this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -288,6 +292,7 @@
             this.tvMenu.StateImageList = this.imageList1;
             this.tvMenu.TabIndex = 2;
             this.tvMenu.TreeLineStyle = DevExpress.XtraTreeList.LineStyle.None;
+            this.tvMenu.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.tvMenu_FocusedNodeChanged);
             this.tvMenu.GetStateImage += new DevExpress.XtraTreeList.GetStateImageEventHandler(this.tvMenu_GetStateImage);
             this.tvMenu.DragEnter += new System.Windows.Forms.DragEventHandler(this.tvMenu_DragEnter);
             // 
@@ -320,6 +325,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.radRoot);
             this.layoutControl1.Controls.Add(this.txtsQuickMenu);
             this.layoutControl1.Controls.Add(this.txtFileDate);
             this.layoutControl1.Controls.Add(this.txtFormClassName);
@@ -333,13 +339,34 @@
             this.layoutControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.layoutControlGroup1;
-            this.layoutControl1.Size = new System.Drawing.Size(582, 198);
+            this.layoutControl1.Size = new System.Drawing.Size(582, 212);
             this.layoutControl1.TabIndex = 1;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // radRoot
+            // 
+            this.radRoot.EditValue = true;
+            this.radRoot.Location = new System.Drawing.Point(76, 12);
+            this.radRoot.Name = "radRoot";
+            this.radRoot.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(true, "当前节点"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem(false, "根节点")});
+            this.radRoot.Size = new System.Drawing.Size(469, 25);
+            this.radRoot.StyleController = this.layoutControl1;
+            this.radRoot.TabIndex = 17;
+            this.radRoot.Tag = "99";
+            // 
+            // txtsQuickMenu
+            // 
+            this.txtsQuickMenu.Location = new System.Drawing.Point(76, 166);
+            this.txtsQuickMenu.Name = "txtsQuickMenu";
+            this.txtsQuickMenu.Size = new System.Drawing.Size(469, 21);
+            this.txtsQuickMenu.StyleController = this.layoutControl1;
+            this.txtsQuickMenu.TabIndex = 16;
+            // 
             // txtFileDate
             // 
-            this.txtFileDate.Location = new System.Drawing.Point(76, 87);
+            this.txtFileDate.Location = new System.Drawing.Point(76, 116);
             this.txtFileDate.Name = "txtFileDate";
             this.txtFileDate.Properties.ReadOnly = true;
             this.txtFileDate.Size = new System.Drawing.Size(469, 21);
@@ -349,7 +376,7 @@
             // 
             // txtFormClassName
             // 
-            this.txtFormClassName.Location = new System.Drawing.Point(76, 62);
+            this.txtFormClassName.Location = new System.Drawing.Point(76, 91);
             this.txtFormClassName.Name = "txtFormClassName";
             this.txtFormClassName.Size = new System.Drawing.Size(469, 21);
             this.txtFormClassName.StyleController = this.layoutControl1;
@@ -357,7 +384,7 @@
             // 
             // txtModuleFile
             // 
-            this.txtModuleFile.Location = new System.Drawing.Point(76, 37);
+            this.txtModuleFile.Location = new System.Drawing.Point(76, 66);
             this.txtModuleFile.Name = "txtModuleFile";
             this.txtModuleFile.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -368,7 +395,7 @@
             // 
             // txtsMenuName
             // 
-            this.txtsMenuName.Location = new System.Drawing.Point(76, 12);
+            this.txtsMenuName.Location = new System.Drawing.Point(76, 41);
             this.txtsMenuName.Name = "txtsMenuName";
             this.txtsMenuName.Size = new System.Drawing.Size(185, 21);
             this.txtsMenuName.StyleController = this.layoutControl1;
@@ -376,7 +403,7 @@
             // 
             // txtFormID
             // 
-            this.txtFormID.Location = new System.Drawing.Point(76, 112);
+            this.txtFormID.Location = new System.Drawing.Point(76, 141);
             this.txtFormID.Name = "txtFormID";
             this.txtFormID.Size = new System.Drawing.Size(469, 21);
             this.txtFormID.StyleController = this.layoutControl1;
@@ -384,7 +411,7 @@
             // 
             // txtMenuEngName
             // 
-            this.txtMenuEngName.Location = new System.Drawing.Point(329, 12);
+            this.txtMenuEngName.Location = new System.Drawing.Point(329, 41);
             this.txtMenuEngName.Name = "txtMenuEngName";
             this.txtMenuEngName.Size = new System.Drawing.Size(216, 21);
             this.txtMenuEngName.StyleController = this.layoutControl1;
@@ -404,10 +431,11 @@
             this.layoutControlItem7,
             this.layoutControlItem4,
             this.emptySpaceItem1,
-            this.layoutControlItem2});
+            this.layoutControlItem2,
+            this.layoutControlItem8});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(582, 198);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(582, 212);
             this.layoutControlGroup1.Spacing = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
             this.layoutControlGroup1.Text = "layoutControlGroup1";
             this.layoutControlGroup1.TextVisible = false;
@@ -416,7 +444,7 @@
             // 
             this.layoutControlItem6.Control = this.txtFormID;
             this.layoutControlItem6.CustomizationFormText = "序号格式";
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 100);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 129);
             this.layoutControlItem6.MaxSize = new System.Drawing.Size(537, 25);
             this.layoutControlItem6.MinSize = new System.Drawing.Size(537, 25);
             this.layoutControlItem6.Name = "layoutControlItem6";
@@ -428,9 +456,9 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.CustomizationFormText = "emptySpaceItem2";
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 150);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 179);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(537, 28);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(537, 13);
             this.emptySpaceItem2.Text = "emptySpaceItem2";
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
@@ -438,7 +466,7 @@
             // 
             this.layoutControlItem3.Control = this.txtsMenuName;
             this.layoutControlItem3.CustomizationFormText = "字段名称";
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 29);
             this.layoutControlItem3.MaxSize = new System.Drawing.Size(253, 25);
             this.layoutControlItem3.MinSize = new System.Drawing.Size(253, 25);
             this.layoutControlItem3.Name = "layoutControlItem3";
@@ -451,7 +479,7 @@
             // 
             this.layoutControlItem5.Control = this.txtMenuEngName;
             this.layoutControlItem5.CustomizationFormText = "前缀字符";
-            this.layoutControlItem5.Location = new System.Drawing.Point(253, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(253, 29);
             this.layoutControlItem5.MaxSize = new System.Drawing.Size(284, 25);
             this.layoutControlItem5.MinSize = new System.Drawing.Size(284, 25);
             this.layoutControlItem5.Name = "layoutControlItem5";
@@ -464,7 +492,7 @@
             // 
             this.layoutControlItem1.Control = this.txtModuleFile;
             this.layoutControlItem1.CustomizationFormText = "模块文件";
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 25);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 54);
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(537, 25);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(537, 25);
             this.layoutControlItem1.Name = "layoutControlItem1";
@@ -477,7 +505,7 @@
             // 
             this.layoutControlItem7.Control = this.txtFormClassName;
             this.layoutControlItem7.CustomizationFormText = "模块类名";
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 50);
+            this.layoutControlItem7.Location = new System.Drawing.Point(0, 79);
             this.layoutControlItem7.MaxSize = new System.Drawing.Size(537, 25);
             this.layoutControlItem7.MinSize = new System.Drawing.Size(537, 25);
             this.layoutControlItem7.Name = "layoutControlItem7";
@@ -490,7 +518,7 @@
             // 
             this.layoutControlItem4.Control = this.txtFileDate;
             this.layoutControlItem4.CustomizationFormText = "文件日期";
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 75);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 104);
             this.layoutControlItem4.MaxSize = new System.Drawing.Size(537, 25);
             this.layoutControlItem4.MinSize = new System.Drawing.Size(537, 25);
             this.layoutControlItem4.Name = "layoutControlItem4";
@@ -498,15 +526,36 @@
             this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem4.Text = "文件日期";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(60, 14);
+            this.layoutControlItem4.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
             this.emptySpaceItem1.Location = new System.Drawing.Point(537, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(25, 178);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(25, 192);
             this.emptySpaceItem1.Text = "emptySpaceItem1";
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.Control = this.txtsQuickMenu;
+            this.layoutControlItem2.CustomizationFormText = "菜单助记符";
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 154);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(537, 25);
+            this.layoutControlItem2.Text = "菜单助记符";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(60, 14);
+            // 
+            // layoutControlItem8
+            // 
+            this.layoutControlItem8.Control = this.radRoot;
+            this.layoutControlItem8.CustomizationFormText = "选择节点";
+            this.layoutControlItem8.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem8.Name = "layoutControlItem8";
+            this.layoutControlItem8.Size = new System.Drawing.Size(537, 29);
+            this.layoutControlItem8.Text = "新增节点在";
+            this.layoutControlItem8.TextSize = new System.Drawing.Size(60, 14);
             // 
             // pnlDetailMenu
             // 
@@ -550,7 +599,7 @@
             this.tcDetail.Location = new System.Drawing.Point(2, 35);
             this.tcDetail.Name = "tcDetail";
             this.tcDetail.SelectedTabPage = this.tpDetail;
-            this.tcDetail.Size = new System.Drawing.Size(582, 216);
+            this.tcDetail.Size = new System.Drawing.Size(582, 202);
             this.tcDetail.TabIndex = 10;
             this.tcDetail.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.tpDetail});
@@ -561,7 +610,7 @@
             this.tpDetail.Controls.Add(this.lkpsGoodID);
             this.tpDetail.Controls.Add(this.lkpFlag);
             this.tpDetail.Name = "tpDetail";
-            this.tpDetail.Size = new System.Drawing.Size(575, 187);
+            this.tpDetail.Size = new System.Drawing.Size(575, 173);
             this.tpDetail.Text = "菜单参数";
             // 
             // gcDetail
@@ -576,7 +625,7 @@
             this.repositoryItemImageComboBox1,
             this.repositoryItemImageComboBox2,
             this.cbxFieldName});
-            this.gcDetail.Size = new System.Drawing.Size(575, 187);
+            this.gcDetail.Size = new System.Drawing.Size(575, 173);
             this.gcDetail.TabIndex = 4;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDetail,
@@ -722,24 +771,6 @@
             this.btnSaveSort.Text = "保存顺序";
             this.btnSaveSort.Click += new System.EventHandler(this.btnSaveSort_Click);
             // 
-            // txtsQuickMenu
-            // 
-            this.txtsQuickMenu.Location = new System.Drawing.Point(76, 137);
-            this.txtsQuickMenu.Name = "txtsQuickMenu";
-            this.txtsQuickMenu.Size = new System.Drawing.Size(469, 21);
-            this.txtsQuickMenu.StyleController = this.layoutControl1;
-            this.txtsQuickMenu.TabIndex = 16;
-            // 
-            // layoutControlItem2
-            // 
-            this.layoutControlItem2.Control = this.txtsQuickMenu;
-            this.layoutControlItem2.CustomizationFormText = "菜单助记符";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 125);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(537, 25);
-            this.layoutControlItem2.Text = "菜单助记符";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(60, 14);
-            // 
             // frmsysPlatformManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -763,6 +794,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tvMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radRoot.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtsQuickMenu.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFileDate.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFormClassName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtModuleFile.Properties)).EndInit();
@@ -778,6 +811,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetailMenu)).EndInit();
             this.pnlDetailMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tcDetail)).EndInit();
@@ -792,8 +827,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxFieldName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtsQuickMenu.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -841,5 +874,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private DevExpress.XtraEditors.TextEdit txtsQuickMenu;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraEditors.RadioGroup radRoot;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
     }
 }

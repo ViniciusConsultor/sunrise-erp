@@ -909,6 +909,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemImageComboBox1.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("S-字符型", "S", -1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("L-选择框", "L", -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("D-日期型", "D", -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("N-数字型", "N", -1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("C-ComboBox选择", "C", -1),
@@ -1136,7 +1137,7 @@
             this.lkpiFormID.Name = "lkpiFormID";
             this.lkpiFormID.SearchFormFilter = "";
             this.lkpiFormID.SearchFormText = "";
-            this.lkpiFormID.Size = new System.Drawing.Size(132, 23);
+            this.lkpiFormID.Size = new System.Drawing.Size(132, 21);
             this.lkpiFormID.SQL = null;
             this.lkpiFormID.TabIndex = 13;
             this.lkpiFormID.TextFont = new System.Drawing.Font("Tahoma", 9F);
