@@ -57,6 +57,7 @@
     <Compile Include="sysRolesRightsDAL.cs" />
     <Compile Include="sysRolesUserDAL.cs" />
     <Compile Include="sysUserDAL.cs" />
+    <Compile Include="sysParamterDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sunrise.ERP.BaseControl\Sunrise.ERP.BaseControl.csproj">

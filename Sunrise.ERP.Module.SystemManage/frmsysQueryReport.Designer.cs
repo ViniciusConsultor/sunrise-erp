@@ -200,6 +200,7 @@
             this.gvSearch.OptionsView.ColumnAutoWidth = false;
             this.gvSearch.OptionsView.ShowFooter = true;
             this.gvSearch.OptionsView.ShowGroupPanel = false;
+            this.gvSearch.DoubleClick += new System.EventHandler(this.gvSearch_DoubleClick);
             // 
             // tpChart
             // 

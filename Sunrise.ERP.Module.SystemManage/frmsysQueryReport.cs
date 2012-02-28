@@ -6,9 +6,12 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
+
 using DevExpress.XtraCharts;
+
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.Report;
+using Sunrise.ERP.Controls;
 
 namespace Sunrise.ERP.Module.SystemManage
 {
@@ -266,6 +269,17 @@ namespace Sunrise.ERP.Module.SystemManage
                                             }
                                             chk.Text = dr[iControl]["sColumnCaption"].ToString();
                                             grbFilter.Controls.Add(chk);
+                                            break;
+                                        }
+                                    case "L":
+                                        {
+                                            SunriseLookUp lkp = new SunriseLookUp();
+                                            lkp.Size = new Size(120, 21);
+                                            lkp.Name = "chk" + dr[iControl]["sColumnFieldName"].ToString() + iControl.ToString();
+                                            lkp.Location = new Point(10 + (80 + 120 + iControlSpace) * i + 80, 28 + (21 + 10) * j);
+                                            lkp.Tag = dr[iControl]["sColumnFieldName"].ToString() + " " + dr[iControl]["sSearchType"].ToString();
+                                            //初始化Lkp
+
                                             break;
                                         }
 
@@ -916,6 +930,11 @@ namespace Sunrise.ERP.Module.SystemManage
             {
                 ShowChart();
             }
+        }
+
+        private void gvSearch_DoubleClick(object sender, EventArgs e)
+        {
+            //
         }
     }
 }

@@ -13,11 +13,16 @@ using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.BasePublic;
 using Sunrise.ERP.DataAccess;
 
+using DevExpress.XtraTreeList.Nodes;
+
+
 namespace Sunrise.ERP.Module.SystemManage
 {
     public partial class frmsysPlatformManage : Sunrise.ERP.BaseForm.frmMasterDetail
     {
         int iSort = 0;
+        TreeListNode CurrentNode;
+        bool NodeChanged = true;
         public frmsysPlatformManage(int formid, string formtext)
             : base(formid, "Sunrise.ERP.SystemManage.DAL", "sysMenuDAL", " AND 1=1", "iSort", false)
         {
@@ -65,9 +70,16 @@ namespace Sunrise.ERP.Module.SystemManage
 
         public override bool DoAppend()
         {
+            NodeChanged = false;
             base.DoAppend();
             //新增默认值
-            ((DataRowView)dsMain.Current).Row["iParentID"] = 0;
+            if (radRoot.SelectedIndex == 0)
+            {
+                ((DataRowView)dsMain.Current).Row["iParentID"] = CurrentNode["ID"];
+                NodeChanged = true;
+            }
+            else
+                ((DataRowView)dsMain.Current).Row["iParentID"] = 0;
             ((DataRowView)dsMain.Current).Row["iSort"] = dsMain.CurrencyManager.Count + 1;
             ((DataRowView)dsMain.Current).Row["iFormID"] = DbHelperSQL.GetMaxID("iFormID", "sysMenu");
             dsMain.EndEdit();
@@ -142,7 +154,7 @@ namespace Sunrise.ERP.Module.SystemManage
         {
             node.SetValue("iSort", iSort);
             iSort++;
-            foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in node.Nodes)
+            foreach (TreeListNode item in node.Nodes)
             {
                 item.SetValue("iSort", iSort);
                 iSort++;
@@ -202,6 +214,12 @@ namespace Sunrise.ERP.Module.SystemManage
                 txtFileDate.Text = fi.LastWriteTime.ToString();
                 dsMain.EndEdit();
             }
+        }
+
+        private void tvMenu_FocusedNodeChanged(object sender, DevExpress.XtraTreeList.FocusedNodeChangedEventArgs e)
+        {
+            if (tvMenu.FocusedNode != null && NodeChanged)
+                CurrentNode = tvMenu.FocusedNode;
         }
 
     }

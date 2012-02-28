@@ -122,6 +122,12 @@
     <Compile Include="frmsysMenuPara.Designer.cs">
       <DependentUpon>frmsysMenuPara.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmsysParamter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmsysParamter.Designer.cs">
+      <DependentUpon>frmsysParamter.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmsysPlatformManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmsysMenuPara.resx">
       <DependentUpon>frmsysMenuPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmsysParamter.resx">
+      <DependentUpon>frmsysParamter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmsysPlatformManage.resx">
       <DependentUpon>frmsysPlatformManage.cs</DependentUpon>

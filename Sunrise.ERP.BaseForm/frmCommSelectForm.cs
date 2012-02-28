@@ -9,6 +9,7 @@ using System.Linq;
 
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.DataAccess;
+using Sunrise.ERP.Controls;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -271,7 +272,17 @@ namespace Sunrise.ERP.BaseForm
                                             grbFilter.Controls.Add(chk);
                                             break;
                                         }
+                                    case "L":
+                                        {
+                                            SunriseLookUp lkp = new SunriseLookUp();
+                                            lkp.Size = new Size(120, 21);
+                                            lkp.Name = "chk" + dr[iControl]["sColumnFieldName"].ToString() + iControl.ToString();
+                                            lkp.Location = new Point(10 + (80 + 120 + iControlSpace) * i + 80, 28 + (21 + 10) * j);
+                                            lkp.Tag = dr[iControl]["sColumnFieldName"].ToString() + " " + dr[iControl]["sSearchType"].ToString();
+                                            //初始化Lkp
 
+                                            break;
+                                        }
 
                                 }
                                 iControl++;
