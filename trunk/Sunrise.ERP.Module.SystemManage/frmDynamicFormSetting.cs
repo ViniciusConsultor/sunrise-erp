@@ -129,6 +129,7 @@ namespace Sunrise.ERP.Module.SystemManage
             gvDetail.GetFocusedDataRow()["bEdit"] = 1;
             //默认为数据字段，价格和数量用于控制权限是否显示此列
             gvDetail.GetFocusedDataRow()["sColumnType"] = "001";
+            gvDetail.GetFocusedDataRow()["bCopy"] = 1;
         }
 
         /// <summary>
