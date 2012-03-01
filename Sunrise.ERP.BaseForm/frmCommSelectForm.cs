@@ -615,6 +615,12 @@ namespace Sunrise.ERP.BaseForm
         {
             DialogResult = DialogResult.Cancel;
         }
+
+        //高级查询，弹出查询自定义界面
+        private void btnAdvView_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 
     /// <summary>
@@ -717,6 +723,26 @@ namespace Sunrise.ERP.BaseForm
                     dtDetail.Rows.Add(drTmp);
                 }
             }
+        }
+
+        /// <summary>
+        /// 选择导入数据
+        /// </summary>
+        /// <param name="reportno">查询编号</param>
+        /// <param name="where">选择数据源的过滤条件</param>
+        /// <param name="isautoselect">是否默认选中所有数据</param>
+        /// <returns>选择的数据集</returns>
+        public List<DataRow> SelectData(string reportno, string where, bool isautoselect)
+        {
+             //数据选择窗体
+            frmCommSelectForm frm = new frmCommSelectForm(reportno, where, isautoselect);
+            frm.ReportNo = reportno;
+            frm.StartPosition = FormStartPosition.CenterParent;
+            frm.WindowState = FormWindowState.Normal;
+            if (frm.ShowDialog() == DialogResult.OK)
+                return frm.ResultData.ToList();
+            else
+                return null;
         }
     }
 }
