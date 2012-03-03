@@ -595,6 +595,26 @@ namespace Sunrise.ERP.BasePublic
         }
 
         /// <summary>
+        /// 获取表的外键字段名称
+        /// </summary>
+        /// <param name="tablename"></param>
+        /// <returns></returns>
+        public static string GetTableFKFieldName(string tablename)
+        {
+            string result = string.Empty;
+            string sSql = "SELECT OBJECT_NAME(F.FKEYID) AS FTABLENAME, COL.NAME, F.CONSTID AS TEMP "
+                        + "FROM SYSCOLUMNS COL,SYSFOREIGNKEYS F "
+                        + "WHERE F.FKEYID=COL.ID AND F.FKEY=COL.COLID AND F.CONSTID IN "
+                        + "( SELECT DISTINCT(ID)  "
+                        + "FROM SYSOBJECTS "
+                        + "WHERE OBJECT_NAME(PARENT_OBJ)='" + tablename + "' AND XTYPE='F')";
+            DataTable dtTmp = DbHelperSQL.Query(sSql).Tables[0];
+            if (dtTmp != null && dtTmp.Rows.Count > 0)
+                result = dtTmp.Rows[0]["NAME"].ToString();
+            return result;
+        }
+
+        /// <summary>
         /// 获取自定义表数据
         /// </summary>
         /// <param name="formid">FormID</param>

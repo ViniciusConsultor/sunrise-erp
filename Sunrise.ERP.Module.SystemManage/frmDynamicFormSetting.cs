@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 using Sunrise.ERP.Common;
 using Sunrise.ERP.BasePublic;
@@ -311,6 +312,395 @@ namespace Sunrise.ERP.Module.SystemManage
             colbEdit.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbEdit.Name);
             colsColumnType.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsColumnType.Name);
             colbCopy.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbCopy.Name);
+        }
+
+        private void btnInsertQuerySetting_Click(object sender, EventArgs e)
+        {
+            if (BillID == 0) return;
+            string sFormType = lkpsFormType.EditValue;
+            
+            //生成的查询配置编号为QR+表名+FormID
+            string ReportNo = "QR" + txtsTableName.Text + txtFormID.Text;
+            string ReportName = txtsMenuName.Text;
+            
+            bool isHaveUserColumn = false;
+            bool isMasterHaveUserColumn = false;
+
+            DataTable dtDetailData = new DataTable();
+            dtDetailData.Columns.Add("sFieldName");
+            dtDetailData.Columns.Add("sCaption");
+            dtDetailData.Columns.Add("sFieldType");
+            dtDetailData.Columns.Add("bIsQuery");
+            dtDetailData.Columns.Add("bIsShow");
+            dtDetailData.Columns.Add("sSearchType");
+            dtDetailData.Columns.Add("sDefaultValue");
+            dtDetailData.Columns.Add("sReturnValue");
+            dtDetailData.Columns.Add("sFooterType");
+
+            //查询配置历史数据
+            string sHistorySql = "SELECT A.* FROM sysQueryReportDetail A LEFT JOIN sysQueryReportMaster B ON A.MainID=B.ID WHERE B.sReportNo='" + ReportNo + "'";
+            DataTable dtQueryReportHistory = DbHelperSQL.Query(sHistorySql).Tables[0];
+
+            //窗体类型为单表
+            if (sFormType == "001")
+            {
+                string sTableName = txtsQueryViewName.Text != "" ? txtsQueryViewName.Text : txtsTableName.Text;
+                string sUserTableName = txtsTableName.Text + txtFormID.Text + "_Z";
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("SELECT ");
+                strSql.AppendLine();
+                foreach (DataRow dr in LDetailDataSet[0].Tables[0].Rows)
+                {
+                    bool isSystemColumn = Convert.ToBoolean(dr["bSystemColumn"]);
+                    //tabel1.name AS table1_name
+                    //如果该列为自定义列，则该字段的前缀是自定义表
+                    if (!isSystemColumn)
+                    {
+                        strSql.Append(sUserTableName + "." + dr["sFieldName"].ToString() + " AS " + sTableName + "_" + dr["sFieldName"].ToString() + ",");
+
+                        isHaveUserColumn = true;
+                    }
+                    else
+                        strSql.Append(sTableName + "." + dr["sFieldName"].ToString() + " AS " + sTableName + "_" + dr["sFieldName"].ToString() + ",");
+                    
+                    //计算要生成的明细列
+                    DataRow drTmp = dtDetailData.NewRow();
+                    drTmp["sFieldName"] = sTableName + "_" + dr["sFieldName"].ToString();
+                    drTmp["sCaption"] = dr["sCaption"];
+                    drTmp["bIsQuery"] = false;
+                    drTmp["bIsShow"] = true;
+                    drTmp["sSearchType"] = string.Empty;
+                    drTmp["sDefaultValue"] = string.Empty;
+                    drTmp["sReturnValue"] = string.Empty;
+                    drTmp["sFooterType"] = "001";
+
+                    switch (dr["sFieldType"].ToString())
+                    {
+                        case "S":
+                        case "M":
+                            {
+                                drTmp["sFieldType"] = "S";
+                                break;
+                            }
+                        case "D":
+                            {
+                                drTmp["sFieldType"] = "D";
+                                break;
+                            }
+                        case "B":
+                            {
+                                drTmp["sFieldType"] = "K";
+                                break;
+                            }
+                        case "I":
+                        case "F":
+                            {
+                                drTmp["sFieldType"] = "N";
+                                break;
+                            }
+                        default:
+                            {
+                                drTmp["sFieldType"] = "S";
+                                break;
+                            }
+                    }
+
+                    //合并历史数据
+                    foreach (DataRow drHistory in dtQueryReportHistory.Rows)
+                    {
+                        if (drHistory["sColumnFieldName"].ToString() == sTableName + "_" + dr["sFieldName"].ToString())
+                        {
+                            drTmp["bIsQuery"] = drHistory["bIsQuery"];
+                            drTmp["bIsShow"] = drHistory["bIsShow"];
+                            drTmp["sSearchType"] = drHistory["sSearchType"];
+                            drTmp["sDefaultValue"] = drHistory["sDefaultValue"];
+                            drTmp["sReturnValue"] = drHistory["sReturnValue"];
+                            drTmp["sFooterType"] = drHistory["sFooterType"];
+                        }
+                    }
+
+                    dtDetailData.Rows.Add(drTmp);
+
+                }
+                //加入bCheck字段
+                strSql.Append("basCheck.bCheck FROM " + sTableName);
+                strSql.AppendLine();
+                //只有含有自定义列时才将自定义表关联进来
+                if (isHaveUserColumn)
+                {
+                    strSql.Append("LEFT JOIN " + sUserTableName + " ON " + sTableName + ".ID=" + sUserTableName + ".MainTableID");
+                    strSql.AppendLine();
+                }
+                strSql.Append("LEFT JOIN basCheck ON " + sTableName + ".ID=basCheck.Code");
+
+                //写入数据到查询配置中
+                InsertQuertReportData(ReportNo, ReportName, strSql.ToString(), dtDetailData);
+
+            }
+            //窗体类型为Grid的时候，需要同时生成起主表信息
+            else if (sFormType == "002")
+            {
+                string sMasterSql = "SELECT A.*,B.sTableName,B.sQueryViewName FROM sysDynamicFormDetail A LEFT JOIN sysDynamicFormMaster B ON A.MainID=B.ID WHERE B.sFormType='001' AND B.FormID=" + txtFormID.Text;
+                DataTable dtMaster = DbHelperSQL.Query(sMasterSql).Tables[0];
+
+                string sMasterTableName = "";
+                string sMasterUserTableName = "";
+                string sTableName = txtsQueryViewName.Text != "" ? txtsQueryViewName.Text : txtsTableName.Text;
+                string sUserTableName = txtsTableName.Text + txtFormID.Text + "_Z";
+                string sFKFieldName=Base.GetTableFKFieldName(sTableName);
+
+                StringBuilder strSql = new StringBuilder();
+                strSql.Append("SELECT ");
+                strSql.AppendLine();
+
+                //主表字段信息
+                if (dtMaster != null && dtMaster.Rows.Count > 0)
+                {
+                    sMasterTableName = dtMaster.Rows[0]["sQueryViewName"].ToString() != "" ? dtMaster.Rows[0]["sQueryViewName"].ToString() : dtMaster.Rows[0]["sTableName"].ToString();
+                    sMasterUserTableName = dtMaster.Rows[0]["sTableName"].ToString() + txtFormID.Text + "_Z";
+
+                    foreach (DataRow dr in dtMaster.Rows)
+                    {
+                        bool isSystemColumn = Convert.ToBoolean(dr["bSystemColumn"]);
+                        //tabel1.name AS table1_name
+                        //如果该列为自定义列，则该字段的前缀是自定义表
+                        if (!isSystemColumn)
+                        {
+                            strSql.Append(sMasterUserTableName + "." + dr["sFieldName"].ToString() + " AS " + sMasterTableName + "_" + dr["sFieldName"].ToString() + ",");
+
+                            isMasterHaveUserColumn = true;
+                        }
+                        else
+                            strSql.Append(sMasterTableName + "." + dr["sFieldName"].ToString() + " AS " + sMasterTableName + "_" + dr["sFieldName"].ToString() + ",");
+
+                        //计算要生成的明细列
+                        DataRow drTmp = dtDetailData.NewRow();
+                        drTmp["sFieldName"] = sMasterTableName + "_" + dr["sFieldName"].ToString();
+                        drTmp["sCaption"] = dr["sCaption"];
+                        drTmp["bIsQuery"] = false;
+                        drTmp["bIsShow"] = true;
+                        drTmp["sSearchType"] = string.Empty;
+                        drTmp["sDefaultValue"] = string.Empty;
+                        drTmp["sReturnValue"] = string.Empty;
+                        drTmp["sFooterType"] = "001";
+
+                        switch (dr["sFieldType"].ToString())
+                        {
+                            case "S":
+                            case "M":
+                                {
+                                    drTmp["sFieldType"] = "S";
+                                    break;
+                                }
+                            case "D":
+                                {
+                                    drTmp["sFieldType"] = "D";
+                                    break;
+                                }
+                            case "B":
+                                {
+                                    drTmp["sFieldType"] = "K";
+                                    break;
+                                }
+                            case "I":
+                            case "F":
+                                {
+                                    drTmp["sFieldType"] = "N";
+                                    break;
+                                }
+                            default:
+                                {
+                                    drTmp["sFieldType"] = "S";
+                                    break;
+                                }
+                        }
+
+                        //合并历史数据
+                        foreach (DataRow drHistory in dtQueryReportHistory.Rows)
+                        {
+                            if (drHistory["sColumnFieldName"].ToString() == sMasterTableName + "_" + dr["sFieldName"].ToString())
+                            {
+                                drTmp["bIsQuery"] = drHistory["bIsQuery"];
+                                drTmp["bIsShow"] = drHistory["bIsShow"];
+                                drTmp["sSearchType"] = drHistory["sSearchType"];
+                                drTmp["sDefaultValue"] = drHistory["sDefaultValue"];
+                                drTmp["sReturnValue"] = drHistory["sReturnValue"];
+                                drTmp["sFooterType"] = drHistory["sFooterType"];
+                            }
+                        }
+                        dtDetailData.Rows.Add(drTmp);
+                    }
+                }
+               
+                //当前明细自定义配置信息
+                foreach (DataRow dr in LDetailDataSet[0].Tables[0].Rows)
+                {
+                    bool isSystemColumn = Convert.ToBoolean(dr["bSystemColumn"]);
+                    //tabel1.name AS table1_name
+                    //如果该列为自定义列，则该字段的前缀是自定义表
+                    if (!isSystemColumn)
+                    {
+                        strSql.Append(sUserTableName + "." + dr["sFieldName"].ToString() + " AS " + sTableName + "_" + dr["sFieldName"].ToString() + ",");
+
+                        isHaveUserColumn = true;
+                    }
+                    else
+                        strSql.Append(sTableName + "." + dr["sFieldName"].ToString() + " AS " + sTableName + "_" + dr["sFieldName"].ToString() + ",");
+
+                    //计算要生成的明细列
+                    DataRow drTmp = dtDetailData.NewRow();
+                    drTmp["sFieldName"] = sTableName + "_" + dr["sFieldName"].ToString();
+                    drTmp["sCaption"] = dr["sCaption"];
+                    drTmp["bIsQuery"] = false;
+                    drTmp["bIsShow"] = true;
+                    drTmp["sSearchType"] = string.Empty;
+                    drTmp["sDefaultValue"] = string.Empty;
+                    drTmp["sReturnValue"] = string.Empty;
+                    drTmp["sFooterType"] = "001";
+
+                    switch (dr["sFieldType"].ToString())
+                    {
+                        case "S":
+                        case "M":
+                            {
+                                drTmp["sFieldType"] = "S";
+                                break;
+                            }
+                        case "D":
+                            {
+                                drTmp["sFieldType"] = "D";
+                                break;
+                            }
+                        case "B":
+                            {
+                                drTmp["sFieldType"] = "K";
+                                break;
+                            }
+                        case "I":
+                        case "F":
+                            {
+                                drTmp["sFieldType"] = "N";
+                                break;
+                            }
+                        default:
+                            {
+                                drTmp["sFieldType"] = "S";
+                                break;
+                            }
+                    }
+
+                    //合并历史数据
+                    foreach (DataRow drHistory in dtQueryReportHistory.Rows)
+                    {
+                        if (drHistory["sColumnFieldName"].ToString() == sTableName + "_" + dr["sFieldName"].ToString())
+                        {
+                            drTmp["bIsQuery"] = drHistory["bIsQuery"];
+                            drTmp["bIsShow"] = drHistory["bIsShow"];
+                            drTmp["sSearchType"] = drHistory["sSearchType"];
+                            drTmp["sDefaultValue"] = drHistory["sDefaultValue"];
+                            drTmp["sReturnValue"] = drHistory["sReturnValue"];
+                            drTmp["sFooterType"] = drHistory["sFooterType"];
+                        }
+                    }
+
+                    dtDetailData.Rows.Add(drTmp);
+
+                }
+                //加入bCheck字段
+                strSql.Append("basCheck.bCheck FROM " + sTableName);
+                strSql.AppendLine();
+
+                //关联主表
+                strSql.Append("LEFT JOIN " + sMasterTableName + " ON " + sMasterTableName + ".ID=" + sTableName + "." + sFKFieldName);
+                strSql.AppendLine();
+
+                if (isMasterHaveUserColumn)
+                {
+                    strSql.Append("LEFT JOIN " + sMasterUserTableName + " ON " + sMasterTableName + ".ID=" + sMasterUserTableName + ".MainTableID");
+                    strSql.AppendLine();
+                }
+
+                //只有含有自定义列时才将自定义表关联进来
+                if (isHaveUserColumn)
+                {
+                    strSql.Append("LEFT JOIN " + sUserTableName + " ON " + sTableName + ".ID=" + sUserTableName + ".MainTableID");
+                    strSql.AppendLine();
+                }
+                strSql.Append("LEFT JOIN basCheck ON " + sTableName + ".ID=basCheck.Code");
+
+                //写入数据到查询配置中
+                InsertQuertReportData(ReportNo, ReportName + "明细", strSql.ToString(), dtDetailData);
+            }
+        }
+
+        private void InsertQuertReportData(string reportno,string reportname,string reportsql,DataTable detaildata)
+        {
+            bool isExistReport = DbHelperSQL.Exists("SELECT 1 FROM sysQueryReportMaster WHERE sReportNo='" + reportno + "'");
+            string sOptionSQL;
+            //事务开始
+            SqlTransaction trans = ConnectSetting.SysSqlConnection.BeginTransaction();
+            try
+            {
+                //先判断是否已经存在，如果存在数据,则提示是否覆盖以前数据
+                if (isExistReport)
+                {
+                    if (Public.SystemInfo("查询配置已经存在，继续生成将覆盖之前数据，是否继续？", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        //先删除旧数据
+                        sOptionSQL = "DELETE FROM sysQueryReportMaster WHERE sReportNo='" + reportno + "'";
+                        DbHelperSQL.ExecuteSql(sOptionSQL, trans);
+                    }
+                    else
+                    {
+                        trans.Dispose();
+                        return;
+                    }
+                }
+                //插入查询配置主表
+                sOptionSQL = "INSERT INTO sysQueryReportMaster(sReportNo, sReportName, sReportSQL,"
+                           + "iControlSpace, iControlColumn, bIsShowPrintBtn, bIsShowExecBtn, "
+                           + "bIsChart, bOptionData, sExecBtnText, sExecSQL, sDealFields, "
+                           + "sSortFields, iFlag, sUserID, bIsAutoRun) "
+                           + "VALUES( "
+                           + "'" + reportno + "',"
+                           + "'" + reportname + "',"
+                           + "'" + reportsql + "',"
+                           + "10,3,0,0,0,null,null,null,'*',null,0,'" + SecurityCenter.CurrentUserID + "',1) ;SELECT @@IDENTITY";
+                int MasterID = 0;
+                object id = DbHelperSQL.GetSingle(sOptionSQL, trans);
+                MasterID = id == null ? 0 : Convert.ToInt32(id);
+                if (MasterID != 0 && detaildata!=null)
+                {
+                    for (int i = 0; i < detaildata.Rows.Count; i++)
+                    {
+                        //插入查询配置明细表
+                        sOptionSQL = "INSERT INTO sysQueryReportDetail(MainID, iSort, sColumnFieldName, sColumnCaption, "
+                                   + "sColumnType, bIsQuery, bIsShow, bChartField, bChartValue, sSearchType, "
+                                   + "sDefaultValue, sReturnValue, bIsGroup, sFooterType, bIsStat, iFormID, sUserID) "
+                                   + "VALUES( " + MasterID.ToString() + "," + (i + 1).ToString() + ","
+                                   + "'" + detaildata.Rows[i]["sFieldName"].ToString() + "',"
+                                   + "'" + detaildata.Rows[i]["sCaption"].ToString() + "',"
+                                   + "'" + detaildata.Rows[i]["sFieldType"].ToString() + "',"
+                                   + (Convert.ToBoolean(detaildata.Rows[i]["bIsQuery"]) ? "1" : "0") + ","
+                                   + (Convert.ToBoolean(detaildata.Rows[i]["bIsShow"]) ? "1" : "0") + ","
+                                   + "0,0,"
+                                   + "'" + detaildata.Rows[i]["sSearchType"].ToString() + "',"
+                                   + "'" + detaildata.Rows[i]["sDefaultValue"].ToString() + "',"
+                                   + "'" + detaildata.Rows[i]["sReturnValue"].ToString() + "',"
+                                   + "0,"
+                                   + "'" + detaildata.Rows[i]["sFooterType"].ToString() + "',"
+                                   + "0,NULL,'" + SecurityCenter.CurrentUserID + "')";
+                        DbHelperSQL.GetSingle(sOptionSQL, trans);
+                    }
+                }
+                trans.Commit();
+                Public.SystemInfo("写入查询配置数据成功！");
+            }
+            catch(Exception ex)
+            {
+                Public.SystemInfo("写入查询配置数据失败！" + ex.Message, true);
+                trans.Rollback();
+            }
         }
 
     }

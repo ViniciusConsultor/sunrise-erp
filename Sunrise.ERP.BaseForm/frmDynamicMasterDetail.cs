@@ -237,6 +237,9 @@ namespace Sunrise.ERP.BaseForm
                             swhere = LDetailField[i] + "=" + GetMasterLinkValue(LMasterField[i]);
                             if (DetailOrderField[LDetailTableName[i]] != null && DetailOrderField[LDetailTableName[i]].ToString() != "")
                                 swhere += " ORDER BY " + DetailOrderField[LDetailTableName[i]].ToString();
+                            
+                            //很奇怪的问题，必须先清除再重新设置其数据源
+                            ((DataSet)LDetailBindingSource[i].DataSource).Clear();
                             LDetailBindingSource[i].DataSource = GetDataSet(LDetailDynamicDAL[i], swhere);
                         }
                     }

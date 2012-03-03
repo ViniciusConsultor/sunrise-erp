@@ -59,6 +59,7 @@
             this.colsColumnType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cbxsColumnType = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.colbEdit = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colbCopy = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbQuery = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbSaveData = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colbNotNull = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -96,8 +97,7 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lblsMenuName = new DevExpress.XtraLayout.LayoutControlItem();
-            this.btnFormStyle = new DevExpress.XtraEditors.SimpleButton();
-            this.colbCopy = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnInsertQuerySetting = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -181,11 +181,11 @@
             // 
             // panelControl2
             // 
-            this.panelControl2.Controls.Add(this.btnFormStyle);
+            this.panelControl2.Controls.Add(this.btnInsertQuerySetting);
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl2.Size = new System.Drawing.Size(820, 33);
-            this.panelControl2.Controls.SetChildIndex(this.btnFormStyle, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnInsertQuerySetting, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnAction, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnCopy, 0);
             this.panelControl2.Controls.SetChildIndex(this.dataNav, 0);
@@ -635,6 +635,15 @@
             this.colbEdit.VisibleIndex = 13;
             this.colbEdit.Width = 63;
             // 
+            // colbCopy
+            // 
+            this.colbCopy.Caption = "可复制";
+            this.colbCopy.FieldName = "bCopy";
+            this.colbCopy.Name = "colbCopy";
+            this.colbCopy.Visible = true;
+            this.colbCopy.VisibleIndex = 14;
+            this.colbCopy.Width = 57;
+            // 
             // colbQuery
             // 
             this.colbQuery.Caption = "查询";
@@ -1060,23 +1069,15 @@
             this.lblsMenuName.Text = "模块名称";
             this.lblsMenuName.TextSize = new System.Drawing.Size(72, 14);
             // 
-            // btnFormStyle
+            // btnInsertQuerySetting
             // 
-            this.btnFormStyle.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.refresh;
-            this.btnFormStyle.Location = new System.Drawing.Point(288, 4);
-            this.btnFormStyle.Name = "btnFormStyle";
-            this.btnFormStyle.Size = new System.Drawing.Size(75, 24);
-            this.btnFormStyle.TabIndex = 15;
-            this.btnFormStyle.Text = "界面设置";
-            // 
-            // colbCopy
-            // 
-            this.colbCopy.Caption = "可复制";
-            this.colbCopy.FieldName = "bCopy";
-            this.colbCopy.Name = "colbCopy";
-            this.colbCopy.Visible = true;
-            this.colbCopy.VisibleIndex = 14;
-            this.colbCopy.Width = 57;
+            this.btnInsertQuerySetting.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.refresh;
+            this.btnInsertQuerySetting.Location = new System.Drawing.Point(288, 4);
+            this.btnInsertQuerySetting.Name = "btnInsertQuerySetting";
+            this.btnInsertQuerySetting.Size = new System.Drawing.Size(106, 24);
+            this.btnInsertQuerySetting.TabIndex = 15;
+            this.btnInsertQuerySetting.Text = "生成查询配置";
+            this.btnInsertQuerySetting.Click += new System.EventHandler(this.btnInsertQuerySetting_Click);
             // 
             // frmDynamicFormSetting
             // 
@@ -1208,7 +1209,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox cbxsColumnType;
         private DevExpress.XtraGrid.Columns.GridColumn colbEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit txtsFieldName;
-        private DevExpress.XtraEditors.SimpleButton btnFormStyle;
+        private DevExpress.XtraEditors.SimpleButton btnInsertQuerySetting;
         private DevExpress.XtraGrid.Columns.GridColumn coliFormID;
         private DevExpress.XtraGrid.Columns.GridColumn colsMenuName;
         private DevExpress.XtraEditors.TextEdit txtsMenuName;
