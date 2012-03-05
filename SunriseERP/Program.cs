@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Sunrise.ERP.Lang;
+using Sunrise.ERP.BaseControl;
 
 namespace SunriseERP
 {
@@ -19,6 +20,7 @@ namespace SunriseERP
             DevExpress.Skins.SkinManager.EnableFormSkins();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             AutoUpdate.AppUpdater au = new AutoUpdate.AppUpdater();
             if (au.CheckForUpdate() > 0)
             {
