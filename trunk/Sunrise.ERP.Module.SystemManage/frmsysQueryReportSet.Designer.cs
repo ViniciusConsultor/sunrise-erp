@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             this.gcMain = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colsReportNo = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -128,6 +128,8 @@
             this.repositoryItemComboBox3 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.btnPreview = new DevExpress.XtraEditors.SimpleButton();
+            this.btnCreateUpdateSQL = new DevExpress.XtraEditors.SimpleButton();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -228,6 +230,7 @@
             // 
             // panelControl2
             // 
+            this.panelControl2.Controls.Add(this.btnCreateUpdateSQL);
             this.panelControl2.Controls.Add(this.btnPreview);
             this.panelControl2.LookAndFeel.SkinName = "Blue";
             this.panelControl2.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -247,6 +250,7 @@
             this.panelControl2.Controls.SetChildIndex(this.btnCancel, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnInsert, 0);
             this.panelControl2.Controls.SetChildIndex(this.btnRefresh, 0);
+            this.panelControl2.Controls.SetChildIndex(this.btnCreateUpdateSQL, 0);
             // 
             // btnInsert
             // 
@@ -420,9 +424,9 @@
             this.txtsDealFields.Name = "txtsDealFields";
             this.txtsDealFields.Size = new System.Drawing.Size(384, 21);
             this.txtsDealFields.StyleController = this.layoutControl1;
-            toolTipItem1.Text = "如果有分组时,应写入SUM等分组统计,例如SUM(fQuantity) AS fQuantity;非分组时,默认*表示所有字段";
-            superToolTip1.Items.Add(toolTipItem1);
-            this.txtsDealFields.SuperTip = superToolTip1;
+            toolTipItem3.Text = "如果有分组时,应写入SUM等分组统计,例如SUM(fQuantity) AS fQuantity;非分组时,默认*表示所有字段";
+            superToolTip3.Items.Add(toolTipItem3);
+            this.txtsDealFields.SuperTip = superToolTip3;
             this.txtsDealFields.TabIndex = 16;
             // 
             // txtsExecSQL
@@ -433,9 +437,9 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.txtsExecSQL.Size = new System.Drawing.Size(158, 21);
             this.txtsExecSQL.StyleController = this.layoutControl1;
-            toolTipItem2.Text = "需要执行的SQL语句,支持通配符\r\n<字段名>:当前选择行中该列的值\r\n<UserID>:当前登录用户ID\r\n<GetDate>:当前系统时间";
-            superToolTip2.Items.Add(toolTipItem2);
-            this.txtsExecSQL.SuperTip = superToolTip2;
+            toolTipItem4.Text = "需要执行的SQL语句,支持通配符\r\n<字段名>:当前选择行中该列的值\r\n<UserID>:当前登录用户ID\r\n<GetDate>:当前系统时间";
+            superToolTip4.Items.Add(toolTipItem4);
+            this.txtsExecSQL.SuperTip = superToolTip4;
             this.txtsExecSQL.TabIndex = 15;
             // 
             // txtsExecBtnText
@@ -486,9 +490,9 @@
             this.txtsReportSQL.Name = "txtsReportSQL";
             this.txtsReportSQL.Size = new System.Drawing.Size(384, 78);
             this.txtsReportSQL.StyleController = this.layoutControl1;
-            toolTipItem3.Text = "查询SQL,支持通配符\r\n<UserID>:当前登录用户ID\r\n<GetDate>:当前系统时间";
-            superToolTip3.Items.Add(toolTipItem3);
-            this.txtsReportSQL.SuperTip = superToolTip3;
+            toolTipItem1.Text = "查询SQL,支持通配符\r\n<UserID>:当前登录用户ID\r\n<GetDate>:当前系统时间";
+            superToolTip1.Items.Add(toolTipItem1);
+            this.txtsReportSQL.SuperTip = superToolTip1;
             this.txtsReportSQL.TabIndex = 7;
             this.txtsReportSQL.Tag = "NoTab";
             // 
@@ -1398,6 +1402,16 @@
             this.btnPreview.Text = "预览查询(&V)";
             this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
             // 
+            // btnCreateUpdateSQL
+            // 
+            this.btnCreateUpdateSQL.Location = new System.Drawing.Point(649, 4);
+            this.btnCreateUpdateSQL.Name = "btnCreateUpdateSQL";
+            this.btnCreateUpdateSQL.Size = new System.Drawing.Size(88, 24);
+            this.btnCreateUpdateSQL.TabIndex = 15;
+            this.btnCreateUpdateSQL.Text = "生成升级SQL";
+            this.btnCreateUpdateSQL.Visible = false;
+            this.btnCreateUpdateSQL.Click += new System.EventHandler(this.btnCreateUpdateSQL_Click);
+            // 
             // frmsysQueryReportSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1578,5 +1592,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit btniFormID;
         private DevExpress.XtraGrid.Columns.GridColumn colsMenuName;
         private Sunrise.ERP.Controls.SunriseLookUp lkpiFormID;
+        private DevExpress.XtraEditors.SimpleButton btnCreateUpdateSQL;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

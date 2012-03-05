@@ -207,5 +207,10 @@ namespace Sunrise.ERP.Module.SystemManage
             }
         }
 
+        private void btnCreateUpdateSQL_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

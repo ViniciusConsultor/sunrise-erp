@@ -775,6 +775,10 @@ namespace Sunrise.ERP.BaseForm
                         //设置非空字段颜色
                         if (bool.Parse(dr["bNotNull"].ToString().ToLower()))
                             ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).AppearanceItemCaption.ForeColor = Color.FromName(Base.GetSystemParamter("001"));
+
+                        //如果设置不显示在Panel中则该字段不显示
+                        if (!bool.Parse(dr["bShowInPanel"].ToString().ToLower()))
+                            ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).Visibility = LayoutVisibility.Never;
                     }
 
                     ctls[0].DataBindings.Add("EditValue", dsMain, dr["sFieldName"].ToString());

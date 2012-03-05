@@ -255,8 +255,8 @@ namespace Sunrise.ERP.Security
                 sSql = "SELECT A.sUserID FROM sysUser A "
                      + "WHERE A.DeptID IN "
                      + "(SELECT AA.ID "
-                     + "FROM hrDepartment AA "
-                     + "LEFT JOIN hrDepartment BB ON AA.ParentID=BB.ID "
+                     + "FROM vwDepartment AA "
+                     + "LEFT JOIN vwDepartment BB ON AA.ParentID=BB.ID "
                      + "LEFT JOIN sysUser CC ON BB.ID=CC.DeptID "
                      + "WHERE CC.sUserID='" + CurrentUserID + "')";
             }
@@ -266,8 +266,8 @@ namespace Sunrise.ERP.Security
                 sSql = "SELECT A.sUserID FROM sysUser A "
                       + "WHERE A.DeptID IN "
                       + "(SELECT AA.ID "
-                      + "FROM hrDepartment AA "
-                      + "LEFT JOIN hrDepartment BB ON AA.ParentID=BB.ID "
+                      + "FROM vwDepartment AA "
+                      + "LEFT JOIN vwDepartment BB ON AA.ParentID=BB.ID "
                       + "LEFT JOIN sysUser CC ON BB.ID=CC.DeptID "
                       + "WHERE CC.sUserID='" + CurrentUserID + "') "
                       + "UNION "

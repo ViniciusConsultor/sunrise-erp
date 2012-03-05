@@ -447,7 +447,7 @@ namespace Sunrise.ERP.Module.SystemManage
                 string sMasterUserTableName = "";
                 string sTableName = txtsQueryViewName.Text != "" ? txtsQueryViewName.Text : txtsTableName.Text;
                 string sUserTableName = txtsTableName.Text + txtFormID.Text + "_Z";
-                string sFKFieldName=Base.GetTableFKFieldName(sTableName);
+                string sFKFieldName = Base.GetTableFKFieldName(txtsTableName.Text);
 
                 StringBuilder strSql = new StringBuilder();
                 strSql.Append("SELECT ");
