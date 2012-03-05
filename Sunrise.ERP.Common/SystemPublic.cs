@@ -62,7 +62,7 @@ namespace Sunrise.ERP.Common
         /// <param name="lkp">LookUp控件</param>
         public static void InitLkpDept(SunriseLookUp lkp)
         {
-            InitLookUpBase(lkp, "SELECT ID,sDeptNo, sDeptName, sDeptEName, sRemark FROM hrDepartment WHERE bIsLock=0", "ID", "sDeptName", "sDeptNo,sDeptName,sDeptEName,sRemark",
+            InitLookUpBase(lkp, "SELECT ID,sDeptNo, sDeptName, sDeptEName, sRemark FROM vwDepartment WHERE bIsLock=0", "ID", "sDeptName", "sDeptNo,sDeptName,sDeptEName,sRemark",
                            "部门编号,中文名称,英文名称,备注", "部门信息");
         }
 
