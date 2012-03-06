@@ -588,7 +588,7 @@ namespace Sunrise.ERP.BaseForm
             {
                 foreach (DataRow dr in dtSearch.Rows)
                 {
-                    if (Convert.ToBoolean(dr["bCheck"]))
+                    if (!string.IsNullOrEmpty(dr["bCheck"].ToString()) && Convert.ToBoolean(dr["bCheck"]))
                     {
                         isSelectedData = true;
                         break;

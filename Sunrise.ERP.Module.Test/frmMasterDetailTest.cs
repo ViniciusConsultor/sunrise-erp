@@ -104,9 +104,10 @@ namespace Sunrise.ERP.Module.Test
 
         private void btnImportData_Click(object sender, EventArgs e)
         {
-            CommonSelect.Instance.SelectData(LDetailBindingSource[LDetailTableName.IndexOf("salTestDetail")], 
-                "QR003", 
-                "sIPAddress=sLoginIP,sAction=sAction,sDetail=sAction", "", true);
+            //CommonSelect.Instance.SelectData(LDetailBindingSource[LDetailTableName.IndexOf("salTestDetail")], 
+            //    "QR003", 
+            //    "sIPAddress=sLoginIP,sAction=sAction,sDetail=sAction", "", true);
+            List<DataRow> datas = CommonSelect.Instance.SelectData("QRsalTestDetail9003", "", false);
         }
     }
 }
