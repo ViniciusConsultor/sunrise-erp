@@ -39,6 +39,7 @@
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
             this.tbDetail = new DevExpress.XtraTab.XtraTabControl();
             this.tpDetail = new DevExpress.XtraTab.XtraTabPage();
+            this.pnlWait = new DevExpress.XtraEditors.PanelControl();
             this.gcSearch = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvSearch = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tpChart = new DevExpress.XtraTab.XtraTabPage();
@@ -61,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbDetail)).BeginInit();
             this.tbDetail.SuspendLayout();
             this.tpDetail.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlWait)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvSearch)).BeginInit();
             this.tpChart.SuspendLayout();
@@ -77,6 +79,7 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.pnlWait);
             this.panelControl1.Controls.Add(this.tbDetail);
             this.panelControl1.Controls.Add(this.splitterControl1);
             this.panelControl1.Controls.Add(this.grbFilter);
@@ -179,6 +182,17 @@
             this.tpDetail.Name = "tpDetail";
             this.tpDetail.Size = new System.Drawing.Size(868, 283);
             this.tpDetail.Text = "明细";
+            // 
+            // pnlWait
+            // 
+            this.pnlWait.ContentImage = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.wait;
+            this.pnlWait.Location = new System.Drawing.Point(231, 149);
+            this.pnlWait.LookAndFeel.SkinName = "Blue";
+            this.pnlWait.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.pnlWait.Name = "pnlWait";
+            this.pnlWait.Size = new System.Drawing.Size(380, 140);
+            this.pnlWait.TabIndex = 10;
+            this.pnlWait.Visible = false;
             // 
             // gcSearch
             // 
@@ -347,6 +361,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbDetail)).EndInit();
             this.tbDetail.ResumeLayout(false);
             this.tpDetail.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlWait)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvSearch)).EndInit();
             this.tpChart.ResumeLayout(false);
@@ -390,6 +405,7 @@
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.SimpleButton btnEdit;
         private DevExpress.XtraEditors.SimpleButton btnAdd;
+        private DevExpress.XtraEditors.PanelControl pnlWait;
 
     }
 }

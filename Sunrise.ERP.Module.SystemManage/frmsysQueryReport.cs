@@ -8,10 +8,16 @@ using System.Windows.Forms;
 using System.Linq;
 
 using DevExpress.XtraCharts;
+using DevExpress.XtraGrid.Columns;
 
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.Report;
 using Sunrise.ERP.Controls;
+using Sunrise.ERP.Security;
+using Sunrise.ERP.Lang;
+using Sunrise.ERP.BaseForm;
+using System.Reflection;
+
 
 namespace Sunrise.ERP.Module.SystemManage
 {
@@ -535,8 +541,14 @@ namespace Sunrise.ERP.Module.SystemManage
                 {
                     sSql = "SELECT " + sDealFields + " FROM (" + sMainSQL + ") A WHERE " + pwhere + (sSortFields == "" ? "" : (" ORDER BY " + sSortFields));
                 }
+                pnlWait.Location = new Point(this.Width / 2 - 200, this.Height / 2 - 90);
+                pnlWait.Visible = true;
+                RefreshForm(true);
                 dtSearch = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0];
                 gcSearch.DataSource = dtSearch;
+                pnlWait.Visible = false;
+                RefreshForm(true);
+
             }
             catch (Exception ex)
             {
@@ -935,6 +947,143 @@ namespace Sunrise.ERP.Module.SystemManage
         private void gvSearch_DoubleClick(object sender, EventArgs e)
         {
             //
+            int iFormID = 0;
+            if (gvSearch.GetFocusedDataRow() != null && CheckCanOpenFormField(gvSearch.FocusedColumn.FieldName,ref iFormID))
+            {
+                string sFormText = "";
+                string sModuleName = "";//tvMenu.FocusedNode.GetValue("sModuleName").ToString();
+                string sPath = "";
+                string sClassName = "";                
+
+                bool HasUserIDField = false;
+                //先检测是否存在sUserID字段，如果没有则无法打开模块，sUserID是制单人，用于检测权限的，必须要存在
+                foreach (DataRow dr in dtDetail.Rows)
+                {
+                    if (dr["sColumnFieldName"].ToString().ToLower() == "suserid")
+                    {
+                        HasUserIDField = true;
+                        break;
+                    }
+                }
+                if (!HasUserIDField)
+                {
+                    Public.SystemInfo("不存在sUserID字段，请检查查询配置！");
+                    return;
+                }
+
+                //先判断当前用户是否含有此模块的权限，取得菜单表中信息，检查是否含有此模块
+                bool HasFormID = false;
+                foreach (DataRow dr in SecurityCenter.SysMenuDataSet.Tables[0].Rows)
+                {
+                    if (dr["iFormID"].ToString() == iFormID.ToString())
+                    {
+                        HasFormID = true;
+                        //加载菜单信息中相关打开窗体需要的数据
+                        sFormText = dr["sMenuName"].ToString();
+                        sModuleName = dr["sModuleName"].ToString();
+                        sPath = Application.StartupPath + @"\Modules\" + sModuleName;
+                        if (System.IO.File.Exists(sPath))
+                        {
+                            sClassName = dr["sModuleName"].ToString().Replace("dll", dr["sFormClassName"].ToString());
+                        }
+                        else
+                        {
+                            return;
+                        }
+
+                        break;
+                    }
+                }
+
+                if (!HasFormID)
+                {
+                    Public.SystemInfo("您没有此模块的查询权限，请联系管理员！");
+                    return;
+                }
+
+                //打开窗体前，先检测当前用户是否具有此条数据的查询权限
+                SecurityCenter SC = new SecurityCenter();
+                if (!SC.CheckAuth(SecurityOperation.View, iFormID, gvSearch.GetFocusedDataRow()["sUserID"].ToString()))
+                {
+                    Public.SystemInfo(LangCenter.Instance.GetFormLangInfo("BaseForm", "NoQueryAuth"));
+                    return;
+                }
+
+                //打开模块窗体
+                if (HaveOpened(sFormText, gvSearch.FocusedColumn.FieldName, gvSearch.GetFocusedValue().ToString()))
+                {
+                    pnlWait.Location = new Point(this.Width / 2 - 200, this.Height / 2 - 90);
+                    pnlWait.Visible = true;
+                    RefreshForm(true);
+                    Cursor = Cursors.Default;
+                    try
+                    {
+                        Form frmobject = (Form)Assembly.LoadFile(sPath).CreateInstance(sClassName, true, BindingFlags.CreateInstance, null, new object[] { iFormID, sFormText }, null, null);
+                        frmobject.MdiParent = (Form)this.Parent.Parent;
+                        frmobject.Show();
+                        ((frmDynamicSingleForm)frmobject).LoadFormData(gvSearch.FocusedColumn.FieldName, gvSearch.GetFocusedValue().ToString());
+                        //picBack.Visible = false;
+
+                    }
+                    catch (Exception)
+                    {
+                        Public.SystemInfo(LangCenter.Instance.GetSystemMessage("SysModuleError"), true);
+                    }
+                    pnlWait.Visible = false;
+                    RefreshForm(true);
+                }
+
+
+            }
+        }
+        //((Form)this.Parent.Parent).MdiChildren[0].BringToFront();
+        //((BaseForm.frmDynamicSingleForm)((Form)this.Parent.Parent).MdiChildren[0]).LoadFormData(2);
+        private bool HaveOpened(string childname,string billnofield, string billno)
+        {
+            //查看窗口是否已经被打开
+            bool bReturn = true;
+            for (int i = 0; i < ((Form)this.Parent.Parent).MdiChildren.Length; i++)
+            {
+                if (((Form)this.Parent.Parent).MdiChildren[i].Text == childname)
+                {
+                    ((Form)this.Parent.Parent).MdiChildren[i].BringToFront();
+                    ((frmDynamicSingleForm)((Form)this.Parent.Parent).MdiChildren[i]).LoadFormData(billnofield, billno);
+                    bReturn = false;
+                    break;
+                }
+            }
+            return bReturn;
+        }
+
+        /// <summary>
+        /// 检查当前字段是否设置了iFormID确定可以打开模块窗体
+        /// </summary>
+        /// <param name="focusedfield"></param>
+        /// <returns></returns>
+        private bool CheckCanOpenFormField(string focusedfield, ref int formid)
+        {
+            string FieldsList = "";
+            foreach (DataRow dr in dtDetail.Select("iFormID<>NULL OR iFormID<>0"))
+            {
+                FieldsList += dr["sColumnFieldName"].ToString() + ",";
+                if (dr["sColumnFieldName"].ToString() == focusedfield)
+                    formid = Convert.ToInt32(dr["iFormID"]);
+            }
+
+            return FieldsList.ToLower().Contains(focusedfield.ToLower());
+        }
+
+        Cursor currentCursor;
+        private void RefreshForm(bool b)
+        {
+            if (b)
+            {
+                currentCursor = Cursor.Current;
+                Cursor.Current = Cursors.WaitCursor;
+                Refresh();
+            }
+            else
+                Cursor.Current = currentCursor;
         }
     }
 }
