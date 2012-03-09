@@ -893,13 +893,24 @@ namespace Sunrise.ERP.BasePublic
         /// <param name="comboboxno">ComboBox配置编号</param>
         public static void InitComboBox(ImageComboBoxEdit cbx, string comboboxno)
         {
+            InitComboBox(cbx, comboboxno, "");
+        }
+
+        /// <summary>
+        /// 初始化ComboBox
+        /// </summary>
+        /// <param name="cbx">ComboBox控件</param>
+        /// <param name="comboboxno">ComboBox配置编号</param>
+        /// <param name="fieldtype">字段类型，如果是I则说明绑定此字段是Int类型，现在只支持Int和String类型的字段</param>
+        public static void InitComboBox(ImageComboBoxEdit cbx, string comboboxno,string fieldtype)
+        {
             string sSql = "SELECT sGridDisplayField,sGridColumnText, sEnGridColumnText "
                         + "FROM sysLookupSetting "
                         + "WHERE sType='ComboBox' AND sLookupNo='" + comboboxno + "'";
             DataTable dtTmp = DbHelperSQL.Query(sSql).Tables[0];
             if (dtTmp != null && dtTmp.Rows.Count > 0)
             {
-                string[] ValueFields = Public.GetSplitString(dtTmp.Rows[0]["sGridDisplayField"].ToString(), ",");
+                object[] ValueFields = Public.GetSplitString(dtTmp.Rows[0]["sGridDisplayField"].ToString(), ",");
                 string[] DisplayText = Public.GetSplitString(LangCenter.Instance.IsDefaultLanguage ?
                     dtTmp.Rows[0]["sGridColumnText"].ToString() : dtTmp.Rows[0]["sEnGridColumnText"].ToString(), ",");
                 if (ValueFields.Length == DisplayText.Length)
@@ -907,11 +918,19 @@ namespace Sunrise.ERP.BasePublic
                     cbx.Properties.Items.Clear();
                     for (int i = 0; i < ValueFields.Length; i++)
                     {
-                        cbx.Properties.Items.Add(new ImageComboBoxItem(DisplayText[i], ValueFields[i]));
+                        if (fieldtype == "I")
+                        {
+                            ImageComboBoxItem item = new ImageComboBoxItem();
+                            item.Description = DisplayText[i];
+                            item.Value=Convert.ToInt32(ValueFields[i]);
+                            cbx.Properties.Items.Add(item);
+                        }
+                        else
+                            cbx.Properties.Items.Add(new ImageComboBoxItem(DisplayText[i], ValueFields[i]));
                     }
                 }
                 else
-                    Public.SystemInfo(LangCenter.Instance.GetSystemMessage("InitComboBoxFailed"), true);                
+                    Public.SystemInfo(LangCenter.Instance.GetSystemMessage("InitComboBoxFailed"), true);
             }
         }
 
@@ -921,6 +940,17 @@ namespace Sunrise.ERP.BasePublic
         /// <param name="cbx">RepositoryItemImageComboBox控件</param>
         /// <param name="comboboxno">ComboBox配置编号</param>
         public static void InitRepositoryItemComboBox(RepositoryItemImageComboBox cbx, string comboboxno)
+        {
+            InitRepositoryItemComboBox(cbx, comboboxno, "");
+        }
+
+        /// <summary>
+        /// 初始化RepositoryItemImageComboBox
+        /// </summary>
+        /// <param name="cbx">RepositoryItemImageComboBox控件</param>
+        /// <param name="comboboxno">ComboBox配置编号</param>
+        /// <param name="fieldtype">字段类型，如果是I则说明绑定此字段是Int类型，现在只支持Int和String类型的字段</param>
+        public static void InitRepositoryItemComboBox(RepositoryItemImageComboBox cbx, string comboboxno,string fieldtype)
         {
             string sSql = "SELECT sGridDisplayField,sGridColumnText, sEnGridColumnText "
                         + "FROM sysLookupSetting "
@@ -936,7 +966,15 @@ namespace Sunrise.ERP.BasePublic
                     cbx.Items.Clear();
                     for (int i = 0; i < ValueFields.Length; i++)
                     {
-                        cbx.Items.Add(new ImageComboBoxItem(DisplayText[i], ValueFields[i]));
+                        if (fieldtype == "I")
+                        {
+                            ImageComboBoxItem item = new ImageComboBoxItem();
+                            item.Description = DisplayText[i];
+                            item.Value = Convert.ToInt32(ValueFields[i]);
+                            cbx.Properties.Items.Add(item);
+                        }
+                        else
+                            cbx.Properties.Items.Add(new ImageComboBoxItem(DisplayText[i], ValueFields[i]));
                     }
                 }
                 else

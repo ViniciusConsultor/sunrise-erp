@@ -530,7 +530,7 @@ namespace Sunrise.ERP.BaseForm
                         if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
                         {
                             RepositoryItemImageComboBox cbxRepositoryItem = new RepositoryItemImageComboBox();
-                            Base.InitRepositoryItemComboBox(cbxRepositoryItem, dr["sLookupNo"].ToString());
+                            Base.InitRepositoryItemComboBox(cbxRepositoryItem, dr["sLookupNo"].ToString(), dr["sFieldType"].ToString());
                             cols.ColumnEdit = cbxRepositoryItem;
                             gv.GridControl.RepositoryItems.Add(cbxRepositoryItem);
                         }
