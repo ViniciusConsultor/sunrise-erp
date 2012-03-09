@@ -740,20 +740,24 @@ namespace Sunrise.ERP.BaseForm
             }
         }
 
-        /// <summary>
+         /// <summary>
         /// 初始化数据绑定
         /// </summary>
         public void InitDataBindings()
         {
+            this.InitDataBindings(DynamicMasterTableData, pnlMain,dsMain);
+        }
+        public void InitDataBindings(DataTable dtcolumninfo, Control parentControl,BindingSource bsData)
+        {
             Control[] ctls;
-            foreach (DataRow dr in DynamicMasterTableData.Select("sControlType<>'lbl'"))
+            foreach (DataRow dr in dtcolumninfo.Select("sControlType<>'lbl'"))
             {
                 //添加不可复制的字段
                 if (!Convert.ToBoolean(dr["bCopy"]))
                     AddNotCopyFields(dr["sFieldName"].ToString());
 
                 string ControlKey = "lbl" + dr["sFieldName"].ToString();
-                ctls = pnlMain.Controls.Find(ControlKey, true);
+                ctls = parentControl.Controls.Find(ControlKey, true);
                 //设置字段Label显示
                 if (ctls != null && ctls.Length == 1)
                 {
@@ -764,7 +768,7 @@ namespace Sunrise.ERP.BaseForm
                 }
 
                 ControlKey = dr["sControlType"].ToString() + dr["sFieldName"].ToString();
-                ctls = pnlMain.Controls.Find(ControlKey, true);
+                ctls = parentControl.Controls.Find(ControlKey, true);
                 //DataBinding
                 if (ctls != null && ctls.Length == 1)
                 {
@@ -781,7 +785,7 @@ namespace Sunrise.ERP.BaseForm
                             ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).Visibility = LayoutVisibility.Never;
                     }
 
-                    ctls[0].DataBindings.Add("EditValue", dsMain, dr["sFieldName"].ToString());
+                    ctls[0].DataBindings.Add("EditValue", bsData, dr["sFieldName"].ToString());
 
                     //数量或者价格权限检测
                     if (dr["sColumnType"].ToString() == "002")
@@ -789,7 +793,7 @@ namespace Sunrise.ERP.BaseForm
                         //检测是否有价格权限
                         bool HasPrice = SC.CheckAuth(SecurityOperation.Price, FormID);
                         //设置该字段控件及其对应Label标签也不显示
-                        Control[] lblctls = pnlMain.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
+                        Control[] lblctls = parentControl.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
                         if (lblctls != null && lblctls.Length == 1)
                             lblctls[0].Visible = HasPrice;
                         ctls[0].Visible = HasPrice;
@@ -804,7 +808,7 @@ namespace Sunrise.ERP.BaseForm
                         //检测是否有数量权限
                         bool HasNum = SC.CheckAuth(SecurityOperation.Num, FormID);
                         //设置该字段控件及其对应Label标签也不显示
-                        Control[] lblctls = pnlMain.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
+                        Control[] lblctls = parentControl.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
                         if (lblctls != null && lblctls.Length == 1)
                             lblctls[0].Visible = HasNum;
                         ctls[0].Visible = HasNum;
@@ -835,7 +839,7 @@ namespace Sunrise.ERP.BaseForm
                                 else
                                 {
                                     //设置该字段控件及其对应Label标签也不显示
-                                    Control[] lblctls = pnlMain.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
+                                    Control[] lblctls = parentControl.Controls.Find("lbl" + dr["sFieldName"].ToString(), true);
                                     if (lblctls != null && lblctls.Length == 1)
                                         lblctls[0].Visible = false;
                                     ctls[0].Visible = false;
@@ -870,7 +874,7 @@ namespace Sunrise.ERP.BaseForm
                     if (ctls[0] is ImageComboBoxEdit)
                     {
                         if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
-                            Base.InitComboBox((ImageComboBoxEdit)ctls[0], dr["sLookupNo"].ToString());
+                            Base.InitComboBox((ImageComboBoxEdit)ctls[0], dr["sLookupNo"].ToString(), dr["sFieldType"].ToString());
                     }
                 }
             }
@@ -1665,7 +1669,7 @@ namespace Sunrise.ERP.BaseForm
                         if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
                         {
                             RepositoryItemImageComboBox cbxRepositoryItem = new RepositoryItemImageComboBox();
-                            Base.InitRepositoryItemComboBox(cbxRepositoryItem, dr["sLookupNo"].ToString());
+                            Base.InitRepositoryItemComboBox(cbxRepositoryItem, dr["sLookupNo"].ToString(), dr["sFieldType"].ToString());                            
                             col.ColumnEdit = cbxRepositoryItem;
                             gv.GridControl.RepositoryItems.Add(cbxRepositoryItem);
                         }
