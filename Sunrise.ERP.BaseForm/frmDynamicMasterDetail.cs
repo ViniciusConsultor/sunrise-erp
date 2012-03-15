@@ -458,10 +458,21 @@ namespace Sunrise.ERP.BaseForm
         /// <param name="tablename">明细数据表名称</param>
         public void CreateDetailGridColumn(GridView gv, string tablename)
         {
+            CreateDetailGridColumn(gv, LDetailBindingSource[LDetailTableName.IndexOf(tablename)], LDynamicDetailTableData[LDetailTableName.IndexOf(tablename)], tablename);
+        }
+
+        /// <summary>
+        /// 创建明细数据表Grid列
+        /// </summary>
+        /// <param name="gv">需要创建的Grid</param>
+        /// <param name="tabledata">明细自定义数据</param>
+        /// <param name="tablename">明细数据表名称</param>
+        public void CreateDetailGridColumn(GridView gv,BindingSource ds,  DataTable tabledata,string tablename)
+        {
             gv.Columns.Clear();
             int iIndex = 0;
             string sFilter = "bShowInGrid=1 AND sTableName='" + tablename + "'";
-            DataRow[] drs = LDynamicDetailTableData[LDetailTableName.IndexOf(tablename)].Select(sFilter);
+            DataRow[] drs = tabledata.Select(sFilter);
             foreach (DataRow dr in drs)
             {
                 GridColumn cols = null;
@@ -469,7 +480,7 @@ namespace Sunrise.ERP.BaseForm
                 //如果没有设置过界面字段数据
                 if (drFields.Length == 0)
                 {
-                    cols = CreateGridColumn(gv, dr, tablename, iIndex,true);
+                    cols = CreateGridColumn(gv, dr, ds, tablename, iIndex, true);
                     iIndex++;
                 }
 
@@ -479,7 +490,7 @@ namespace Sunrise.ERP.BaseForm
                     {
                         if (Convert.ToBoolean(drField["bVisiable"]))
                         {
-                            cols = CreateGridColumn(gv, dr, tablename, iIndex, Convert.ToBoolean(drField["bEdit"]));
+                            cols = CreateGridColumn(gv, dr, ds,tablename, iIndex, Convert.ToBoolean(drField["bEdit"]));
                             iIndex++;
                         }
                     }
@@ -490,7 +501,7 @@ namespace Sunrise.ERP.BaseForm
             }
         }
 
-        private GridColumn CreateGridColumn(GridView gv, DataRow dr,string tablename, int index,bool isuseredit)
+        private GridColumn CreateGridColumn(GridView gv, DataRow dr, BindingSource ds, string tablename, int index, bool isuseredit)
         {
             GridColumn cols = new GridColumn();
             string sControlType = dr["sControlType"].ToString();
@@ -502,7 +513,7 @@ namespace Sunrise.ERP.BaseForm
                         if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
                         {
                             SunriseLookUp lkp = new SunriseLookUp();
-                            lkp.DataBindings.Add("EditValue", LDetailBindingSource[LDetailTableName.IndexOf(tablename)], dr["sFieldName"].ToString());
+                            lkp.DataBindings.Add("EditValue", ds, dr["sFieldName"].ToString());
                             Base.InitLookup(lkp, dr["sLookupNo"].ToString());
                             if (!string.IsNullOrEmpty(dr["sLookupAutoSetControl"].ToString()))
                             {
@@ -574,7 +585,7 @@ namespace Sunrise.ERP.BaseForm
             {
                 cols.OptionsColumn.AllowEdit = isuseredit;
             }
-            
+
             //Grid Footer显示
             if (dr["sFooterType"].ToString() != "001")
             {

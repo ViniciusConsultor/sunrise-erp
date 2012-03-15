@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Module.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.Module.Test2", "Sunrise.ERP.Module.Test2\Sunrise.ERP.Module.Test2.csproj", "{64963FAF-E5A3-4609-AF70-2975CBDA3880}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sunrise.ERP.SPC", "Sunrise.ERP.SPC\Sunrise.ERP.SPC.csproj", "{1C339298-7B1B-4C50-89AE-6A51BB4F4BBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,10 @@ Global
 		{64963FAF-E5A3-4609-AF70-2975CBDA3880}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64963FAF-E5A3-4609-AF70-2975CBDA3880}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64963FAF-E5A3-4609-AF70-2975CBDA3880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C339298-7B1B-4C50-89AE-6A51BB4F4BBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C339298-7B1B-4C50-89AE-6A51BB4F4BBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C339298-7B1B-4C50-89AE-6A51BB4F4BBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C339298-7B1B-4C50-89AE-6A51BB4F4BBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

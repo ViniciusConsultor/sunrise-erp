@@ -36,6 +36,10 @@
       <HintPath>..\SunriseERP\bin\Debug\DevExpress.Data.v9.3.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Utils.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SunriseERP\bin\Debug\DevExpress.XtraBars.v9.3.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.XtraEditors.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v9.3, Version=9.3.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

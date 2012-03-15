@@ -35,5 +35,17 @@ namespace Sunrise.ERP.Module.Test
             catch { }
             return true;
         }
+
+        private void barButtonItem5_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+
+        }
+
+        private void barButtonItem8_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            //barButtonItem8.DropDownControl.Bounds.X
+            contextMenuStrip1.Show(barButtonItem8.DropDownControl.Bounds.Location);
+            
+        }
     }
 }
