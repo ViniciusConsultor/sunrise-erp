@@ -372,7 +372,7 @@ namespace Sunrise.ERP.Controls
                                 _dt = frm.ReturnData;
                                 txtDisplayText.Focus();
                                 txtValueText.Text = _dt.Rows[0][DataField].ToString();
-                                if (this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                                if (this.DataBindings.Count>0 && this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
                                 {
                                     ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
                                     ((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
@@ -391,7 +391,7 @@ namespace Sunrise.ERP.Controls
                     {
                         txtDisplayText.Focus();
                         EditValue = string.Empty;
-                        if (this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                        if (this.DataBindings.Count > 0 && this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
                         {
                             //清空数据
                             ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[this.DataBindings[0].BindingMemberInfo.BindingField] = DBNull.Value;
@@ -400,9 +400,9 @@ namespace Sunrise.ERP.Controls
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                Public.SystemInfo("LookUp Error：" + ex.Message,true);
             }
         }
 
@@ -451,7 +451,7 @@ namespace Sunrise.ERP.Controls
                             for (int i = 0; i < LAutoSetFields.ToArray().Length; i++)
                             {
                                 gvTemp.Focus();
-                                if (this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                                if (this.DataBindings.Count > 0 && this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
                                 {
                                     //先要设置控件绑定的值,在设置自动赋值的字段
                                     ((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
@@ -468,7 +468,7 @@ namespace Sunrise.ERP.Controls
                         else
                             for (int i = 0; i < LAutoSetFields.ToArray().Length; i++)
                             {
-                                if (this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                                if (this.DataBindings.Count > 0 && this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
                                 {
                                     //先要设置控件绑定的值,在设置自动赋值的字段
                                     //((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
@@ -515,7 +515,11 @@ namespace Sunrise.ERP.Controls
             LAutoSetFields.Add(field);
             LAutoSetValueFields.Add(valuefield);
         }
-
+        /// <summary>
+        /// 查询后自动设置相应数据值-用于绑定的数据源是BindingSource
+        /// </summary>
+        /// <param name="field">需要设置的字段</param>
+        /// <param name="valuefield">查询出来的数据源字段</param>
         public void AutoSetValue(string field, string valuefield)
         {
             LAutoSetFields.Add(field);
