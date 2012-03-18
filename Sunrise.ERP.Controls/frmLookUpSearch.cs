@@ -153,7 +153,7 @@ namespace Sunrise.ERP.Controls
             {
                 for (int i = 0; i < gvSearch.GetSelectedRows().Length; i++)
                 {
-                    if (gvSearch.GetSelectedRows()[i] > 0)
+                    if (gvSearch.GetSelectedRows()[i] >= 0)
                     {
                         ReturnData.ImportRow(gvSearch.GetDataRow(gvSearch.GetSelectedRows()[i]));
                     }

@@ -513,7 +513,9 @@ namespace Sunrise.ERP.BaseForm
                         if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
                         {
                             SunriseLookUp lkp = new SunriseLookUp();
+                            lkp.Name = "collkp" + tablename + dr["sFieldName"].ToString();
                             lkp.DataBindings.Add("EditValue", ds, dr["sFieldName"].ToString());
+                            this.Controls.Add(lkp);
                             Base.InitLookup(lkp, dr["sLookupNo"].ToString());
                             if (!string.IsNullOrEmpty(dr["sLookupAutoSetControl"].ToString()))
                             {
