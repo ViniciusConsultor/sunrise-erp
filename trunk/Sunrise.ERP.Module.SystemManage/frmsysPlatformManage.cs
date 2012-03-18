@@ -36,6 +36,7 @@ namespace Sunrise.ERP.Module.SystemManage
             txtFileDate.DataBindings.Add("EditValue", dsMain, "dDLLLastTime");
             txtFormID.DataBindings.Add("EditValue", dsMain, "iFormID");
             txtsQuickMenu.DataBindings.Add("EditValue", dsMain, "sQuickMenu");
+            chkbIsBill.DataBindings.Add("EditValue", dsMain, "bIsBill");
         }
 
         private void frmsysPlatformManage2_Load(object sender, EventArgs e)
@@ -82,6 +83,7 @@ namespace Sunrise.ERP.Module.SystemManage
                 ((DataRowView)dsMain.Current).Row["iParentID"] = 0;
             ((DataRowView)dsMain.Current).Row["iSort"] = dsMain.CurrencyManager.Count + 1;
             ((DataRowView)dsMain.Current).Row["iFormID"] = DbHelperSQL.GetMaxID("iFormID", "sysMenu");
+            ((DataRowView)dsMain.Current).Row["bIsBill"] = 0;
             dsMain.EndEdit();
             return true;
         }
