@@ -526,20 +526,80 @@ namespace Sunrise.ERP.BasePublic
         }
 
         /// <summary>
-        /// 获取系统参数
+        /// 获取系统参数，用缓存模式，变更参数后，必须重新登录系统才会生效
         /// </summary>
         /// <param name="paramno">系统参数编号</param>
         /// <returns></returns>
         public static string GetSystemParamter(string paramno)
         {
-            string result;
-            string sSql = "SELECT sSysParamValue FROM sysParamter WHERE sSysParamNo='" + paramno + "' AND bActive=1";
-            DataTable dtTemp = DbHelperSQL.Query(sSql).Tables[0];
-            if (dtTemp != null && dtTemp.Rows.Count == 1)
-                result = dtTemp.Rows[0]["sSysParamValue"].ToString();
-            else
-                result = string.Empty;
+            string result = string.Empty;
+            foreach (DataRow dr in dtSystemParamter.Rows)
+            {
+                if (dr["sSysParamNo"].ToString() == paramno)
+                {
+                    result = dr["sSysParamValue"].ToString();
+                    break;
+                }
+            }
             return result;
+        }
+
+        private static DataTable _dtSystemParamter;
+        private static DataTable dtSystemParamter
+        {
+            get
+            {
+                if (_dtSystemParamter == null)
+                {
+                    string sSql = "SELECT sSysParamNo, sSysParamValue FROM sysParamter WHERE bActive=1";
+                    _dtSystemParamter = DbHelperSQL.Query(sSql).Tables[0];
+                }
+                return _dtSystemParamter;
+            }
+        }
+
+        private static string FormatDisplayValue(int value)
+        {
+            string result = "0:0.";
+            if (value != 0)
+            {
+                for (int i = 0; i < value; i++)
+                {
+                    result += "0";
+                }
+                result = "{" + result + "}";
+            }
+            else
+                result = "{" + result + "}";
+            return result;
+        }
+        /// <summary>
+        /// 价格格式化字符串
+        /// </summary>
+        public static string FormatPrice
+        {
+            get { return FormatDisplayValue(Convert.ToInt32(GetSystemParamter("002"))); }
+        }
+        /// <summary>
+        /// 数量格式化字符串
+        /// </summary>
+        public static string FormatQuantity
+        {
+            get { return FormatDisplayValue(Convert.ToInt32(GetSystemParamter("003"))); }
+        }
+        /// <summary>
+        /// 无权限控制价格格式化字符串
+        /// </summary>
+        public static string FormatNullAuthPrice
+        {
+            get { return FormatDisplayValue(Convert.ToInt32(GetSystemParamter("004"))); }
+        }
+        /// <summary>
+        /// 无权限控制数量格式化字符串
+        /// </summary>
+        public static string FormatNullAuthQuantity
+        {
+            get { return FormatDisplayValue(Convert.ToInt32(GetSystemParamter("005"))); }
         }
 
         /// <summary>
