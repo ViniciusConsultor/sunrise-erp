@@ -503,6 +503,11 @@ namespace Sunrise.ERP.BaseForm
 
         private GridColumn CreateGridColumn(GridView gv, DataRow dr, BindingSource ds, string tablename, int index, bool isuseredit)
         {
+            //******************************特别提示*********************************************
+            //Tip:如果要在Grid中取得自定义添加的控件，例如lkp,cbx,mtxt,btxt控件
+            //lkp控件：用Controls.Find()方法来查找出lkp控件
+            //其他类型：用GridControl.RepositoryItems集合中查找
+            //***********************************************************************************
             GridColumn cols = new GridColumn();
             string sControlType = dr["sControlType"].ToString();
             switch (sControlType)
@@ -543,6 +548,7 @@ namespace Sunrise.ERP.BaseForm
                         if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
                         {
                             RepositoryItemImageComboBox cbxRepositoryItem = new RepositoryItemImageComboBox();
+                            cbxRepositoryItem.Name = "colcbx" + tablename + dr["sFieldName"].ToString();
                             Base.InitRepositoryItemComboBox(cbxRepositoryItem, dr["sLookupNo"].ToString(), dr["sFieldType"].ToString());
                             cols.ColumnEdit = cbxRepositoryItem;
                             gv.GridControl.RepositoryItems.Add(cbxRepositoryItem);
@@ -552,7 +558,17 @@ namespace Sunrise.ERP.BaseForm
                 //带按钮的文本框
                 case "btxt":
                     {
+                        RepositoryItemButtonEdit btxtRepositoryItem = new RepositoryItemButtonEdit();
+                        btxtRepositoryItem.Name = "colbtxt" + tablename + dr["sFieldName"].ToString();
+                        cols.ColumnEdit = btxtRepositoryItem;
+                        gv.GridControl.RepositoryItems.Add(btxtRepositoryItem);
+                        break;
+                    }
+                //多行文本框
+                case "mtxt":
+                    {
                         RepositoryItemMemoExEdit btxtRepositoryItem = new RepositoryItemMemoExEdit();
+                        btxtRepositoryItem.Name = "colmtxt" + tablename + dr["sFieldName"].ToString();
                         cols.ColumnEdit = btxtRepositoryItem;
                         gv.GridControl.RepositoryItems.Add(btxtRepositoryItem);
                         break;
@@ -568,15 +584,38 @@ namespace Sunrise.ERP.BaseForm
                 //检测是否有价格权限
                 bool HasPrice = SC.CheckAuth(SecurityOperation.Price, FormID);
                 if (!HasPrice) return null;
+
+                //设置价格数据显示格式
+                cols.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                cols.DisplayFormat.FormatString = Base.FormatPrice;
             }
             else if (dr["sColumnType"].ToString() == "003")
             {
                 //检测是否有数量权限
                 bool HasNum = SC.CheckAuth(SecurityOperation.Num, FormID);
                 if (!HasNum) return null;
+
+                //设置数量数据显示格式
+                cols.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                cols.DisplayFormat.FormatString = Base.FormatQuantity;
             }
             else
                 cols.Visible = true;
+
+            //不需要权限控制的价格数量显示格式化
+            //无权限控制价格
+            if (dr["sColumnType"].ToString() == "004")
+            {
+                cols.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                cols.DisplayFormat.FormatString = Base.FormatNullAuthPrice;
+            }
+            //无权限控制数量
+            else if (dr["sColumnType"].ToString() == "005")
+            {
+                cols.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                cols.DisplayFormat.FormatString = Base.FormatNullAuthQuantity;
+            }
+
             cols.VisibleIndex = index;
 
             //检测窗体字段设置中是否可编辑
@@ -608,6 +647,20 @@ namespace Sunrise.ERP.BaseForm
                     cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Max;
                 else if (dr["sFooterType"].ToString() == "006")
                     cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Min;
+                
+                //设置GridFooter汇总格式
+                //价格
+                if (dr["sColumnType"].ToString() == "002")
+                    cols.SummaryItem.DisplayFormat = Base.FormatPrice;
+                //数量
+                else if (dr["sColumnType"].ToString() == "003")
+                    cols.SummaryItem.DisplayFormat = Base.FormatQuantity;
+                //无权限控制价格
+                else if (dr["sColumnType"].ToString() == "004")
+                    cols.SummaryItem.DisplayFormat = Base.FormatNullAuthPrice;
+                //无权限控制数量
+                else if (dr["sColumnType"].ToString() == "005")
+                    cols.SummaryItem.DisplayFormat = Base.FormatNullAuthQuantity;
 
                 gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, dr["sFieldName"].ToString(), cols);
             }

@@ -801,6 +801,14 @@ namespace Sunrise.ERP.BaseForm
                         //如果界面布局用Layout，控制其显示与否
                         if (ctls[0].Parent is LayoutControl && !HasPrice)
                             ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).Visibility = LayoutVisibility.Never;
+                        else
+                        {
+                            if (ctls[0] is TextEdit || ctls[0] is MemoEdit)
+                            {
+                                ((TextEdit)ctls[0]).Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                                ((TextEdit)ctls[0]).Properties.DisplayFormat.FormatString = Base.FormatPrice;
+                            }
+                        }
 
                     }
                     else if (dr["sColumnType"].ToString() == "003")
@@ -816,6 +824,34 @@ namespace Sunrise.ERP.BaseForm
                         //如果界面布局用Layout，控制其显示与否
                         if (ctls[0].Parent is LayoutControl && !HasNum)
                             ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).Visibility = LayoutVisibility.Never;
+                        else
+                        {
+                            if (ctls[0] is TextEdit || ctls[0] is MemoEdit)
+                            {
+                                ((TextEdit)ctls[0]).Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                                ((TextEdit)ctls[0]).Properties.DisplayFormat.FormatString = Base.FormatQuantity;
+                            }
+                        }
+                    }
+
+                    //不需要权限控制的价格数量显示格式化
+                    //无权限控制价格
+                    if (dr["sColumnType"].ToString() == "004")
+                    {
+                        if (ctls[0] is TextEdit || ctls[0] is MemoEdit)
+                        {
+                            ((TextEdit)ctls[0]).Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                            ((TextEdit)ctls[0]).Properties.DisplayFormat.FormatString = Base.FormatNullAuthPrice;
+                        }
+                    }
+                    //无权限控制数量
+                    else if (dr["sColumnType"].ToString() == "005")
+                    {
+                        if (ctls[0] is TextEdit || ctls[0] is MemoEdit)
+                        {
+                            ((TextEdit)ctls[0]).Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                            ((TextEdit)ctls[0]).Properties.DisplayFormat.FormatString = Base.FormatNullAuthQuantity;
+                        }
                     }
 
                     //控制界面上显示字段是否显示和可编辑
@@ -1686,15 +1722,38 @@ namespace Sunrise.ERP.BaseForm
                 //检测是否有价格权限
                 bool HasPrice = SC.CheckAuth(SecurityOperation.Price, FormID);
                 if (!HasPrice) return null;
+
+                //设置价格数据显示格式
+                col.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                col.DisplayFormat.FormatString = Base.FormatPrice;
             }
             else if (dr["sColumnType"].ToString() == "003")
             {
                 //检测是否有数量权限
                 bool HasNum = SC.CheckAuth(SecurityOperation.Num, FormID);
                 if (!HasNum) return null;
+
+                //设置数量数据显示格式
+                col.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                col.DisplayFormat.FormatString = Base.FormatQuantity;
             }
             else
                 col.Visible = true;
+
+            //不需要权限控制的价格数量显示格式化
+            //无权限控制价格
+            if (dr["sColumnType"].ToString() == "004")
+            {
+                col.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                col.DisplayFormat.FormatString = Base.FormatNullAuthPrice;
+            }
+            //无权限控制数量
+            else if (dr["sColumnType"].ToString() == "005")
+            {
+                col.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+                col.DisplayFormat.FormatString = Base.FormatNullAuthQuantity;
+            }
+
             col.VisibleIndex = index;
             col.OptionsColumn.AllowEdit = Convert.ToBoolean(dr["bEdit"] == null ? 1 : dr["bEdit"]);
             //Grid Footer显示
