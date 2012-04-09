@@ -131,6 +131,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UIService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmBaseForm.resx">

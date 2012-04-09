@@ -579,6 +579,85 @@ namespace Sunrise.ERP.DataAccess
                 return ds;
             }
         }
+
+        /// <summary>
+        /// 执行查询语句，返回DataSet
+        /// </summary>
+        /// <param name="SQLString">查询语句</param>
+        /// <param name="trans">SQL事务</param>
+        /// <returns>DataSet</returns>
+        public static DataSet Query(string SQLString,SqlTransaction trans)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                try
+                {
+                    SqlDataAdapter command = new SqlDataAdapter(SQLString, trans.Connection);
+                    command.SelectCommand.Transaction = trans;
+                    command.Fill(ds, "ds");
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return ds;
+            }
+        }
+
+        /// <summary>
+        /// 执行查询语句，返回DataTable
+        /// </summary>
+        /// <param name="SQLString">查询语句</param>
+        /// <returns>DataTable</returns>
+        public static DataTable QueryTable(string SQLString)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                try
+                {
+                    SqlDataAdapter command = new SqlDataAdapter(SQLString, Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection);
+                    command.Fill(dt);
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return dt;
+            }
+        }
+        /// <summary>
+        /// 执行查询语句，返回DataTable
+        /// </summary>
+        /// <param name="SQLString">查询语句</param>
+        /// <param name="trans">SQL事务</param>
+        /// <returns>DataTable</returns>
+        public static DataTable QueryTable(string SQLString,SqlTransaction trans)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                try
+                {
+                    SqlDataAdapter command = new SqlDataAdapter(SQLString, trans.Connection);
+                    command.SelectCommand.Transaction = trans;
+                    command.Fill(dt);
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return dt;
+            }
+        }
+
+        /// <summary>
+        /// 执行查询语句，返回DataSet
+        /// </summary>
+        /// <param name="SQLString">查询语句</param>
+        /// <param name="Times">执行超时时间</param>
+        /// <returns>DataSet</returns>
         public static DataSet Query(string SQLString, int Times)
         {
             using (DataSet ds = new DataSet())
@@ -597,6 +676,84 @@ namespace Sunrise.ERP.DataAccess
                 return ds;
             }
         }
+        /// <summary>
+        /// 执行查询语句，返回DataSet
+        /// </summary>
+        /// <param name="SQLString">查询语句</param>
+        /// <param name="Times">执行超时时间</param>
+        /// <param name="trans">SQL事务</param>
+        /// <returns>DataSet</returns>
+        public static DataSet Query(string SQLString, int Times,SqlTransaction trans)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                try
+                {
+                    SqlDataAdapter command = new SqlDataAdapter(SQLString, trans.Connection);
+                    command.SelectCommand.CommandTimeout = Times;
+                    command.SelectCommand.Transaction = trans;
+                    command.Fill(ds, "ds");
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return ds;
+            }
+        }
+        /// <summary>
+        /// 执行查询语句，返回DataTable
+        /// </summary>
+        /// <param name="SQLString">查询语句</param>
+        /// <param name="Times">执行超时时间</param>
+        /// <returns>DataTable</returns>
+        public static DataTable QueryTable(string SQLString, int Times)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                try
+                {
+                    SqlDataAdapter command = new SqlDataAdapter(SQLString, Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection);
+                    command.SelectCommand.CommandTimeout = Times;
+                    command.Fill(dt);
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return dt;
+            }
+        }
+
+        /// <summary>
+        /// 执行查询语句，返回DataTable
+        /// </summary>
+        /// <param name="SQLString">查询语句</param>
+        /// <param name="Times">执行超时时间</param>
+        /// <param name="trans">SQL事务</param>
+        /// <returns>DataTable</returns>
+        public static DataTable QueryTable(string SQLString, int Times,SqlTransaction trans)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                try
+                {
+                    SqlDataAdapter command = new SqlDataAdapter(SQLString, trans.Connection);
+                    command.SelectCommand.CommandTimeout = Times;
+                    command.SelectCommand.Transaction = trans;
+                    command.Fill(dt);
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return dt;
+            }
+        }
+
 
 
 
@@ -1039,6 +1196,90 @@ namespace Sunrise.ERP.DataAccess
                     throw new Exception(ex.Message);
                 }
                 return ds;
+            }
+        }
+
+        /// <summary>
+        /// 执行查询语句，返回DataSet
+        /// </summary>
+        /// <param name="SQLString">查询语句</param>
+        /// <param name="trans">SQL事务</param>
+        /// <param name="cmdParms">SQL参数</param>
+        /// <returns>DataSet</returns>
+        public static DataSet Query(string SQLString, SqlTransaction trans, params SqlParameter[] cmdParms)
+        {
+            SqlCommand cmd = new SqlCommand();
+            PrepareCommand(cmd, trans.Connection, null, SQLString, cmdParms);
+            cmd.Transaction = trans;
+            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+            {
+                DataSet ds = new DataSet();
+                try
+                {
+                    da.Fill(ds, "ds");
+                    cmd.Parameters.Clear();
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return ds;
+            }
+        }
+
+        /// <summary>
+        /// 执行查询语句，返回DataSet
+        /// </summary>
+        /// <param name="SQLString">查询语句</param>
+        /// <returns>DataSet</returns>
+        public static DataTable QueryTable(string SQLString, params SqlParameter[] cmdParms)
+        {
+            SqlCommand cmd = new SqlCommand();
+            PrepareCommand(cmd, Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection, null, SQLString, cmdParms);
+            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+            {
+                DataTable dt = new DataTable();
+                try
+                {
+                    da.Fill(dt);
+                    cmd.Parameters.Clear();
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return dt;
+            }
+        }
+
+        /// <summary>
+        /// 执行查询语句，返回DataSet
+        /// </summary>
+        /// <param name="SQLString">查询语句</param>
+        /// <param name="trans">SQL事务</param>
+        /// <param name="cmdParms">SQL参数</param>
+        /// <returns>DataSet</returns>
+        public static DataTable QueryTable(string SQLString, SqlTransaction trans, params SqlParameter[] cmdParms)
+        {
+            SqlCommand cmd = new SqlCommand();
+            PrepareCommand(cmd, trans.Connection, null, SQLString, cmdParms);
+            cmd.Transaction = trans;
+            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+            {
+                DataTable dt = new DataTable();
+                try
+                {
+                    da.Fill(dt);
+                    cmd.Parameters.Clear();
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    SqlErrorCenter(ex);
+                    throw new Exception(ex.Message);
+                }
+                return dt;
             }
         }
 
