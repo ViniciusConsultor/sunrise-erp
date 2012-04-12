@@ -55,9 +55,11 @@
             this.mlkpDataNo.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
             this.mlkpDataNo.Properties.PopupControl = this.mlkpPopup;
             this.mlkpDataNo.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.mlkpDataNo.Properties.Leave += new System.EventHandler(this.mlkpDataNo_Properties_Leave);
             this.mlkpDataNo.Size = new System.Drawing.Size(113, 21);
             this.mlkpDataNo.TabIndex = 0;
             this.mlkpDataNo.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.mlkpDataNo_ButtonClick);
+            this.mlkpDataNo.Closed += new DevExpress.XtraEditors.Controls.ClosedEventHandler(this.mlkpDataNo_Closed);
             this.mlkpDataNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mlkpDataNo_KeyDown);
             this.mlkpDataNo.Popup += new System.EventHandler(this.mlkpDataNo_Popup);
             this.mlkpDataNo.TextChanged += new System.EventHandler(this.mlkpDataNo_TextChanged);
@@ -93,6 +95,8 @@
             this.mlkpPopuoGirdView.OptionsView.ColumnAutoWidth = false;
             this.mlkpPopuoGirdView.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             this.mlkpPopuoGirdView.OptionsView.ShowGroupPanel = false;
+            this.mlkpPopuoGirdView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mlkpPopuoGirdView_KeyDown);
+            this.mlkpPopuoGirdView.DoubleClick += new System.EventHandler(this.mlkpPopuoGirdView_DoubleClick);
             // 
             // gridView2
             // 
@@ -120,6 +124,7 @@
             this.Controls.Add(this.mlkpPopup);
             this.Name = "SunriseMLookup";
             this.Size = new System.Drawing.Size(200, 21);
+            this.Load += new System.EventHandler(this.SunriseMLookup_Load);
             this.Controls.SetChildIndex(this.mlkpPopup, 0);
             this.Controls.SetChildIndex(this.mlkpDataNo, 0);
             this.Controls.SetChildIndex(this.mlkpDataName, 0);
@@ -137,10 +142,10 @@
         #endregion
 
         private DevExpress.XtraEditors.PopupContainerEdit mlkpDataNo;
-        private DevExpress.XtraEditors.PopupContainerControl mlkpPopup;
         private SunriseGridControl mlkpPopupGird;
         private DevExpress.XtraGrid.Views.Grid.GridView mlkpPopuoGirdView;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraEditors.TextEdit mlkpDataName;
+        public DevExpress.XtraEditors.PopupContainerControl mlkpPopup;
     }
 }
