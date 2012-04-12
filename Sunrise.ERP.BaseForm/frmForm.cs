@@ -90,7 +90,7 @@ namespace Sunrise.ERP.BaseForm
         /// <summary>
         /// Êý¾Ý²Ù×÷×´Ì¬
         /// </summary>
-        protected DataFlag FormDataFlag
+        public DataFlag FormDataFlag
         {
             get
             {

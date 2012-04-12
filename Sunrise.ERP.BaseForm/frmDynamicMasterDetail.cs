@@ -30,31 +30,31 @@ namespace Sunrise.ERP.BaseForm
         /// <summary>
         /// 明细数据集集合
         /// </summary>
-        protected List<BindingSource> LDetailBindingSource = new List<BindingSource>();
+        public List<BindingSource> LDetailBindingSource = new List<BindingSource>();
         /// <summary>
         /// 从表字段集合
         /// </summary>
-        protected List<string> LDetailField = new List<string>();
+        public List<string> LDetailField = new List<string>();
         /// <summary>
         /// 主表字段集合
         /// </summary>
-        protected List<string> LMasterField = new List<string>();
+        public List<string> LMasterField = new List<string>();
         /// <summary>
         /// 明细表数据表名集合
         /// </summary>
-        protected List<string> LDetailTableName = new List<string>();
+        public List<string> LDetailTableName = new List<string>();
         /// <summary>
         /// 明细数据操作层集合
         /// </summary>
-        protected List<DynamicDALSetting> LDetailDynamicDAL = new List<DynamicDALSetting>();
+        public List<DynamicDALSetting> LDetailDynamicDAL = new List<DynamicDALSetting>();
         /// <summary>
         /// 动态明细表结构数据集合
         /// </summary>
-        protected List<DataTable> LDynamicDetailTableData = new List<DataTable>();
+        public List<DataTable> LDynamicDetailTableData = new List<DataTable>();
         /// <summary>
         /// 明细表排序字段集合
         /// </summary>
-        protected Hashtable DetailOrderField = new Hashtable();
+        public Hashtable DetailOrderField = new Hashtable();
 
         private bool CanCloseWindow = true;
 
