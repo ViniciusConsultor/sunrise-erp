@@ -295,7 +295,7 @@ namespace Sunrise.ERP.Controls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void LookUpSelfClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        public virtual void LookUpSelfClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             try
             {
