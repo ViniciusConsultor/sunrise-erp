@@ -17,12 +17,12 @@ namespace Sunrise.ERP.Controls
     /// <summary>
     /// 可输入LookUp
     /// </summary>
-    public partial class SunriseMLookup : SunriseLookUp
+    public partial class SunriseMLookUp : SunriseLookUp
     {
         /// <summary>
         /// 可输入LookUp
         /// </summary>
-        public SunriseMLookup()
+        public SunriseMLookUp()
         {
             InitializeComponent();
         }
@@ -31,6 +31,7 @@ namespace Sunrise.ERP.Controls
         /// <summary>
         /// MLoopUp编号显示字段
         /// </summary>
+        [Category("MLookUp设置"), Description("设置或获取控件输入框字段")]
         public string DataNoField
         {
             get { return _datanofield; }
@@ -41,6 +42,7 @@ namespace Sunrise.ERP.Controls
         /// <summary>
         /// Popup显示名称
         /// </summary>
+        [Category("MLookUp设置"), Description("设置或获取控件Popup显示列标题名称")]
         public string PopupDisplayFields
         {
             get { return _popupdisplayfields; }
@@ -51,6 +53,7 @@ namespace Sunrise.ERP.Controls
         /// <summary>
         /// Popup显示字段
         /// </summary>
+        [Category("MLookUp设置"), Description("设置或获取控件Popup显示列字段名称")]
         public string PopupDataFields
         {
             get { return _popupdatafields; }
@@ -58,9 +61,30 @@ namespace Sunrise.ERP.Controls
         }
 
         private bool _ispopupshow = false;
+        [Category("MLookUp设置"), Description("获取控件Popup是否显示")]
         public bool IsPopuoShow
         {
             get { return _ispopupshow; }
+        }
+
+        private int _mlkpnowidth = 50;
+        [Category("MLookUp设置"), Description("设置或获取控件输入框宽度百分比"), DefaultValue(50)]
+        public int MLookUpNoWidthPercent
+        {
+            get { return _mlkpnowidth; }
+            set { _mlkpnowidth = value; }
+        }
+
+        [Category("MLookUp设置"), Description("设置或获取控件是否只读(可用)"), DefaultValue(true)]
+        public bool IsReadOnly
+        {
+            get { return mlkpDataNo.Properties.Buttons[0].Enabled; }
+            set
+            {
+                mlkpDataNo.Properties.Buttons[0].Enabled = value;
+                mlkpDataNo.Properties.Buttons[1].Enabled = value;
+                mlkpDataNo.Properties.ReadOnly = !value;
+            }
         }
 
         #endregion
@@ -111,7 +135,11 @@ namespace Sunrise.ERP.Controls
             get { return _isfromlkpclick; }
             
         }
-
+        private bool _isfromkeychanged = true;
+        private bool IsFromKeyChanged
+        {
+            get { return _isfromkeychanged; }
+        }
         #endregion
 
 
@@ -120,7 +148,7 @@ namespace Sunrise.ERP.Controls
         private string GetDataFilterString(string inputstring)
         {
             string result = string.Empty;
-            for (int i=0;i<PopupFields.Count;i++)
+            for (int i = 0; i < PopupFields.Count; i++)
             {
                 if (i == 0)
                     result = string.Concat(PopupFields[i], " LIKE '%{0}%'");
@@ -136,9 +164,15 @@ namespace Sunrise.ERP.Controls
 
         #region 公共方法
 
+        /// <summary>
+        /// LookUp查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public override void LookUpSelfClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             base.LookUpSelfClick(sender, e);
+            _isfromkeychanged = false;
             if(ReturnData.Rows.Count>0)
             {
                 _isfromlkpclick = true;
@@ -148,6 +182,7 @@ namespace Sunrise.ERP.Controls
             }
             if (string.IsNullOrEmpty(EditValue))
             {
+                _isfromkeychanged = false;
                 mlkpDataNo.EditValue = string.Empty;
                 mlkpDataName.Text = string.Empty;
             }
@@ -175,21 +210,31 @@ namespace Sunrise.ERP.Controls
 
         private void mlkpDataNo_TextChanged(object sender, EventArgs e)
         {
-            if (PopupData == null)
+            if (_isfromkeychanged)
             {
-                mlkpDataNo.EditValue = null;
-                return;
+                if (PopupData == null)
+                {
+                    mlkpDataNo.EditValue = null;
+                    return;
+                }
+                EditValue = string.Empty;
+                mlkpDataName.Text = string.Empty;
+                PopupData.DefaultView.RowFilter = string.Empty;
+                if (!IsFromLkpClick)
+                {
+                    try
+                    {
+                        PopupData.DefaultView.RowFilter = GetDataFilterString(mlkpDataNo.Text);
+                    }
+                    catch
+                    {
+                        PopupData.DefaultView.RowFilter = "1=1";
+                    }
+                    mlkpDataNo.ShowPopup();
+                }
+                else
+                    _isfromlkpclick = false;
             }
-            EditValue = string.Empty;
-            mlkpDataName.Text = string.Empty;
-            PopupData.DefaultView.RowFilter = string.Empty;
-            if (!IsFromLkpClick)
-            {
-                PopupData.DefaultView.RowFilter = GetDataFilterString(mlkpDataNo.Text);
-                mlkpDataNo.ShowPopup();
-            }
-            else
-                _isfromlkpclick = false;
         }
 
         private void mlkpDataNo_KeyDown(object sender, KeyEventArgs e)
@@ -216,6 +261,10 @@ namespace Sunrise.ERP.Controls
 
         private void SunriseMLookup_Load(object sender, EventArgs e)
         {
+            if (MLookUpNoWidthPercent >= 0 && MLookUpNoWidthPercent <= 100)
+            {
+                mlkpDataNo.Width = (int)Math.Floor(Convert.ToDecimal(this.Width * MLookUpNoWidthPercent / 100));
+            }
             CreateGridColumns();
         }
 
@@ -304,9 +353,43 @@ namespace Sunrise.ERP.Controls
 
         private void mlkpDataNo_Properties_Leave(object sender, EventArgs e)
         {
-            GetData();
+            if (string.IsNullOrEmpty(mlkpDataName.Text))
+            {
+                _isfromkeychanged = false;
+                EditValue = string.Empty;
+                mlkpDataNo.EditValue = null;
+            }
         }
+        private void mlkpDataNo_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            _isfromkeychanged = true;
+        }
+
+
+        protected override void txtValueText_TextChanged(object sender, EventArgs e)
+        {
+            base.txtValueText_TextChanged(sender, e);
+            if (_dtPopupData != null)
+            {
+                DataRow[] drs = _dtPopupData.Select(DataField + "='" + (string.IsNullOrEmpty(EditValue)?"-1":EditValue) + "'");
+                if (drs != null && drs.Length == 1)
+                {
+                    _isfromkeychanged = false;
+                    mlkpDataNo.EditValue = drs[0][DataNoField];
+                    mlkpDataName.EditValue = drs[0][DisplayField];
+                }
+                else
+                {
+                    _isfromkeychanged = false;
+                    mlkpDataNo.EditValue = null;
+                    mlkpDataName.EditValue = null;
+                }
+            }
+        }
+
         #endregion       
+
+        
 
        
 

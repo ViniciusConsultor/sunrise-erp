@@ -45,9 +45,9 @@ namespace Sunrise.ERP.SystemManage.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("INSERT INTO sysQueryReportDetail(");
-            strSql.Append("MainID,iSort,sColumnFieldName,sColumnCaption,sColumnType,bIsQuery,bIsShow,bChartField,bChartValue,sSearchType,sDefaultValue,sReturnValue,bIsGroup,sFooterType,bIsStat,iFormID,sUserID)");
+            strSql.Append("MainID,iSort,sColumnFieldName,sColumnCaption,sColumnType,bIsQuery,bIsShow,bChartField,bChartValue,sSearchType,sDefaultValue,sReturnValue,bIsGroup,sFooterType,bIsStat,iFormID,sUserID,bLkpPopupField,sColumnEngCaption)");
             strSql.Append(" VALUES (");
-            strSql.Append("@MainID,@iSort,@sColumnFieldName,@sColumnCaption,@sColumnType,@bIsQuery,@bIsShow,@bChartField,@bChartValue,@sSearchType,@sDefaultValue,@sReturnValue,@bIsGroup,@sFooterType,@bIsStat,@iFormID,@sUserID)");
+            strSql.Append("@MainID,@iSort,@sColumnFieldName,@sColumnCaption,@sColumnType,@bIsQuery,@bIsShow,@bChartField,@bChartValue,@sSearchType,@sDefaultValue,@sReturnValue,@bIsGroup,@sFooterType,@bIsStat,@iFormID,@sUserID,@bLkpPopupField,@sColumnEngCaption)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@MainID", SqlDbType.Int,4),
@@ -66,7 +66,9 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@sFooterType", SqlDbType.VarChar,30),
 					new SqlParameter("@bIsStat", SqlDbType.Bit,1),
 					new SqlParameter("@iFormID", SqlDbType.Int,4),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
+					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
+					new SqlParameter("@bLkpPopupField", SqlDbType.Bit,1),
+					new SqlParameter("@sColumnEngCaption", SqlDbType.VarChar,50)};
             parameters[0].Value = dr["MainID"];
             parameters[1].Value = dr["iSort"];
             parameters[2].Value = dr["sColumnFieldName"];
@@ -84,6 +86,8 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[14].Value = dr["bIsStat"];
             parameters[15].Value = dr["iFormID"];
             parameters[16].Value = dr["sUserID"];
+            parameters[17].Value = dr["bLkpPopupField"];
+            parameters[18].Value = dr["sColumnEngCaption"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -118,7 +122,9 @@ namespace Sunrise.ERP.SystemManage.DAL
             strSql.Append("sFooterType=@sFooterType,");
             strSql.Append("bIsStat=@bIsStat,");
             strSql.Append("iFormID=@iFormID,");
-            strSql.Append("sUserID=@sUserID");
+            strSql.Append("sUserID=@sUserID,");
+            strSql.Append("bLkpPopupField=@bLkpPopupField,");
+            strSql.Append("sColumnEngCaption=@sColumnEngCaption");
             strSql.Append(" WHERE ID=@ID ");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.Int,4),
@@ -138,7 +144,9 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@sFooterType", SqlDbType.VarChar,30),
 					new SqlParameter("@bIsStat", SqlDbType.Bit,1),
 					new SqlParameter("@iFormID", SqlDbType.Int,4),
-					new SqlParameter("@sUserID", SqlDbType.VarChar,30)};
+					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
+					new SqlParameter("@bLkpPopupField", SqlDbType.Bit,1),
+					new SqlParameter("@sColumnEngCaption", SqlDbType.VarChar,50)};
             parameters[0].Value = dr["ID"];
             parameters[1].Value = dr["MainID"];
             parameters[2].Value = dr["iSort"];
@@ -157,6 +165,8 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[15].Value = dr["bIsStat"];
             parameters[16].Value = dr["iFormID"];
             parameters[17].Value = dr["sUserID"];
+            parameters[18].Value = dr["bLkpPopupField"];
+            parameters[19].Value = dr["sColumnEngCaption"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }

@@ -116,11 +116,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Public\BaseEnum.cs" />
-    <Compile Include="SunriseMLookup.cs">
+    <Compile Include="SunriseMLookUp.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SunriseMLookup.Designer.cs">
-      <DependentUpon>SunriseMLookup.cs</DependentUpon>
+    <Compile Include="SunriseMLookUp.Designer.cs">
+      <DependentUpon>SunriseMLookUp.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -144,8 +144,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SunriseMLookup.resx">
-      <DependentUpon>SunriseMLookup.cs</DependentUpon>
+    <EmbeddedResource Include="SunriseMLookUp.resx">
+      <DependentUpon>SunriseMLookUp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

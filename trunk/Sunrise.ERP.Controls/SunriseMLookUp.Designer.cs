@@ -1,6 +1,6 @@
 ﻿namespace Sunrise.ERP.Controls
 {
-    partial class SunriseMLookup
+    partial class SunriseMLookUp
     {
         /// <summary> 
         /// Required designer variable.
@@ -60,6 +60,7 @@
             this.mlkpDataNo.TabIndex = 0;
             this.mlkpDataNo.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.mlkpDataNo_ButtonClick);
             this.mlkpDataNo.Closed += new DevExpress.XtraEditors.Controls.ClosedEventHandler(this.mlkpDataNo_Closed);
+            this.mlkpDataNo.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.mlkpDataNo_PreviewKeyDown);
             this.mlkpDataNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mlkpDataNo_KeyDown);
             this.mlkpDataNo.Popup += new System.EventHandler(this.mlkpDataNo_Popup);
             this.mlkpDataNo.TextChanged += new System.EventHandler(this.mlkpDataNo_TextChanged);
@@ -114,15 +115,16 @@
             this.mlkpDataName.Properties.ReadOnly = true;
             this.mlkpDataName.Size = new System.Drawing.Size(87, 21);
             this.mlkpDataName.TabIndex = 2;
+            this.mlkpDataName.Tag = "99";
             // 
-            // SunriseMLookup
+            // SunriseMLookUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.mlkpDataName);
             this.Controls.Add(this.mlkpDataNo);
             this.Controls.Add(this.mlkpPopup);
-            this.Name = "SunriseMLookup";
+            this.Name = "SunriseMLookUp";
             this.Size = new System.Drawing.Size(200, 21);
             this.Load += new System.EventHandler(this.SunriseMLookup_Load);
             this.Controls.SetChildIndex(this.mlkpPopup, 0);
