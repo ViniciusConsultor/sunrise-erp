@@ -17,7 +17,9 @@ namespace Sunrise.ERP.Module.SystemManage
     public partial class frmsysQueryReportSet : Sunrise.ERP.BaseForm.frmMasterDetail
     {
         public frmsysQueryReportSet(int formid, string formtext)
-            : base(formid, "Sunrise.ERP.SystemManage.DAL", "sysQueryReportMasterDAL", "AND 1=1", "sReportNo")
+            : base(formid, "Sunrise.ERP.SystemManage.DAL", "sysQueryReportMasterDAL", 
+                "AND bSysReport=" + (bool.Parse(BasePublic.Base.GetFormParaList(formid)["IsSysReport"].ToString()) ? "1" : "0"),
+                "sReportNo")
         {
             InitializeComponent();
             if (formtext != "")
@@ -37,6 +39,9 @@ namespace Sunrise.ERP.Module.SystemManage
             chkbIsChart.DataBindings.Add("EditValue", dsMain, "bIsChart");
             chkbIsShowExecBtn.DataBindings.Add("EditValue", dsMain, "bIsShowExecBtn");
             chkbIsShowPrintBtn.DataBindings.Add("EditValue", dsMain, "bIsShowPrintBtn");
+            txtsLkpDataField.DataBindings.Add("EditValue", dsMain, "sLkpDataField");
+            txtsLkpDataNoField.DataBindings.Add("EditValue", dsMain, "sLkpDataNoField");
+            txtsLkpDisplayField.DataBindings.Add("EditValue", dsMain, "sLkpDisplayField");
 
             //sFooterType
             InitDetailComboBox("1020", cbxsFooterType);
@@ -99,6 +104,9 @@ namespace Sunrise.ERP.Module.SystemManage
             ((DataRowView)dsMain.Current).Row["bIsChart"] = false;
             ((DataRowView)dsMain.Current).Row["bIsAutoRun"] = false;
             ((DataRowView)dsMain.Current).Row["sDealFields"] = "*";
+
+            //新增的时候根据菜单参数设置是否为系统报表
+            ((DataRowView)dsMain.Current).Row["bSysReport"] = bool.Parse(BasePublic.Base.GetFormParaList(FormID)["IsSysReport"].ToString());
             dsMain.EndEdit();
             return true;
         }
@@ -141,6 +149,7 @@ namespace Sunrise.ERP.Module.SystemManage
             gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["bIsGroup"] = 0;
             gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["sFooterType"] = "001";
             gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["bIsStat"] = 0;
+            gvDetail.GetDataRow(gvDetail.FocusedRowHandle)["bLkpPopupField"] = 0;
 
         }
         /// <summary>

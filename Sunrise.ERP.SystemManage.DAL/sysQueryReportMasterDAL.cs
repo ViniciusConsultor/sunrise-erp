@@ -45,9 +45,9 @@ namespace Sunrise.ERP.SystemManage.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("INSERT INTO sysQueryReportMaster(");
-            strSql.Append("sReportNo,sReportName,sReportSQL,iControlSpace,iControlColumn,bIsShowPrintBtn,bIsShowExecBtn,bIsChart,sExecBtnText,sExecSQL,sDealFields,sSortFields,iFlag,sUserID,bIsAutoRun)");
+            strSql.Append("sReportNo,sReportName,sReportSQL,iControlSpace,iControlColumn,bIsShowPrintBtn,bIsShowExecBtn,bIsChart,bOptionData,sExecBtnText,sExecSQL,sDealFields,sSortFields,sLkpDataField,sLkpDataNoField,sLkpDisplayField,bSysReport,iFlag,sUserID,bIsAutoRun)");
             strSql.Append(" VALUES (");
-            strSql.Append("@sReportNo,@sReportName,@sReportSQL,@iControlSpace,@iControlColumn,@bIsShowPrintBtn,@bIsShowExecBtn,@bIsChart,@sExecBtnText,@sExecSQL,@sDealFields,@sSortFields,@iFlag,@sUserID,@bIsAutoRun)");
+            strSql.Append("@sReportNo,@sReportName,@sReportSQL,@iControlSpace,@iControlColumn,@bIsShowPrintBtn,@bIsShowExecBtn,@bIsChart,@bOptionData,@sExecBtnText,@sExecSQL,@sDealFields,@sSortFields,@sLkpDataField,@sLkpDataNoField,@sLkpDisplayField,@bSysReport,@iFlag,@sUserID,@bIsAutoRun)");
             strSql.Append(";SELECT @@IDENTITY");
             SqlParameter[] parameters = {
 					new SqlParameter("@sReportNo", SqlDbType.VarChar,30),
@@ -58,10 +58,15 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@bIsShowPrintBtn", SqlDbType.Bit,1),
 					new SqlParameter("@bIsShowExecBtn", SqlDbType.Bit,1),
 					new SqlParameter("@bIsChart", SqlDbType.Bit,1),
+					new SqlParameter("@bOptionData", SqlDbType.Bit,1),
 					new SqlParameter("@sExecBtnText", SqlDbType.VarChar,50),
 					new SqlParameter("@sExecSQL", SqlDbType.VarChar,1000),
 					new SqlParameter("@sDealFields", SqlDbType.VarChar,500),
 					new SqlParameter("@sSortFields", SqlDbType.VarChar,500),
+					new SqlParameter("@sLkpDataField", SqlDbType.VarChar,100),
+					new SqlParameter("@sLkpDataNoField", SqlDbType.VarChar,100),
+					new SqlParameter("@sLkpDisplayField", SqlDbType.VarChar,100),
+					new SqlParameter("@bSysReport", SqlDbType.Bit,1),
 					new SqlParameter("@iFlag", SqlDbType.Int,4),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
 					new SqlParameter("@bIsAutoRun", SqlDbType.Bit,1)};
@@ -73,13 +78,18 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[5].Value = dr["bIsShowPrintBtn"];
             parameters[6].Value = dr["bIsShowExecBtn"];
             parameters[7].Value = dr["bIsChart"];
-            parameters[8].Value = dr["sExecBtnText"];
-            parameters[9].Value = dr["sExecSQL"];
-            parameters[10].Value = dr["sDealFields"];
-            parameters[11].Value = dr["sSortFields"];
-            parameters[12].Value = dr["iFlag"];
-            parameters[13].Value = dr["sUserID"];
-            parameters[14].Value = dr["bIsAutoRun"];
+            parameters[8].Value = dr["bOptionData"];
+            parameters[9].Value = dr["sExecBtnText"];
+            parameters[10].Value = dr["sExecSQL"];
+            parameters[11].Value = dr["sDealFields"];
+            parameters[12].Value = dr["sSortFields"];
+            parameters[13].Value = dr["sLkpDataField"];
+            parameters[14].Value = dr["sLkpDataNoField"];
+            parameters[15].Value = dr["sLkpDisplayField"];
+            parameters[16].Value = dr["bSysReport"];
+            parameters[17].Value = dr["iFlag"];
+            parameters[18].Value = dr["sUserID"];
+            parameters[19].Value = dr["bIsAutoRun"];
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), trans, parameters);
             if (obj == null)
@@ -106,10 +116,15 @@ namespace Sunrise.ERP.SystemManage.DAL
             strSql.Append("bIsShowPrintBtn=@bIsShowPrintBtn,");
             strSql.Append("bIsShowExecBtn=@bIsShowExecBtn,");
             strSql.Append("bIsChart=@bIsChart,");
+            strSql.Append("bOptionData=@bOptionData,");
             strSql.Append("sExecBtnText=@sExecBtnText,");
             strSql.Append("sExecSQL=@sExecSQL,");
             strSql.Append("sDealFields=@sDealFields,");
             strSql.Append("sSortFields=@sSortFields,");
+            strSql.Append("sLkpDataField=@sLkpDataField,");
+            strSql.Append("sLkpDataNoField=@sLkpDataNoField,");
+            strSql.Append("sLkpDisplayField=@sLkpDisplayField,");
+            strSql.Append("bSysReport=@bSysReport,");
             strSql.Append("iFlag=@iFlag,");
             strSql.Append("sUserID=@sUserID,");
             strSql.Append("bIsAutoRun=@bIsAutoRun");
@@ -124,10 +139,15 @@ namespace Sunrise.ERP.SystemManage.DAL
 					new SqlParameter("@bIsShowPrintBtn", SqlDbType.Bit,1),
 					new SqlParameter("@bIsShowExecBtn", SqlDbType.Bit,1),
 					new SqlParameter("@bIsChart", SqlDbType.Bit,1),
+					new SqlParameter("@bOptionData", SqlDbType.Bit,1),
 					new SqlParameter("@sExecBtnText", SqlDbType.VarChar,50),
 					new SqlParameter("@sExecSQL", SqlDbType.VarChar,1000),
 					new SqlParameter("@sDealFields", SqlDbType.VarChar,500),
 					new SqlParameter("@sSortFields", SqlDbType.VarChar,500),
+					new SqlParameter("@sLkpDataField", SqlDbType.VarChar,100),
+					new SqlParameter("@sLkpDataNoField", SqlDbType.VarChar,100),
+					new SqlParameter("@sLkpDisplayField", SqlDbType.VarChar,100),
+					new SqlParameter("@bSysReport", SqlDbType.Bit,1),
 					new SqlParameter("@iFlag", SqlDbType.Int,4),
 					new SqlParameter("@sUserID", SqlDbType.VarChar,30),
 					new SqlParameter("@bIsAutoRun", SqlDbType.Bit,1)};
@@ -140,13 +160,18 @@ namespace Sunrise.ERP.SystemManage.DAL
             parameters[6].Value = dr["bIsShowPrintBtn"];
             parameters[7].Value = dr["bIsShowExecBtn"];
             parameters[8].Value = dr["bIsChart"];
-            parameters[9].Value = dr["sExecBtnText"];
-            parameters[10].Value = dr["sExecSQL"];
-            parameters[11].Value = dr["sDealFields"];
-            parameters[12].Value = dr["sSortFields"];
-            parameters[13].Value = dr["iFlag"];
-            parameters[14].Value = dr["sUserID"];
-            parameters[15].Value = dr["bIsAutoRun"];
+            parameters[9].Value = dr["bOptionData"];
+            parameters[10].Value = dr["sExecBtnText"];
+            parameters[11].Value = dr["sExecSQL"];
+            parameters[12].Value = dr["sDealFields"];
+            parameters[13].Value = dr["sSortFields"];
+            parameters[14].Value = dr["sLkpDataField"];
+            parameters[15].Value = dr["sLkpDataNoField"];
+            parameters[16].Value = dr["sLkpDisplayField"];
+            parameters[17].Value = dr["bSysReport"];
+            parameters[18].Value = dr["iFlag"];
+            parameters[19].Value = dr["sUserID"];
+            parameters[20].Value = dr["bIsAutoRun"];
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), trans, parameters);
         }

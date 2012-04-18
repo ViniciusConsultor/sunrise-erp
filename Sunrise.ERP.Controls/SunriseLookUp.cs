@@ -358,6 +358,10 @@ namespace Sunrise.ERP.Controls
                             }
                         }
                     }
+                    else
+                    {
+                        _dt = null;
+                    }
                 }
                 else
                 {
@@ -391,6 +395,7 @@ namespace Sunrise.ERP.Controls
                     {
                         txtDisplayText.Focus();
                         EditValue = string.Empty;
+                        _dt = null;
                         if (this.DataBindings.Count > 0 && this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
                         {
                             //清空数据
@@ -398,6 +403,11 @@ namespace Sunrise.ERP.Controls
                             ((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
                         }
                     }
+                    else
+                    {
+                        _dt = null;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -406,7 +416,7 @@ namespace Sunrise.ERP.Controls
             }
         }
 
-        private void txtValueText_TextChanged(object sender, EventArgs e)
+        protected virtual void txtValueText_TextChanged(object sender, EventArgs e)
         {
             try
             {

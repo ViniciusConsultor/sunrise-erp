@@ -139,6 +139,11 @@ namespace Sunrise.ERP.BasePublic
             {
                 ((Sunrise.ERP.Controls.SunriseLookUp)ctl).IsReadOnly = !isreadonly;
             }
+            //SunriseMLookUp
+            else if (ctl is Sunrise.ERP.Controls.SunriseMLookUp)
+            {
+                ((Sunrise.ERP.Controls.SunriseMLookUp)ctl).IsReadOnly = !isreadonly;
+            }
             //TextEdit
             else if (ctl is DevExpress.XtraEditors.TextEdit)
             {
@@ -197,6 +202,13 @@ namespace Sunrise.ERP.BasePublic
                     if (ctl.Tag == null || ctl.Tag.ToString() != "99")
                     {
                         if (ctl is Sunrise.ERP.Controls.SunriseLookUp && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
+                        {
+                            if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
+                            {
+                                ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).AppearanceItemCaption.ForeColor = System.Drawing.Color.Red;
+                            }
+                        }
+                        else if (ctl is Sunrise.ERP.Controls.SunriseMLookUp && ctl.Parent is DevExpress.XtraLayout.LayoutControl)
                         {
                             if (s == ((DevExpress.XtraLayout.LayoutControl)ctl.Parent).GetItemByControl(ctl).Control.Name)
                             {
@@ -943,6 +955,55 @@ namespace Sunrise.ERP.BasePublic
                 string GridColumnText = LangCenter.Instance.IsDefaultLanguage ?
                     dtTmp.Rows[0]["sGridColumnText"].ToString() : dtTmp.Rows[0]["sEnGridColumnText"].ToString();
                 SystemPublic.InitLookUpBase(lkp, SQL, DataField, DisplayField, GridDisplayField, GridColumnText, SearchFormText);
+            }
+        }
+
+        /// <summary>
+        /// 初始化MLookup控件
+        /// </summary>
+        /// <param name="mlkp">MLookUp控件</param>
+        /// <param name="reportno">系统查询配置编号</param>
+        public static void InitMLookup(SunriseMLookUp mlkp, string reportno)
+        {
+            string sSql = "SELECT A.sColumnFieldName, A.sColumnCaption, A.bLkpPopupField, A.sColumnEngCaption, "
+                        + "B.sReportSQL, B.sLkpDataField, B.sLkpDataNoField, B.sLkpDisplayField,B.sReportName "
+                        + "FROM sysQueryReportDetail A "
+                        + "LEFT JOIN sysQueryReportMaster B ON A.MainID=B.ID "
+                        + "WHERE B.sReportNo='" + reportno + "' "
+                        + "ORDER BY A.iSort";
+            DataTable dtTmp = DbHelperSQL.Query(sSql).Tables[0];
+            if (dtTmp != null && dtTmp.Rows.Count > 0)
+            {
+                string SearchFormText = dtTmp.Rows[0]["sReportName"].ToString();
+                string SQL = dtTmp.Rows[0]["sReportSQL"].ToString();
+                string DataField = dtTmp.Rows[0]["sLkpDataField"].ToString();
+                string DisplayField = dtTmp.Rows[0]["sLkpDisplayField"].ToString();
+                string DataNoField = dtTmp.Rows[0]["sLkpDataNoField"].ToString();
+                string GridDisplayField = string.Empty;
+                string GridColumnText=string.Empty;
+                string PopupGridDisplayField = string.Empty;
+                string PopupGridColumnText = string.Empty;
+                for (int i = 0; i < dtTmp.Rows.Count; i++)
+                {
+                    GridDisplayField += dtTmp.Rows[i]["sColumnFieldName"].ToString() + ",";
+                    GridColumnText += (LangCenter.Instance.IsDefaultLanguage ?
+                    dtTmp.Rows[i]["sColumnCaption"].ToString() : dtTmp.Rows[i]["sColumnEngCaption"].ToString()) + ",";
+                    if (bool.Parse(dtTmp.Rows[i]["bLkpPopupField"].ToString()))
+                    {
+                        PopupGridDisplayField += dtTmp.Rows[i]["sColumnFieldName"].ToString() + ",";
+                        PopupGridColumnText += (LangCenter.Instance.IsDefaultLanguage ?
+                        dtTmp.Rows[i]["sColumnCaption"].ToString() : dtTmp.Rows[i]["sColumnEngCaption"].ToString()) + ",";
+                    }
+                }
+
+                if (string.IsNullOrEmpty(PopupGridColumnText))
+                    throw new Exception("MLookUp Popup列不能够为空!");
+                GridColumnText = GridColumnText.Remove(GridColumnText.Length - 1, 1);
+                GridDisplayField = GridDisplayField.Remove(GridDisplayField.Length - 1, 1);                
+                PopupGridColumnText = PopupGridColumnText.Remove(PopupGridColumnText.Length - 1, 1);
+                PopupGridDisplayField = PopupGridDisplayField.Remove(PopupGridDisplayField.Length - 1, 1);
+
+                SystemPublic.InitMLookUpBase(mlkp, SQL, DataField, DataNoField, DisplayField, GridDisplayField, GridColumnText, PopupGridDisplayField, PopupGridColumnText, SearchFormText);
             }
         }
 

@@ -36,6 +36,29 @@ namespace Sunrise.ERP.Common
         }
 
         /// <summary>
+        /// 初始化MLookUp控件
+        /// </summary>
+        /// <param name="lkp">LookUp控件</param>
+        /// <param name="sql">查询SQL</param>
+        /// <param name="returnfield">返回字段</param>
+        /// <param name="displayfield">显示字段</param>
+        /// <param name="columnfield">查询窗口Grid显示列</param>
+        /// <param name="columntetx">查询窗口Grid列显示名称</param>
+        /// <param name="text">查询窗体标题</param>
+        public static void InitMLookUpBase(SunriseMLookUp lkp, string sql, string returnfield, string lkpnofield, string displayfield, string columnfield, string columntetx, string popupcolumnfield, string popupcolumntetx, string text)
+        {
+            lkp.SearchFormText = text;
+            lkp.SQL = sql;
+            lkp.DataField = returnfield;
+            lkp.DataNoField = lkpnofield;
+            lkp.DisplayField = displayfield;
+            lkp.GridDisplayField = columnfield;
+            lkp.GridColumnText = columntetx;
+            lkp.PopupDataFields = popupcolumnfield;
+            lkp.PopupDisplayFields = popupcolumntetx;
+        }
+
+        /// <summary>
         ///初始化员工查询 
         /// </summary>
         /// <param name="lkp">LookUp控件</param>

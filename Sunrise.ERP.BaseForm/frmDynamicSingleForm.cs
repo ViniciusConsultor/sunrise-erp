@@ -912,6 +912,24 @@ namespace Sunrise.ERP.BaseForm
                         if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
                             Base.InitComboBox((ImageComboBoxEdit)ctls[0], dr["sLookupNo"].ToString(), dr["sFieldType"].ToString());
                     }
+
+                    //初始化MLookup
+                    if (ctls[0] is SunriseMLookUp)
+                    {
+                        if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
+                        {
+                            Base.InitMLookup((SunriseMLookUp)ctls[0], dr["sLookupNo"].ToString());
+                            if (!string.IsNullOrEmpty(dr["sLookupAutoSetControl"].ToString()))
+                            {
+                                string[] sItem = Public.GetSplitString(dr["sLookupAutoSetControl"].ToString(), ",");
+                                foreach (var s in sItem)
+                                {
+                                    string[] ss = Public.GetSplitString(s, "=");
+                                    ((SunriseMLookUp)ctls[0]).AutoSetValue(ss[0], ss[1]);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1633,6 +1651,15 @@ namespace Sunrise.ERP.BaseForm
                                         lkp.Name = "lkp" + drs[iControl]["sFieldName"].ToString();
                                         lkp.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
                                         pnlDynamic.Controls.Add(lkp);
+                                        break;
+                                    }
+                                case "mlkp":
+                                    {
+                                        SunriseMLookUp mlkp = new SunriseMLookUp();
+                                        mlkp.Size = new Size(120, 21);
+                                        mlkp.Name = "mlkp" + drs[iControl]["sFieldName"].ToString();
+                                        mlkp.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        pnlDynamic.Controls.Add(mlkp);
                                         break;
                                     }
                                 case "rad":
