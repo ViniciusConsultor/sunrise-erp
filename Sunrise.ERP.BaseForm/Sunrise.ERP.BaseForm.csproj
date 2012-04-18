@@ -113,6 +113,12 @@
     <Compile Include="frmMasterDetail.Designer.cs">
       <DependentUpon>frmMasterDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReportForm.Designer.cs">
+      <DependentUpon>frmReportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +157,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMasterDetail.resx">
       <DependentUpon>frmMasterDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReportForm.resx">
+      <DependentUpon>frmReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSearchForm.resx">
       <DependentUpon>frmSearchForm.cs</DependentUpon>
