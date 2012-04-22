@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.SideBySideBarSeriesLabel sideBySideBarSeriesLabel1 = new DevExpress.XtraCharts.SideBySideBarSeriesLabel();
+            DevExpress.XtraCharts.SideBySideBarSeriesLabel sideBySideBarSeriesLabel2 = new DevExpress.XtraCharts.SideBySideBarSeriesLabel();
             this.grbFilter = new DevExpress.XtraEditors.GroupControl();
             this.grbGroup = new DevExpress.XtraEditors.GroupControl();
             this.btnSet = new DevExpress.XtraEditors.SimpleButton();
@@ -39,7 +39,6 @@
             this.splitterControl1 = new DevExpress.XtraEditors.SplitterControl();
             this.tbDetail = new DevExpress.XtraTab.XtraTabControl();
             this.tpDetail = new DevExpress.XtraTab.XtraTabPage();
-            this.pnlWait = new DevExpress.XtraEditors.PanelControl();
             this.gcSearch = new Sunrise.ERP.Controls.SunriseGridControl();
             this.gvSearch = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tpChart = new DevExpress.XtraTab.XtraTabPage();
@@ -51,9 +50,11 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.lbltype = new DevExpress.XtraEditors.LabelControl();
+            this.pnlWait = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
             this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
+            this.btnAdvanceView = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grbFilter)).BeginInit();
@@ -62,17 +63,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbDetail)).BeginInit();
             this.tbDetail.SuspendLayout();
             this.tpDetail.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pnlWait)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvSearch)).BeginInit();
             this.tpChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chtMain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesLabel1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesLabel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbxValueType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxField.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxChartType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlWait)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
             this.SuspendLayout();
@@ -107,7 +108,7 @@
             // btnSet
             // 
             this.btnSet.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.insert;
-            this.btnSet.Location = new System.Drawing.Point(218, 5);
+            this.btnSet.Location = new System.Drawing.Point(285, 5);
             this.btnSet.Name = "btnSet";
             this.btnSet.Size = new System.Drawing.Size(70, 24);
             this.btnSet.TabIndex = 5;
@@ -117,7 +118,7 @@
             // btnPrint
             // 
             this.btnPrint.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.print;
-            this.btnPrint.Location = new System.Drawing.Point(147, 5);
+            this.btnPrint.Location = new System.Drawing.Point(214, 5);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(70, 24);
             this.btnPrint.TabIndex = 4;
@@ -127,7 +128,7 @@
             // btnClose
             // 
             this.btnClose.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.close;
-            this.btnClose.Location = new System.Drawing.Point(289, 5);
+            this.btnClose.Location = new System.Drawing.Point(356, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(70, 24);
             this.btnClose.TabIndex = 3;
@@ -137,7 +138,7 @@
             // btnClear
             // 
             this.btnClear.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.cancel;
-            this.btnClear.Location = new System.Drawing.Point(76, 5);
+            this.btnClear.Location = new System.Drawing.Point(143, 5);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(70, 24);
             this.btnClear.TabIndex = 2;
@@ -147,7 +148,7 @@
             // btnView
             // 
             this.btnView.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.view;
-            this.btnView.Location = new System.Drawing.Point(5, 5);
+            this.btnView.Location = new System.Drawing.Point(72, 5);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(70, 24);
             this.btnView.TabIndex = 1;
@@ -182,17 +183,6 @@
             this.tpDetail.Name = "tpDetail";
             this.tpDetail.Size = new System.Drawing.Size(868, 283);
             this.tpDetail.Text = "明细";
-            // 
-            // pnlWait
-            // 
-            this.pnlWait.ContentImage = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.wait;
-            this.pnlWait.Location = new System.Drawing.Point(231, 149);
-            this.pnlWait.LookAndFeel.SkinName = "Blue";
-            this.pnlWait.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.pnlWait.Name = "pnlWait";
-            this.pnlWait.Size = new System.Drawing.Size(380, 140);
-            this.pnlWait.TabIndex = 10;
-            this.pnlWait.Visible = false;
             // 
             // gcSearch
             // 
@@ -230,8 +220,8 @@
             this.chtMain.Location = new System.Drawing.Point(104, 0);
             this.chtMain.Name = "chtMain";
             this.chtMain.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            sideBySideBarSeriesLabel1.LineVisible = true;
-            this.chtMain.SeriesTemplate.Label = sideBySideBarSeriesLabel1;
+            sideBySideBarSeriesLabel2.LineVisible = true;
+            this.chtMain.SeriesTemplate.Label = sideBySideBarSeriesLabel2;
             this.chtMain.Size = new System.Drawing.Size(642, 283);
             this.chtMain.TabIndex = 1;
             // 
@@ -310,8 +300,20 @@
             this.lbltype.TabIndex = 1;
             this.lbltype.Text = "图表类型：";
             // 
+            // pnlWait
+            // 
+            this.pnlWait.ContentImage = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.wait;
+            this.pnlWait.Location = new System.Drawing.Point(231, 149);
+            this.pnlWait.LookAndFeel.SkinName = "Blue";
+            this.pnlWait.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.pnlWait.Name = "pnlWait";
+            this.pnlWait.Size = new System.Drawing.Size(380, 140);
+            this.pnlWait.TabIndex = 10;
+            this.pnlWait.Visible = false;
+            // 
             // panelControl3
             // 
+            this.panelControl3.Controls.Add(this.btnAdvanceView);
             this.panelControl3.Controls.Add(this.btnEdit);
             this.panelControl3.Controls.Add(this.btnAdd);
             this.panelControl3.Controls.Add(this.btnClose);
@@ -345,6 +347,16 @@
             this.btnAdd.Text = "新增(&A)";
             this.btnAdd.Visible = false;
             // 
+            // btnAdvanceView
+            // 
+            this.btnAdvanceView.Image = global::Sunrise.ERP.Module.SystemManage.Properties.Resources.view;
+            this.btnAdvanceView.Location = new System.Drawing.Point(1, 5);
+            this.btnAdvanceView.Name = "btnAdvanceView";
+            this.btnAdvanceView.Size = new System.Drawing.Size(70, 24);
+            this.btnAdvanceView.TabIndex = 8;
+            this.btnAdvanceView.Text = "高级(&A)";
+            this.btnAdvanceView.Click += new System.EventHandler(this.btnAdvanceView_Click);
+            // 
             // frmsysQueryReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -361,11 +373,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbDetail)).EndInit();
             this.tbDetail.ResumeLayout(false);
             this.tpDetail.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pnlWait)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvSearch)).EndInit();
             this.tpChart.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesLabel1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesLabel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chtMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
@@ -373,6 +384,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbxValueType.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxField.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxChartType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlWait)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -406,6 +418,7 @@
         private DevExpress.XtraEditors.SimpleButton btnEdit;
         private DevExpress.XtraEditors.SimpleButton btnAdd;
         private DevExpress.XtraEditors.PanelControl pnlWait;
+        private DevExpress.XtraEditors.SimpleButton btnAdvanceView;
 
     }
 }

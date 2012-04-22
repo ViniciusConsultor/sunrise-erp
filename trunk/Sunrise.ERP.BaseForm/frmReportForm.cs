@@ -10,10 +10,15 @@ namespace Sunrise.ERP.BaseForm
 {
     public partial class frmReportForm : Sunrise.ERP.BaseForm.frmForm
     {
+        public frmReportForm()
+        {
+            InitializeComponent();
+        }
         public frmReportForm(int formid, string formtext)
             : base(formid, formtext)
         {
             InitializeComponent();
         }
+        
     }
 }

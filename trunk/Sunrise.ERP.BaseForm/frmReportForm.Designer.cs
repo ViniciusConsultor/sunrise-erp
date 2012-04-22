@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.btnAdvanceView = new DevExpress.XtraEditors.SimpleButton();
             this.btnClose = new DevExpress.XtraEditors.SimpleButton();
             this.btnSet = new DevExpress.XtraEditors.SimpleButton();
+            this.btnView = new DevExpress.XtraEditors.SimpleButton();
             this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
-            this.btnView = new DevExpress.XtraEditors.SimpleButton();
-            this.btnAdvanceView = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -59,6 +59,17 @@
             this.panelControl3.Size = new System.Drawing.Size(753, 33);
             this.panelControl3.TabIndex = 4;
             // 
+            // btnAdvanceView
+            // 
+            this.btnAdvanceView.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.view;
+            this.btnAdvanceView.Location = new System.Drawing.Point(2, 5);
+            this.btnAdvanceView.LookAndFeel.SkinName = "Blue";
+            this.btnAdvanceView.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnAdvanceView.Name = "btnAdvanceView";
+            this.btnAdvanceView.Size = new System.Drawing.Size(70, 24);
+            this.btnAdvanceView.TabIndex = 6;
+            this.btnAdvanceView.Text = "高级(&A)";
+            // 
             // btnClose
             // 
             this.btnClose.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.close;
@@ -80,6 +91,17 @@
             this.btnSet.Size = new System.Drawing.Size(70, 24);
             this.btnSet.TabIndex = 5;
             this.btnSet.Text = "执行(&R)";
+            // 
+            // btnView
+            // 
+            this.btnView.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.view;
+            this.btnView.Location = new System.Drawing.Point(73, 5);
+            this.btnView.LookAndFeel.SkinName = "Blue";
+            this.btnView.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.btnView.Name = "btnView";
+            this.btnView.Size = new System.Drawing.Size(70, 24);
+            this.btnView.TabIndex = 1;
+            this.btnView.Text = "过滤(&V)";
             // 
             // btnPrint
             // 
@@ -103,28 +125,6 @@
             this.btnClear.TabIndex = 2;
             this.btnClear.Text = "清除(&C)";
             // 
-            // btnView
-            // 
-            this.btnView.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.view;
-            this.btnView.Location = new System.Drawing.Point(73, 5);
-            this.btnView.LookAndFeel.SkinName = "Blue";
-            this.btnView.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.btnView.Name = "btnView";
-            this.btnView.Size = new System.Drawing.Size(70, 24);
-            this.btnView.TabIndex = 1;
-            this.btnView.Text = "过滤(&V)";
-            // 
-            // btnAdvanceView
-            // 
-            this.btnAdvanceView.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.view;
-            this.btnAdvanceView.Location = new System.Drawing.Point(2, 5);
-            this.btnAdvanceView.LookAndFeel.SkinName = "Blue";
-            this.btnAdvanceView.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.btnAdvanceView.Name = "btnAdvanceView";
-            this.btnAdvanceView.Size = new System.Drawing.Size(70, 24);
-            this.btnAdvanceView.TabIndex = 6;
-            this.btnAdvanceView.Text = "高级(&A)";
-            // 
             // frmReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -143,11 +143,11 @@
         #endregion
 
         private DevExpress.XtraEditors.PanelControl panelControl3;
-        private DevExpress.XtraEditors.SimpleButton btnClose;
-        private DevExpress.XtraEditors.SimpleButton btnSet;
-        private DevExpress.XtraEditors.SimpleButton btnView;
-        private DevExpress.XtraEditors.SimpleButton btnPrint;
-        private DevExpress.XtraEditors.SimpleButton btnClear;
-        private DevExpress.XtraEditors.SimpleButton btnAdvanceView;
+        public DevExpress.XtraEditors.SimpleButton btnClose;
+        public DevExpress.XtraEditors.SimpleButton btnSet;
+        public DevExpress.XtraEditors.SimpleButton btnView;
+        public DevExpress.XtraEditors.SimpleButton btnPrint;
+        public DevExpress.XtraEditors.SimpleButton btnClear;
+        public DevExpress.XtraEditors.SimpleButton btnAdvanceView;
     }
 }

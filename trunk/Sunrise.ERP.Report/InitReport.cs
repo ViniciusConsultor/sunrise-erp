@@ -40,6 +40,8 @@ namespace Sunrise.ERP.Report
         List<string> LEnumerableName = new List<string>();
         List<DataRowView> LDataRowView = new List<DataRowView>();
         List<string> LDataRowViewName = new List<string>();
+        List<BindingSource> LBindingSource = new List<BindingSource>();
+        List<string> LBindingSourceName = new List<string>();
         SqlConnection conn = new SqlConnection(Sunrise.ERP.BaseControl.ConnectSetting.GetSqlConnString());
         private string rpGUID;
 
@@ -330,6 +332,17 @@ namespace Sunrise.ERP.Report
         }
 
         /// <summary>
+        /// 添加报表数据集
+        /// </summary>
+        /// <param name="data">BindingSource数据源</param>
+        /// <param name="dataname">数据集别名</param>
+        public void AddReportData(BindingSource data, string dataname)
+        {
+            LBindingSource.Add(data);
+            LBindingSourceName.Add(dataname);
+        }
+
+        /// <summary>
         /// 注册报表数据集
         /// </summary>
         private void RegReportData()
@@ -361,6 +374,14 @@ namespace Sunrise.ERP.Report
                 for (int i = 0; i < LEnumerable.Count; i++)
                 {
                     report.RegisterData(LEnumerable[i], LEnumerableName[i]);
+                }
+            }
+            if (LBindingSource.Count > 0)
+            {
+                for (int i = 0; i < LBindingSource.Count; i++)
+                {
+                    DataTable dtTmp = ((DataSet)LBindingSource[i].DataSource).Tables[0];
+                    report.RegisterData(dtTmp, LBindingSourceName[i]);
                 }
             }
             for (int i = 0; i < LDataRowView.Count; i++)

@@ -10,6 +10,7 @@ using Sunrise.ERP.Lang;
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.SysBase;
 using Sunrise.ERP.DataAccess;
+using System.IO;
 
 namespace Sunrise.ERP.BasePublic
 {
@@ -183,6 +184,76 @@ namespace Sunrise.ERP.BasePublic
             AddIPLog(formid, userid, string.Format(LangCenter.Instance.GetSystemMessage("AddNewBill"), billno));
         }
 
-       
+        /// <summary>
+        /// 加载窗体Gird样式
+        /// </summary>
+        /// <param name="suserid">用户ID</param>
+        /// <param name="formid">FormID</param>
+        /// <param name="ctls">需要加载样式的Grid List</param>
+        public static void LoadFormStyle(string suserid, int formid, List<Control> ctls)
+        {
+            try
+            {
+                string sSql = "SELECT sUserID, FormID, ControlName, StyleFile  FROM sysFormStyleSetting WHERE sUserID='" + suserid + "' AND FormID=" + formid.ToString();
+                DataTable dtTmp = DbHelperSQL.QueryTable(sSql);
+                foreach (var c in ctls)
+                {
+                    if (c is DevExpress.XtraGrid.GridControl)
+                    {
+                        DataRow[] drs = dtTmp.Select("ControlName='" + c.Name + "'");
+                        if (drs != null && drs.Length == 1)
+                        {
+                            byte[] bt = (byte[])drs[0]["StyleFile"];
+                           ((DevExpress.XtraGrid.GridControl)c).Views[0].RestoreLayoutFromStream(new MemoryStream(bt));
+                        }
+                    }
+                }
+
+            }
+
+            catch
+            { }
+                
+        }
+
+        /// <summary>
+        /// 保存窗体Gird样式
+        /// </summary>
+        /// <param name="suserid">用户ID</param>
+        /// <param name="formid">FormID</param>
+        /// <param name="ctls">需要保存样式的Grid List</param>
+        public static void SaveFormStyle(string suserid, int formid, List<Control> ctls)
+        {
+            SqlTransaction trans = ConnectSetting.SysSqlConnection.BeginTransaction();
+            try
+            {
+                foreach (var c in ctls)
+                {
+                    MemoryStream ms = new MemoryStream();
+                    ((DevExpress.XtraGrid.GridControl)c).Views[0].SaveLayoutToStream(ms);
+                    byte[] file = ms.ToArray();
+                    string sDel = "DELETE FROM sysFormStyleSetting WHERE FormID=" + formid.ToString() + " AND ControlName='" + c.Name + "'";
+                    string sSql = "INSERT INTO sysFormStyleSetting(sUserID,FormID,ControlName,StyleFile) VALUES(@sUserID,@FormID,@ControlName,@StyleFile)";
+                    SqlParameter[] para ={
+                                new SqlParameter("@sUserID",SqlDbType.VarChar,50),
+                                new SqlParameter("@FormID",SqlDbType.Int,4),
+                                new SqlParameter("@ControlName",SqlDbType.VarChar,50),
+                                new SqlParameter("@StyleFile",SqlDbType.Image)};
+                    para[0].Value = suserid;
+                    para[1].Value = formid;
+                    para[2].Value = c.Name;
+                    para[3].Value = file;
+                    //先删除原来的再保存
+                    DbHelperSQL.ExecuteSql(sDel,trans);
+                    DbHelperSQL.ExecuteSql(sSql, trans, para);
+                    
+                }
+                trans.Commit();
+            }
+            catch 
+            {
+                trans.Rollback();
+            }
+        }
     }
 }

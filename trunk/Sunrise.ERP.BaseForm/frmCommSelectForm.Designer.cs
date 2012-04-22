@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.btnAdvView = new DevExpress.XtraEditors.SimpleButton();
             this.btnView = new DevExpress.XtraEditors.SimpleButton();
             this.btnClear = new DevExpress.XtraEditors.SimpleButton();
             this.grbFilter = new DevExpress.XtraEditors.GroupControl();
@@ -39,7 +40,6 @@
             this.chkAll = new DevExpress.XtraEditors.CheckEdit();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnOk = new DevExpress.XtraEditors.SimpleButton();
-            this.btnAdvView = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -72,10 +72,20 @@
             this.panelControl3.Size = new System.Drawing.Size(682, 33);
             this.panelControl3.TabIndex = 4;
             // 
+            // btnAdvView
+            // 
+            this.btnAdvView.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.view;
+            this.btnAdvView.Location = new System.Drawing.Point(3, 5);
+            this.btnAdvView.Name = "btnAdvView";
+            this.btnAdvView.Size = new System.Drawing.Size(70, 24);
+            this.btnAdvView.TabIndex = 3;
+            this.btnAdvView.Text = "高级(&A)";
+            this.btnAdvView.Click += new System.EventHandler(this.btnAdvView_Click);
+            // 
             // btnView
             // 
             this.btnView.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.view;
-            this.btnView.Location = new System.Drawing.Point(5, 5);
+            this.btnView.Location = new System.Drawing.Point(74, 5);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(70, 24);
             this.btnView.TabIndex = 1;
@@ -85,7 +95,7 @@
             // btnClear
             // 
             this.btnClear.Image = global::Sunrise.ERP.BaseForm.Properties.Resources.clear;
-            this.btnClear.Location = new System.Drawing.Point(147, 5);
+            this.btnClear.Location = new System.Drawing.Point(146, 5);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(70, 24);
             this.btnClear.TabIndex = 2;
@@ -172,15 +182,6 @@
             this.btnOk.TabIndex = 1;
             this.btnOk.Text = "确定(&O)";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // btnAdvView
-            // 
-            this.btnAdvView.Location = new System.Drawing.Point(76, 5);
-            this.btnAdvView.Name = "btnAdvView";
-            this.btnAdvView.Size = new System.Drawing.Size(70, 24);
-            this.btnAdvView.TabIndex = 3;
-            this.btnAdvView.Text = "高级查询";
-            this.btnAdvView.Click += new System.EventHandler(this.btnAdvView_Click);
             // 
             // frmCommSelectForm
             // 

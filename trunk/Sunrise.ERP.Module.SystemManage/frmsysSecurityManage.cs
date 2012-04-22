@@ -18,8 +18,7 @@ namespace Sunrise.ERP.Module.SystemManage
         List<string> LMenuParentID = new List<string>();
         string sOperationColumn = "";
 
-        private readonly string ReportGUID = "2F7EFE15-60BB-4FDB-9BEF-ECE14669622A";
-        Sunrise.ERP.Report.InitReport report;
+        Sunrise.ERP.Report.InitReport report = new Sunrise.ERP.Report.InitReport("2F7EFE15-60BB-4FDB-9BEF-ECE14669622A");
 
         public frmsysSecurityManage(int formid, string formtext)
             : base(formid, "Sunrise.ERP.SystemManage.DAL", "sysRolesDAL")
@@ -67,7 +66,6 @@ namespace Sunrise.ERP.Module.SystemManage
             //初始化LookUp控件
             Sunrise.ERP.Common.SystemPublic.InitLkpSystemUser(lkpUser);
 
-            report = new Sunrise.ERP.Report.InitReport(ReportGUID);
             pnlDetailMenu.Visible = false;
             DataStateChange(sender, e);
         }
@@ -75,8 +73,8 @@ namespace Sunrise.ERP.Module.SystemManage
         public override void DoPrint()
         {
             base.DoPrint();
-            report.AddReportData(Sunrise.ERP.DataAccess.DbHelperSQL.Query("SELECT * FROM sysRoles WHERE ID=" + BillID.ToString()).Tables[0], "主表");
-            //report.AddReportData((IEnumerable)dsMain.Current, "主表");
+            //report.AddReportData(Sunrise.ERP.DataAccess.DbHelperSQL.Query("SELECT * FROM sysRoles WHERE ID=" + BillID.ToString()).Tables[0], "主表");
+            report.AddReportData((DataRowView)dsMain.Current, "主表");
             report.AddReportData(LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0], "角色权限");
             report.AddReportData(LDetailDataSet[LDetailDALName.IndexOf("sysRolesUserDAL")].Tables[0], "角色用户");
             report.ReportMenu.Show(btnPrint, new Point(0, btnPrint.Height));
