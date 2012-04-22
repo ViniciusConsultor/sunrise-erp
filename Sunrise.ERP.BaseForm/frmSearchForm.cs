@@ -211,7 +211,8 @@ namespace Sunrise.ERP.BaseForm
             }
             else if (cbxSearchValue.Visible)
             {
-                sValue = cbxSearchValue.EditValue.ToString();
+                if (cbxSearchValue.EditValue != null)
+                    sValue = cbxSearchValue.EditValue.ToString();
             }
             else if (txtBtnSearchValue.Visible)
             {

@@ -17,6 +17,7 @@ using Sunrise.ERP.Security;
 using Sunrise.ERP.Lang;
 using Sunrise.ERP.BaseForm;
 using System.Reflection;
+using Sunrise.ERP.BasePublic;
 
 
 namespace Sunrise.ERP.Module.SystemManage
@@ -1084,6 +1085,65 @@ namespace Sunrise.ERP.Module.SystemManage
             }
             else
                 Cursor.Current = currentCursor;
+        }
+
+        private void btnAdvanceView_Click(object sender, EventArgs e)
+        {
+            if (IsGroup)
+            {
+                if (GetGroupFields() == "")
+                {
+                    Public.SystemInfo("如果存在分组统计查询，则必须至少选择一列分组字段！");
+                    return;
+                }
+                CreateGridColumn();
+            }
+            CreateAdvanceSearch();
+            if (tbDetail.SelectedTabPageIndex == 1)
+            {
+                ShowChart();
+            }
+        }
+
+        private void CreateAdvanceSearch()
+        {
+            DataRow[] drs = dtDetail.Select("bIsShow=1");
+            if (drs.Length > 0)
+            {
+                frmSearchForm frm = new frmSearchForm();
+                frm.Text = "高级查询";
+                foreach (DataRow dr in drs)
+                {
+                    string sColumnType = dr["sColumnType"].ToString();
+                    switch (sColumnType)
+                    {
+                        case "C":
+                            {
+                                frm.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sColumnCaption"].ToString() : dr["sColumnEngCaption"].ToString(),
+                                                            dr["sColumnFieldName"].ToString(), FiledType.C, dr["sReturnValue"].ToString(), dr["sReturnValue"].ToString());
+                                break;
+                            }
+                        case "D":
+                            {
+                                frm.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sColumnCaption"].ToString() : dr["sColumnEngCaption"].ToString(),
+                                                            dr["sColumnFieldName"].ToString(), FiledType.D);
+                                break;
+                            }
+                        case "S":
+                        case "L":
+                        case "N":
+                            {
+                                frm.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sColumnCaption"].ToString() : dr["sColumnEngCaption"].ToString(),
+                                                            dr["sColumnFieldName"].ToString(), FiledType.S);
+                                break;
+                            }
+                    }
+                }
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    InitGridData(frm.SearchSQL);
+                }
+            }
         }
     }
 }

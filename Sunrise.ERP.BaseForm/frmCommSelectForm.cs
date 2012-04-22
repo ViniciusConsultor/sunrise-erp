@@ -10,6 +10,8 @@ using System.Linq;
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.DataAccess;
 using Sunrise.ERP.Controls;
+using Sunrise.ERP.Lang;
+using Sunrise.ERP.BasePublic;
 
 namespace Sunrise.ERP.BaseForm
 {
@@ -619,7 +621,48 @@ namespace Sunrise.ERP.BaseForm
         //高级查询，弹出查询自定义界面
         private void btnAdvView_Click(object sender, EventArgs e)
         {
-            
+            CreateAdvanceSearch();
+        }
+
+        private void CreateAdvanceSearch()
+        {
+            DataRow[] drs = dtDetail.Select("bIsShow=1");
+            if (drs.Length > 0)
+            {
+                frmSearchForm frm = new frmSearchForm();
+                frm.Text = "高级查询";
+                foreach (DataRow dr in drs)
+                {
+                    string sColumnType = dr["sColumnType"].ToString();
+                    switch (sColumnType)
+                    {
+                        case "C":
+                            {
+                                frm.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sColumnCaption"].ToString() : dr["sColumnEngCaption"].ToString(),
+                                                            dr["sColumnFieldName"].ToString(), FiledType.C, dr["sReturnValue"].ToString(), dr["sReturnValue"].ToString());
+                                break;
+                            }
+                        case "D":
+                            {
+                                frm.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sColumnCaption"].ToString() : dr["sColumnEngCaption"].ToString(),
+                                                            dr["sColumnFieldName"].ToString(), FiledType.D);
+                                break;
+                            }
+                        case "S":
+                        case "L":
+                        case "N":
+                            {
+                                frm.AddSearchItem(LangCenter.Instance.IsDefaultLanguage ? dr["sColumnCaption"].ToString() : dr["sColumnEngCaption"].ToString(),
+                                                            dr["sColumnFieldName"].ToString(), FiledType.S);
+                                break;
+                            }
+                    }
+                }
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    InitGridData(" 1=1 " + AuthSQL + " AND " + frm.SearchSQL);
+                }
+            }
         }
     }
 
