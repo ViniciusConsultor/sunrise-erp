@@ -239,7 +239,7 @@ namespace Sunrise.ERP.BaseForm
                                 swhere += " ORDER BY " + DetailOrderField[LDetailTableName[i]].ToString();
                             
                             //很奇怪的问题，必须先清除再重新设置其数据源
-                            ((DataSet)LDetailBindingSource[i].DataSource).Clear();
+                            ((DataSet)LDetailBindingSource[i].DataSource).Tables.Clear();
                             LDetailBindingSource[i].DataSource = GetDataSet(LDetailDynamicDAL[i], swhere);
                         }
                     }
@@ -504,7 +504,7 @@ namespace Sunrise.ERP.BaseForm
         private GridColumn CreateGridColumn(GridView gv, DataRow dr, BindingSource ds, string tablename, int index, bool isuseredit)
         {
             //******************************特别提示*********************************************
-            //Tip:如果要在Grid中取得自定义添加的控件，例如lkp,cbx,mtxt,btxt控件
+            //Tip:如果要在Grid中取得自定义添加的控件，例如lkp,cbx,mtxt,btxt,mlkp控件
             //lkp控件：用Controls.Find()方法来查找出lkp控件
             //其他类型：用GridControl.RepositoryItems集合中查找
             //***********************************************************************************
@@ -571,6 +571,53 @@ namespace Sunrise.ERP.BaseForm
                         btxtRepositoryItem.Name = "colmtxt" + tablename + dr["sFieldName"].ToString();
                         cols.ColumnEdit = btxtRepositoryItem;
                         gv.GridControl.RepositoryItems.Add(btxtRepositoryItem);
+                        break;
+                    }
+                //MLookUp查询
+                case "mlkp":
+                    {
+                        if (!string.IsNullOrEmpty(dr["sLookupNo"].ToString()))
+                        {
+                            SunriseMLookUp mlkp = new SunriseMLookUp();
+                            mlkp.Name = "colmlkp" + tablename + dr["sFieldName"].ToString();
+                            mlkp.DataBindings.Add("EditValue", ds, dr["sFieldName"].ToString());
+                            mlkp.IsUsedInGrid = true;
+                            
+                            Base.InitMLookup(mlkp, dr["sLookupNo"].ToString());
+                            if (!string.IsNullOrEmpty(dr["sLookupAutoSetControl"].ToString()))
+                            {
+                                string[] sItem = Public.GetSplitString(dr["sLookupAutoSetControl"].ToString(), ",");
+                                foreach (var s in sItem)
+                                {
+                                    string[] ss = Public.GetSplitString(s, "=");
+                                    mlkp.AutoSetValue(ss[0], ss[1]);
+                                }
+                            }
+                            RepositoryItemPopupContainerEdit btnRepositoryItem = new RepositoryItemPopupContainerEdit();
+                            btnRepositoryItem.Name = "gridmlkp" + tablename + dr["sFieldName"].ToString();
+                            //原本默认的显示Popup的按钮隐藏掉
+                            btnRepositoryItem.Buttons[0].Visible = false;
+                            btnRepositoryItem.Buttons.Add(new EditorButton(ButtonPredefines.Ellipsis));
+                            btnRepositoryItem.ButtonClick += mlkp.LookUpSelfClick;
+                            btnRepositoryItem.TextEditStyle = TextEditStyles.Standard;
+                            btnRepositoryItem.Popup += mlkp.mlkpDataNo_Popup;
+                            btnRepositoryItem.KeyDown += mlkp.mlkpDataNo_KeyDown;
+                            btnRepositoryItem.Closed += mlkp.mlkpDataNo_Closed;
+                            gv.GridControl.PreviewKeyDown += mlkp.mlkpDataNo_PreviewKeyDown;
+                            
+                            btnRepositoryItem.PopupControl = mlkp.mlkpPopup;
+                            btnRepositoryItem.EditValueChanged += mlkp.mlkpDataNo_TextChanged;
+                            
+                            //加这句是让了焦点更新，Grid中才会显示新的数据值，其实在后台是已经存在了的，只是在Grid中没有显示出来
+                            //此处设置为查询完成后自动跳转到Grid中的下一列中
+                            mlkp.LookUpAfterPost += new SunriseLookUp.SunriseLookUpEvent(lkp_LookUpAfterPost);
+                            cols.ColumnEdit = btnRepositoryItem;
+                            gv.GridControl.RepositoryItems.Add(btnRepositoryItem);
+                            this.Controls.Add(mlkp);
+                            
+                            //pnlDynamic.Controls.Add(mlkp);
+                            //mlkp.Visible = false;
+                        }
                         break;
                     }
             }
@@ -666,6 +713,51 @@ namespace Sunrise.ERP.BaseForm
             }
             return cols;
         }
+
+        //void btnRepositoryItem_Closed(object sender, ClosedEventArgs e)
+        //{
+        //    PopupContainerEdit Item = (PopupContainerEdit)sender;
+        //    SunriseMLookUp mlkp = (SunriseMLookUp)this.Controls.Find("colmlkpsalTestDetailsDetail", true)[0];
+        //    mlkp.IsPopuoShow = false;
+        //}
+
+        //void btnRepositoryItem_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    PopupContainerEdit Item = (PopupContainerEdit)sender;
+        //    SunriseMLookUp mlkp = (SunriseMLookUp)this.Controls.Find("colmlkpsalTestDetailsDetail", true)[0];
+        //    if (e.KeyCode == Keys.Down)
+        //    {
+        //        e.Handled = true;
+        //        ((GridView)mlkp.mlkpPopupGird.DefaultView).FocusedRowHandle += 1;
+        //    }
+        //    else if (e.KeyCode == Keys.Up)
+        //    {
+        //        e.Handled = true;
+        //        ((GridView)mlkp.mlkpPopupGird.DefaultView).FocusedRowHandle -= 1;
+        //    }
+        //    else if (e.KeyCode == Keys.Return)
+        //    {
+        //        if (mlkp.IsPopuoShow)
+        //        {
+        //            e.Handled = true;
+        //            mlkp.GetData();
+        //        }
+        //    }
+        //}
+
+        //void btnRepositoryItem_Popup(object sender, EventArgs e)
+        //{
+        //    ((PopupContainerEdit)sender).Focus();
+        //    PopupContainerEdit Item = (PopupContainerEdit)sender;
+        //    SunriseMLookUp mlkp = (SunriseMLookUp)this.Controls.Find("colmlkpsalTestDetailsDetail", true)[0];
+        //    mlkp.IsPopuoShow = true;
+        //}
+
+        //void btnRepositoryItem_EditValueChanged(object sender, EventArgs e)
+        //{
+        //    PopupContainerEdit Item = (PopupContainerEdit)sender;
+        //    Item.ShowPopup();
+        //}
 
         //设置为查询完成后自动跳转到Grid中的下一列中
         bool lkp_LookUpAfterPost(object sender, ButtonPressedEventArgs e)

@@ -28,6 +28,7 @@ namespace Sunrise.ERP.Controls
         private int _editformid = 0;
         private string _searchformfilter = "";
 
+        private DataTable _dtSearch;
 
         private List<Control> LAutoSetControl = new List<Control>();
         private List<string> LAutoSetFields = new List<string>();
@@ -133,7 +134,7 @@ namespace Sunrise.ERP.Controls
             }
         }
         [Category("LookUp设置"), Description("设置控件是否只读(可用)"),DefaultValue(true)]
-        public bool IsReadOnly
+        public virtual bool IsReadOnly
         {
             get
             {
@@ -362,6 +363,7 @@ namespace Sunrise.ERP.Controls
                     {
                         _dt = null;
                     }
+                    _dtSearch = frm.QueryData;
                 }
                 else
                 {
@@ -407,7 +409,7 @@ namespace Sunrise.ERP.Controls
                     {
                         _dt = null;
                     }
-
+                    _dtSearch = frm.QueryData;
                 }
             }
             catch (Exception ex)
@@ -436,64 +438,75 @@ namespace Sunrise.ERP.Controls
                         sSql = SQL;
                     }
                     //DataTable dt = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0];
-                    DataRow[] dr = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0].Select(DataField + "='" + EditValue + "'");
+                    
+                    if (_dtSearch == null)
+                        _dtSearch = Sunrise.ERP.DataAccess.DbHelperSQL.Query(sSql).Tables[0];
+                    DataRow[] dr = _dtSearch.Select(DataField + "='" + EditValue + "'");
                     //if (dt.Rows.Count > 0)
                     if (dr.Length > 0)
                     {
                         //txtDisplayText.Text = dt.Rows[0][DisplayField].ToString();
                         txtDisplayText.Text = dr[0][DisplayField].ToString();
                         //txtDisplayText.Focus();
-                        for (int i = 0; i < LAutoSetControl.ToArray().Length; i++)
+                        if (IsReadOnly)
                         {
-                            LAutoSetControl[i].Focus();
-                            if (LAutoSetControl[i] is TextBox || LAutoSetControl[i] is TextEdit ||
-                                LAutoSetControl[i] is MemoEdit || LAutoSetControl[i] is MemoExEdit)
-                                LAutoSetControl[i].Text = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
-                            if (LAutoSetControl[i] is SunriseLookUp)
-                                ((SunriseLookUp)LAutoSetControl[i]).EditValue = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
-                            if (LAutoSetControl[i] is ImageComboBoxEdit)
-                                ((ImageComboBoxEdit)LAutoSetControl[i]).EditValue = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
-                            if (LAutoSetControl[i] is ComboBoxEdit)
-                                ((ComboBoxEdit)LAutoSetControl[i]).EditValue = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
+                            for (int i = 0; i < LAutoSetControl.ToArray().Length; i++)
+                            {
+                                LAutoSetControl[i].Focus();
+                                if (LAutoSetControl[i] is TextBox || LAutoSetControl[i] is TextEdit ||
+                                    LAutoSetControl[i] is MemoEdit || LAutoSetControl[i] is MemoExEdit)
+                                    LAutoSetControl[i].Text = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
+                                if (LAutoSetControl[i] is SunriseLookUp)
+                                    ((SunriseLookUp)LAutoSetControl[i]).EditValue = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
+                                if (LAutoSetControl[i] is ImageComboBoxEdit)
+                                    ((ImageComboBoxEdit)LAutoSetControl[i]).EditValue = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
+                                if (LAutoSetControl[i] is ComboBoxEdit)
+                                    ((ComboBoxEdit)LAutoSetControl[i]).EditValue = _dt.Rows[0][LAutoSetValueFields[i]].ToString();
 
+                            }
+                            if (gvTemp != null)
+                                for (int i = 0; i < LAutoSetFields.ToArray().Length; i++)
+                                {
+                                    gvTemp.Focus();
+                                    if (this.DataBindings.Count > 0 && this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                                    {
+                                        //先要设置控件绑定的值,在设置自动赋值的字段
+                                        ((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                        ((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
+                                        //((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
+                                    }
+                                    else
+                                    {
+                                        ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                        ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
+                                        ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].AcceptChanges();
+                                    }
+                                }
+                            else
+                            {
+                                for (int i = 0; i < LAutoSetFields.ToArray().Length; i++)
+                                {
+                                    if (this.DataBindings.Count > 0 && this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
+                                    {
+                                        //((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
+                                        //先要设置控件绑定的值,在设置自动赋值的字段
+                                        //((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                        //((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
+                                        ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                        ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
+                                        //MessageBox.Show(string.Format("控件：{0}，自动设置的值：{1}", this.Name, dr[0][LAutoSetValueFields[i]]));
+                                        //((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
+                                    }
+                                    //else
+                                    //{
+                                    //    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
+                                    //    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
+                                    //    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].AcceptChanges();
+                                    //}
+                                }
+                            }
                         }
-                        if (gvTemp != null)
-                            for (int i = 0; i < LAutoSetFields.ToArray().Length; i++)
-                            {
-                                gvTemp.Focus();
-                                if (this.DataBindings.Count > 0 && this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
-                                {
-                                    //先要设置控件绑定的值,在设置自动赋值的字段
-                                    ((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
-                                    ((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
-                                    //((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
-                                }
-                                else
-                                {
-                                    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
-                                    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
-                                    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].AcceptChanges();
-                                }
-                            }
-                        else
-                            for (int i = 0; i < LAutoSetFields.ToArray().Length; i++)
-                            {
-                                if (this.DataBindings.Count > 0 && this.DataBindings[0].DataSource is System.Windows.Forms.BindingSource)
-                                {
-                                    //先要设置控件绑定的值,在设置自动赋值的字段
-                                    //((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
-                                    //((DataTable)(((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).DataSource)).Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
-                                    ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
-                                    ((DataRowView)((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).Current).Row[LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
-                                    ((System.Windows.Forms.BindingSource)(this.DataBindings[0].DataSource)).EndEdit();
-                                }
-                                //else
-                                //{
-                                //    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][this.DataBindings[0].BindingMemberInfo.BindingField] = EditValue;
-                                //    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].Rows[gvTemp.GetFocusedDataSourceRowIndex()][LAutoSetFields[i]] = dr[0][LAutoSetValueFields[i]];
-                                //    ((DataSet)(this.DataBindings[0].DataSource)).Tables[0].AcceptChanges();
-                                //}
-                            }
+
                     }
                 }
             }

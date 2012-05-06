@@ -11,6 +11,8 @@ using DevExpress.XtraEditors;
 using Sunrise.ERP.BaseControl;
 using Sunrise.ERP.DataAccess;
 using Sunrise.ERP.Lang;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraEditors.Popup;
 
 namespace Sunrise.ERP.Controls
 {
@@ -65,6 +67,7 @@ namespace Sunrise.ERP.Controls
         public bool IsPopuoShow
         {
             get { return _ispopupshow; }
+            set { _ispopupshow = value; }
         }
 
         private int _mlkpnowidth = 50;
@@ -76,7 +79,7 @@ namespace Sunrise.ERP.Controls
         }
 
         [Category("MLookUp设置"), Description("设置或获取控件是否只读(可用)"), DefaultValue(true)]
-        public bool IsReadOnly
+        public override bool IsReadOnly
         {
             get { return mlkpDataNo.Properties.Buttons[0].Enabled; }
             set
@@ -85,6 +88,13 @@ namespace Sunrise.ERP.Controls
                 mlkpDataNo.Properties.Buttons[1].Enabled = value;
                 mlkpDataNo.Properties.ReadOnly = !value;
             }
+        }
+        private bool _isUsedInGrid = false;
+        [Category("MLookUp设置"), Description("设置或获取控件是否在Grid中使用"), DefaultValue(false)]
+        public bool IsUsedInGrid
+        {
+            get { return _isUsedInGrid; }
+            set { _isUsedInGrid = value; }
         }
 
         #endregion
@@ -202,42 +212,46 @@ namespace Sunrise.ERP.Controls
         }
         
 
-        private void mlkpDataNo_Popup(object sender, EventArgs e)
+        public void mlkpDataNo_Popup(object sender, EventArgs e)
         {
-            mlkpDataNo.Focus();
+            ((PopupContainerEdit)sender).Focus();
             _ispopupshow = true;
         }
 
-        private void mlkpDataNo_TextChanged(object sender, EventArgs e)
+        public void mlkpDataNo_TextChanged(object sender, EventArgs e)
         {
-            if (_isfromkeychanged)
+            if (_isfromkeychanged || IsUsedInGrid)
             {
                 if (PopupData == null)
                 {
-                    mlkpDataNo.EditValue = null;
+                    ((PopupContainerEdit)sender).EditValue = null;
                     return;
                 }
-                EditValue = string.Empty;
-                mlkpDataName.Text = string.Empty;
+                //只有使用在界面上时才进行数据清空
+                if (!IsUsedInGrid)
+                {
+                    EditValue = string.Empty;
+                    mlkpDataName.Text = string.Empty;
+                }
                 PopupData.DefaultView.RowFilter = string.Empty;
                 if (!IsFromLkpClick)
                 {
                     try
                     {
-                        PopupData.DefaultView.RowFilter = GetDataFilterString(mlkpDataNo.Text);
+                        PopupData.DefaultView.RowFilter = GetDataFilterString(((PopupContainerEdit)sender).Text);
                     }
                     catch
                     {
                         PopupData.DefaultView.RowFilter = "1=1";
                     }
-                    mlkpDataNo.ShowPopup();
+                    ((PopupContainerEdit)sender).ShowPopup();
                 }
                 else
                     _isfromlkpclick = false;
             }
         }
 
-        private void mlkpDataNo_KeyDown(object sender, KeyEventArgs e)
+        public void mlkpDataNo_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Down)
             {
@@ -254,7 +268,17 @@ namespace Sunrise.ERP.Controls
                 if (IsPopuoShow)
                 {
                     e.Handled = true;
-                    GetData();               
+                    GetData();
+                    //特殊控制，用于在Grid中选择完数据后，焦点切换后，才能够在Grid中显示出来
+                    if (IsUsedInGrid)
+                    {
+                        if (((PopupContainerEdit)sender).Parent is SunriseGridControl)
+                        {
+                            mlkpDataNo.Focus();
+                            ((SunriseGridControl)((PopupContainerEdit)sender).Parent).DefaultView.Focus();
+                            SendKeys.Send("{TAB}");
+                        }
+                    }
                 }
             }
         }
@@ -268,12 +292,12 @@ namespace Sunrise.ERP.Controls
             CreateGridColumns();
         }
 
-        private void GetData()
+        public void GetData()
         {
             DataRow dr = mlkpPopuoGirdView.GetDataRow(mlkpPopuoGirdView.FocusedRowHandle);
             if (dr != null)
             {
-                mlkpDataNo.ClosePopup();
+                mlkpPopup.OwnerEdit.ClosePopup();
                 //特殊设置，在选择完成后，不再对数据进行过滤
                 _isfromlkpclick = true;
                 mlkpDataNo.EditValue = dr[DataNoField];
@@ -336,9 +360,19 @@ namespace Sunrise.ERP.Controls
         private void mlkpPopuoGirdView_DoubleClick(object sender, EventArgs e)
         {
             GetData();
+            //特殊控制，用于在Grid中选择完数据后，焦点切换后，才能够在Grid中显示出来
+            if (IsUsedInGrid)
+            {
+                if (((PopupContainerEdit)(((PopupContainerForm)(((PopupContainerControl)(((GridView)sender).GridControl.Parent)).Parent)).OwnerEdit)).Parent is SunriseGridControl)
+                {
+                    mlkpDataNo.Focus();
+                    ((SunriseGridControl)((PopupContainerEdit)(((PopupContainerForm)(((PopupContainerControl)(((GridView)sender).GridControl.Parent)).Parent)).OwnerEdit)).Parent).DefaultView.Focus();
+                    SendKeys.Send("{TAB}");
+                }
+            }
         }
 
-        private void mlkpDataNo_Closed(object sender, DevExpress.XtraEditors.Controls.ClosedEventArgs e)
+        public void mlkpDataNo_Closed(object sender, DevExpress.XtraEditors.Controls.ClosedEventArgs e)
         {
             _ispopupshow = false;
         }
@@ -348,6 +382,16 @@ namespace Sunrise.ERP.Controls
             if (e.KeyCode == Keys.Return)
             {
                 GetData();
+                //特殊控制，用于在Grid中选择完数据后，焦点切换后，才能够在Grid中显示出来
+                if (IsUsedInGrid)
+                {
+                    if (((PopupContainerEdit)(((PopupContainerForm)(((PopupContainerControl)(((GridView)sender).GridControl.Parent)).Parent)).OwnerEdit)).Parent is SunriseGridControl)
+                    {
+                        mlkpDataNo.Focus();
+                        ((SunriseGridControl)((PopupContainerEdit)(((PopupContainerForm)(((PopupContainerControl)(((GridView)sender).GridControl.Parent)).Parent)).OwnerEdit)).Parent).DefaultView.Focus();
+                        SendKeys.Send("{TAB}");
+                    }
+                }
             }
         }
 
@@ -360,7 +404,7 @@ namespace Sunrise.ERP.Controls
                 mlkpDataNo.EditValue = null;
             }
         }
-        private void mlkpDataNo_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        public void mlkpDataNo_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             _isfromkeychanged = true;
         }
@@ -369,7 +413,7 @@ namespace Sunrise.ERP.Controls
         protected override void txtValueText_TextChanged(object sender, EventArgs e)
         {
             base.txtValueText_TextChanged(sender, e);
-            if (_dtPopupData != null)
+            if (PopupData != null)
             {
                 DataRow[] drs = _dtPopupData.Select(DataField + "='" + (string.IsNullOrEmpty(EditValue)?"-1":EditValue) + "'");
                 if (drs != null && drs.Length == 1)
