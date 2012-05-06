@@ -32,14 +32,12 @@
             this.mlkpPopup = new DevExpress.XtraEditors.PopupContainerControl();
             this.mlkpPopupGird = new Sunrise.ERP.Controls.SunriseGridControl();
             this.mlkpPopuoGirdView = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.mlkpDataName = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.mlkpDataNo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mlkpPopup)).BeginInit();
             this.mlkpPopup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mlkpPopupGird)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mlkpPopuoGirdView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mlkpDataName.Properties)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,8 +82,7 @@
             this.mlkpPopupGird.Size = new System.Drawing.Size(418, 252);
             this.mlkpPopupGird.TabIndex = 0;
             this.mlkpPopupGird.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.mlkpPopuoGirdView,
-            this.gridView2});
+            this.mlkpPopuoGirdView});
             // 
             // mlkpPopuoGirdView
             // 
@@ -98,12 +95,6 @@
             this.mlkpPopuoGirdView.OptionsView.ShowGroupPanel = false;
             this.mlkpPopuoGirdView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mlkpPopuoGirdView_KeyDown);
             this.mlkpPopuoGirdView.DoubleClick += new System.EventHandler(this.mlkpPopuoGirdView_DoubleClick);
-            // 
-            // gridView2
-            // 
-            this.gridView2.GridControl = this.mlkpPopupGird;
-            this.gridView2.Name = "gridView2";
-            this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
             // mlkpDataName
             // 
@@ -135,7 +126,6 @@
             this.mlkpPopup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mlkpPopupGird)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mlkpPopuoGirdView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mlkpDataName.Properties)).EndInit();
             this.ResumeLayout(false);
 
@@ -144,10 +134,9 @@
         #endregion
 
         private DevExpress.XtraEditors.PopupContainerEdit mlkpDataNo;
-        private SunriseGridControl mlkpPopupGird;
         private DevExpress.XtraGrid.Views.Grid.GridView mlkpPopuoGirdView;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraEditors.TextEdit mlkpDataName;
         public DevExpress.XtraEditors.PopupContainerControl mlkpPopup;
+        public SunriseGridControl mlkpPopupGird;
     }
 }

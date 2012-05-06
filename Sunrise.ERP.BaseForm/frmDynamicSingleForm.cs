@@ -272,7 +272,7 @@ namespace Sunrise.ERP.BaseForm
         /// <param name="e"></param>
         protected void dtMain_ColumnChanged(object sender, DataColumnChangeEventArgs e)
         {
-            e.Row.EndEdit();
+            //e.Row.EndEdit();
         }
         #endregion
 

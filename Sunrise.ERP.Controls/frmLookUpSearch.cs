@@ -116,6 +116,15 @@ namespace Sunrise.ERP.Controls
                 _dt = value;
             }
         }
+        public DataTable QueryData
+        {
+            get {
+                if (dsSearch != null)
+                    return dsSearch.Tables[0];
+                else
+                    return null;
+            }
+        }
 
         private void gcSearch_DoubleClick(object sender, EventArgs e)
         {
