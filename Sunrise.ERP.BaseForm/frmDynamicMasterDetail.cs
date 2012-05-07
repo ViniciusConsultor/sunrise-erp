@@ -448,6 +448,59 @@ namespace Sunrise.ERP.BaseForm
                 return base.DoBeforeClose();
         }
 
+        public override bool DoBeforeSave()
+        {
+            bool result = false;
+            //非空验证
+            if (dsMain.Current != null)
+            {
+                //主表非空验证
+                foreach (DataRow dr in DynamicMasterTableData.Select("bSaveData=1 AND bNotNull=1"))
+                {
+                    if (string.IsNullOrEmpty(((DataRowView)dsMain.Current).Row[dr["sFieldName"].ToString()].ToString()))
+                    {
+                        string sMsg = string.Format("{0} {1}", LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
+                                      LangCenter.Instance.GetSystemMessage("NotNull"));
+                        Public.SystemInfo(sMsg);
+                        return false;
+                    }
+                }
+                //从表的非空验证
+                for (int i = 0; i < LDynamicDetailTableData.Count; i++)
+                {
+                    foreach (DataRow dr in LDynamicDetailTableData[i].Select("bSaveData=1 AND bNotNull=1"))
+                    {
+                        foreach (DataRow drData in ((DataSet)LDetailBindingSource[i].DataSource).Tables[0].Rows)
+                        {
+                            if (string.IsNullOrEmpty(drData[dr["sFieldName"].ToString()].ToString()))
+                            {
+                                string sMsg = string.Format("{0} {1}", LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
+                                              LangCenter.Instance.GetSystemMessage("NotNull"));
+                                Public.SystemInfo(sMsg);
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            if (SqlTrans != null)
+                SqlTrans.Dispose();
+            SqlTrans = ConnectSetting.SysSqlConnection.BeginTransaction();
+            try
+            {
+                result = DoBeforceSaveInTrans(SqlTrans);
+            }
+            catch
+            {
+                SqlTrans.Rollback();
+                //回收Trans
+                if (SqlTrans != null)
+                    SqlTrans.Dispose();
+                return false;
+            }
+            return result;
+        }
+
         #endregion
 
         #region 窗体自定义设置
@@ -711,53 +764,16 @@ namespace Sunrise.ERP.BaseForm
 
                 gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, dr["sFieldName"].ToString(), cols);
             }
+
+            //设置非空字段颜色
+            if (Convert.ToBoolean(dr["bSaveData"]) && Convert.ToBoolean(dr["bNotNull"]))
+            {
+                cols.AppearanceHeader.ForeColor = Color.FromName(Base.GetSystemParamter("001"));
+                cols.AppearanceHeader.Options.UseForeColor = true;
+            }
+
             return cols;
         }
-
-        //void btnRepositoryItem_Closed(object sender, ClosedEventArgs e)
-        //{
-        //    PopupContainerEdit Item = (PopupContainerEdit)sender;
-        //    SunriseMLookUp mlkp = (SunriseMLookUp)this.Controls.Find("colmlkpsalTestDetailsDetail", true)[0];
-        //    mlkp.IsPopuoShow = false;
-        //}
-
-        //void btnRepositoryItem_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    PopupContainerEdit Item = (PopupContainerEdit)sender;
-        //    SunriseMLookUp mlkp = (SunriseMLookUp)this.Controls.Find("colmlkpsalTestDetailsDetail", true)[0];
-        //    if (e.KeyCode == Keys.Down)
-        //    {
-        //        e.Handled = true;
-        //        ((GridView)mlkp.mlkpPopupGird.DefaultView).FocusedRowHandle += 1;
-        //    }
-        //    else if (e.KeyCode == Keys.Up)
-        //    {
-        //        e.Handled = true;
-        //        ((GridView)mlkp.mlkpPopupGird.DefaultView).FocusedRowHandle -= 1;
-        //    }
-        //    else if (e.KeyCode == Keys.Return)
-        //    {
-        //        if (mlkp.IsPopuoShow)
-        //        {
-        //            e.Handled = true;
-        //            mlkp.GetData();
-        //        }
-        //    }
-        //}
-
-        //void btnRepositoryItem_Popup(object sender, EventArgs e)
-        //{
-        //    ((PopupContainerEdit)sender).Focus();
-        //    PopupContainerEdit Item = (PopupContainerEdit)sender;
-        //    SunriseMLookUp mlkp = (SunriseMLookUp)this.Controls.Find("colmlkpsalTestDetailsDetail", true)[0];
-        //    mlkp.IsPopuoShow = true;
-        //}
-
-        //void btnRepositoryItem_EditValueChanged(object sender, EventArgs e)
-        //{
-        //    PopupContainerEdit Item = (PopupContainerEdit)sender;
-        //    Item.ShowPopup();
-        //}
 
         //设置为查询完成后自动跳转到Grid中的下一列中
         bool lkp_LookUpAfterPost(object sender, ButtonPressedEventArgs e)
