@@ -510,9 +510,10 @@ namespace Sunrise.ERP.BaseForm
             //非空验证
             if (dsMain.Current != null)
             {
-                foreach (DataRow dr in DynamicMasterTableData.Select("bNotNull=1"))
+                //主表非空验证
+                foreach (DataRow dr in DynamicMasterTableData.Select("bSaveData=1 AND bNotNull=1"))
                 {
-                    if (((DataRowView)dsMain.Current).Row[dr["sFieldName"].ToString()].ToString() == "")
+                    if (string.IsNullOrEmpty(((DataRowView)dsMain.Current).Row[dr["sFieldName"].ToString()].ToString()))
                     {
                         string sMsg = string.Format("{0} {1}", LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
                                       LangCenter.Instance.GetSystemMessage("NotNull"));
@@ -763,7 +764,7 @@ namespace Sunrise.ERP.BaseForm
                 {
                     ctls[0].Text = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
                     //设置非空字段颜色
-                    if (bool.Parse(dr["bNotNull"].ToString().ToLower()))
+                    if (Convert.ToBoolean(dr["bSaveData"]) && Convert.ToBoolean(dr["bNotNull"]))
                         ctls[0].ForeColor = Color.FromName(Base.GetSystemParamter("001"));
                 }
 
@@ -777,7 +778,7 @@ namespace Sunrise.ERP.BaseForm
                     {
                         ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).Text = LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString();
                         //设置非空字段颜色
-                        if (bool.Parse(dr["bNotNull"].ToString().ToLower()))
+                        if (Convert.ToBoolean(dr["bSaveData"]) && Convert.ToBoolean(dr["bNotNull"]))
                             ((LayoutControl)ctls[0].Parent).GetItemByControl(ctls[0]).AppearanceItemCaption.ForeColor = Color.FromName(Base.GetSystemParamter("001"));
 
                         //如果设置不显示在Panel中则该字段不显示
