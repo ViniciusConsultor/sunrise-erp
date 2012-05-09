@@ -660,12 +660,12 @@ namespace Sunrise.ERP.Module.SystemManage
                 sOptionSQL = "INSERT INTO sysQueryReportMaster(sReportNo, sReportName, sReportSQL,"
                            + "iControlSpace, iControlColumn, bIsShowPrintBtn, bIsShowExecBtn, "
                            + "bIsChart, bOptionData, sExecBtnText, sExecSQL, sDealFields, "
-                           + "sSortFields, iFlag, sUserID, bIsAutoRun) "
+                           + "sSortFields, iFlag, sUserID, bIsAutoRun,bSysReport) "
                            + "VALUES( "
                            + "'" + reportno + "',"
                            + "'" + reportname + "',"
                            + "'" + reportsql + "',"
-                           + "10,3,0,0,0,null,null,null,'*',null,0,'" + SecurityCenter.CurrentUserID + "',1) ;SELECT @@IDENTITY";
+                           + "10,3,0,0,0,null,null,null,'*',null,0,'" + SecurityCenter.CurrentUserID + "',1,1) ;SELECT @@IDENTITY";
                 int MasterID = 0;
                 object id = DbHelperSQL.GetSingle(sOptionSQL, trans);
                 MasterID = id == null ? 0 : Convert.ToInt32(id);
@@ -676,7 +676,7 @@ namespace Sunrise.ERP.Module.SystemManage
                         //插入查询配置明细表
                         sOptionSQL = "INSERT INTO sysQueryReportDetail(MainID, iSort, sColumnFieldName, sColumnCaption, "
                                    + "sColumnType, bIsQuery, bIsShow, bChartField, bChartValue, sSearchType, "
-                                   + "sDefaultValue, sReturnValue, bIsGroup, sFooterType, bIsStat, iFormID, sUserID) "
+                                   + "sDefaultValue, sReturnValue, bIsGroup, sFooterType, bIsStat, iFormID, sUserID,bLkpPopupField) "
                                    + "VALUES( " + MasterID.ToString() + "," + (i + 1).ToString() + ","
                                    + "'" + detaildata.Rows[i]["sFieldName"].ToString() + "',"
                                    + "'" + detaildata.Rows[i]["sCaption"].ToString() + "',"
@@ -689,7 +689,7 @@ namespace Sunrise.ERP.Module.SystemManage
                                    + "'" + detaildata.Rows[i]["sReturnValue"].ToString() + "',"
                                    + "0,"
                                    + "'" + detaildata.Rows[i]["sFooterType"].ToString() + "',"
-                                   + "0,NULL,'" + SecurityCenter.CurrentUserID + "')";
+                                   + "0,NULL,'" + SecurityCenter.CurrentUserID + "',0)";
                         DbHelperSQL.GetSingle(sOptionSQL, trans);
                     }
                 }

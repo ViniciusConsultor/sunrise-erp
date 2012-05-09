@@ -98,6 +98,8 @@
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lblsMenuName = new DevExpress.XtraLayout.LayoutControlItem();
             this.btnInsertQuerySetting = new DevExpress.XtraEditors.SimpleButton();
+            this.colsSQL = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.mtxtsSQL = new DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -150,6 +152,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblsMenuName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mtxtsSQL)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlDetail
@@ -424,7 +427,8 @@
             this.mtxtsLookupAutoSetGrid,
             this.cbxsColumnType,
             this.txtsFieldName,
-            this.cbxsFooterType});
+            this.cbxsFooterType,
+            this.mtxtsSQL});
             this.gcDetail.Size = new System.Drawing.Size(567, 241);
             this.gcDetail.TabIndex = 6;
             this.gcDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -455,7 +459,8 @@
             this.colbShowInGrid,
             this.colsFooterType,
             this.colsLocation,
-            this.colsSize});
+            this.colsSize,
+            this.colsSQL});
             this.gvDetail.GridControl = this.gcDetail;
             this.gvDetail.Name = "gvDetail";
             this.gvDetail.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -1079,6 +1084,23 @@
             this.btnInsertQuerySetting.Text = "生成查询配置";
             this.btnInsertQuerySetting.Click += new System.EventHandler(this.btnInsertQuerySetting_Click);
             // 
+            // colsSQL
+            // 
+            this.colsSQL.Caption = "自定义SQL";
+            this.colsSQL.ColumnEdit = this.mtxtsSQL;
+            this.colsSQL.FieldName = "sSQL";
+            this.colsSQL.Name = "colsSQL";
+            this.colsSQL.Visible = true;
+            this.colsSQL.VisibleIndex = 22;
+            this.colsSQL.Width = 106;
+            // 
+            // mtxtsSQL
+            // 
+            this.mtxtsSQL.AutoHeight = false;
+            this.mtxtsSQL.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.mtxtsSQL.Name = "mtxtsSQL";
+            // 
             // frmDynamicFormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1140,6 +1162,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblsMenuName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mtxtsSQL)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1216,5 +1239,7 @@
         private DevExpress.XtraLayout.LayoutControlItem lblsMenuName;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox cbxsFooterType;
         private DevExpress.XtraGrid.Columns.GridColumn colbCopy;
+        private DevExpress.XtraGrid.Columns.GridColumn colsSQL;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoExEdit mtxtsSQL;
     }
 }
