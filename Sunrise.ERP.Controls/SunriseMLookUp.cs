@@ -131,7 +131,12 @@ namespace Sunrise.ERP.Controls
                 {
                     try
                     {
-                        _dtPopupData = DbHelperSQL.QueryTable(SQL);
+                        string sSql = "";
+                        if (string.IsNullOrEmpty(SearchFormFilter))
+                            sSql = SQL;
+                        else
+                            sSql = "SELECT A.* FROM (" + SQL + ") A WHERE " + SearchFormFilter;
+                        _dtPopupData = DbHelperSQL.QueryTable(sSql);
                     }
                     catch { return null; }
                 }
@@ -149,6 +154,13 @@ namespace Sunrise.ERP.Controls
         private bool IsFromKeyChanged
         {
             get { return _isfromkeychanged; }
+        }
+
+        private string _popupfilter;
+        public string PopupFilter
+        {
+            get { return _popupfilter; }
+            set { _popupfilter = value; }
         }
         #endregion
 
@@ -238,7 +250,10 @@ namespace Sunrise.ERP.Controls
                 {
                     try
                     {
-                        PopupData.DefaultView.RowFilter = GetDataFilterString(((PopupContainerEdit)sender).Text);
+                        string sFilter = "(" + GetDataFilterString(((PopupContainerEdit)sender).Text) + ")";
+                        if (!string.IsNullOrEmpty(PopupFilter))
+                            sFilter += " AND " + PopupFilter;
+                        PopupData.DefaultView.RowFilter = sFilter;
                     }
                     catch
                     {
@@ -415,7 +430,7 @@ namespace Sunrise.ERP.Controls
             base.txtValueText_TextChanged(sender, e);
             if (PopupData != null)
             {
-                DataRow[] drs = _dtPopupData.Select(DataField + "='" + (string.IsNullOrEmpty(EditValue)?"-1":EditValue) + "'");
+                DataRow[] drs = PopupData.Select(DataField + "='" + (string.IsNullOrEmpty(EditValue) ? "-1" : EditValue) + "'");
                 if (drs != null && drs.Length == 1)
                 {
                     _isfromkeychanged = false;

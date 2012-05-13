@@ -386,6 +386,7 @@ namespace Sunrise.ERP.BaseForm
                         if (dr.RowState == DataRowState.Added && dr["ID"].ToString()=="")
                         {
                             dr[LDetailField[i]] = GetMasterLinkValue(LMasterField[i]);
+                            //CalcSQLFields(LDynamicDetailTableData[i], ref dr, SqlTrans);
                             dr["ID"] = Add(LDetailDynamicDAL[i], dr, SqlTrans);
                         }
                         //更新
@@ -472,7 +473,7 @@ namespace Sunrise.ERP.BaseForm
                     {
                         foreach (DataRow drData in ((DataSet)LDetailBindingSource[i].DataSource).Tables[0].Rows)
                         {
-                            if (string.IsNullOrEmpty(drData[dr["sFieldName"].ToString()].ToString()))
+                            if (drData.RowState!=DataRowState.Deleted && string.IsNullOrEmpty(drData[dr["sFieldName"].ToString()].ToString()))
                             {
                                 string sMsg = string.Format("{0} {1}", LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
                                               LangCenter.Instance.GetSystemMessage("NotNull"));
@@ -635,7 +636,7 @@ namespace Sunrise.ERP.BaseForm
                             mlkp.Name = "colmlkp" + tablename + dr["sFieldName"].ToString();
                             mlkp.DataBindings.Add("EditValue", ds, dr["sFieldName"].ToString());
                             mlkp.IsUsedInGrid = true;
-                            
+
                             Base.InitMLookup(mlkp, dr["sLookupNo"].ToString());
                             if (!string.IsNullOrEmpty(dr["sLookupAutoSetControl"].ToString()))
                             {
@@ -657,17 +658,17 @@ namespace Sunrise.ERP.BaseForm
                             btnRepositoryItem.KeyDown += mlkp.mlkpDataNo_KeyDown;
                             btnRepositoryItem.Closed += mlkp.mlkpDataNo_Closed;
                             gv.GridControl.PreviewKeyDown += mlkp.mlkpDataNo_PreviewKeyDown;
-                            
+
                             btnRepositoryItem.PopupControl = mlkp.mlkpPopup;
                             btnRepositoryItem.EditValueChanged += mlkp.mlkpDataNo_TextChanged;
-                            
+
                             //加这句是让了焦点更新，Grid中才会显示新的数据值，其实在后台是已经存在了的，只是在Grid中没有显示出来
                             //此处设置为查询完成后自动跳转到Grid中的下一列中
                             mlkp.LookUpAfterPost += new SunriseLookUp.SunriseLookUpEvent(lkp_LookUpAfterPost);
                             cols.ColumnEdit = btnRepositoryItem;
                             gv.GridControl.RepositoryItems.Add(btnRepositoryItem);
                             this.Controls.Add(mlkp);
-                            
+
                             //pnlDynamic.Controls.Add(mlkp);
                             //mlkp.Visible = false;
                         }
@@ -747,7 +748,7 @@ namespace Sunrise.ERP.BaseForm
                     cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Max;
                 else if (dr["sFooterType"].ToString() == "006")
                     cols.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Min;
-                
+
                 //设置GridFooter汇总格式
                 //价格
                 if (dr["sColumnType"].ToString() == "002")
