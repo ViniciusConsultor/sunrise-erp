@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -38,7 +39,7 @@ namespace Sunrise.ERP.BaseForm
         /// <param name="formID"></param>
         /// <param name="tablename">明细数据表名称</param>
         /// <param name="lpkBindSource"></param>
-        public static void GridCreateColumns(GridView gv, int formID, string tableName, object lpkBindSource)
+        public static void GridCreateColumns(Form frm, GridView gv, int formID, string tableName, object lpkBindSource, SunriseLookUp.SunriseLookUpEvent slookHandler)
         {
             if (gv == null) return;
             DataTable dtColumnsConfig = Base.GetDynamicTableData(formID, tableName); //列配置数据
@@ -60,7 +61,7 @@ namespace Sunrise.ERP.BaseForm
                     if ((bool)drField["bVisiable"] == false) continue;
                     allowEdit = (bool)drField["bEdit"];
                 }
-                gc = GridCreateColumn(gv, dr, tableName, iIndex, allowEdit, formID, lpkBindSource);
+                gc = GridCreateColumn(frm, gv, dr, tableName, iIndex, allowEdit, formID, lpkBindSource, slookHandler);
                 iIndex++;
                 if (gc != null) gv.Columns.Add(gc);
             }
@@ -76,7 +77,7 @@ namespace Sunrise.ERP.BaseForm
         /// <param name="isuseredit"></param>
         /// <param name="formID"></param>
         /// <returns></returns>
-        public static GridColumn GridCreateColumn(GridView gv, DataRow drConfig, string tableName, int index, bool allowEdit, int formID, object lpkBindSource)
+        public static GridColumn GridCreateColumn(Form frm, GridView gv, DataRow drConfig, string tableName, int index, bool allowEdit, int formID, object lpkBindSource, SunriseLookUp.SunriseLookUpEvent slookHandler)
         {
             GridColumn gc = new GridColumn();
             string sControlType = drConfig["sControlType"].ToString();
@@ -109,7 +110,8 @@ namespace Sunrise.ERP.BaseForm
                         btnRepositoryItem.TextEditStyle = TextEditStyles.DisableTextEditor;
                         //加这句是让了焦点更新，Grid中才会显示新的数据值，其实在后台是已经存在了的，只是在Grid中没有显示出来
                         //此处设置为查询完成后自动跳转到Grid中的下一列中
-                        lkp.LookUpAfterPost += new SunriseLookUp.SunriseLookUpEvent(lkp_LookUpAfterPost);
+                        if (slookHandler != null) lkp.LookUpAfterPost += slookHandler;
+                        //if (slookHandler != null) lkp.LookUpAfterPost += new SunriseLookUp.SunriseLookUpEvent(lkp_LookUpAfterPost);
                         gc.ColumnEdit = btnRepositoryItem;
                         gv.GridControl.RepositoryItems.Add(btnRepositoryItem);
                     }
@@ -133,6 +135,66 @@ namespace Sunrise.ERP.BaseForm
                     gv.GridControl.RepositoryItems.Add(btxtRepositoryItem);
                     break;
                     #endregion
+                //modify by han
+                #region
+                //多行文本框
+                case "mtxt":
+
+                    RepositoryItemMemoExEdit mtxtRepositoryItem = new RepositoryItemMemoExEdit();
+                    mtxtRepositoryItem.Name = "colmtxt" + tableName + drConfig["sFieldName"].ToString();
+                    gc.ColumnEdit = mtxtRepositoryItem;
+                    gv.GridControl.RepositoryItems.Add(mtxtRepositoryItem);
+                    break;
+
+                //MLookUp查询
+                case "mlkp":
+                    {
+                        if (!string.IsNullOrEmpty(drConfig["sLookupNo"].ToString()))
+                        {
+                            SunriseMLookUp mlkp = new SunriseMLookUp();
+                            mlkp.Name = "colmlkp" + tableName + drConfig["sFieldName"].ToString();
+                            mlkp.DataBindings.Add("EditValue", lpkBindSource, drConfig["sFieldName"].ToString());
+                            mlkp.IsUsedInGrid = true;
+
+                            Base.InitMLookup(mlkp, drConfig["sLookupNo"].ToString());
+                            if (!string.IsNullOrEmpty(drConfig["sLookupAutoSetControl"].ToString()))
+                            {
+                                string[] sItem = Public.GetSplitString(drConfig["sLookupAutoSetControl"].ToString(), ",");
+                                foreach (var s in sItem)
+                                {
+                                    string[] ss = Public.GetSplitString(s, "=");
+                                    mlkp.AutoSetValue(ss[0], ss[1]);
+                                }
+                            }
+                            RepositoryItemPopupContainerEdit btnRepositoryItem = new RepositoryItemPopupContainerEdit();
+                            btnRepositoryItem.Name = "gridmlkp" + tableName + drConfig["sFieldName"].ToString();
+                            //原本默认的显示Popup的按钮隐藏掉
+                            btnRepositoryItem.Buttons[0].Visible = false;
+                            btnRepositoryItem.Buttons.Add(new EditorButton(ButtonPredefines.Ellipsis));
+                            btnRepositoryItem.ButtonClick += mlkp.LookUpSelfClick;
+                            btnRepositoryItem.TextEditStyle = TextEditStyles.Standard;
+                            btnRepositoryItem.Popup += mlkp.mlkpDataNo_Popup;
+                            btnRepositoryItem.KeyDown += mlkp.mlkpDataNo_KeyDown;
+                            btnRepositoryItem.Closed += mlkp.mlkpDataNo_Closed;
+                            gv.GridControl.PreviewKeyDown += mlkp.mlkpDataNo_PreviewKeyDown;
+
+                            btnRepositoryItem.PopupControl = mlkp.mlkpPopup;
+                            btnRepositoryItem.EditValueChanged += mlkp.mlkpDataNo_TextChanged;
+
+                            //加这句是让了焦点更新，Grid中才会显示新的数据值，其实在后台是已经存在了的，只是在Grid中没有显示出来
+                            //此处设置为查询完成后自动跳转到Grid中的下一列中
+                            // mlkp.LookUpAfterPost += new SunriseLookUp.SunriseLookUpEvent(lkp_LookUpAfterPost);
+                            mlkp.LookUpAfterPost += slookHandler;
+
+                            gc.ColumnEdit = btnRepositoryItem;
+                            gv.GridControl.RepositoryItems.Add(btnRepositoryItem);
+                            frm.Controls.Add(mlkp);
+                            mlkp.Location = new Point(frm.Size.Height / 2, frm.Size.Width / 2);
+                            mlkp.SendToBack();
+                        }
+                        break;
+                    }
+                #endregion
             }
             #endregion
             gc.Caption = LangCenter.Instance.IsDefaultLanguage ? drConfig["sCaption"].ToString() : drConfig["sEngCaption"].ToString();
@@ -163,6 +225,15 @@ namespace Sunrise.ERP.BaseForm
             gc.SummaryItem.SummaryType = sitype;
             if (sitype != DevExpress.Data.SummaryItemType.None) gv.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, sFieldName, gc);
             #endregion
+
+            //modify by han
+            //设置非空字段颜色
+            if (Convert.ToBoolean(drConfig["bSaveData"]) && Convert.ToBoolean(drConfig["bNotNull"]))
+            {
+                gc.AppearanceHeader.ForeColor = Color.FromName(Base.GetSystemParamter("001"));
+                gc.AppearanceHeader.Options.UseForeColor = true;
+            }
+
             return gc;
         }
         //设置为查询完成后自动跳转到Grid中的下一列中
@@ -174,6 +245,7 @@ namespace Sunrise.ERP.BaseForm
             bs.EndEdit();
             return true;
         }
+
         #endregion
         /// <summary>
         /// 获取鼠标是否在数据区域(包含数据行和空白区域)
@@ -437,6 +509,31 @@ namespace Sunrise.ERP.BaseForm
                 value = -(long)dr[columnName];
             }
             dr[columnName] = value;
+        }
+        public static int DBExecuteSql(string sql)
+        {
+            return DBExecuteSql(sql, null, null);
+        }
+        public static int DBExecuteSql(string sql, SqlTransaction tran, params SqlParameter[] sps)
+        {
+            if (tran == null && sps == null) return Sunrise.ERP.DataAccess.DbHelperSQL.ExecuteSql(sql);
+            if (tran == null && sps != null) return Sunrise.ERP.DataAccess.DbHelperSQL.ExecuteSql(sql, sps);
+            if (tran != null && sps == null) return Sunrise.ERP.DataAccess.DbHelperSQL.ExecuteSql(sql, tran);
+            return Sunrise.ERP.DataAccess.DbHelperSQL.ExecuteSql(sql, tran, sps);
+        }
+        public static object DBGetSingle(string sql, SqlTransaction tran)
+        {
+            if (tran == null) return Sunrise.ERP.DataAccess.DbHelperSQL.GetSingle(sql);
+            return Sunrise.ERP.DataAccess.DbHelperSQL.GetSingle(sql, tran);
+        }
+        public static DataTable DBQueryTable(string sql)
+        {
+            return DBQueryTable(sql, null);
+        }
+        public static DataTable DBQueryTable(string sql, SqlTransaction tran)
+        {
+            if (tran == null) return Sunrise.ERP.DataAccess.DbHelperSQL.QueryTable(sql);
+            return Sunrise.ERP.DataAccess.DbHelperSQL.QueryTable(sql, tran);
         }
         #endregion
         #region Language

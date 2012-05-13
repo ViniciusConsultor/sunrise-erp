@@ -935,34 +935,6 @@ namespace Sunrise.ERP.BaseForm
             }
         }
 
-        /// <summary>
-        /// 设置在按下回车键后控件焦点自动下移
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            try
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    if ((((DevExpress.XtraEditors.TextBoxMaskBox)(Sunrise.ERP.BasePublic.Base.GetFocusedControl()))).OwnerEdit.Tag == null || (((DevExpress.XtraEditors.TextBoxMaskBox)(Sunrise.ERP.BasePublic.Base.GetFocusedControl()))).OwnerEdit.Tag.ToString().ToLower() != "notab")
-                    {
-                        SendKeys.Send("{TAB}");
-                    }
-                }
-                base.OnKeyDown(e);
-            }
-            catch (Exception)
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    SendKeys.Send("{TAB}");
-                }
-                base.OnKeyDown(e);
-            }
-
-        }
-
         #endregion
 
         #region 数据操作
@@ -1853,6 +1825,29 @@ namespace Sunrise.ERP.BaseForm
                     MasterFilterSQL = " AND " + frmSearch.SearchSQL;
                 }
             }
+        }
+
+        public void CalcSQLFields(DataTable dynamicData, ref DataRow drObject, SqlTransaction trans)
+        {
+            try
+            {
+                foreach (DataRow dr in dynamicData.Rows)
+                {
+                    if (!string.IsNullOrEmpty(dr["sSQL"].ToString()))
+                    {
+                        string sSQL = dr["sSQL"].ToString();
+                        //解析SQL中的字段值，例如SQL语句是 SELECT sDictDataCName FROM basDataDictDetail WHERE ID=<sDetail>
+                        foreach (DataColumn dc in drObject.Table.Columns)
+                        {
+                            string sReplaceField = "<" + dc.ColumnName + ">";
+                            sSQL = sSQL.Replace(sReplaceField, drObject[dc.ColumnName].ToString());
+                        }
+                        //object returnValue = DbHelperSQL.GetSingle(sSQL,trans);
+                        drObject[dr["sFieldName"].ToString()] = DbHelperSQL.GetSingle(sSQL, trans);
+                    }
+                }
+            }
+            catch { }
         }
 
         #endregion
