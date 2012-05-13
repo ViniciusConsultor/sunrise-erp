@@ -312,6 +312,7 @@ namespace Sunrise.ERP.Module.SystemManage
             colbEdit.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbEdit.Name);
             colsColumnType.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsColumnType.Name);
             colbCopy.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colbCopy.Name);
+            colsSQL.Caption = LangCenter.Instance.GetFormLangInfo("frmDynamicFormSetting", colsSQL.Name);
         }
 
         private void btnInsertQuerySetting_Click(object sender, EventArgs e)
