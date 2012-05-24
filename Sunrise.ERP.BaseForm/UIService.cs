@@ -145,7 +145,18 @@ namespace Sunrise.ERP.BaseForm
                     gc.ColumnEdit = mtxtRepositoryItem;
                     gv.GridControl.RepositoryItems.Add(mtxtRepositoryItem);
                     break;
+                case "dett":
+                    RepositoryItemDateEdit dettRespositoryItem = new RepositoryItemDateEdit();
+                    dettRespositoryItem.Name = "coldett" + tableName + drConfig["sFieldName"].ToString();
+                    dettRespositoryItem.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                    dettRespositoryItem.DisplayFormat.FormatString = "g";
+                    dettRespositoryItem.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                    dettRespositoryItem.EditFormat.FormatString = "g";
 
+                    dettRespositoryItem.EditMask = "g";
+                    gc.ColumnEdit = dettRespositoryItem;
+                    gv.GridControl.RepositoryItems.Add(dettRespositoryItem);
+                    break;
                 //MLookUp查询
                 case "mlkp":
                     {

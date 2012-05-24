@@ -1598,6 +1598,21 @@ namespace Sunrise.ERP.BaseForm
                                         pnlDynamic.Controls.Add(det);
                                         break;
                                     }
+                                case "dett":
+                                    {
+                                        DateEdit dett = new DateEdit();
+                                        dett.Size = new Size(120, 21);
+                                        dett.Name = "dett" + drs[iControl]["sFieldName"].ToString();
+                                        dett.Location = new Point(ControlX + (80 + 120 + iControlSpace) * i + 80, ControlY + 4 + (21 + 10) * j);
+                                        dett.EditValue = null;
+                                        dett.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                                        dett.Properties.DisplayFormat.FormatString = "g";
+                                        dett.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                                        dett.Properties.EditFormat.FormatString = "g";
+                                        dett.Properties.EditMask = "g";
+                                        pnlDynamic.Controls.Add(dett);
+                                        break;
+                                    }
                                 case "img":
                                     {
                                         ImageEdit img = new ImageEdit();
@@ -1709,6 +1724,19 @@ namespace Sunrise.ERP.BaseForm
                             col.ColumnEdit = cbxRepositoryItem;
                             gv.GridControl.RepositoryItems.Add(cbxRepositoryItem);
                         }
+                        break;
+                    }
+                case "dett":
+                    {
+                        RepositoryItemDateEdit dettRespositoryItem = new RepositoryItemDateEdit();
+                        dettRespositoryItem.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                        dettRespositoryItem.DisplayFormat.FormatString = "g";
+                        dettRespositoryItem.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                        dettRespositoryItem.EditFormat.FormatString = "g";
+
+                        dettRespositoryItem.EditMask = "g";
+                        col.ColumnEdit = dettRespositoryItem;
+                        gv.GridControl.RepositoryItems.Add(dettRespositoryItem);
                         break;
                     }
             }

@@ -237,7 +237,7 @@ namespace Sunrise.ERP.BaseForm
                             swhere = LDetailField[i] + "=" + GetMasterLinkValue(LMasterField[i]);
                             if (DetailOrderField[LDetailTableName[i]] != null && DetailOrderField[LDetailTableName[i]].ToString() != "")
                                 swhere += " ORDER BY " + DetailOrderField[LDetailTableName[i]].ToString();
-                            
+
                             //很奇怪的问题，必须先清除再重新设置其数据源
                             ((DataSet)LDetailBindingSource[i].DataSource).Tables.Clear();
                             LDetailBindingSource[i].DataSource = GetDataSet(LDetailDynamicDAL[i], swhere);
@@ -383,7 +383,7 @@ namespace Sunrise.ERP.BaseForm
                     foreach (DataRow dr in ((DataSet)LDetailBindingSource[i].DataSource).Tables[0].Rows)
                     {
                         //增加
-                        if (dr.RowState == DataRowState.Added && dr["ID"].ToString()=="")
+                        if (dr.RowState == DataRowState.Added && dr["ID"].ToString() == "")
                         {
                             dr[LDetailField[i]] = GetMasterLinkValue(LMasterField[i]);
                             //CalcSQLFields(LDynamicDetailTableData[i], ref dr, SqlTrans);
@@ -473,7 +473,7 @@ namespace Sunrise.ERP.BaseForm
                     {
                         foreach (DataRow drData in ((DataSet)LDetailBindingSource[i].DataSource).Tables[0].Rows)
                         {
-                            if (drData.RowState!=DataRowState.Deleted && string.IsNullOrEmpty(drData[dr["sFieldName"].ToString()].ToString()))
+                            if (drData.RowState != DataRowState.Deleted && string.IsNullOrEmpty(drData[dr["sFieldName"].ToString()].ToString()))
                             {
                                 string sMsg = string.Format("{0} {1}", LangCenter.Instance.IsDefaultLanguage ? dr["sCaption"].ToString() : dr["sEngCaption"].ToString(),
                                               LangCenter.Instance.GetSystemMessage("NotNull"));
@@ -521,7 +521,7 @@ namespace Sunrise.ERP.BaseForm
         /// <param name="gv">需要创建的Grid</param>
         /// <param name="tabledata">明细自定义数据</param>
         /// <param name="tablename">明细数据表名称</param>
-        public void CreateDetailGridColumn(GridView gv,BindingSource ds,  DataTable tabledata,string tablename)
+        public void CreateDetailGridColumn(GridView gv, BindingSource ds, DataTable tabledata, string tablename)
         {
             gv.Columns.Clear();
             int iIndex = 0;
@@ -544,7 +544,7 @@ namespace Sunrise.ERP.BaseForm
                     {
                         if (Convert.ToBoolean(drField["bVisiable"]))
                         {
-                            cols = CreateGridColumn(gv, dr, ds,tablename, iIndex, Convert.ToBoolean(drField["bEdit"]));
+                            cols = CreateGridColumn(gv, dr, ds, tablename, iIndex, Convert.ToBoolean(drField["bEdit"]));
                             iIndex++;
                         }
                     }
@@ -627,6 +627,20 @@ namespace Sunrise.ERP.BaseForm
                         gv.GridControl.RepositoryItems.Add(btxtRepositoryItem);
                         break;
                     }
+                case "dett":
+                    {
+                        RepositoryItemDateEdit dettRespositoryItem = new RepositoryItemDateEdit();
+                        dettRespositoryItem.Name = "coldett" + tablename + dr["sFieldName"].ToString();
+                        dettRespositoryItem.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                        dettRespositoryItem.DisplayFormat.FormatString = "g";
+                        dettRespositoryItem.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                        dettRespositoryItem.EditFormat.FormatString = "g";
+
+                        dettRespositoryItem.EditMask = "g";
+                        cols.ColumnEdit = dettRespositoryItem;
+                        gv.GridControl.RepositoryItems.Add(dettRespositoryItem);
+                        break;
+                    }
                 //MLookUp查询
                 case "mlkp":
                     {
@@ -661,11 +675,12 @@ namespace Sunrise.ERP.BaseForm
 
                             btnRepositoryItem.PopupControl = mlkp.mlkpPopup;
                             btnRepositoryItem.EditValueChanged += mlkp.mlkpDataNo_TextChanged;
-
+                            
                             //加这句是让了焦点更新，Grid中才会显示新的数据值，其实在后台是已经存在了的，只是在Grid中没有显示出来
                             //此处设置为查询完成后自动跳转到Grid中的下一列中
                             mlkp.LookUpAfterPost += new SunriseLookUp.SunriseLookUpEvent(lkp_LookUpAfterPost);
                             cols.ColumnEdit = btnRepositoryItem;
+                            
                             gv.GridControl.RepositoryItems.Add(btnRepositoryItem);
                             this.Controls.Add(mlkp);
 
@@ -777,7 +792,7 @@ namespace Sunrise.ERP.BaseForm
         }
 
         //设置为查询完成后自动跳转到Grid中的下一列中
-        bool lkp_LookUpAfterPost(object sender, ButtonPressedEventArgs e)
+        public virtual bool lkp_LookUpAfterPost(object sender, ButtonPressedEventArgs e)
         {
             OnKeyDown(new KeyEventArgs(Keys.Enter));
             return true;
