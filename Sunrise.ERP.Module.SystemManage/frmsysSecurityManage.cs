@@ -318,12 +318,26 @@ namespace Sunrise.ERP.Module.SystemManage
         private void tvRoleRight_Click(object sender, EventArgs e)
         {
             DevExpress.XtraTreeList.TreeListHitInfo tvHit = tvRoleRight.CalcHitInfo(tvRoleRight.PointToClient(Control.MousePosition));//((Control)sender).PointToClient(Control.MousePosition));
+            //如果是在浏览状态下，在菜单名称栏位单击右键可以出现全部展开和全部折叠按钮
+            if (tvRoleRight.Nodes.Count > 0 && FormDataFlag == Sunrise.ERP.BasePublic.DataFlag.dsBrowse)
+            {
+                if (tvRoleRight.FocusedNode != null && tvHit.Column != null)
+                {
+                    if (((MouseEventArgs)e).Button == MouseButtons.Right && tvHit.Column.FieldName == "sMenuName")
+                    {
+                        tsmDelete.Enabled = false;
+                        cmsRoleRight.Show(tvRoleRight, ((MouseEventArgs)e).X, ((MouseEventArgs)e).Y);
+                    }
+                }
+            }
+
             if (tvRoleRight.Nodes.Count > 0 && FormDataFlag != Sunrise.ERP.BasePublic.DataFlag.dsBrowse)
             {
                 if (tvRoleRight.FocusedNode != null && tvHit.Column != null)
                 {
                     if (((MouseEventArgs)e).Button == MouseButtons.Right && tvHit.Column.FieldName == "sMenuName")
                     {
+                        tsmDelete.Enabled = true;
                         cmsRoleRight.Show(tvRoleRight, ((MouseEventArgs)e).X, ((MouseEventArgs)e).Y);
                     }
                     else
@@ -441,9 +455,14 @@ namespace Sunrise.ERP.Module.SystemManage
             {
                 if (tvRoleRight.Selection.Count > 1)
                 {
-                    foreach (DevExpress.XtraTreeList.Nodes.TreeListNode item in tvRoleRight.Selection)
+                    List<int> LRowIndex = new List<int>();
+                    for (int i = 0; i < tvRoleRight.Selection.Count; i++)
                     {
-                        item.SetValue(sOperationColumn, value);
+                        LRowIndex.Add(LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows.IndexOf(((DataRowView)(tvRoleRight.GetDataRecordByNode(tvRoleRight.Selection[i]))).Row));
+                    }
+                    foreach (int item in LRowIndex)
+                    {
+                        LDetailDataSet[LDetailDALName.IndexOf("sysRolesRightsDAL")].Tables[0].Rows[item][sOperationColumn] = value;
                     }
                 }
                 else
@@ -636,6 +655,16 @@ namespace Sunrise.ERP.Module.SystemManage
             //frmsysEditUser frm = new frmsysEditUser();
             //frm.StartPosition = FormStartPosition.CenterScreen;
             //frm.ShowDialog();
+        }
+
+        private void tsmExpandAll_Click(object sender, EventArgs e)
+        {
+            tvRoleRight.ExpandAll();
+        }
+
+        private void tsmCollapseAll_Click(object sender, EventArgs e)
+        {
+            tvRoleRight.CollapseAll();
         }
 
 
