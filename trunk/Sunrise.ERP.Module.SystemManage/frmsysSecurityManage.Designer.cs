@@ -93,6 +93,8 @@
             this.cmsRoleRight = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.btnEditUser = new DevExpress.XtraEditors.SimpleButton();
+            this.tsmExpandAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pnlDetail)).BeginInit();
             this.pnlDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlInfo)).BeginInit();
@@ -243,7 +245,7 @@
             // txtDataFlag
             // 
             // 
-            // btnSettings
+            // btnProperty
             // 
             this.btnProperty.LookAndFeel.SkinName = "Blue";
             this.btnProperty.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -934,14 +936,16 @@
             // cmsRoleRight
             // 
             this.cmsRoleRight.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmDelete});
+            this.tsmDelete,
+            this.tsmExpandAll,
+            this.tsmCollapseAll});
             this.cmsRoleRight.Name = "cmsRoleRight";
-            this.cmsRoleRight.Size = new System.Drawing.Size(125, 26);
+            this.cmsRoleRight.Size = new System.Drawing.Size(153, 92);
             // 
             // tsmDelete
             // 
             this.tsmDelete.Name = "tsmDelete";
-            this.tsmDelete.Size = new System.Drawing.Size(124, 22);
+            this.tsmDelete.Size = new System.Drawing.Size(152, 22);
             this.tsmDelete.Text = "删除权限";
             this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
             // 
@@ -957,6 +961,20 @@
             this.btnEditUser.ToolTip = "编辑系统用户";
             this.btnEditUser.Visible = false;
             this.btnEditUser.Click += new System.EventHandler(this.btnEditUser_Click);
+            // 
+            // tsmExpandAll
+            // 
+            this.tsmExpandAll.Name = "tsmExpandAll";
+            this.tsmExpandAll.Size = new System.Drawing.Size(152, 22);
+            this.tsmExpandAll.Text = "全部展开";
+            this.tsmExpandAll.Click += new System.EventHandler(this.tsmExpandAll_Click);
+            // 
+            // tsmCollapseAll
+            // 
+            this.tsmCollapseAll.Name = "tsmCollapseAll";
+            this.tsmCollapseAll.Size = new System.Drawing.Size(152, 22);
+            this.tsmCollapseAll.Text = "全部折叠";
+            this.tsmCollapseAll.Click += new System.EventHandler(this.tsmCollapseAll_Click);
             // 
             // frmsysSecurityManage
             // 
@@ -1085,5 +1103,7 @@
         private DevExpress.XtraTreeList.Columns.TreeListColumn trcoliOutPut;
         private System.Windows.Forms.ToolStripMenuItem tsmDeptUnder;
         private System.Windows.Forms.ToolStripMenuItem tsmDeptAndDeptUnder;
+        private System.Windows.Forms.ToolStripMenuItem tsmExpandAll;
+        private System.Windows.Forms.ToolStripMenuItem tsmCollapseAll;
     }
 }
