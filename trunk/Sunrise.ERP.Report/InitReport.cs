@@ -42,7 +42,7 @@ namespace Sunrise.ERP.Report
         List<string> LDataRowViewName = new List<string>();
         List<BindingSource> LBindingSource = new List<BindingSource>();
         List<string> LBindingSourceName = new List<string>();
-        SqlConnection conn = new SqlConnection(Sunrise.ERP.BaseControl.ConnectSetting.GetSqlConnString());
+        SqlConnection conn = new SqlConnection(Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.ConnectionString);
         private string rpGUID;
 
         /// <summary>
