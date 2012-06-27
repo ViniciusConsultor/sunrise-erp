@@ -12,6 +12,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 
 using Sunrise.ERP.Lang;
+using DevExpress.XtraGrid.Views.Base;
 
 
 namespace Sunrise.ERP.Controls
@@ -30,6 +31,7 @@ namespace Sunrise.ERP.Controls
             //设置GridView分组脚注显示模式
             ((DevExpress.XtraGrid.Views.Grid.GridView)this.MainView).GroupFooterShowMode = GroupFooterShowMode.VisibleIfExpanded;
             ((DevExpress.XtraGrid.Views.Grid.GridView)this.MainView).OptionsView.ShowGroupPanel = false;
+            this.ContextMenuStrip = quickMenu;
         }
 
         void BWSGridControl_ShowGridMenu(object sender, DevExpress.XtraGrid.Views.Grid.GridMenuEventArgs e)
@@ -166,6 +168,25 @@ namespace Sunrise.ERP.Controls
             {
                 ((GridView)this.MainView).GroupFooterShowMode = DevExpress.XtraGrid.Views.Grid.GroupFooterShowMode.VisibleIfExpanded;
             }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (this.Focused && this.MainView!=null && !((GridView)this.MainView).OptionsBehavior.Editable)
+            {
+                if (((GridView)this.MainView).FocusedColumn == null) return;
+                string content = ((GridView)this.MainView).GetFocusedRowCellDisplayText(((GridView)this.MainView).FocusedColumn);
+                if (!string.IsNullOrEmpty(content))
+                    Clipboard.SetText(content);
+            }
+        }
+
+        private void quickMenu_Opening(object sender, CancelEventArgs e)
+        {
+            if (((GridView)this.MainView).OptionsBehavior.Editable)
+                e.Cancel = true;
+            if (((GridView)this.MainView).DataRowCount == 0)
+                e.Cancel = true;
         }
 
 

@@ -17,7 +17,7 @@ namespace Sunrise.ERP.DataAccess
     public abstract class DbHelperSQL
     {
         //数据库连接字符串 
-        public static string connectionString = Sunrise.ERP.BaseControl.ConnectSetting.GetSqlConnString();
+        public static string connectionString = Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.ConnectionString;
         public DbHelperSQL()
         {
         }

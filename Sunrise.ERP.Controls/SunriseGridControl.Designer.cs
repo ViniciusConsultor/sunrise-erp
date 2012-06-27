@@ -28,10 +28,51 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.components = new System.ComponentModel.Container();
+            this.quickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.quickMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // quickMenu
+            // 
+            this.quickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.quickMenu.Name = "quickMenu";
+            this.quickMenu.Size = new System.Drawing.Size(137, 26);
+            this.quickMenu.Opening += new System.ComponentModel.CancelEventHandler(this.quickMenu_Opening);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            this.toolStripMenuItem1.Text = "复制单元格";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // gridView1
+            // 
+            this.gridView1.GridControl = this;
+            this.gridView1.Name = "gridView1";
+            // 
+            // SunriseGridControl
+            // 
+            this.MainView = this.gridView1;
+            this.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1});
+            this.quickMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ContextMenuStrip quickMenu;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
     }
 }
