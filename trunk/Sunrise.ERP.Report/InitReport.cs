@@ -42,7 +42,7 @@ namespace Sunrise.ERP.Report
         List<string> LDataRowViewName = new List<string>();
         List<BindingSource> LBindingSource = new List<BindingSource>();
         List<string> LBindingSourceName = new List<string>();
-        SqlConnection conn = new SqlConnection(Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.ConnectionString);
+        //SqlConnection conn = new SqlConnection(Sunrise.ERP.BaseControl.ConnectSetting.SysSqlConnection.ConnectionString);
         private string rpGUID;
 
         /// <summary>
@@ -69,9 +69,9 @@ namespace Sunrise.ERP.Report
         private void CreateMenu()
         {
             //初始化报表类型
-            conn.Open();
-            dtReport = new DataTable();
-            dtReport.Load(new SqlCommand("SELECT ID,sReportName,mReport,bIsDefault FROM sysReport WHERE sReportGUID='" + rpGUID + "' ORDER BY sReportName", conn).ExecuteReader());
+            //conn.Open();
+            //dtReport = new DataTable();
+            dtReport = DataAccess.DbHelperSQL.QueryTable("SELECT ID,sReportName,mReport,bIsDefault FROM sysReport WHERE sReportGUID='" + rpGUID + "' ORDER BY sReportName");//.Load(new SqlCommand("SELECT ID,sReportName,mReport,bIsDefault FROM sysReport WHERE sReportGUID='" + rpGUID + "' ORDER BY sReportName", conn).ExecuteReader());
             tsmChooseDetail = new ToolStripMenuItem[dtReport.Rows.Count];
             for (int i = 0; i < dtReport.Rows.Count; i++)
             {
@@ -91,7 +91,7 @@ namespace Sunrise.ERP.Report
 
                 }
             }
-            conn.Close();
+            //conn.Close();
             ReportMenu = new ContextMenuStrip();
             tsmPrintReport = new ToolStripMenuItem("打印(&P)");
             tsmChooseReport = new ToolStripMenuItem("选择报表(&S)");
@@ -128,12 +128,12 @@ namespace Sunrise.ERP.Report
         {
             if (iOldID != iDefaultChecked)
             {
-                conn.Open();
-                dtReport = new DataTable();
-                dtReport.Load(new SqlCommand("SELECT mReport FROM sysReport WHERE ID=" + id, conn).ExecuteReader());
+                //conn.Open();
+                //dtReport = new DataTable();
+                dtReport = DataAccess.DbHelperSQL.QueryTable("SELECT mReport FROM sysReport WHERE ID=" + id);//Load(new SqlCommand("SELECT mReport FROM sysReport WHERE ID=" + id, conn).ExecuteReader());
                 bt = (byte[])dtReport.Rows[0]["mReport"];
                 iOldID = iDefaultChecked;
-                conn.Close();
+               // conn.Close();
             }
         }
         /// <summary>
@@ -389,7 +389,7 @@ namespace Sunrise.ERP.Report
                 report.RegisterData(Sunrise.ERP.BasePublic.SysPublic.ConvertDataRowViewToTable(LDataRowView[i]), LDataRowViewName[i]);
             }
             //默认添加公司信息
-            DataTable dtCompany = Sunrise.ERP.DataAccess.DbHelperSQL.Query("SELECT TOP 1 * FROM hrCompanyMaster ORDER BY sCompanyID").Tables[0];
+            DataTable dtCompany = Sunrise.ERP.DataAccess.DbHelperSQL.QueryTable("SELECT TOP 1 * FROM hrCompanyMaster ORDER BY sCompanyID");
             report.RegisterData(dtCompany, "公司信息");
         }
         /// <summary>
