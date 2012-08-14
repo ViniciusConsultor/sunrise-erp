@@ -574,7 +574,8 @@ namespace Sunrise.ERP.BaseForm
                             SunriseLookUp lkp = new SunriseLookUp();
                             lkp.Name = "collkp" + tablename + dr["sFieldName"].ToString();
                             lkp.DataBindings.Add("EditValue", ds, dr["sFieldName"].ToString());
-                            this.Controls.Add(lkp);
+                            this.pnlMain.Controls.Add(lkp);
+                            lkp.SendToBack();
                             Base.InitLookup(lkp, dr["sLookupNo"].ToString());
                             if (!string.IsNullOrEmpty(dr["sLookupAutoSetControl"].ToString()))
                             {
@@ -682,8 +683,8 @@ namespace Sunrise.ERP.BaseForm
                             cols.ColumnEdit = btnRepositoryItem;
                             
                             gv.GridControl.RepositoryItems.Add(btnRepositoryItem);
-                            this.Controls.Add(mlkp);
-
+                            this.pnlMain.Controls.Add(mlkp);
+                            mlkp.SendToBack();
                             //pnlDynamic.Controls.Add(mlkp);
                             //mlkp.Visible = false;
                         }
